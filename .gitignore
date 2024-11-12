@@ -1,0 +1,7 @@
+.vscode/
+authentication.js
+node_modules
+notes/
+assets/
+**/*-todo.md
+*test.*

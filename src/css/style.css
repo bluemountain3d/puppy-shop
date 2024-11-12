@@ -1,0 +1,107 @@
+/* ### CSS Reset START */
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove Margin and padding */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, figure, hr, form, fieldset, legend, button, input, textarea {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* <a> elements that don't have a class get default styles */
+a:not([class]) {
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+
+/* Responsive images and video */
+img, picture, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    -webkit-animation-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+    -webkit-animation-iteration-count: 1 !important;
+            animation-iteration-count: 1 !important;
+    -webkit-transition-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+/* ### CSS Reset END
+/* ------------------------------------------------------------ */
+/* ### ROOT START */
+/* ### ROOT END
+/* ------------------------------------------------------------ */
+/* ### Spacing utility classes START */
+/* ### Spacing utility classes END
+/* ------------------------------------------------------------ */
+/* ### Font Faces START */
+@font-face {
+  font-family: "Font Family Name";
+  src: local(""), url("../path-to-font-file/font-name.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 100%;
+}
+/* ### Font Faces END
+/* ------------------------------------------------------------ */
+/* ### Colors START */
+/* ### Colors END
+/* ------------------------------------------------------------ */
+/* ### Typography START */
+/* ### Typography END
+/* ------------------------------------------------------------ */
+/* ### General CSS START */
+html {
+  font-size: 100%;
+  line-height: 1.2;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ### General CSS END
+/* ------------------------------------------------------------ */
+/* ### Page Header START */
+/* ### Page Header END
+/* ------------------------------------------------------------ */
+/* ### Page Sidebar START */
+/* ### Page Sidebar END
+/* ------------------------------------------------------------ */
+/* ### Page Main content START */
+/* ### Page Main content END
+/* ------------------------------------------------------------ */
+/* ### Page Footer START */
+/* ### Page Footer END
+/* ------------------------------------------------------------ */
+/* ### Page specific styles for: Home START */
+/* ### Page specific styles for: Home END
+/* ------------------------------------------------------------ */
+/* ### Page specific styles for: About START */
+/* ### Page specific styles for: About END
+/* ------------------------------------------------------------ */

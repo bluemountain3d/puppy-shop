@@ -1,0 +1,24 @@
+//*** Base: General ***//
+
+@use '../abstracts/variables' as var;
+@use '../abstracts/functions' as fn;
+@use '../abstracts/mixins' as mx;
+
+$_module-name: "General CSS";
+
+/* ### #{$_module-name} START */
+
+html {
+  font-size: 100%;
+  line-height: 1.2;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+
+
+/* ### #{$_module-name} END
+/* ------------------------------------------------------------ */
