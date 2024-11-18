@@ -20,21 +20,21 @@
   <body>
     
     <header class="header">
-      <a class="header__brand" href="/">
+      <a class="header__brand" href="/" aria-label="Puppy Shop logotyp, gå tillbaka till startsidan">
         <img src="img/icons/logo-white.svg" alt="Puppy Shop logotype">
       </a>
       <nav header__nav></nav>
       <ul class="header__icons">
         <li class="header__cart">
-          <button class="icon-button icon header__cart-btn">
-            <svg class="icon header__cart-icon">
+          <button class="icon-button icon header__cart-btn js-header-cart-btn" aria-label="Öppna kundvagnen">
+            <svg class="icon header__cart-icon" aria-hidden="true">
               <use href="#cart-icon" class="cart-icon"/>
             </svg>
-            <span class="header__cart-amount"></span>
+            <span class="header__cart-amount js-cart-amount" aria-hidden="true"></span>
           </button>
         </li>
       </ul>
-      <button class="header__menu-toggle"></button>
+      <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button>
     </header>
 
     <main class="main">
