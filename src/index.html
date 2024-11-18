@@ -1,25 +1,83 @@
 <!DOCTYPE html>
 <html lang="sv">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <meta name="description" content="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta name="description" content="">
 
-  <!-- Page Styling -->
-  <link rel="stylesheet" href="css/style.min.css">
-</head>
-<body>
-  
-  <header class="header"></header>
+    <!-- Page Styling -->
+    <link rel="stylesheet" href="css/style.min.css">
+  </head>
+  <body>
+    
+    <header class="header"></header>
 
-  <main class="main"></main>
+    <main class="main">
 
-  <footer class="footer"></footer>
+      <section class="products">
+        <h2>Våra valpar!</h2>
+        <!-- Add product filtering here -->
 
-  <!-- Inline SVGs -->
+        <div class="products__wrapper">
+          <!-- Product Card START -->
+          <article class="product-card" data-id="0" data-gender="male">
+            <div class="product-card__image-wrapper">
+              <picture>
+                <img src="image.jpg" alt="Labrador retriever-valp" class="product-card__image">
+              </picture>
+              <div class="product-card__rating" aria-label="Rasens popularitet: X av X tassar"></div>
+            </div>
+            <div class="product-card__content-wrapper">
+              <section class="product-card__info">
+                <h3>Labrador retriever</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit</p>
+                <!-- <details class="product-card__details">
+                  <summary class="product-card__details-title">Mer om rasen..</summary>
+                  <p class="product-card__details-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </details> -->
+              </section>
+              <fieldset class="product-card__gender-choice" aria-label="Välj kön på valpen">
+                <label class="product-card__gender">
+                  <input type="radio" name="gender-0" class="product-card__gender-rb js-gender-male" value="male" checked>
+                  <span class="product-card__gender-label">Hane</span>
+                </label>
+                <label class="product-card__gender">
+                  <input type="radio" name="gender-0" class="product-card__gender-rb js-gender-female" value="female">
+                  <span class="product-card__gender-label">Tik</span>
+                </label>
+              </fieldset>
+              <div class="product-card__price-quantity-group">
+                <div class="product-card__pricing">
+                  <div class="product-card__item-price">
+                    <span class="product-card__price">18 000</span>
+                    <span class="product-card__price-unit">kr/st</span>
+                  </div>
+                  <div class="product-card__comparison-price">2571 kr/kg</div>
+                </div>
+                <div class="product-card__quantifier">
+                  <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">&ndash;</button>
+                  <input type="number" class="product-card__quantifier-input" aria-label="Antal" value="0">
+                  <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">+</button>
+                </div>
+              </div>
+              <button class="product-card__add-to-cart" aria-label="Lägg till i varukorgen">
+                <span aria-hidden="true">icon</span><span>Lägg i kundvagn</span>
+              </button>
+            </div>
+          </article>
+          <!-- Product Card END -->
 
-  <!-- Scripts -->
-  <script type="module" src="js/main.js"></script>
-</body>
+        </div>
+      </section>
+      
+    </main>
+
+    <footer class="footer"></footer>
+
+    <!-- Inline SVGs -->
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+  </body>
 </html>
