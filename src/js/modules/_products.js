@@ -369,7 +369,7 @@ export const products = {
       },
     },
     image: {
-      url: 'img/puppies/cavalier-king-charles-spanielg',
+      url: 'img/puppies/cavalier-king-charles-spaniel',
       alt: 'En ljust brun och vit Cavalier king charles spaniel-valp på en gräsmatta i utställningsmiljö',
     },
   },
