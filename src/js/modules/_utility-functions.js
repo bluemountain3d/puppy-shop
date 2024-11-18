@@ -1,4 +1,7 @@
-//import { formatPrice } from './_discount-functions';
+import { 
+  weekendPricing,
+  itemQtyDiscount
+} from './_discount-functions.js';
 
 
 

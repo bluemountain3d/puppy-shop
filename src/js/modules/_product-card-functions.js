@@ -2,10 +2,13 @@ import { productsObject } from './_products-object.js';
 import { 
   addTextFromArray, 
   formatPrice,
+  formatPriceToNumber,
   comparisonPricePerKg,
+  adjustQuantity,
+  updatePrice,
 } from './_utility-functions.js';
 import { 
-  weekendPricing 
+  weekendPricing
 } from './_discount-functions.js';
 
 
@@ -88,29 +91,102 @@ export const productCards = ((products) => {
       `
     });
   }
+
+  // Create rating paws 
+  function populateRating(rating) {
+    const int = parseInt(Math.floor(rating));
+    const decimal = (Number(rating) - int).toFixed(1);
+    let paws = '';
+
+    for (let i = 1; i <= int; i++) {
+      paws += `<svg class="icon">
+        <use href="paw-icon" class="paw-icon rating-paw rating-paw--solid"/>
+      </svg>`
+    }
+    if (decimal >= .2) {
+      const decimalPercentage = decimal * 100;
+      paws += `<svg class="icon">
+        <use href="paw-icon" class="paw-icon rating-paw rating-paw--grad-${decimalPercentage}"/>
+      </svg>`
+    } else if (int < 5) {
+      paws += `<svg class="icon">
+        <use href="paw-icon" class="paw-icon rating-paw rating-paw--empty"/>
+      </svg>`
+    }
+
+    return paws;
+  }
+
+
+
+  // # # # # # # # # # # # # # # #
+  // # Product Card Funtionality #
+  // # # # # # # # # # # # # # # #
+
+  // Update pricing every X minutes
+  const xMinutes = .25;
+  const updateInterval = 1000 * 60 * xMinutes;
+  setInterval(() => {
+    const productCards = Array.from(productsWrapper.querySelectorAll('.product-card'));
+    productCards.forEach(card => {
+      // If card not undefined
+      if (card) {
+        const productId = card.dataset.id;
+        const productData = products[productId];
+
+        updatePrice(card, productData);
+        updateComparisonPrice(card, productData);
+      }
+    });
+  }, updateInterval);
+
+  
+  // Attach a single event listener to the products wrapper
+  productsWrapper.addEventListener('change', handleProductEvent);
+  productsWrapper.addEventListener('input', handleProductEvent);
+  productsWrapper.addEventListener('click', handleProductEvent);
+
+  // Function for change and click event listeners
+  function handleProductEvent(e) {
+    console.log('target:', e.target);
+    
+    // Find the product card related to the clicked or changed radio button
+    const card = e.target.closest('.product-card');
+
+    if (card) {
+      const productId = card.dataset.id;
+      const productData = products[productId];
+
+      // Gender change and price per kg update
+      // Check if taget is a radio-button
+      if (e.target.matches('.js-gender-rb')) {
+        updatePrice(card, productData);
+        updateComparisonPrice(card, productData);
+      }
+      
+      // Increase or Decrease Quantity
+      adjustQuantity(e, card, productData);
+
+      updateComparisonPrice(card, productData);
+    }
+  }
+
+
+  // local help function to update comparison price
+  function updateComparisonPrice(card, product) {
+    // Get selected gender
+    const selectedGender = card.querySelector('.js-gender-rb:checked').value;
+    // Get price
+    const price = formatPriceToNumber(card.querySelector('.js-price').innerText);
+    // Get the weight based on the selected gender
+    const weight = product.properties.weight[selectedGender];
+    // Calculate the price per kg
+    const pricePerKg = comparisonPricePerKg(price, weight);
+    // Update the comparison price in the card
+    const comparisonPriceElem = card.querySelector('.js-comparison-price');
+    if (comparisonPriceElem) {
+      comparisonPriceElem.textContent = `${pricePerKg}`;
+    }
+  }
+    
 })(productsObject);
-
-// Create rating paws 
-function populateRating(rating) {
-  const int = parseInt(Math.floor(rating));
-  const decimal = (Number(rating) - int).toFixed(1);
-  let paws = '';
-
-  for (let i = 1; i <= int; i++) {
-    paws += `<svg class="icon">
-      <use href="paw-icon" class="paw-icon rating-paw rating-paw--solid"/>
-    </svg>`
-  }
-  if (decimal >= .2) {
-    const decimalPercentage = decimal * 100;
-    paws += `<svg class="icon">
-      <use href="paw-icon" class="paw-icon rating-paw rating-paw--grad-${decimalPercentage}"/>
-    </svg>`
-  } else if (int < 5) {
-    paws += `<svg class="icon">
-      <use href="paw-icon" class="paw-icon rating-paw rating-paw--empty"/>
-    </svg>`
-  }
-
-  return paws;
-}
