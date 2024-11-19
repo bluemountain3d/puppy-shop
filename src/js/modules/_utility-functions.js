@@ -30,6 +30,11 @@ export function comparisonPricePerKg(price, weight) {
   return formatPrice((weight > 0) ? (price / weight).toFixed(0) + ' kr/kg' : 'Ej tillgängligt');
 }
 
+// Function to find an item by productId in cartObject
+export function findItemByProductId(cart, productId) {
+  return Object.values(cart).find(item => item.productId === productId);
+}
+
 
 
 // Adjust Quantity
