@@ -31,8 +31,28 @@ export function comparisonPricePerKg(price, weight) {
 }
 
 // Function to find an item by productId in cartObject
-export function findItemByProductId(cart, productId) {
-  return Object.values(cart).find(item => item.productId === productId);
+export function findItemByProductId(cartObject, productId) {
+  const foundItem = Object.values(cartObject).find(item => {
+    return item && item.productId === productId;
+  });
+  return foundItem;
+}
+
+export function findItemByProductIdAndGender(cartObject, productId, gender) {
+  const foundItem = Object.values(cartObject).find(item => {
+    return item && item.productId === productId && item.gender === gender;
+  });
+  return foundItem;
+}
+
+export function getHighestIndex(obj) {
+  // Get only numeric keys
+  const numericKeys = Object.keys(obj)
+    .map(key => parseInt(key, 10)) // Convert keys to integers
+    .filter(key => !isNaN(key)); // Filter out non-numeric keys
+
+  // Return the highest numeric key or -1 if there are no numeric keys
+  return numericKeys.length > 0 ? Math.max(...numericKeys) : 1;
 }
 
 
