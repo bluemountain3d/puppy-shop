@@ -26,3 +26,39 @@ export function formatPriceToNumber(priceString) {
 export function comparisonPricePerKg(price, weight) {
   return formatPrice((weight > 0) ? (price / weight).toFixed(0) + ' kr/kg' : 'Ej tillgängligt');
 }
+
+
+
+// Adjust Quantity
+export function adjustQuantity(e, card, obj) {
+  // Check if the clicked element is a button within the quantity group
+  if (e.target.matches('.js-increase') || 
+      e.target.matches('.js-decrease')) {
+    // Get the input field within the closest quantity group
+    const numberInput = e.target.closest('.js-quantifier').querySelector('.js-quantity');
+    const currentValue = Number(numberInput.value);
+  
+    // Increase or decrease the value based on the button clicked
+    if (e.target.matches('.js-increase')) {
+      // Increase the value but ensure it does not go above 99
+      numberInput.value = Math.min(99, currentValue + 1);
+    }
+    else if (e.target.matches('.js-decrease')) {
+      // Decrease number and prevent value going below 0
+      numberInput.value = Math.max(0, currentValue - 1);
+    }
+
+    updatePrice(card, obj);
+  }
+}
+
+
+// Function to update pricing
+export function updatePrice(card, obj) {
+  const pricingElem = card.querySelector('.js-price');
+  const quantity = card.querySelector('.js-quantity').value;
+  let price  = obj.priceInfo.price;
+  price = weekendPricing(price); // update with weekwn pricing
+  price = itemQtyDiscount(price, quantity); // quantity discount
+  pricingElem.innerText = formatPrice(price);
+}
