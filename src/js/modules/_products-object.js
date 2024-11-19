@@ -1,4 +1,4 @@
-export const products = {
+export const productsObject = {
   0: {
     id: 0,
     breedInfo: {
