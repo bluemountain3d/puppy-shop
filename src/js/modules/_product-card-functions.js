@@ -1,15 +1,15 @@
 import { productsObject } from './_products-object.js';
-import { cartObject } from './_cart-functions.js';
 import { 
-  addTextFromArray, 
-  formatPrice,
-  formatPriceToNumber,
-  comparisonPricePerKg,
-  adjustQuantity,
-  updatePrice,
-  findItemByProductId,
+  cartObject,
   findItemByProductIdAndGender,
   getHighestIndex
+} from './_cart-functions.js';
+import { 
+  addTextFromArray, 
+  formatPrice, formatPriceToNumber,
+  comparisonPricePerKg,
+  adjustQuantity,
+  updatePrice
 } from './_utility-functions.js';
 import { 
   weekendPricing,
@@ -129,7 +129,7 @@ export const productCards = ((products) => {
   // # # # # # # # # # # # # # # #
 
   // Update pricing every X minutes
-  const xMinutes = .25;
+  const xMinutes = 15;
   const updateInterval = 1000 * 60 * xMinutes;
   setInterval(() => {
     const productCards = Array.from(productsWrapper.querySelectorAll('.product-card'));
@@ -147,92 +147,34 @@ export const productCards = ((products) => {
 
   
   // Attach a single event listener to the products wrapper
-  productsWrapper.addEventListener('change', handleProductEvent);
-  productsWrapper.addEventListener('input', handleProductEvent);
+  productsWrapper.addEventListener('keydown', handleProductEvent);
   productsWrapper.addEventListener('click', handleProductEvent);
+  productsWrapper.addEventListener('keyup', handleProductEvent);
+  productsWrapper.addEventListener('change', handleProductEvent);
 
   // Function for change and click event listeners
   function handleProductEvent(e) {
-    //console.log('target:', e.target);
-    
     // Find the product card related to the clicked or changed radio button
     const card = e.target.closest('.product-card');
+    if (!card) return; // Exit if not within a product card
 
-    if (card) {
-      const productId = Number(card.dataset.id);
-      const productData = products[productId];
+    const productId = Number(card.dataset.id);
+    const productData = products[productId];
 
-      // Gender change and price per kg update
-      // Check if taget is a radio-button
-      if (e.target.matches('.js-gender-rb')) {
-        updatePrice(card, productData);
-        updateComparisonPrice(card, productData);
-      }
-      
-      // Increase or Decrease Quantity
-      adjustQuantity(e, card, productData);
-
-      updateComparisonPrice(card, productData);
-
-
-      // Add to cart object
-      if (e.target.matches('.js-add-to-cart')) {
-        const gender = card.querySelector('.js-gender-rb:checked').value;
-        const quantity = Number(card.querySelector('.js-quantity').value);
-        const originalPrice = productData.priceInfo.price;
-        const currentPrice = formatPriceToNumber(card.querySelector('.js-price').innerText);
-        const discount = currentPrice - itemQtyDiscount(currentPrice, quantity);
-        const cartItem = findItemByProductIdAndGender(cartObject, productId, gender);
-        const counter = cartObject.counter;
-
-        //console.log('cartItem:', cartItem);
-        //console.log('productId:', productId);
-        //console.log('gender:', gender);
-        
-        // Test if cartItem should be added or updated
-        if (!cartItem && quantity || cartItem && cartItem.gender != gender && quantity) {
-          // Product not in cart, add
-          // console.log('Product don\'t exist Add object');
-          // New cart item
-          const newItem = {
-            productId: productId,
-            gender: gender,
-            quantity: quantity,
-            priceInfo: {
-              price: originalPrice,            
-              discount: discount,         
-              lineTotal: currentPrice * quantity
-            },
-          }
-
-          // Add the new item to the cartObject to the next available index.
-          cartObject[getHighestIndex(cartObject) + 1] = newItem;
-          //console.log(cartObject);
-          
-
-        } else if (quantity > 0) {
-          // Product is in cart, update
-          // console.log('Product exist Update object');
-          // Get Existing Item from cartObject
-          const existingItem = findItemByProductIdAndGender(cartObject, productId, gender);
-          existingItem.quantity += quantity;
-          // 
-          if (existingItem.quantity >= 10) {
-            const newCurrentPrice = weekendPricing(existingItem.priceInfo.price) * existingItem.quantity;
-            existingItem.priceInfo.discount = newCurrentPrice - itemQtyDiscount(newCurrentPrice, existingItem.quantity);
-          } else {
-            existingItem.priceInfo.discount += discount;
-          }
-          existingItem.priceInfo.lineTotal += (currentPrice * quantity);
-          //console.log(cartObject);
-        }
-
-        // Update Header Cart Counter
-        cartObject.counter += quantity;
-        console.log(cartObject, cartObject.counter);
-      }
-
+    // Handle events based on target
+    if (e.target.matches('.js-gender-rb')) {
+      // Update price when gender radio button changes
+      updatePrice(card, productData);
     }
+    
+    if (e.target.matches('.js-quantity') || 
+        e.target.matches('.js-increase') || 
+        e.target.matches('.js-decrease')) {
+      adjustQuantity(e, card, productData);
+    }
+
+    // Update Comparison Price
+    updateComparisonPrice(card, productData);
   }
 
 
