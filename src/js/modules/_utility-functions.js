@@ -4,9 +4,9 @@ import {
 } from './_discount-functions.js';
 
 
-
-//* Utility Functions *//
-
+// * * * * * * * * * * *
+// * Utility functions *
+// * * * * * * * * * * *
 
 // This function takes an array of text strings (textArray) and a CSS class name (className)
 // It returns a string of HTML paragraphs with the given class, containing each text in the array
@@ -49,33 +49,38 @@ export function updatePrice(card, obj) {
 
 
 // * * * * * * * * * * * * * * * * * *
-// * Funktions for handling Quantity *
+// * Funktion for handling Quantity  *
 // * * * * * * * * * * * * * * * * * *
 
 export function adjustQuantity(e, card, obj) {
-  const numberInput = e.target.closest('.js-quantifier').querySelector('.js-quantity');
-  
-  // Ensure numberInput exists
+
+  const numberInput = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
   if (!numberInput) return;
 
-  // Check if the clicked element is a button within the quantity group
-  if (e.target.matches('.js-increase') || e.target.matches('.js-decrease')) {
-    const currentValue = Number(numberInput.value);
-  
-    // Increase or decrease the value based on the button clicked
-    if (e.target.matches('.js-increase')) {
-      numberInput.value = Math.min(99, currentValue + 1); // Ensure max value is 99
-    }
-    else if (e.target.matches('.js-decrease')) {
-      numberInput.value = Math.max(0, currentValue - 1); // Ensure min value is 0
-    }
+  const currentValue = Number(numberInput.value);
 
-    // Update the price immediately for button clicks
+  if (e.type === 'keydown' && e.target.matches('.js-quantity')) {
+    if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+      numberInput.value = e.key === 'ArrowUp'
+        ? Math.min(99, currentValue + 1)
+        : Math.max(0, currentValue - 1);
+      updatePrice(card, obj);
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent default Enter behavior
+      updatePrice(card, obj);
+    }
+  }
+
+  if (e.type === 'click' && (e.target.matches('.js-increase') || e.target.matches('.js-decrease'))) {
+    numberInput.value = e.target.matches('.js-increase')
+      ? Math.min(99, currentValue + 1)
+      : Math.max(0, currentValue - 1);
     updatePrice(card, obj);
   }
 
   // Handle manual input via the keyup event
-  else if (e.target.matches('.js-quantity')) {
+  if (e.target.matches('.js-quantity')) { //else if
     //console.log('Event type:', e.type, 'Target:', e.target, 'Key:', e.key );
     
     let keyPressStartTime;
@@ -83,12 +88,12 @@ export function adjustQuantity(e, card, obj) {
       keyPressStartTime = Date.now();
     }
 
-    if (['ArrowUp', 'ArrowDown', 'Enter'].includes(e.key)) {
+    if (['ArrowUp', 'ArrowDown', 'Enter', 'Tab'].includes(e.key)) {
       if (e.key === 'Enter') {
         const keyPressDuration = Date.now() - keyPressStartTime;
         if (keyPressDuration < 800) {
           //console.log('Enter key pressed and released within 2 seconds');
-          const currentValue = Number(numberInput.value);
+          //const currentValue = Number(numberInput.value);
           if (currentValue > 99){
             numberInput.value = 99;
           }
@@ -99,6 +104,9 @@ export function adjustQuantity(e, card, obj) {
         }
       } else {
         // Update price for ArrowUp and ArrowDown keys
+        if (currentValue > 99) {
+          numberInput.value = 99;
+        }
         updatePrice(card, obj);
       }
     }
