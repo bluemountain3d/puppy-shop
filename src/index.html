@@ -29,6 +29,7 @@
           <use href="#cart-icon" class="cart-icon"/>
         </svg>
         <span class="header__cart-amount js-cart-amount" aria-hidden="true">000</span>
+        <div class="header__cart-wrapper"></div>
       </button>
       <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button>
     </header>
@@ -36,11 +37,69 @@
     <main class="main">
 
       <section class="products">
-        <h2>Våra valpar!</h2>
-        <div class="products__wrapper"></div>
+        <div class="container-boxed">
+          <header class="products__header">
+            <h2>Våra valpar!</h2>
+          </header>
+          <div class="products__wrapper"></div>
+        </div>
       </section>
 
-      <div class="cart"></div>
+      <div class="cart hidden">
+        <div class="container-boxed">
+          <div class="cart__wrapper">
+            <ul class="cart__content">
+              <header class="cart__header">
+                <h2 class="cart__heading">Varukorg</h2>
+                <div class="cart__counter js-cart-counnter"></span>
+                <div class="cart__close js-close-cart">
+                  <span class="cart__close-text">Stäng</span>
+                  <svg class="icon cart__close-icon">
+                    <use href="#close-icon" class="close-icon"/>
+                  </svg>
+                </div>
+              </header>
+
+              <!-- Container for dynamic items -->
+              <ul class="cart__items"></ul>
+
+              <!-- Summary container -->
+              <div class="cart__summary">
+                <div class="cart__summary-row">
+                  <p class="cart__summary-label">Delsumma: </p>
+                  <span class="cart__subtotal js-summary-subtotal">0 kr</span> 
+                </div>
+                <div class="cart__summary-row">
+                  <p class="cart__summary-label">Rabatter: </p>
+                  <span class="cart__value js-summary-discount">0 kr</span>
+                </div>
+                <div class="cart__summary-row">
+                  <p class="cart__summary-label">Moms ingår med: </p>
+                  <span class="cart__value js-summary-vat">0 kr</span>
+                </div>
+                <div class="cart__summary-row">
+                  <p class="cart__summary-label">Fraktkostnad: </p>
+                  <span class="cart__value js-summary-shipping">0 kr</span>
+                </div>
+                <div class="cart__summary-row">
+                  <p class="cart__summary-label">Summa: </p>
+                  <span class="cart__value js-summary-total">0 kr</span>
+                </div>
+              </div>
+
+              <!-- Continue Button -->
+              <button class="cart__continue-btn">
+                <span>icon</span><span>Fortsätt med beställningen</span>
+              </button>
+            
+
+            <div class="checkout__content"></div>
+
+            <div class="order-confirmed__content"></div>
+
+          </div>
+        </div>
+      </div>
       
     </main>
 
