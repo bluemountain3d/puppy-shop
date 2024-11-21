@@ -42,7 +42,7 @@ export const productsObject = {
     breedInfo: {
       breed: 'Tysk Shäferhund',
       origin: 'Tyskland',
-      type: ['vallhund', 'brukshund', 'tränstehund'],
+      type: ['vallhund', 'brukshund', 'tjänstehund'],
       byline: 'Samarbetsvillig, livlig och uppmärksam jobbkompis'
     },
     properties: {
