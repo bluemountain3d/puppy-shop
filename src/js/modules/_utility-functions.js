@@ -48,9 +48,9 @@ export function updatePrice(card, obj) {
 }
 
 
-// * * * * * * * * * * * * * * * * * *
-// * Funktion for handling Quantity  *
-// * * * * * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * * * * * * * *
+// * Function for handling Quantitfiers  *
+// * * * * * * * * * * * * * * * * * * * *
 
 export function adjustQuantity(e, card, obj) {
 
