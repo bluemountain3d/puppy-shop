@@ -35,11 +35,11 @@ export const productCards = ((products) => {
 
       // Add to inner.html
       productsWrapper.innerHTML += `
-        <article class="product-card" data-id="${p.id}" data-rating="${p.properties.popularity}" data-gender="male">
+        <article class="product-card js-product-card" data-id="${p.id}" data-rating="${p.properties.popularity}" data-gender="male">
             <div class="product-card__image-wrapper">
               <picture>
                 <img 
-                  src="${p.image.url}-w1024.jpg"
+                  src="${p.image.url}-w512.avif"
                   alt="${p.image.alt}"
                   class="product-card__image"
                   width="360" height="360" loading="lazy">
@@ -85,13 +85,13 @@ export const productCards = ((products) => {
                   <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">+</button>
                 </div>
               </div>
-              <button class="product-card__add-to-cart js-add-to-cart" aria-label="Lägg till i varukorgen">
-                <svg class="icon">
-                  <use href="#add-to-cart-icon" class="add-to-cart-icon"/>
-                </svg>
-                <span>Lägg i kundvagn</span>
-              </button>
             </div>
+            <button class="product-card__add-to-cart js-add-to-cart" aria-label="Lägg till i varukorgen">
+              <svg class="icon">
+                <use href="#add-to-cart-icon" class="add-to-cart-icon"/>
+              </svg>
+              <span>Lägg i kundvagn</span>
+            </button>
           </article>
       `
     });
@@ -104,19 +104,23 @@ export const productCards = ((products) => {
     let paws = '';
 
     for (let i = 1; i <= int; i++) {
-      paws += `<svg class="icon">
-        <use href="paw-icon" class="paw-icon rating-paw rating-paw--solid"/>
-      </svg>`
+      paws += `<div class="rating-paw rating-paw--solid"></div>`
+      // paws += `<div class="rating-paw rating-paw--solid"><svg class="icon paw-icon">
+      //   <use href="paw-icon"/>
+      // </svg></div>`
     }
     if (decimal >= .2) {
       const decimalPercentage = decimal * 100;
-      paws += `<svg class="icon">
-        <use href="paw-icon" class="paw-icon rating-paw rating-paw--grad-${decimalPercentage}"/>
-      </svg>`
-    } else if (int < 5) {
-      paws += `<svg class="icon">
-        <use href="paw-icon" class="paw-icon rating-paw rating-paw--empty"/>
-      </svg>`
+      paws += `<div class="rating-paw rating-paw--grad-${decimalPercentage}"></div>`
+      // paws += `<div class="rating-paw rating-paw--grad-${decimalPercentage}"><svg class="icon paw-icon">
+      //   <use href="paw-icon"/>
+      // </svg></div>`
+    }
+    for (let i = 1; i <= 5 - int; i++) {
+        paws += `<div class="rating-paw rating-paw--empty"></div>`
+      // paws += `<div class="rating-paw rating-paw--empty"><svg class="icon paw-icon">
+      //   <use href="paw-icon"/>
+      // </svg></div>`
     }
 
     return paws;
@@ -132,7 +136,7 @@ export const productCards = ((products) => {
   const xMinutes = 15;
   const updateInterval = 1000 * 60 * xMinutes;
   setInterval(() => {
-    const productCards = Array.from(productsWrapper.querySelectorAll('.product-card'));
+    const productCards = Array.from(productsWrapper.querySelectorAll('.js-product-card'));
     productCards.forEach(card => {
       // If card not undefined
       if (card) {
@@ -146,16 +150,17 @@ export const productCards = ((products) => {
   }, updateInterval);
 
   
-  // Attach a single event listener to the products wrapper
-  productsWrapper.addEventListener('keydown', handleProductEvent);
+  // Attach event listeners to the products wrapper
   productsWrapper.addEventListener('click', handleProductEvent);
+  productsWrapper.addEventListener('keydown', handleProductEvent);
   productsWrapper.addEventListener('keyup', handleProductEvent);
   productsWrapper.addEventListener('change', handleProductEvent);
 
-  // Function for change and click event listeners
+  // Function for change and event listeners
   function handleProductEvent(e) {
-    // Find the product card related to the clicked or changed radio button
-    const card = e.target.closest('.product-card');
+    
+    // Find the product card related to target
+    const card = e.target.closest('.js-product-card');
     if (!card) return; // Exit if not within a product card
 
     const productId = Number(card.dataset.id);
@@ -175,6 +180,69 @@ export const productCards = ((products) => {
 
     // Update Comparison Price
     updateComparisonPrice(card, productData);
+
+
+
+    // Add to cart object if Add to cart button is clicked
+    if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
+      console.log('Add to card clicked');
+
+      const gender = card.querySelector('.js-gender-rb:checked').value;
+      const quantity = Number(card.querySelector('.js-quantity').value);
+      const originalPrice = productData.priceInfo.price;
+      const currentPrice = formatPriceToNumber(card.querySelector('.js-price').innerText);
+      const discount = currentPrice - itemQtyDiscount(currentPrice, quantity);
+      const cartItem = findItemByProductIdAndGender(cartObject, productId, gender);
+      const counter = cartObject.counter;
+
+      if (!quantity) return;
+
+      //console.log('cartItem:', cartItem);
+      //console.log('productId:', productId);
+      //console.log('gender:', gender);
+      
+      // Test if cartItem should be added or updated
+      if (!cartItem|| cartItem && cartItem.gender != gender) {
+        // Product not in cart, add
+        console.log('Product don\'t exist Add object');
+        // New cart item
+        const newItem = {
+          productId: productId,
+          gender: gender,
+          quantity: quantity,
+          priceInfo: {
+            price: originalPrice,            
+            discount: discount,         
+            lineTotal: currentPrice * quantity
+          },
+        }
+
+        // Add the new item to the cartObject to the next available index.
+        cartObject[getHighestIndex(cartObject) + 1] = newItem;
+        //console.log(cartObject);
+        
+
+      } else {
+        // Product is in cart, update
+        console.log('Product exist Update object');
+        // Get Existing Item from cartObject
+        const existingItem = findItemByProductIdAndGender(cartObject, productId, gender);
+        existingItem.quantity += quantity;
+        // 
+        if (existingItem.quantity >= 10) {
+          const newCurrentPrice = weekendPricing(existingItem.priceInfo.price) * existingItem.quantity;
+          existingItem.priceInfo.discount = newCurrentPrice - itemQtyDiscount(newCurrentPrice, existingItem.quantity);
+        } else {
+          existingItem.priceInfo.discount += discount;
+        }
+        existingItem.priceInfo.lineTotal += (currentPrice * quantity);
+        //console.log(cartObject);
+      }
+
+      // Update Header Cart Counter
+      cartObject.counter += quantity;
+      console.log(cartObject, cartObject.counter);
+    }
   }
 
 
