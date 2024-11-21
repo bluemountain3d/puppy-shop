@@ -1,0 +1,47 @@
+//*** Component: Rating Paws***//
+
+// Name Spaces for common abtracts
+@use '../abstracts/variables' as var;
+@use '../abstracts/functions' as fn;
+@use '../abstracts/mixins' as mx;
+
+// Module Name
+$_module-name: "Rating Paws";
+
+/* ### #{$_module-name} START */
+
+.rating-paw {
+  display: inline-block;
+
+  --paw-color-solid: goldenrod;
+  --paw-color-empty: rgb(26,26,26);
+
+  width: 2.5rem;
+  height: auto;
+  aspect-ratio: 1;
+
+  clip-path: url(#paw-clip);
+
+  &--solid {
+    background-color: var(--paw-color-solid);
+  }
+  &--empty {
+    background-color: var(--paw-color-empty);
+  }
+  &--grad-20 {
+    background-image: linear-gradient(to right, var(--paw-color-solid) 19.99%, var(--paw-color-empty) 20.01%);
+  }
+  &--grad-40 {
+    background-image: linear-gradient(to right, var(--paw-color-solid) 39.99%, var(--paw-color-empty) 40.01%);
+  }
+  &--grad-60 {
+    background-image: linear-gradient(to right, var(--paw-color-solid) 59.99%, var(--paw-color-empty) 60.01%);
+  }
+  &--grad-80 {
+    background-image: linear-gradient(to right, var(--paw-color-solid) 79.99%, var(--paw-color-empty) 80.01%);
+  }
+
+}
+
+/* ### #{$_module-name} END
+/* ------------------------------------------------------------ */

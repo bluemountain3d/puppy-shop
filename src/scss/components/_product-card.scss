@@ -1,0 +1,112 @@
+//*** Commponent: Product Card ***//
+
+@use '../abstracts/variables' as var;
+@use '../abstracts/functions' as fn;
+@use '../abstracts/mixins' as mx;
+
+$_module-name: "Product Carsd";
+
+/* ### #{$_module-name} START */
+
+.products {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.products__wrapper {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fit, minmax(336px, 1fr));
+  grid-template-rows: repeat(3, auto);
+  gap: 1.5rem;
+}
+
+.product-card {
+  
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  gap: 0;
+
+  &__image-wrapper {
+    
+    display: block;
+    position: relative;
+    border-width: 1px 1px 0 1px;
+    border-color: var(--clr-lines);
+    border-style: solid;
+    border-radius: 1rem 1rem 0 0;
+    overflow: hidden;
+
+    & > picture {
+
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  &__rating {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(black, .33);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  &__content-wrapper {
+    padding: 1rem;
+    border-width: 0 1px 0 1px;
+    border-color: var(--clr-lines);
+    border-style: solid;
+  }
+
+  &__add-to-cart {
+    cursor: pointer;
+    width: 100%;
+    padding: 1rem;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+
+    font-family: var(--ff-primary);
+    font-size: 1.5rem;
+    color: var(--clr-light);
+    line-height: 2rem;
+    border-radius: 0 0 1rem 1rem;
+
+    background-color: var(--clr-dark);
+
+    & .icon {
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      fill: var(--clr-light);
+  }
+
+  }
+
+
+}
+
+
+/* ### #{$_module-name} END
+/* ------------------------------------------------------------ */

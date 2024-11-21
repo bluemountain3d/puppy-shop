@@ -8,7 +8,65 @@ $_module-name: "Page Header";
 
 /* ### #{$_module-name} START */
 
+.header {
+  z-index: 999;
+  position: sticky;
+  top: 0;
 
+  width: 100%;
+  padding: 1rem Max(12px, var(--vwx) * 3.125);
+  margin-bottom: 1rem;
+  color: var(--clr-light);
+  background-color: var(--clr-dark);
+
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+
+  &__brand {
+    > img {
+      width: auto;
+      height: 6rem;
+    }
+  }
+
+  &__nav {
+    min-width: 100%;
+  }
+
+
+  &__cart-btn {
+    position: relative;
+    background-color: transparent;
+    border: none;
+
+    width: 5rem;
+    height: 5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__cart-icon {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    fill: var(--clr-light);
+  }
+
+  &__cart-amount {
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    translate: -1.5ch;
+    //color: white;
+    text-align: center;
+    width: 4ch;
+    font-size: 1.5rem;
+    font-family: var(--ff-primary);
+  }
+}
 
 /* ### #{$_module-name} END
 /* ------------------------------------------------------------ */

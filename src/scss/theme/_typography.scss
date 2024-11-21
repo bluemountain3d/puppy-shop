@@ -8,7 +8,10 @@ $_module-name: "Typography";
 
 /* ### #{$_module-name} START */
 
-
+h1, h2, h3, h4, h5, h6 {
+  font-size: unset;
+  font-weight: unset;
+}
 
 /* ### #{$_module-name} END
 /* ------------------------------------------------------------ */

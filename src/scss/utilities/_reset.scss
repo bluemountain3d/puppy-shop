@@ -22,6 +22,11 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, figure, hr, form, field
   padding: 0;
 }
 
+div {
+  display: block;
+  unicode-bidi: isolate;
+}
+
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role='list'],
 ol[role='list'] {

@@ -1,25 +1,31 @@
-//*** Base: General ***//
+//*** Commponent: Form ***//
 
 @use '../abstracts/variables' as var;
 @use '../abstracts/functions' as fn;
 @use '../abstracts/mixins' as mx;
 
-$_module-name: "General CSS";
+$_module-name: "Form";
 
 /* ### #{$_module-name} START */
 
-html {
-  font-size: 100%;
-  line-height: 1.2;
+form {
+  margin: 0;
+  padding: 0;
+  border: none;
+  clear: both;
 }
 
-body {
-  font-size: 1rem;
-  line-height: 1.5;
-
-  font-family: var(--ff-primary);
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  clear: both;
 }
 
+button {
+  border: none;
+  background-color: unset;
+}
 
 
 /* ### #{$_module-name} END

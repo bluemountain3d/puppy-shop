@@ -8,6 +8,122 @@ $_module-name: "ROOT";
 
 /* ### #{$_module-name} START */
 
+:root {
+  /* Viewport */
+  --vwx: 1vw;
+
+  @media screen and (min-width: 2540px) and (min-aspect-ratio: 2/1) {
+    --vwx: 2vh;
+  }
+  
+  /* Font Sizes */
+  // fs-100: 12px @384 → 18px @1920 → Infinity
+  // fs-200: 14px @384 → 21px @1920 → Infinity
+  // fs-300: 16px @384 → 24px @1920 → Infinity
+  // fs-400: 20px @384 → 32px @1920 → Infinity
+  // fs-500: 25px @384 → 42.66px @1920 → Infinity
+  // fs-600: 31.25px @384 → 56.88px @1920 → Infinity
+  // fs-700: 39.06px @384 → 75.84px @1920 → Infinity
+  // fs-800: 48.83px @384 → 101.12px @1920 → Infinity
+  // fs-900: 61.04px @384 → 134.83px @1920 → Infinity
+
+
+  --fs-100: Max(0.75rem, var(--vwx) * 0.390625 + 0.65625rem);
+  --fs-200: Max(0.875rem, var(--vwx) * 0.455729 + 0.765625rem);
+  --fs-300: Max(1rem, var(--vwx) * 0.520833 + 0.875rem);
+  --fs-400: Max(1.25rem, var(--vwx) * 0.781198 + 1.062513rem);
+  --fs-500: Max(1.5625rem, var(--vwx) * 1.150035 + 1.286492rem);
+  --fs-600: Max(1.953125rem, var(--vwx) * 1.668921 + 1.552584rem);
+  --fs-700: Max(2.441406rem, var(--vwx) * 2.394646 + 1.866691rem);
+  --fs-800: Max(3.051758rem, var(--vwx) * 3.404625 + 2.234648rem);
+  --fs-900: Max(3.814697rem, var(--vwx) * 4.80419 + 2.661692rem);
+
+
+  // fs-text-100: 12px @384 → 18px @1920 → Infinity
+  // 14px @384 → 21px @1920 → Infinity
+  // 16px @384 → 24px @1920 → Infinity
+  // 18px @384 → 27px @1920 → Infinity
+  // 20px @384 → 30px @1920 → Infinity
+
+  --fs-text-100: Max(0.75rem, var(--vwx) * 0.390625 + 0.65625rem);
+  --fs-text-200: Max(0.875rem, var(--vwx) * 0.455729 + 0.765625rem);
+  --fs-text-300: Max(1rem, var(--vwx) * 0.520833 + 0.875rem);
+  --fs-text-400: Max(1.125rem, var(--vwx) * 0.585938 + 0.984375rem);
+  --fs-text-500: Max(1.25rem, var(--vwx) * 0.651042 + 1.09375rem);
+
+  /* Spacing */
+  // 025: 0.125rem: 2px @384 → 4px @1920 → Infinity
+  // 050: 0.25rem: 4px @384 → 8px @1920 → Infinity
+  // 075: 0.375rem: 6px @384 → 12px @1920 → Infinity
+  // 100: 0.5rem: 8px @384 → 16px @1920 → Infinity
+  // 150: 0.75rem: 12px @384 → 24px @1920 → Infinity
+  // 200: 1rem: 16px @384 → 32px @1920 → Infinity
+  // 250: 1.25rem: 20px @384 → 40px @1920 → Infinity
+  // 300: 1.5rem: 24px @384 → 48px @1920 → Infinity
+  // 350: 1.75rem: 28px @384 → 56px @1920 → Infinity
+  // 400: 2rem: 32px @384 → 64px @1920 → Infinity
+  // 450: 2.25rem: 36px @384 → 72px @1920 → Infinity
+  // 500: 2.5rem: 40px @384 → 80px @1920 → Infinity
+  // 550: 2.75rem: 44px @384 → 88px @1920 → Infinity
+  // 600: 3rem: 48px @384 → 96px @1920 → Infinity
+  // 650: 3.25rem: 52px @384 → 104px @1920 → Infinity
+  // 700: 3.5rem: 56px @384 → 112px @1920 → Infinity
+  // 750: 3.75rem: 60px @384 → 120px @1920 → Infinity
+  // 800: 4rem: 64px @384 → 128px @1920 → Infinity
+  // 850: 4.25rem: 68px @384 → 136px @1920 → Infinity
+  // 900: 4.5rem: 72px @384 → 144px @1920 → Infinity
+  // 950: 4.75rem: 76px @384 → 152px @1920 → Infinity
+  // 1000: 5rem: 80px @384 → 160px @1920 → Infinity
+
+  --gap-025: Max(0.125rem, var(--vwx) * 0.1302 + 0.0938rem);
+  --gap-050: Max(0.25rem, var(--vwx) * 0.2604 + 0.1875rem);
+  --gap-075: Max(0.375rem, var(--vwx) * 0.3906 + 0.2813rem);
+  --gap-100: Max(0.5rem, var(--vwx) * 0.5208 + 0.375rem);
+  --gap-150: Max(0.75rem, var(--vwx) * 0.7813 + 0.5625rem);
+  --gap-200: Max(1rem, var(--vwx) * 1.0417 + 0.75rem);
+  --gap-250: Max(1.25rem, var(--vwx) * 1.3021 + 0.9375rem);
+  --gap-300: Max(1.5rem, var(--vwx) * 1.5625 + 1.125rem);
+  --gap-350: Max(1.75rem, var(--vwx) * 1.8229 + 1.3125rem);
+  --gap-400: Max(2rem, var(--vwx) * 2.0833 + 1.5rem);
+  --gap-450: Max(2.25rem, var(--vwx) * 2.3438 + 1.6875rem);
+  --gap-500: Max(2.5rem, var(--vwx) * 2.6042 + 1.875rem);
+  --gap-550: Max(2.75rem, var(--vwx) * 2.8646 + 2.0625rem);
+  --gap-600: Max(3rem, var(--vwx) * 3.125 + 2.25rem);
+  --gap-650: Max(3.25rem, var(--vwx) * 3.3854 + 2.4375rem);
+  --gap-700: Max(3.5rem, var(--vwx) * 3.6458 + 2.625rem);
+  --gap-750: Max(3.75rem, var(--vwx) * 3.9063 + 2.8125rem);
+  --gap-800: Max(4rem, var(--vwx) * 4.1667 + 3rem);
+  --gap-850: Max(4.25rem, var(--vwx) * 4.4271 + 3.1875rem);
+  --gap-900: Max(4.5rem, var(--vwx) * 4.6875 + 3.375rem);
+  --gap-950: Max(4.75rem, var(--vwx) * 4.9479 + 3.5625rem);
+  --gap-1000: Max(5rem, var(--vwx) * 5.2083 + 3.75rem);
+
+  // Section top and bottom spacing
+  // 32px @384 → 96px @1920 → Infinity
+  --page-section-block-padding: Max(2rem, var(--vwx) * 4.1667 + 1rem);
+
+  
+
+  // Colors
+  --clr-light: #F9FBFF;
+  --clr-dark: #0C2340;
+
+  --clr-title: #3874C6;
+  --clr-text: #285796;
+
+  --clr-lines: #C7C9CC;
+  --clr-grey-dark: #747474;
+  --clr-grey-light: #ADADAD;
+  --clr-red: #8B0000;
+  --clr-green: #008700;
+
+  // Font Families
+  --ff-primary: 'Cronos Pro';
+  --ff-secondary: 'Canto Pen';
+
+  --primary-left-adjust: -.075em;
+  --secondary-left-adjust: -.126em;
+}
 
 
 /* ### #{$_module-name} END

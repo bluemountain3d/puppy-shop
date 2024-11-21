@@ -1,0 +1,47 @@
+//*** Utilitiey: Container ***//
+
+// Name Spaces for common abtracts
+@use '../abstracts/variables' as var;
+@use '../abstracts/functions' as fn;
+@use '../abstracts/mixins' as mx;
+
+// Module Name
+$_module-name: "Container";
+
+/* ### #{$_module-name} START */
+
+
+// Page Sections
+.page-section {
+  padding-block: var(--gap-400);
+}
+
+// Containers
+.container {
+  width: 100%;
+
+  &, &--boxed, &--narrow {
+    padding-inline: Max(12px, 3.125 * var(--vwx));
+  }
+
+  &--boxed, &--narrow {
+    margin: 0 auto;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--boxed {
+    max-width: 1920px;
+  }
+
+  &--narrow {
+    max-width: Min(83.3333333333%, 1536px);
+  }
+}
+
+
+
+/* ### #{$_module-name} END
+/* ------------------------------------------------------------ */
