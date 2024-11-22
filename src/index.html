@@ -20,445 +20,471 @@
   <body>
     
     <header class="header">
-      <a class="header__brand" href="/" aria-label="Puppy Shop logotyp, gå tillbaka till startsidan">
-        <img src="img/icons/puppy-shop-logo.svg" alt="Puppy Shop logotype">
+
+      <a class="header__brand" href="/src/" aria-label="Puppy Shop logotyp, gå tillbaka till startsidan">
+        <svg class="icon cart__brand-icon">
+          <use href="#puppy-shop-wide"/>
+        </svg>
       </a>
+      <nav class="header__nav"></nav>
       <nav header__nav></nav>
-      <button class="icon-button icon header__cart-btn js-header-cart-btn" aria-label="Öppna kundvagnen">
+      <div class="header__cart">
+
+        <div class="header__cart-items">
+          <svg class="icon" aria-hidden="true">
+            <use href="#cart-icon" class="cart-icon"/>
+          </svg>
+          <button class="header__go-to-cart-mobile">
+            <svg class="icon" aria-hidden="true">
+              <use href="#cart-icon" class="cart-icon"/>
+            </svg>
+          </button>
+          <div class="header__cart-count">0</div>
+          <div class="header__cart-total hidden"></div>
+        </div>
+        
+        <button class="header__go-to-cart js-go-to-cart hidden">Till Kundvagnen</button>
+      </div>
+
+      <!-- <button class="icon-button icon header__cart-btn js-header-cart-btn" aria-label="Öppna kundvagnen">
         <svg class="icon header__cart-icon" aria-hidden="true">
           <use href="#cart-icon" class="cart-icon"/>
         </svg>
         <span class="header__cart-amount js-cart-amount" aria-hidden="true">0</span>
-      </button>
+      </button> -->
       <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button>
     </header>
 
     <main class="main">
 
-      <div class="products container--boxed">
-        <header class="products__header">
-          <h2>Våra valpar!</h2>
-        </header>
-        <div class="products__filters"></div>
-        <div class="products__wrapper"></div>
-      </div>
-
-      <div class="shopping-cart">
-        <div class="container--boxed">
-          <div class="shopping-cart__wrapper">
-            <section class="cart">
-              <header class="cart__header">
-                <h2 class="cart__header-title">Varukorg <div class="cart__counter js-cart-counnter">(0)</span></h2>
-                <button class="cart__close js-close-cart">
-                  <span class="cart__close-text">Stäng</span>
-                  <svg class="icon cart__close-icon">
-                    <use href="#close-icon"/>
-                  </svg>
-                </button>
-              </header>
-
-              <!-- Container for dynamic items -->
-              <ul class="cart__items"></ul>
-
-              <!-- Summary container -->
-              <div class="cart__summary">
-                <!-- <div class="cart__summary-row">
-                  <p class="cart__summary-label">Delsumma: </p>
-                  <span class="cart__subtotal js-summary-subtotal">0 kr</span> 
-                </div>
-                <div class="cart__summary-row">
-                  <p class="cart__summary-label">Rabatter: </p>
-                  <span class="cart__value js-summary-discount">0 kr</span>
-                </div>
-                <div class="cart__summary-row">
-                  <p class="cart__summary-label">Moms ingår med: </p>
-                  <span class="cart__value js-summary-vat">0 kr</span>
-                </div> -->
-                <div class="cart__summary-row">
-                  <p class="cart__summary-label">Fraktkostnad: </p>
-                  <span class="cart__summary-value js-summary-shipping">0 kr</span>
-                </div>
-                <div class="cart__summary-row">
-                  <p class="cart__summary-label">Summa: </p>
-                  <div class="cart__summary-column">
-                    <div class="cart__summary-total js-summary-total">0 kr</div>
-                    <div class="cart__summary-info">inkl. moms</div>
+      <div class="container--full-width">
+        <div class="products container--boxed">
+          <header class="products__header">
+            <h2 class="products__title">Våra valpar!</h2>
+          </header>
+          <div class="products__filters"></div>
+          <div class="products__wrapper"></div>
+        </div>
+  
+        <div class="shopping-cart">
+          <div class="container--boxed">
+            <div class="shopping-cart__wrapper">
+              <section class="cart">
+                <header class="cart__header">
+                  <h2 class="cart__header-title">Varukorg <div class="cart__counter js-cart-counnter">(0)</span></h2>
+                  <button class="cart__close js-close-cart">
+                    <span class="cart__close-text">Stäng</span>
+                    <svg class="icon cart__close-icon">
+                      <use href="#close-icon"/>
+                    </svg>
+                  </button>
+                </header>
+  
+                <!-- Container for dynamic items -->
+                <ul class="cart__items"></ul>
+  
+                <!-- Summary container -->
+                <div class="cart__summary">
+                  <!-- <div class="cart__summary-row">
+                    <p class="cart__summary-label">Delsumma: </p>
+                    <span class="cart__subtotal js-summary-subtotal">0 kr</span> 
                   </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="checkout">
-              <fieldset class="checkout__group">
-                <legend class="checkout__header">E-postadress / Postnummer</legend>
-                <p class="checkout__group-info">Ange mejl samt postnummer dit ordern ska skickas för att se tillgängliga leveransval. Klicka sedan på fortsätt.</p>
-                <div class="checkout__group-inner">
-                  <!-- Postal E-mail -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="postal-email" 
-                      class="checkout__input-placeholder" 
-                      aria-label="E-postadress, obligatoriskt fält">
-                      E-postadress: *
-                    </label>
-                    <input
-                      type="email"
-                      id="postal-email"
-                      class="checkout__input js-email"
-                      value=""
-                      required
-                      aria-required="true">
+                  <div class="cart__summary-row">
+                    <p class="cart__summary-label">Rabatter: </p>
+                    <span class="cart__value js-summary-discount">0 kr</span>
                   </div>
-                  <!-- Postal Zip -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="postal-zip" 
-                      class="checkout__input-placeholder" 
-                      aria-label="E-postadress, obligatoriskt fält">
-                      Postnummer: *
-                    </label>
-                    <input
-                      type="text"
-                      id="postal-zip"
-                      class="checkout__input js-zip"
-                      value=""
-                      inputmode="numeric"
-                      pattern="^\d{3}\s?\d{2}$"
-                      required
-                      aria-required="true">
-                    <!-- News Letter -->
-                    <div class="checkout__chb-row">
-                      <input type="checkbox" name="newsletter" id="newsletter" checked>
-                      <label for="news-letter" class="checkout__chb-label">Ja, jag vill ha nyhetsbrev och special-erbjudanden från Pyppy Shop.</label>
+                  <div class="cart__summary-row">
+                    <p class="cart__summary-label">Moms ingår med: </p>
+                    <span class="cart__value js-summary-vat">0 kr</span>
+                  </div> -->
+                  <div class="cart__summary-row">
+                    <p class="cart__summary-label">Fraktkostnad: </p>
+                    <span class="cart__summary-value js-summary-shipping">0 kr</span>
+                  </div>
+                  <div class="cart__summary-row">
+                    <p class="cart__summary-label">Summa: </p>
+                    <div class="cart__summary-column">
+                      <div class="cart__summary-total js-summary-total">0 kr</div>
+                      <div class="cart__summary-info">inkl. moms</div>
                     </div>
-                    <!-- Continue to Shipping Button -->
-                    <button class="cart__continue-btn js-continue-to-shipping">
-                      Fortsätt med beställningen
-                    </button>
                   </div>
                 </div>
-              </fieldset>
-              <!-- Shipping Method -->
-              <fieldset class="checkout__group">
-                <legend class="checkout__header">Fraktalternativ</legend>
-                <p class="checkout__group-info">Just nu har sniglarna extra mycket att göra, duvorna strejkar och hararna är halta. Vill du vara säker på att din order levereras så snabbt som möjligt rekommenderar vi att du väljer leverans med en stork.</p>
-                <div class="checkout__group-inner">
-                  <!-- Shipping Method Stork -->
-                  <div class="checkout__shipping-alt">
-                    <div class="checkout__rb-row">
-                      <input type="radio" name="shipping" id="shipping-stork" value="stork" checked>
-                      <label for="shipping-stork" class="checkout__rb-label">Stork <span class="checkout__shipping-price">250 kr + 1% av delsumman</span></label>
-                    </div>
-                    <p class="checkout__shipping-alt-info">Leveranstid 1-12 arbetsdagar.</p>
-                  </div>
-                  <!-- Shipping Method Dove -->
-                  <div class="checkout__shipping-alt">
-                    <div class="checkout__rb-row">
-                      <input type="radio" name="shipping" id="shipping-dove" value="dove">
-                      <label for="shipping-dove" class="checkout__rb-label">Duva <span class="checkout__shipping-price">150 kr + 1% av delsumman</span></label>
-                    </div>
-                    <p class="checkout__shipping-alt-info">Leveranstid 12-24 arbetsdagar.</p>
-                  </div>                  
-                  <!-- Shipping Method Hare -->
-                  <div class="checkout__shipping-alt">
-                    <div class="checkout__rb-row">
-                      <input type="radio" name="shipping" id="shipping-hare" value="hare">
-                      <label for="shipping-hare" class="checkout__rb-label">Hare <span class="checkout__shipping-price">75 kr + 1% av delsumman</span></label>
-                    </div>
-                    <p class="checkout__shipping-alt-info">Leveranstid 4-8 veckor.</p>
-                  </div>                  
-                  <!-- Shipping Method Snail -->
-                  <div class="checkout__shipping-alt">
-                    <div class="checkout__rb-row">
-                      <input type="radio" name="shipping" id="shipping-snail" value="snail">
-                      <label for="shipping-snail" class="checkout__rb-label">Snigel <span class="checkout__shipping-price">25 kr + 1% av delsumman</span></label>
-                    </div>
-                    <p class="checkout__shipping-alt-info">Leveranstid 2-4 månader.</p>
-                  </div>                  
-                </div>
-              </fieldset>
-
-              <form action="" class="checkout__group checkout__form">              
-                <!-- Your Information -->
-                <fieldset class="checkout__form-group">
-                  <legend class="checkout__header">Dina uppgifter</legend>
-                  <p class="checkout__group-info">Adressen ska vara i Sverige.</p>
-
-                  <!-- E-mail -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="email"
-                      class="checkout__input-placeholder" 
-                      aria-label="E-postadress">
-                      E-postadress:
-                    </label>
-                    <!-- Get input value from postal-email -->
-                    <input
-                      type="email"
-                      id="postal-email"
-                      class="checkout__input js-email"
-                      value=""
-                      required
-                      aria-required="true"
-                      disabled>
-                  </div>
-                  <!-- Zip -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="zip"
-                      class="checkout__input-placeholder" 
-                      aria-label="Postnummer">
-                      Postnummer:
-                    </label>
-                    <!-- Get input value from postal-zip -->
-                    <input
-                      type="text"
-                      id="zip"
-                      class="checkout__input js-zip"
-                      value=""
-                      required
-                      aria-required="true"
-                      disabled>
-                  </div>
-
-                  <!-- Name -->
-                   <div class="checkout__input-row">
-
-                    <!-- Given Name -->
+              </section>
+  
+              <section class="checkout">
+                <fieldset class="checkout__group">
+                  <legend class="checkout__header checkout__header--first">E-postadress / Postnummer</legend>
+                  <p class="checkout__group-info">Ange mejl samt postnummer dit ordern ska skickas för att se tillgängliga leveransval. Klicka sedan på fortsätt.</p>
+                  <div class="checkout__group-inner">
+                    <!-- Postal E-mail -->
                     <div class="checkout__input-wrapper">
                       <label 
-                        for="given-name"
+                        for="postal-email" 
                         class="checkout__input-placeholder" 
-                        aria-label="Förnamn">
-                        Förnamn:
+                        aria-label="E-postadress, obligatoriskt fält">
+                        E-postadress: *
                       </label>
                       <input
-                        type="text"
-                        id="given-name"
-                        class="checkout__input js-given-name"
+                        type="email"
+                        id="postal-email"
+                        class="checkout__input js-email"
                         value=""
                         required
                         aria-required="true">
                     </div>
-
-                    <!-- Family Name -->
+                    <!-- Postal Zip -->
                     <div class="checkout__input-wrapper">
                       <label 
-                        for="family-name"
+                        for="postal-zip" 
                         class="checkout__input-placeholder" 
-                        aria-label="Efternamn">
-                        Efternamn:
+                        aria-label="E-postadress, obligatoriskt fält">
+                        Postnummer: *
                       </label>
                       <input
                         type="text"
-                        id="family-name"
-                        class="checkout__input js-family-name"
+                        id="postal-zip"
+                        class="checkout__input js-zip"
                         value=""
-                        required
-                        aria-required="true">
-                    </div>
-                  </div>
-                  <!-- Street Address -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="street-address"
-                      class="checkout__input-placeholder" 
-                      aria-label="Gatuadress">
-                      Adress:
-                    </label>
-                    <input
-                      type="text"
-                      id="street-address"
-                      class="checkout__input js-street-address"
-                      value=""
-                      required
-                      aria-required="true">
-                  </div>
-
-                  <!-- Town/City -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="town"
-                      class="checkout__input-placeholder" 
-                      aria-label="Ort">
-                      Ort:
-                    </label>
-                    <input
-                      type="text"
-                      id="town"
-                      class="checkout__input js-town"
-                      value=""
-                      required
-                      aria-required="true">
-                  </div>
-
-                  <!-- Entry Code -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="entry-code"
-                      class="checkout__input-placeholder" 
-                      aria-label="Eventuell portkod">
-                      Eventuell Portkod:
-                    </label>
-                    <input
-                      type="text"
-                      id="entry-code"
-                      class="checkout__input js-entry-code"
-                      value="">
-                  </div>
-
-                  <!-- Mobile Phone Number -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="phone"
-                      class="checkout__input-placeholder" 
-                      aria-label="Mobilnummer, behövs för att vi ska kunna kontaktra dig angående din beställning">
-                      Mobilnummer:
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      class="checkout__input js-phone"
-                      value=""
-                      pattern="^\+?\d{1,4}(\(?0\)?)?\d{2,3}([- ]?\d{2,3}){0,3}$"
-                      required
-                      aria-required="true">
-                  </div>
-                  
-                </fieldset>
-
-                <!-- Payment Method -->
-                <fieldset class="checkout__form-group">
-                  <legend class="checkout__form-group-header-light">Betalmetod:</legend>
-                  <div>
-                    <input type="radio" name="payment" id="card" checked>
-                    <label for="card" class="checkout__rb-label">Kortbetalning</label>
-                  </div>
-                  <div>
-                    <input type="radio" name="payment" id="invoice">
-                    <label for="invoice" class="checkout__rb-label">Faktura <span class="checkout__label-info"></span>(Upp till 80 000 kr)</label>
-                  </div>
-                </fieldset>
-
-                <!-- Card Info (Visible if Card is choosen) -->
-                <fieldset class="checkout__form-group">
-                  <legend class="checkout__form-group-header">Kortuppgifter:</legend>
-                  <!-- Card Number -->
-                  <div class="checkout__input-wrapper">
-                    <label 
-                      for="card-number"
-                      class="checkout__input-placeholder" 
-                      aria-label="Kortnummer">
-                      Mobilnummer:
-                    </label>
-                    <input
-                      type="text"
-                      id="card-number"
-                      class="checkout__input js-card-number"
-                      value=""
-                      inputmode="numeric"
-                      pattern="\d{13,19}"
-                      required
-                      aria-required="true">
-                  </div>
-
-                  <!-- Expire Date and CVV -->
-                  <div class="checkout__input-row">
-                    <!-- Expire Date -->
-                    <div class="checkout__input-wrapper">
-                      <label 
-                        for="card-expire-month"
-                        class="checkout__input-placeholder" 
-                        aria-label="Giltigt till">
-                        Giltigt till:
-                      </label>
-                      <input
-                        type="text"
-                        id="card-expire-month"
-                        class="checkout__input js-card-expire-month"
-                        value=""
-                        maxlength="2"
                         inputmode="numeric"
-                        pattern="\d{2}"
+                        pattern="^\d{3}\s?\d{2}$"
+                        required
+                        aria-required="true">
+                      <!-- News Letter -->
+                      <div class="checkout__chb-row">
+                        <input type="checkbox" name="newsletter" id="newsletter" checked>
+                        <label for="news-letter" class="checkout__chb-label">Ja, jag vill ha nyhetsbrev och special-erbjudanden från Pyppy Shop.</label>
+                      </div>
+                      <!-- Continue to Shipping Button -->
+                      <button class="cart__continue-btn js-continue-to-shipping">
+                        Fortsätt med beställningen
+                      </button>
+                    </div>
+                  </div>
+                </fieldset>
+                <!-- Shipping Method -->
+                <fieldset class="checkout__group">
+                  <legend class="checkout__header">Fraktalternativ</legend>
+                  <p class="checkout__group-info">Just nu har sniglarna extra mycket att göra, duvorna strejkar och hararna är halta. Vill du vara säker på att din order levereras så snabbt som möjligt rekommenderar vi att du väljer leverans med en stork.</p>
+                  <div class="checkout__group-inner">
+                    <!-- Shipping Method Stork -->
+                    <div class="checkout__shipping-alt">
+                      <div class="checkout__rb-row">
+                        <input type="radio" name="shipping" id="shipping-stork" value="stork" checked>
+                        <label for="shipping-stork" class="checkout__rb-label">Stork <span class="checkout__shipping-price">250 kr + 1% av delsumman</span></label>
+                      </div>
+                      <p class="checkout__shipping-alt-info">Leveranstid 1-12 arbetsdagar.</p>
+                    </div>
+                    <!-- Shipping Method Dove -->
+                    <div class="checkout__shipping-alt">
+                      <div class="checkout__rb-row">
+                        <input type="radio" name="shipping" id="shipping-dove" value="dove">
+                        <label for="shipping-dove" class="checkout__rb-label">Duva <span class="checkout__shipping-price">150 kr + 1% av delsumman</span></label>
+                      </div>
+                      <p class="checkout__shipping-alt-info">Leveranstid 12-24 arbetsdagar.</p>
+                    </div>                  
+                    <!-- Shipping Method Hare -->
+                    <div class="checkout__shipping-alt">
+                      <div class="checkout__rb-row">
+                        <input type="radio" name="shipping" id="shipping-hare" value="hare">
+                        <label for="shipping-hare" class="checkout__rb-label">Hare <span class="checkout__shipping-price">75 kr + 1% av delsumman</span></label>
+                      </div>
+                      <p class="checkout__shipping-alt-info">Leveranstid 4-8 veckor.</p>
+                    </div>                  
+                    <!-- Shipping Method Snail -->
+                    <div class="checkout__shipping-alt">
+                      <div class="checkout__rb-row">
+                        <input type="radio" name="shipping" id="shipping-snail" value="snail">
+                        <label for="shipping-snail" class="checkout__rb-label">Snigel <span class="checkout__shipping-price">25 kr + 1% av delsumman</span></label>
+                      </div>
+                      <p class="checkout__shipping-alt-info">Leveranstid 2-4 månader.</p>
+                    </div>                  
+                  </div>
+                </fieldset>
+  
+                <form action="" class="checkout__group checkout__form">              
+                  <!-- Your Information -->
+                  <fieldset class="checkout__form-group">
+                    <legend class="checkout__header">Dina uppgifter</legend>
+                    <p class="checkout__group-info">Adressen ska vara i Sverige.</p>
+  
+                    <!-- E-mail -->
+                    <div class="checkout__input-wrapper">
+                      <label 
+                        for="email"
+                        class="checkout__input-placeholder" 
+                        aria-label="E-postadress">
+                        E-postadress:
+                      </label>
+                      <!-- Get input value from postal-email -->
+                      <input
+                        type="email"
+                        id="postal-email"
+                        class="checkout__input js-email"
+                        value=""
                         required
                         aria-required="true"
-                        aria-label="Månad">
-                        /
+                        disabled>
+                    </div>
+                    <!-- Zip -->
+                    <div class="checkout__input-wrapper">
+                      <label 
+                        for="zip"
+                        class="checkout__input-placeholder" 
+                        aria-label="Postnummer">
+                        Postnummer:
+                      </label>
+                      <!-- Get input value from postal-zip -->
+                      <input
+                        type="text"
+                        id="zip"
+                        class="checkout__input js-zip"
+                        value=""
+                        required
+                        aria-required="true"
+                        disabled>
+                    </div>
+  
+                    <!-- Name -->
+                     <div class="checkout__input-row">
+  
+                      <!-- Given Name -->
+                      <div class="checkout__input-wrapper">
+                        <label 
+                          for="given-name"
+                          class="checkout__input-placeholder" 
+                          aria-label="Förnamn">
+                          Förnamn:
+                        </label>
                         <input
-                        type="text"
-                        id="card-expire-year"
-                        class="checkout__input js-card-expire-year"
-                        value=""
-                        inputmode="numeric"
-                        maxlength="2"
-                        pattern="\d{2}"
-                        required
-                        aria-required="true"
-                        aria-label="År">
+                          type="text"
+                          id="given-name"
+                          class="checkout__input js-given-name"
+                          value=""
+                          required
+                          aria-required="true">
+                      </div>
+  
+                      <!-- Family Name -->
+                      <div class="checkout__input-wrapper">
+                        <label 
+                          for="family-name"
+                          class="checkout__input-placeholder" 
+                          aria-label="Efternamn">
+                          Efternamn:
+                        </label>
+                        <input
+                          type="text"
+                          id="family-name"
+                          class="checkout__input js-family-name"
+                          value=""
+                          required
+                          aria-required="true">
+                      </div>
                     </div>
-
-                    <!-- CVV -->
+                    <!-- Street Address -->
                     <div class="checkout__input-wrapper">
                       <label 
-                        for="card-cvv"
+                        for="street-address"
                         class="checkout__input-placeholder" 
-                        aria-label="CVV">
-                        CVV:
+                        aria-label="Gatuadress">
+                        Adress:
                       </label>
                       <input
                         type="text"
-                        id="card-cvv"
-                        class="checkout__input js-card-cvv"
-                        value=""
-                        maxlength="3"
-                        inputmode="numeric"
-                        pattern="\d{3}"
-                        required
-                        aria-required="true"
-                        aria-label="CVV">
-                    </div>
-
-                    <!-- Card Owner -->
-                    <div class="checkout__input-wrapper">
-                      <label 
-                        for="card-cvv"
-                        class="checkout__input-placeholder" 
-                        aria-label="Ditt namn som det står på kortet">
-                        Kortinnehavare:
-                      </label>
-                      <input
-                        type="text"
-                        id="card-cvv"
-                        class="checkout__input js-card-cvv"
+                        id="street-address"
+                        class="checkout__input js-street-address"
                         value=""
                         required
                         aria-required="true">
                     </div>
+  
+                    <!-- Town/City -->
+                    <div class="checkout__input-wrapper">
+                      <label 
+                        for="town"
+                        class="checkout__input-placeholder" 
+                        aria-label="Ort">
+                        Ort:
+                      </label>
+                      <input
+                        type="text"
+                        id="town"
+                        class="checkout__input js-town"
+                        value=""
+                        required
+                        aria-required="true">
+                    </div>
+  
+                    <!-- Entry Code -->
+                    <div class="checkout__input-wrapper">
+                      <label 
+                        for="entry-code"
+                        class="checkout__input-placeholder" 
+                        aria-label="Eventuell portkod">
+                        Eventuell Portkod:
+                      </label>
+                      <input
+                        type="text"
+                        id="entry-code"
+                        class="checkout__input js-entry-code"
+                        value="">
+                    </div>
+  
+                    <!-- Mobile Phone Number -->
+                    <div class="checkout__input-wrapper">
+                      <label 
+                        for="phone"
+                        class="checkout__input-placeholder" 
+                        aria-label="Mobilnummer, behövs för att vi ska kunna kontaktra dig angående din beställning">
+                        Mobilnummer:
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        class="checkout__input js-phone"
+                        value=""
+                        pattern="^\+?\d{1,4}(\(?0\)?)?\d{2,3}([- ]?\d{2,3}){0,3}$"
+                        required
+                        aria-required="true">
+                    </div>
+                    
+                  </fieldset>
+  
+                  <!-- Payment Method -->
+                  <fieldset class="checkout__form-group">
+                    <legend class="checkout__form-group-header-light">Betalmetod:</legend>
+                    <div>
+                      <input type="radio" name="payment" id="card" checked>
+                      <label for="card" class="checkout__rb-label">Kortbetalning</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="payment" id="invoice">
+                      <label for="invoice" class="checkout__rb-label">Faktura <span class="checkout__label-info"></span>(Upp till 80 000 kr)</label>
+                    </div>
+                  </fieldset>
+  
+                  <!-- Card Info (Visible if Card is choosen) -->
+                  <fieldset class="checkout__form-group">
+                    <legend class="checkout__form-group-header">Kortuppgifter:</legend>
+                    <!-- Card Number -->
+                    <div class="checkout__input-wrapper">
+                      <label 
+                        for="card-number"
+                        class="checkout__input-placeholder" 
+                        aria-label="Kortnummer">
+                        Mobilnummer:
+                      </label>
+                      <input
+                        type="text"
+                        id="card-number"
+                        class="checkout__input js-card-number"
+                        value=""
+                        inputmode="numeric"
+                        pattern="\d{13,19}"
+                        required
+                        aria-required="true">
+                    </div>
+  
+                    <!-- Expire Date and CVV -->
+                    <div class="checkout__input-row">
+                      <!-- Expire Date -->
+                      <div class="checkout__input-wrapper">
+                        <label 
+                          for="card-expire-month"
+                          class="checkout__input-placeholder" 
+                          aria-label="Giltigt till">
+                          Giltigt till:
+                        </label>
+                        <input
+                          type="text"
+                          id="card-expire-month"
+                          class="checkout__input js-card-expire-month"
+                          value=""
+                          maxlength="2"
+                          inputmode="numeric"
+                          pattern="\d{2}"
+                          required
+                          aria-required="true"
+                          aria-label="Månad">
+                          /
+                          <input
+                          type="text"
+                          id="card-expire-year"
+                          class="checkout__input js-card-expire-year"
+                          value=""
+                          inputmode="numeric"
+                          maxlength="2"
+                          pattern="\d{2}"
+                          required
+                          aria-required="true"
+                          aria-label="År">
+                      </div>
+  
+                      <!-- CVV -->
+                      <div class="checkout__input-wrapper">
+                        <label 
+                          for="card-cvv"
+                          class="checkout__input-placeholder" 
+                          aria-label="CVV">
+                          CVV:
+                        </label>
+                        <input
+                          type="text"
+                          id="card-cvv"
+                          class="checkout__input js-card-cvv"
+                          value=""
+                          maxlength="3"
+                          inputmode="numeric"
+                          pattern="\d{3}"
+                          required
+                          aria-required="true"
+                          aria-label="CVV">
+                      </div>
+  
+                      <!-- Card Owner -->
+                      <div class="checkout__input-wrapper">
+                        <label 
+                          for="card-cvv"
+                          class="checkout__input-placeholder" 
+                          aria-label="Ditt namn som det står på kortet">
+                          Kortinnehavare:
+                        </label>
+                        <input
+                          type="text"
+                          id="card-cvv"
+                          class="checkout__input js-card-cvv"
+                          value=""
+                          required
+                          aria-required="true">
+                      </div>
+                    </div>
+                  </fieldset>
+  
+                  <!-- Policy & GDPR -->
+                  <div class="checkout__chb-row">
+                    <input type="checkbox" name="gdpr" id="gdpr">
+                    <label for="gdpr" class="checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.</label>
                   </div>
-                </fieldset>
-
-                <!-- Policy & GDPR -->
-                <div class="checkout__chb-row">
-                  <input type="checkbox" name="gdpr" id="gdpr">
-                  <label for="gdpr" class="checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.</label>
-                </div>
-
-                <!-- Pay Button -->
-                <button class="checkout__pay-btn">
-                  <span>Betala köp</span>
-                </button>
-              </form>
-            </section>
-
-            <div class="order-confirmed"></div>
-
+  
+                  <!-- Pay Button -->
+                  <button class="checkout__pay-btn">
+                    <span>Betala köp</span>
+                  </button>
+                </form>
+              </section>
+  
+              <div class="order-confirmed"></div>
+  
+            </div>
           </div>
         </div>
       </div>
       
     </main>
 
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> | Puppy Shop, Alla rättigheter förbehållna</p>
+    </footer>
 
 
 
@@ -485,95 +511,85 @@
     -->
 
     <!-- Cart icon -->
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
       <symbol id="cart-icon" viewBox="0 0 48 48">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7094 8.49902H41.4324C43.3758 8.49902 43.2706 9.28296 43.1018 11.2825L41.9963 25.3235C41.8084 27.561 41.9677 27.0183 39.5879 27.3579L17.7273 30.1287L18.8837 33.4707C28.3677 33.4707 32.952 33.4707 42.4296 33.4707C42.7482 34.6577 43.1814 36.5906 43.5 37.9141H39.5879L39.212 36.562C31.3113 36.562 28.3008 36.562 20.3969 36.562C16.0802 36.489 16.5135 37.6538 15.4781 33.9373L8.06167 7.07397H4.5V4.5H10.7473C11.0372 5.58228 11.4386 7.40405 11.7094 8.49902ZM21.6043 37.4824C23.2705 37.4824 24.6244 38.8313 24.6244 40.4912C24.6244 42.1543 23.2705 43.5 21.6043 43.5C19.935 43.5 18.5842 42.1543 18.5842 40.4912C18.5842 38.8313 19.935 37.4824 21.6043 37.4824ZM34.0606 37.4824C35.7268 37.4824 37.0807 38.8313 37.0807 40.4912C37.0807 42.1543 35.7268 43.5 34.0606 43.5C32.3913 43.5 31.0405 42.1543 31.0405 40.4912C31.0405 38.8313 32.3945 37.4824 34.0606 37.4824Z"/>
       </symbol>
     </svg>
 
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <clipPath id="" clipPathUnits="objectBoundingBox">
-        <path d="">
-      </clipPath>
-    </svg>
-
     <!-- Add to cart icon -->
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
       <symbol id="add-to-cart-icon" viewBox="0 0 48 48">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7094 8.49902H41.4324C43.3758 8.49902 43.2706 9.28296 43.1018 11.2825L41.9963 25.3203C41.8084 27.5579 41.9677 27.0151 39.5879 27.3547L17.7273 30.1255L18.8837 33.4675C28.3677 33.4675 32.952 33.4675 42.4296 33.4675C42.7482 34.6545 43.1814 36.5874 43.5 37.9109H39.5879L39.212 36.5588C31.3113 36.5588 28.3008 36.5588 20.3969 36.5588C16.0802 36.4858 16.5135 37.6506 15.4781 33.9341L8.06167 7.07397H4.5V4.5H10.7473C11.0372 5.58228 11.4386 7.40405 11.7094 8.49902ZM24.7264 12.041H30.3843V17.7603H35.4751L27.5617 25.4314L19.6355 17.7603H24.7264V12.041ZM21.6043 37.4824C23.2705 37.4824 24.6244 38.8313 24.6244 40.4912C24.6244 42.1543 23.2736 43.5 21.6043 43.5C19.935 43.5 18.5842 42.1543 18.5842 40.4912C18.5842 38.8313 19.935 37.4824 21.6043 37.4824ZM34.0606 37.4824C35.7268 37.4824 37.0807 38.8313 37.0807 40.4912C37.0807 42.1543 35.7268 43.5 34.0606 43.5C32.3913 43.5 31.0405 42.1543 31.0405 40.4912C31.0405 38.8313 32.3913 37.4824 34.0606 37.4824Z"/>
       </symbol>
     </svg>
 
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <clipPath id="" clipPathUnits="objectBoundingBox">
-        <path d="">
-      </clipPath>
-    </svg>
-
     <!-- Checkout icon -->
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
       <symbol id="checkout-icon" viewBox="0 0 48 48">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M41.432 8.499H11.71C11.6118 8.09981 11.4962 7.60447 11.3745 7.08327L11.349 6.974C11.1604 6.14652 10.9601 5.32177 10.748 4.5H4.5V7.074H8.062L15.478 33.937L15.5523 34.204C15.9597 35.6699 16.1337 36.2963 16.538 36.54C16.8166 36.7075 17.2041 36.6953 17.8505 36.651C17.1145 37.3764 16.6582 38.3849 16.6582 39.5C16.6582 41.7091 18.4491 43.5 20.6582 43.5C22.8673 43.5 24.6582 41.7091 24.6582 39.5C24.6582 38.3386 24.1632 37.2927 23.3727 36.562H34.5346C33.744 37.2927 33.249 38.3386 33.249 39.5C33.249 41.7091 35.0399 43.5 37.249 43.5C39.4582 43.5 41.249 41.7091 41.249 39.5C41.249 38.9365 41.1325 38.4003 40.9223 37.914H43.5C43.399 37.494 43.286 37.011 43.169 36.51L43.1272 36.332C42.8874 35.3106 42.635 34.2354 42.429 33.47H18.885L17.728 30.129L39.588 27.358C40.0453 27.2928 40.4088 27.2602 40.699 27.2341C41.2187 27.1875 41.5035 27.162 41.671 27.008C41.8751 26.8228 41.9054 26.4494 41.9726 25.621C41.9802 25.5279 41.9882 25.429 41.997 25.324L43.103 11.282L43.113 11.167C43.275 9.253 43.338 8.499 41.432 8.499ZM36.286 11.144L26.172 21.22L21.191 16.257L19.011 18.429L26.172 25.55C28.9742 22.8159 31.7413 20.0448 34.508 17.2742L34.62 17.162C35.9 15.879 37.181 14.596 38.466 13.316L36.286 11.144Z"/>
       </symbol>
     </svg>
-
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <clipPath id="" clipPathUnits="objectBoundingBox">
-        <path d="">
-      </clipPath>
-    </svg>
       
 
     <!-- Trash bin icon -->
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
       <symbol id="trash-bin-icon" viewBox="0 0 48 48">
         <path d="M38.5972 14.3619C38.7383 13.7776 38.6432 13.1732 38.3298 12.6606C37.9178 11.986 37.1995 11.5833 36.4085 11.5833C35.9954 11.5833 35.59 11.6975 35.2364 11.9136L34.5231 12.3494L33.8329 11.4833C33.5629 11.145 33.2082 10.8809 32.8074 10.7198L14.7657 3.46171C14.466 3.34119 14.1512 3.28003 13.8298 3.28003C12.7998 3.28003 11.8857 3.8975 11.501 4.85333C11.2508 5.47519 11.2578 6.15726 11.5206 6.77387C11.7834 7.39067 12.2706 7.86806 12.8924 8.11806L27.3155 13.9206H11.9628C10.5791 13.9206 9.45337 15.0464 9.45337 16.4302C9.45337 17.814 10.5791 18.9397 11.9628 18.9397H13.2292L16.8592 40.7625L15.2031 42.7787C14.6258 43.4812 14.5978 44.4845 15.1349 45.2183C15.5085 45.729 16.1093 46.0337 16.742 46.0337C16.9961 46.0337 17.2448 45.9859 17.4807 45.8914L22.6697 43.817H27.4065C28.5152 45.473 30.3755 46.48 32.3895 46.48C35.6965 46.48 38.3871 43.7896 38.3871 40.4825C38.3871 37.5841 36.3395 35.1569 33.5823 34.6038V18.9397H34.5671C35.5247 18.9397 36.4122 18.3821 36.8281 17.519C37.0467 17.0651 37.1205 16.5637 37.0519 16.0788L37.583 15.7542C38.0959 15.4408 38.4562 14.9463 38.5972 14.3619ZM32.389 42.6227C31.2092 42.6227 30.2493 41.6626 30.2493 40.4825C30.2493 39.3024 31.2092 38.3423 32.389 38.3423C33.5691 38.3423 34.5295 39.3024 34.5295 40.4825C34.5295 41.6625 33.5692 42.6227 32.389 42.6227Z"/>
       </symbol>
     </svg>
 
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg class="svg" class="clip-path" xmlns="http://www.w3.org/2000/svg">
       <clipPath id="trash-bin-clip" clipPathUnits="objectBoundingBox">
         <path d="M0.998,0.257 C1,0.243,0.999,0.229,0.989,0.217 C0.975,0.202,0.95,0.192,0.923,0.192 C0.909,0.192,0.895,0.195,0.883,0.2 L0.858,0.21 L0.835,0.19 C0.825,0.182,0.813,0.176,0.8,0.172 L0.182,0.004 C0.172,0.001,0.161,0,0.15,0 C0.115,0,0.083,0.014,0.07,0.036 C0.062,0.051,0.062,0.067,0.071,0.081 C0.08,0.095,0.096,0.106,0.118,0.112 L0.612,0.246 H0.086 C0.039,0.246,0,0.272,0,0.304 C0,0.336,0.039,0.362,0.086,0.362 H0.129 L0.254,0.868 L0.197,0.914 C0.177,0.931,0.176,0.954,0.195,0.971 C0.207,0.983,0.228,0.99,0.25,0.99 C0.258,0.99,0.267,0.989,0.275,0.986 L0.452,0.938 H0.615 C0.653,0.977,0.716,1,0.785,1 C0.899,1,0.991,0.938,0.991,0.861 C0.991,0.794,0.921,0.738,0.826,0.725 V0.362 H0.86 C0.893,0.362,0.923,0.35,0.937,0.33 C0.945,0.319,0.947,0.307,0.945,0.296 L0.963,0.289 C0.981,0.281,0.993,0.27,0.998,0.257 M0.785,0.911 C0.745,0.911,0.712,0.888,0.712,0.861 C0.712,0.834,0.745,0.812,0.785,0.812 C0.826,0.812,0.859,0.834,0.859,0.861 C0.859,0.888,0.826,0.911,0.785,0.911">
       </clipPath>
     </svg>
 
     <!-- Delivery -->
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
       <symbol id="delivery-icon" viewBox="0 0 48 48">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M20.5531 12.7798L37.6477 8.51089C38.1302 8.39028 38.6253 8.68863 38.7459 9.17107L43.0148 26.2657C43.1354 26.7481 42.8371 27.2433 42.3546 27.3639L25.2632 31.6328C24.7807 31.7534 24.2856 31.455 24.165 30.9726L19.8929 13.878C19.7723 13.3955 20.0707 12.9004 20.5531 12.7798ZM22.0385 33.2356C24.8728 33.2356 27.1707 35.5335 27.1707 38.3678C27.1707 41.2021 24.8728 43.5 22.0385 43.5C19.2042 43.5 16.9063 41.2021 16.9063 38.3678C16.9063 35.5335 19.2042 33.2356 22.0385 33.2356ZM28.199 33.918L41.4881 30.3569L42.2848 30.1442L42.4975 30.9409L43.0688 33.0737L43.2814 33.8704L42.4848 34.083L29.1956 37.6442L28.399 37.8568L28.1863 37.0602L27.615 34.9273L27.4024 34.1306L28.199 33.918ZM6.04835 4.51178L8.69538 4.97199C11.736 5.50203 13.269 5.80673 14.2624 6.59703C15.332 7.44764 15.5732 8.59024 16.0366 10.8056C16.1223 11.2087 16.2144 11.6594 16.3413 12.2021C16.4556 12.7036 16.6016 13.2908 16.792 13.9922L21.5116 31.344C21.6322 31.7851 21.372 32.2358 20.9308 32.3564C20.9181 32.3596 20.9054 32.3628 20.8927 32.366L18.7947 32.9341C18.3567 33.0515 17.9029 32.7913 17.7854 32.3533L15.6399 24.4661L13.0658 15.0015C12.8881 14.3414 12.7326 13.7066 12.5993 13.1162L12.5929 13.0781C12.4628 12.5068 12.3612 12.0212 12.2692 11.5864C12.0375 10.4851 11.9201 9.91376 11.5614 9.65667C11.0949 9.31706 10.0792 9.12663 8.05108 8.77115L7.02591 8.59341L5.40405 8.31094C4.95335 8.23476 4.65183 7.80946 4.73118 7.35877L5.10253 5.18147C5.17235 4.73712 5.59765 4.4356 6.04835 4.51178Z"/>
       </symbol>
     </svg>
-
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <clipPath id="delivery-clip" clipPathUnits="objectBoundingBox">
-        <path d="">
-      </clipPath>
-    </svg>
-      
     
+    <!-- Close Icon -->
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="close-icon" viewBox="0 0 48 48">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4.5C27.8567 4.5 31.6269 5.64365 34.8336 7.78634C38.0404 9.92903 40.5397 12.9745 42.0156 16.5377C43.4916 20.1008 43.8777 24.0216 43.1253 27.8043C42.3729 31.5869 40.5157 35.0615 37.7886 37.7886C35.0615 40.5157 31.5869 42.3729 27.8043 43.1253C24.0216 43.8777 20.1008 43.4916 16.5377 42.0156C12.9745 40.5397 9.92903 38.0404 7.78634 34.8336C5.64365 31.6269 4.5 27.8567 4.5 24C4.5 18.8283 6.55446 13.8684 10.2114 10.2114C13.8684 6.55446 18.8283 4.5 24 4.5ZM28.1704 16.1797C28.7227 15.6179 29.0686 15.1704 29.7573 15.8623L31.979 18.1252C32.7058 18.8425 32.6677 19.2615 31.979 19.9311L27.7737 24.1238L31.8203 28.1704C32.3821 28.7227 32.8296 29.0686 32.1377 29.7573L29.8748 31.979C29.1575 32.7058 28.7385 32.6677 28.072 31.979L24 27.8975L19.9343 31.9631C19.2678 32.6455 18.8489 32.6836 18.1316 31.9631L15.8687 29.7414C15.1704 29.0591 15.6179 28.7131 16.186 28.1545L20.2263 24.1238L16.0369 19.9375C15.3545 19.2678 15.3164 18.8489 16.0369 18.1316L18.2585 15.8687C18.9409 15.1704 19.2869 15.6179 19.8455 16.186L24 20.3501L28.1704 16.1797Z"/>
+      </symbol>
+    </svg>
 
-    <!-- Paw icon -->
+    <!-- Paw Clip Path -->
     <svg class="clip-path" xmlns="http://www.w3.org/2000/svg">
       <clipPath id="paw-clip" clipPathUnits="objectBoundingBox">
         <path d="M0.824,0.754 C0.867,0.821,0.887,0.856,0.887,0.892 C0.887,0.965,0.832,1,0.758,1 C0.725,1,0.704,1,0.651,0.973 C0.651,0.973,0.616,0.942,0.535,0.945 C0.453,0.942,0.419,0.973,0.419,0.973 C0.365,1,0.345,1,0.312,1 C0.238,1,0.183,0.965,0.183,0.892 C0.183,0.856,0.203,0.821,0.246,0.754 C0.246,0.754,0.328,0.622,0.398,0.56 C0.449,0.516,0.524,0.516,0.524,0.516 H0.547 C0.547,0.516,0.624,0.516,0.672,0.56 C0.74,0.625,0.824,0.754,0.824,0.754 M0.354,0.427 C0.431,0.427,0.494,0.332,0.494,0.214 C0.494,0.096,0.431,0,0.354,0 C0.276,0,0.213,0.096,0.213,0.214 C0.213,0.332,0.276,0.427,0.354,0.427 M0.219,0.634 C0.276,0.609,0.289,0.517,0.248,0.43 C0.207,0.343,0.127,0.294,0.07,0.319 C0.013,0.345,0,0.437,0.041,0.524 C0.082,0.611,0.162,0.66,0.219,0.634 M0.68,0.427 C0.758,0.427,0.821,0.332,0.821,0.214 C0.821,0.096,0.758,0,0.68,0 C0.603,0,0.54,0.096,0.54,0.214 C0.54,0.332,0.603,0.427,0.68,0.427 M0.964,0.319 C0.907,0.294,0.827,0.343,0.786,0.43 C0.745,0.517,0.758,0.609,0.815,0.634 C0.872,0.66,0.952,0.611,0.993,0.524 C1,0.437,1,0.345,0.964,0.319"/>
       </clipPath>
     </svg>
 
-
-
-    <!-- Close Icon -->
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <symbol id="close-icon" viewBox="0 0 48 48">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4.5C27.8567 4.5 31.6269 5.64365 34.8336 7.78634C38.0404 9.92903 40.5397 12.9745 42.0156 16.5377C43.4916 20.1008 43.8777 24.0216 43.1253 27.8043C42.3729 31.5869 40.5157 35.0615 37.7886 37.7886C35.0615 40.5157 31.5869 42.3729 27.8043 43.1253C24.0216 43.8777 20.1008 43.4916 16.5377 42.0156C12.9745 40.5397 9.92903 38.0404 7.78634 34.8336C5.64365 31.6269 4.5 27.8567 4.5 24C4.5 18.8283 6.55446 13.8684 10.2114 10.2114C13.8684 6.55446 18.8283 4.5 24 4.5ZM28.1704 16.1797C28.7227 15.6179 29.0686 15.1704 29.7573 15.8623L31.979 18.1252C32.7058 18.8425 32.6677 19.2615 31.979 19.9311L27.7737 24.1238L31.8203 28.1704C32.3821 28.7227 32.8296 29.0686 32.1377 29.7573L29.8748 31.979C29.1575 32.7058 28.7385 32.6677 28.072 31.979L24 27.8975L19.9343 31.9631C19.2678 32.6455 18.8489 32.6836 18.1316 31.9631L15.8687 29.7414C15.1704 29.0591 15.6179 28.7131 16.186 28.1545L20.2263 24.1238L16.0369 19.9375C15.3545 19.2678 15.3164 18.8489 16.0369 18.1316L18.2585 15.8687C18.9409 15.1704 19.2869 15.6179 19.8455 16.186L24 20.3501L28.1704 16.1797Z"/>
+    <!-- Brand logo wide -->
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="puppy-shop-wide" viewBox="0 0 180 48">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.8018 0.0364237C26.7946 -0.36237 26.8604 2.68074 28.7998 1.0366C30.6177 0.544204 29.7606 3.51894 31.7182 2.31678C34.2537 2.0793 34.1199 3.82948 31.9743 3.90667C30.3813 4.68228 28.5826 3.45753 27.6059 3.19382C26.1239 5.13136 23.8128 4.54419 23.5997 2.65091C21.4538 2.95269 19.4328 4.1242 17.5006 4.82106C19.6971 3.00173 21.8784 0.544083 24.8018 0.0364237ZM51.858 18.8262C51.0925 20.7184 50.2454 23.1146 48.4789 24.0947C50.7309 25.886 50.8379 28.4937 52.4527 30.585C54.4138 28.6745 58.506 29.9222 58.4835 32.9975C58.4179 34.4704 57.3059 35.4932 59.4286 35.5674C62.1645 37.5584 59.9892 41.6144 57.5075 42.7736C54.9861 43.2284 53.6984 45.923 50.993 46.0987C47.3185 46.8533 43.2811 44.3695 42.4757 40.6678C40.3308 42.0855 37.8415 44.0155 35.1304 44.8485C29.718 46.8089 23.47 46.6757 18.3656 43.8848C18.6899 47.2408 14.1391 48.6678 12.4483 45.9633C11.7657 48.4108 8.02706 48.1922 7.20148 45.9933C5.89533 49.8088 0.571218 47.6286 0.971967 44.0701C0.567599 39.7521 3.71249 35.3529 8.09351 34.7451C6.79261 33.0663 10.777 30.1308 8.13609 29.8865C4.95306 27.8002 3.02168 24.409 0.687114 21.5033C-1.10181 18.4067 0.955807 14.7743 2.83041 12.241C5.49943 9.0259 8.98064 5.84954 13.3133 5.36438C14.9455 4.83807 18.1116 8.21352 14.7868 6.99459C11.0068 6.90222 7.87991 9.63742 5.5255 12.3116C4.28551 14.4667 2.07216 17.0141 2.79095 19.7487C4.21781 22.4337 5.75277 25.3256 8.36383 27.0141C11.4734 28.0659 12.6489 23.9859 13.2347 21.738C13.8232 20.4718 13.7763 15.1739 14.5811 18.9046C15.3894 20.3932 13.6341 23.4438 14.6202 24.0006C15.7862 23.5155 18.4165 23.6327 16.0679 24.611C15.1477 25.3744 13.7058 25.7029 14.9866 26.5816C13.5704 28.3677 11.7398 29.7087 10.5517 31.7188C9.52016 33.642 12.4818 32.0813 12.1096 34.0065C13.5912 36.0015 17.1113 36.8148 17.6961 39.8953C17.94 42.4948 21.1546 42.6796 23.1378 43.4242C29.4256 44.7744 36.3038 42.8553 41.0413 38.4978C39.6265 36.298 40.1279 32.2434 43.2104 31.5555C45.8269 32.2133 45.1702 29.5592 46.6787 28.2687C46.3415 26.9338 49.3751 27.0619 47.4615 25.799C45.9908 24.0004 42.9509 23.7988 41.8172 22.0159C43.3157 20.6292 36.3954 20.8168 40.2086 19.9602C43.8858 20.0623 38.6615 15.9789 39.8619 13.7266C40.0683 12.4797 41.1077 16.1906 41.7873 16.8499C43.0429 18.7424 44.5247 21.4566 47.1217 21.3336C49.9356 20.1138 50.3334 16.5414 51.047 13.9037C52.1235 11.3647 50.3429 8.88968 48.4249 7.39178C45.1357 4.63307 40.6298 2.42867 36.2628 3.5706C35.1022 4.21245 33.8864 4.85604 34.9659 3.09372C36.8501 0.594658 40.4502 1.42397 43.0289 2.09955C47.3435 3.56345 51.9604 5.99497 53.7578 10.4397C54.5911 13.3141 52.872 16.2205 51.858 18.8262ZM31.9114 17.7179C34.7054 17.3715 35.434 22.0355 32.653 22.4714C30.5405 22.8872 28.9925 19.3171 31.6465 19.4345C32.0419 18.9084 31.8725 18.3004 31.9114 17.7179ZM22.1257 19.2857C25.0804 19.0438 25.3511 24.2375 22.2923 24.0441C20.3382 23.8732 19.1991 20.835 21.7356 20.953C22.2744 20.559 21.5697 19.4766 22.1257 19.2857ZM22.7204 37.6674C24.5743 39.5054 29.4672 38.7321 29.0431 35.5292C26.2288 35.174 22.8513 33.8511 22.0724 30.8392C22.4714 27.6782 26.4355 27.3474 28.935 26.8276C31.2985 26.5231 35.6614 26.1184 35.7531 29.4941C35.2817 32.2042 32.9288 34.2939 30.5028 35.313C31.0599 38.1228 35.382 37.969 36.7757 35.8373C38.2926 33.6655 35.8531 39.6261 33.8574 38.7196C31.6457 39.8027 30.025 35.4872 29.0436 38.7576C27.2147 40.5946 23.7987 40.0678 22.7204 37.6674ZM30.4758 27.744C29.4127 27.6331 24.7597 28.6666 28.3957 28.4564C30.4142 28.0959 33.2026 29.9498 34.3502 30.0588C34.18 28.1329 32.0841 27.6373 30.4758 27.744ZM41.6427 28.9064C43.9979 29.1794 40.3825 30.9915 41.6427 28.9064ZM48.56 29.2037C45.645 29.1407 46.5111 33.2522 43.6731 32.6443C40.7832 33.5754 40.4694 37.871 42.9941 39.3948C43.1619 43.2106 47.159 46.2417 50.8935 45.3864C53.3044 45.0125 54.5957 42.7323 56.9241 42.2199C59.33 41.0861 60.6048 36.3626 57.2342 35.7738C57.4453 34.5928 57.4247 30.9242 54.5909 30.8797C53.087 30.5057 51.7876 32.8525 51.3753 30.3983C50.7372 29.5118 49.6119 29.1699 48.56 29.2037ZM48.8574 30.558C53.1618 30.7238 49.5825 37.9706 47.4516 33.9101C46.9391 32.6491 47.4226 30.9212 48.8574 30.558ZM39.5585 31.0175C41.0509 31.6417 38.4788 32.3618 39.5585 31.0175ZM54.2395 32.123C58.2487 32.2677 54.1611 39.1764 52.2205 35.3973C51.7963 34.0154 52.7339 32.2448 54.2395 32.123ZM16.3923 32.8528C18.5993 33.7829 14.5576 34.4931 16.3923 32.8528ZM44.8864 33.4476C49.1717 33.7329 45.1841 40.7807 43.398 36.5125C42.9514 35.3586 43.5121 33.5793 44.8864 33.4476ZM19.3387 34.2857C20.4159 35.7989 17.6668 34.5253 19.3387 34.2857ZM9.58298 35.5292C6.23295 35.5997 2.21985 37.523 1.93298 41.287C1.31983 43.9435 4.49672 46.0077 6.68818 44.5132C7.74258 42.4676 9.50437 46.2127 11.34 44.4227C12.5726 42.5377 14.7462 46.0239 16.5545 43.9631C18.6548 41.471 16.5816 37.7295 14.0242 36.4723C12.6592 35.7691 11.1036 35.5393 9.58298 35.5292ZM17.2032 35.8831C18.9313 36.8464 15.645 37.1871 17.2032 35.8831ZM55.9695 37.0186C59.8919 37.1586 56.239 43.1564 54.0667 40.4076C53.3975 38.9693 54.4933 37.2986 55.9695 37.0186ZM48.614 37.2052C51.6746 36.7268 53.8581 40.6392 51.7586 42.9533C50.1342 45.1214 46.3442 44.264 45.7089 41.7841C45.03 39.7424 46.4526 37.3998 48.614 37.2052Z"/>
+        <path d="M75.1407 42.687H89.6932L89.5841 43.2916C89.5113 43.8229 89.3658 43.8962 89.1475 43.8962H74.5586L74.6132 43.4015C74.7041 42.8336 74.9042 42.687 75.1407 42.687Z"/>
+        <path d="M99.0009 36C100.056 36 101.293 36.4397 101.766 36.916C101.748 37.429 101.438 38.2901 100.711 38.2351C100.311 38.0336 99.492 37.7954 98.9281 37.7954C97.9822 37.7954 97.4183 38.2351 97.4183 38.8763C97.4183 39.6275 98.0004 40.0489 99.7285 41.0382C101.238 41.8992 102.239 42.5954 102.239 44.3908C102.239 46.7542 100.183 48 98.0186 48C96.727 48 95.7811 47.6336 95.29 47.2855C94.9262 47.0473 94.7988 46.8458 94.7988 46.5893C94.7988 46.1863 95.1444 45.3618 95.3082 45.2702C95.9812 45.6916 97.0726 46.1313 97.964 46.1313C98.9463 46.1313 99.6739 45.7466 99.6739 44.9038C99.6739 44.2443 99.3647 43.8229 97.5092 42.7969C95.3809 41.6611 94.9807 40.4702 94.9807 39.3344C94.9807 38.0336 95.8903 36 99.0009 36Z"/>
+        <path d="M106.64 40.8916H110.988V36.8061C110.988 36.3847 111.152 36.3115 111.479 36.2931C111.952 36.2565 112.989 36.2382 113.644 36.2198C113.607 36.916 113.589 37.9969 113.589 39.5176V45.4351C113.589 46.7176 113.625 47.3221 113.644 47.6885C113.243 47.7802 111.897 47.8351 111.424 47.8351C111.133 47.8351 110.988 47.7802 110.988 47.4504V42.5405C110.624 42.5771 110.042 42.5954 109.169 42.5954H106.64V47.2489C106.64 47.6519 106.495 47.7252 106.022 47.7618C105.512 47.8168 104.366 47.8534 103.984 47.8351C104.021 47.1023 104.039 46.0214 104.039 44.4824V38.6931C104.039 37.4656 104.021 36.7145 103.984 36.3664C104.548 36.2748 105.822 36.2198 106.24 36.2198C106.586 36.2198 106.64 36.4031 106.64 37.2275V40.8916Z"/>
+        <path d="M121.501 36C125.284 36 127.358 38.6931 127.358 41.8992C127.358 45.2153 125.284 48 121.428 48C117.226 48 115.552 44.9405 115.552 42.0641C115.552 38.6198 117.753 36 121.501 36ZM121.3 37.6122C119.718 37.6122 118.335 38.8947 118.335 41.826C118.335 44.7939 119.809 46.3878 121.61 46.3878C123.52 46.3878 124.611 44.7573 124.611 42.0824C124.611 39.6092 123.447 37.6122 121.3 37.6122Z"/>
+        <path d="M129.264 47.5053V38.8947C129.264 38.0153 129.264 37.2641 129.192 36.4214C129.683 36.3298 130.974 36.1832 132.32 36.1832C135.176 36.1832 137.177 37.1359 137.177 39.9573C137.177 42.6687 134.794 43.6397 133.721 43.658C133.485 43.658 133.03 43.6397 132.811 43.5298C132.502 43.3832 132.138 42.7969 132.138 42.1374C132.229 42.1374 132.429 42.1557 132.575 42.1557C133.466 42.1557 134.485 41.6977 134.485 39.9389C134.485 38.4 133.521 37.7954 132.466 37.7954C132.32 37.7954 132.084 37.7954 131.866 37.8321V45.5267C131.866 46.8092 131.902 47.3221 131.92 47.6885C131.611 47.7802 130.247 47.8351 129.701 47.8351C129.392 47.8351 129.264 47.7802 129.264 47.5053Z"/>
+        <path d="M142.912 42.687H157.464L157.355 43.2916C157.282 43.8229 157.137 43.8962 156.918 43.8962H142.329L142.384 43.4015C142.475 42.8336 142.675 42.687 142.912 42.687Z"/>
+        <path d="M94.1615 6.40489V17.8335C94.1615 26.2037 98.1478 27.4914 101.168 27.4914C104.751 27.4914 108.254 26.2037 108.254 17.3103V5.35861C108.254 4.59402 108.577 4.43306 109.019 4.35258C109.825 4.27209 110.952 4.23185 111.435 4.23185C111.355 5.80127 111.315 8.17551 111.315 11.5156V17.1896C111.315 28.7389 105.235 30.1071 100.765 30.1071C94.7252 30.1071 90.5778 27.1695 90.5778 17.8335V9.70469C90.5778 7.00851 90.5376 5.35861 90.457 4.55378C91.0207 4.43306 92.7924 4.23185 93.4367 4.23185C94.0809 4.23185 94.1615 4.4733 94.1615 6.40489Z"/>
+        <path d="M115.242 29.0206V10.0266C115.242 8.09503 115.242 6.44513 115.081 4.59402C116.208 4.39282 118.705 4.15137 121 4.15137C126.637 4.15137 130.704 6.32441 130.704 11.9582C130.704 17.3908 126.234 19.8053 123.053 19.8053C122.127 19.8053 121.322 19.6846 120.879 19.3626C120.436 19.1212 119.913 18.1956 119.993 17.3506C120.476 17.5115 121.322 17.592 121.926 17.592C123.979 17.592 126.919 16.4653 126.919 12.0789C126.919 7.37069 123.456 6.52561 121 6.52561C120.194 6.52561 119.55 6.52561 118.785 6.64634V24.594C118.785 27.3707 118.866 28.6182 118.906 29.423C118.342 29.6242 116.772 29.7449 115.926 29.7449C115.524 29.7449 115.242 29.6242 115.242 29.0206Z"/>
+        <path d="M132.667 29.0206V10.0266C132.667 8.09503 132.667 6.44513 132.506 4.59402C133.633 4.39282 136.13 4.15137 138.425 4.15137C144.062 4.15137 148.129 6.32441 148.129 11.9582C148.129 17.3908 143.659 19.8053 140.478 19.8053C139.552 19.8053 138.747 19.6846 138.304 19.3626C137.861 19.1212 137.338 18.1956 137.418 17.3506C137.901 17.5115 138.747 17.592 139.351 17.592C141.404 17.592 144.344 16.4653 144.344 12.0789C144.344 7.37069 140.881 6.52561 138.425 6.52561C137.619 6.52561 136.975 6.52561 136.21 6.64634V24.594C136.21 27.3707 136.291 28.6182 136.331 29.423C135.767 29.6242 134.197 29.7449 133.351 29.7449C132.949 29.7449 132.667 29.6242 132.667 29.0206Z"/>
+        <path d="M162.428 43.0176V26.9616C162.428 25.8283 162.428 25.0097 161.987 24.3801C158.963 19.9096 151.403 9.14268 148.189 5.04999V4.86109C149.008 4.54627 150.143 4.23145 151.088 4.23145C151.718 4.23145 152.474 5.11295 153.671 6.87596C156.065 10.339 160.979 17.3281 164.633 22.4912C166.586 19.8467 176.288 6.30927 177.612 4.23145C178.179 4.29441 178.872 4.42034 179.502 4.60923C180.195 4.86109 180.195 5.5537 179.313 6.75003C177.612 9.01675 167.594 22.743 166.523 24.1282C166.019 24.7579 165.893 25.6394 165.893 26.5209V36.0915C165.893 40.3731 166.019 42.388 166.082 43.6473C165.515 43.9621 163.94 44.151 163.121 44.151C162.617 44.151 162.428 43.9621 162.428 43.0176Z"/>
+        <path d="M65.9878 42.9411V13.2525C65.9878 10.2397 65.9878 7.6663 65.7363 4.77904C67.622 4.4652 71.0791 4.15137 74.0334 4.15137C82.2047 4.15137 88.2389 7.6663 88.2389 15.8887C88.2389 23.7973 81.9532 27.8144 76.2333 27.8144C74.4105 27.8144 73.3419 27.5633 72.6505 26.9984C72.2734 26.6846 71.7077 25.5548 71.8962 24.8643C72.9648 25.2409 74.6619 25.4292 75.8562 25.4292C79.0619 25.4292 84.4046 23.5462 84.4046 16.2025C84.4046 7.60353 77.679 6.66203 73.7191 6.66203C72.022 6.66203 70.8905 6.7248 69.4448 6.9131V35.9112C69.4448 40.2421 69.5706 42.3134 69.6334 43.5688C68.8163 43.8826 67.8106 44.0709 66.8677 44.0709C66.4277 44.0709 65.9878 43.8826 65.9878 42.9411Z"/>
       </symbol>
     </svg>
       
       
       
-    
-      
       
     
+      
+  
     <!-- # # # # # # # -->
     <!-- #  Scripts  # -->
     <!-- # # # # # # # -->
