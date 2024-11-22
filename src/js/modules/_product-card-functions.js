@@ -53,23 +53,25 @@ export const productCards = ((products) => {
               <section class="product-card__info">
                 <h3 class="product-card__title">${p.breedInfo.breed}</h3>
                 <p class="product-card__byline">${p.breedInfo.byline}</p>
-                <ul class="product-card__tags">
-                  ${addTextFromArray(p.breedInfo.type, 'product-card__tag', 'li')}
-                </ul>
+                <p class="product-card__tags">
+                  ${p.breedInfo.type.map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(", ")/* capitalize each string and join */}
+                </p>
                 <details class="product-card__details">
                   <summary class="product-card__details-title">Läs mer om rasen..</summary>
-                  <h4 class="product-card__details-heading">${p.description.generally.title}</h4>
-                  ${addTextFromArray(p.description.generally.text, 'product-card__details-text')}
+                  <div class="product-card__details-content"><h4 class="product-card__details-heading">${p.description.generally.title}</h4>
+                  ${addTextFromArray(p.description.generally.text, 'product-card__details-text')}</div>
                 </details>
               </section>
-              <fieldset class="product-card__gender-choice" aria-label="Välj kön på valpen">
-                <label class="product-card__gender">
+              <fieldset class="product-card__gender" aria-label="Välj kön på valpen">
+                <label class="rb-custom product-card__gender-choice">
                   <input type="radio" name="gender-${p.id}" class="product-card__gender-rb js-gender-rb" value="male" checked>
-                  <span class="product-card__gender-label">Hane</span>
+                  <span class="rb-checkmark"></span>
+                  <span class="rb-label product-card__gender-label">Hane</span>
                 </label>
-                <label class="product-card__gender">
+                <label class="rb-custom product-card__gender-choice">
                   <input type="radio" name="gender-${p.id}" class="product-card__gender-rb js-gender-rb" value="female">
-                  <span class="product-card__gender-label">Tik</span>
+                  <span class="rb-checkmark"></span>
+                  <span class="rb-label product-card__gender-label">Tik</span>
                 </label>
               </fieldset>
               <div class="product-card__price-quantity-group">
