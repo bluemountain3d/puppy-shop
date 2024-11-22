@@ -10,8 +10,8 @@ import {
 
 // This function takes an array of text strings (textArray) and a CSS class name (className)
 // It returns a string of HTML paragraphs with the given class, containing each text in the array
-export function addTextFromArray(textArray, className) {
-  return textArray.map(text => `<p class="${className}">${text}</p>`).join('');
+export function addTextFromArray(textArray, className, tag='p') {
+  return textArray.map(text => `<${tag} class="${className}">${text}</${tag}>`).join('');
 }
 
 // Formats a number with thousand delimiters

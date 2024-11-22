@@ -1,4 +1,7 @@
 import { productsObject } from './_products-object.js';
+import {
+  formatPrice 
+} from './_utility-functions.js';
 
 
 // cart object
@@ -42,6 +45,14 @@ export function getHighestIndex(obj) {
 
   // Return the highest numeric key or -1 if there are no numeric keys
   return numericKeys.length > 0 ? Math.max(...numericKeys) : 1;
+}
+
+// Add to cart summary
+export function addToCartSummary(originalPrice, discount) {
+  cartObject.cartSummary.subtotal += originalPrice;
+  cartObject.cartSummary.discounts += discount;
+  cartObject.cartSummary.vat = (cartObject.cartSummary.subtotal - cartObject.cartSummary.discounts) * .2;
+  cartObject.cartSummary.total = formatPrice(cartObject.cartSummary.subtotal - cartObject.cartSummary.discounts);
 }
 
 

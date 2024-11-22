@@ -2,7 +2,8 @@ import { productsObject } from './_products-object.js';
 import { 
   cartObject,
   findItemByProductIdAndGender,
-  getHighestIndex
+  getHighestIndex,
+  addToCartSummary
 } from './_cart-functions.js';
 import { 
   addTextFromArray, 
@@ -52,9 +53,9 @@ export const productCards = ((products) => {
               <section class="product-card__info">
                 <h3 class="product-card__title">${p.breedInfo.breed}</h3>
                 <p class="product-card__byline">${p.breedInfo.byline}</p>
-                <div class="class="product-card__tags">
-                  ${addTextFromArray(p.breedInfo.type, 'product-card__tag')}
-                </div>
+                <ul class="product-card__tags">
+                  ${addTextFromArray(p.breedInfo.type, 'product-card__tag', 'li')}
+                </ul>
                 <details class="product-card__details">
                   <summary class="product-card__details-title">Läs mer om rasen..</summary>
                   <h4 class="product-card__details-heading">${p.description.generally.title}</h4>
@@ -220,6 +221,9 @@ export const productCards = ((products) => {
         // Add the new item to the cartObject to the next available index.
         cartObject[getHighestIndex(cartObject) + 1] = newItem;
         //console.log(cartObject);
+
+        // Add to cart summary
+        addToCartSummary(originalPrice, discount);
         
 
       } else {
@@ -237,11 +241,39 @@ export const productCards = ((products) => {
         }
         existingItem.priceInfo.lineTotal += (currentPrice * quantity);
         //console.log(cartObject);
+
+        // Add to cart summary
+        addToCartSummary(originalPrice, discount);
+
       }
 
       // Update Header Cart Counter
       cartObject.counter += quantity;
       console.log(cartObject, cartObject.counter);
+
+      // Update Header cart counter and total
+      const headerToCart = document.querySelector('.header__go-to-cart');
+      const headerCount = document.querySelector('.header__cart-count');
+      const headerTotal = document.querySelector('.header__cart-total');
+
+      if (cartObject.counter > 0) {
+        headerCount.innerText = `${cartObject.counter} st,`;
+        headerTotal.innerText = `${cartObject.cartSummary.total} kr`;
+
+        if (window.innerWidth >= 720) {
+          headerToCart.classList.remove('hidden');
+          headerTotal.classList.remove('hidden');
+        }
+
+      } else {
+        headerCount.innerText = '0';
+        headerToCart.classList.add('hidden');
+        headerTotal.classList.add('hidden');
+      }
+
+
+      // Show Added to cart dialog
+
     }
   }
 
