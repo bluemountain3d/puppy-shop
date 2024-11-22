@@ -8,7 +8,18 @@ $_module-name: "Page Footer";
 
 /* ### #{$_module-name} START */
 
+.footer {
+  //overflow: hidden;
 
+  // position: sticky;
+  // bottom: 0;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  background-color: var(--clr-dark);
+  color: var(--clr-light);
+
+}
 
 /* ### #{$_module-name} END
 /* ------------------------------------------------------------ */

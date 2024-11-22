@@ -9,7 +9,10 @@ $_module-name: "Page Main content";
 /* ### #{$_module-name} START */
 
 main {
-  
+  overflow: visible;
+  width: 100%;
+  min-height: 40%;
+  max-height: 100%;
 }
 
 /* ### #{$_module-name} END

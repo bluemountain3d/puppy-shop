@@ -9,22 +9,37 @@ $_module-name: "Product Carsd";
 /* ### #{$_module-name} START */
 
 .products {
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 2rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto 1fr;
 
 
-  &.hidden {
-    display: none;
+  // &.hidden {
+  //   display: none;
+  // }
+
+  &__title {
+    padding: 1rem 0;
+    font-family: var(--ff-secondary);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--clr-title);
   }
 }
 
 .products__wrapper {
   display: grid;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fit, minmax(336px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-template-rows: repeat(3, auto);
   gap: 1.5rem;
+
+  // @media screen and (min-width: 720px) {
+  //   grid-template-columns: repeat(auto-fit, minmax(336px, 1fr));
+  // }
 }
 
 .product-card {
@@ -33,6 +48,8 @@ $_module-name: "Product Carsd";
   grid-template-rows: subgrid;
   grid-row: span 3;
   gap: 0;
+
+  //** Card Image
 
   &__image-wrapper {
     
@@ -77,6 +94,32 @@ $_module-name: "Product Carsd";
     border-style: solid;
   }
 
+  //** Card Content
+
+  &__title {
+    font-family: var(--ff-secondary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--clr-title);
+
+  }
+
+  &__byline {
+    color: var(--clr-text);
+  }
+
+  &__tags {
+    //margin-top: .5rem;
+    padding: .5rem 0 .5rem .5rem;
+    //border-top: 1px solid var(--clr-lines);
+    list-style: none;
+    display: flex;
+    gap: .75rem;
+    color: var(--clr-grey-dark);
+  }
+
+
+
   &__add-to-cart {
     cursor: pointer;
     width: 100%;
@@ -100,7 +143,7 @@ $_module-name: "Product Carsd";
       width: 2rem;
       height: 2rem;
       fill: var(--clr-light);
-  }
+    }
 
   }
 
