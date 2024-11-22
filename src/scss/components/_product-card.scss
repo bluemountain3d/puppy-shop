@@ -92,6 +92,7 @@ $_module-name: "Product Carsd";
     border-width: 0 1px 0 1px;
     border-color: var(--clr-lines);
     border-style: solid;
+    background-color: var(--clr-light);
   }
 
   //** Card Content
@@ -119,7 +120,121 @@ $_module-name: "Product Carsd";
   }
 
 
+  &__details {}
 
+  &__details-title { // <summary>
+    cursor: pointer;
+    padding: .5rem 0;
+    color: var(--clr-text);
+    font-weight: 600;
+    background-color: var(--clr-light);
+
+  }
+
+  &__details-content {
+    padding-block: .25rem;
+    padding-inline: 1rem 0;
+    border-left: 2px solid var(--clr-lines);
+    color: var(--clr-text);
+    background-color: white;
+
+    h4 + p {
+      margin-top: .5rem;
+    }
+
+    p + h4 {
+      margin-top: 1rem;
+    }
+    p + p {
+      margin-top: 1em;
+    }
+  }
+
+  &__details-heading {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  // Gender radio buttons
+  &__gender {
+    padding: .75rem .75rem;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+
+  &__price-quantity-group {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__pricing {
+    margin: 0 auto;
+  }
+
+  &__item-price {
+    display: flex;
+    align-items: baseline;
+    gap: .5rem;
+  }
+
+  &__price {
+    font-size: 1.5rem;
+    color: var(--clr-text-green);
+  }
+
+  &__price-unit {
+    color: var(--clr-text);
+  }
+
+  &__comparison-price {
+    font-size: .75rem;
+    color: var(--clr-grey-dark);
+    text-align: center;
+  }
+
+  &__quantifier {
+    display: flex;
+    align-items: center;
+    color: var(--clr-title);
+
+    &-btn {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.5rem;
+      color: inherit;
+      border: solid var(--clr-lines);
+      border-width: 1px 1px 1px 0;
+      border-radius: 0 .5rem .5rem 0;
+      transition: background-color .2s ease;
+      background-color: white;
+
+      &:first-of-type {
+        border-width: 1px 0 1px 1px;
+        border-radius: .5rem 0 0 .5rem;
+      }
+
+      &:hover {
+        background-color: var(--clr-lines);
+      }
+    }
+
+    &-input {
+      width: 4.25rem;
+      height: 3rem;
+      text-align: center;
+      font-size: 1.5rem;
+      color: inherit;
+      border: solid var(--clr-lines);
+      border-width: 1px;
+    }
+  }
+
+
+
+  // Add to cart button
   &__add-to-cart {
     cursor: pointer;
     width: 100%;

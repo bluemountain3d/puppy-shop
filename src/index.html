@@ -150,10 +150,11 @@
                         required
                         aria-required="true">
                       <!-- News Letter -->
-                      <div class="checkout__chb-row">
-                        <input type="checkbox" name="newsletter" id="newsletter" checked>
-                        <label for="news-letter" class="checkout__chb-label">Ja, jag vill ha nyhetsbrev och special-erbjudanden från Pyppy Shop.</label>
-                      </div>
+                      <label class="chb-custom checkout__chb-row">
+                        <input type="checkbox" name="newsletter" checked>
+                        <span class="chb-checkmark"></span>
+                        <span class="chb-label checkout__chb-label">Ja, jag vill ha nyhetsbrev och special-erbjudanden från Pyppy Shop.</span>
+                      </l>
                       <!-- Continue to Shipping Button -->
                       <button class="cart__continue-btn js-continue-to-shipping">
                         Fortsätt med beställningen
@@ -168,34 +169,38 @@
                   <div class="checkout__group-inner">
                     <!-- Shipping Method Stork -->
                     <div class="checkout__shipping-alt">
-                      <div class="checkout__rb-row">
-                        <input type="radio" name="shipping" id="shipping-stork" value="stork" checked>
-                        <label for="shipping-stork" class="checkout__rb-label">Stork <span class="checkout__shipping-price">250 kr + 1% av delsumman</span></label>
-                      </div>
+                      <label class="rb-custom checkout__rb-row">
+                        <input type="radio" name="shipping" value="stork" checked>
+                        <span class="rb-checkmark"></span>
+                        <span class="rb-label checkout__rb-label">Stork <span class="checkout__shipping-price">250 kr + 1% av delsumman</span></span>
+                      </label>
                       <p class="checkout__shipping-alt-info">Leveranstid 1-12 arbetsdagar.</p>
                     </div>
                     <!-- Shipping Method Dove -->
                     <div class="checkout__shipping-alt">
-                      <div class="checkout__rb-row">
-                        <input type="radio" name="shipping" id="shipping-dove" value="dove">
-                        <label for="shipping-dove" class="checkout__rb-label">Duva <span class="checkout__shipping-price">150 kr + 1% av delsumman</span></label>
-                      </div>
+                      <label class="rb-custom checkout__rb-row">
+                        <input type="radio" name="shipping" value="dove">
+                        <span class="rb-checkmark"></span>
+                        <span class="rb-label checkout__rb-label">Duva <span class="checkout__shipping-price">150 kr + 1% av delsumman</span></span>
+                      </label>
                       <p class="checkout__shipping-alt-info">Leveranstid 12-24 arbetsdagar.</p>
                     </div>                  
                     <!-- Shipping Method Hare -->
                     <div class="checkout__shipping-alt">
-                      <div class="checkout__rb-row">
-                        <input type="radio" name="shipping" id="shipping-hare" value="hare">
-                        <label for="shipping-hare" class="checkout__rb-label">Hare <span class="checkout__shipping-price">75 kr + 1% av delsumman</span></label>
-                      </div>
+                      <label class="rb-custom checkout__rb-row">
+                        <input type="radio" name="shipping" value="hare">
+                        <span class="rb-checkmark"></span>
+                        <span for="shipping-hare" class="rb-label checkout__rb-label">Hare <span class="checkout__shipping-price">75 kr + 1% av delsumman</span></span>
+                      </label>
                       <p class="checkout__shipping-alt-info">Leveranstid 4-8 veckor.</p>
                     </div>                  
                     <!-- Shipping Method Snail -->
                     <div class="checkout__shipping-alt">
-                      <div class="checkout__rb-row">
-                        <input type="radio" name="shipping" id="shipping-snail" value="snail">
-                        <label for="shipping-snail" class="checkout__rb-label">Snigel <span class="checkout__shipping-price">25 kr + 1% av delsumman</span></label>
-                      </div>
+                      <label class="rb-custom checkout__rb-row">
+                        <input type="radio" name="shipping" value="snail">
+                        <span class="rb-checkmark"></span>
+                        <label for="shipping-snail" class="rb-label checkout__rb-label">Snigel <span class="checkout__shipping-price">25 kr + 1% av delsumman</span></label>
+                      </label>
                       <p class="checkout__shipping-alt-info">Leveranstid 2-4 månader.</p>
                     </div>                  
                   </div>
@@ -353,14 +358,16 @@
                   <!-- Payment Method -->
                   <fieldset class="checkout__form-group">
                     <legend class="checkout__form-group-header-light">Betalmetod:</legend>
-                    <div>
-                      <input type="radio" name="payment" id="card" checked>
-                      <label for="card" class="checkout__rb-label">Kortbetalning</label>
-                    </div>
-                    <div>
-                      <input type="radio" name="payment" id="invoice">
-                      <label for="invoice" class="checkout__rb-label">Faktura <span class="checkout__label-info"></span>(Upp till 80 000 kr)</label>
-                    </div>
+                    <label class="rb-custom">
+                      <input type="radio" name="payment" checked>
+                      <span class="rb-checkmark"></span>
+                      <span class="rb-label checkout__rb-label">Kortbetalning</span>
+                    </label>
+                    <label class="rb-custom">
+                      <input type="radio" name="payment">
+                      <span class="rb-checkmark"></span>
+                      <span class="rb-label checkout__rb-label">Faktura <span class="checkout__label-info"></span>(Upp till 80 000 kr)</span>
+                    </label>
                   </fieldset>
   
                   <!-- Card Info (Visible if Card is choosen) -->
@@ -461,10 +468,11 @@
                   </fieldset>
   
                   <!-- Policy & GDPR -->
-                  <div class="checkout__chb-row">
-                    <input type="checkbox" name="gdpr" id="gdpr">
-                    <label for="gdpr" class="checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.</label>
-                  </div>
+                  <label class="chb-custom checkout__chb-row">
+                    <input type="checkbox" name="gdpr">
+                    <span class="chb-checkmark"></span>
+                    <span class="chb-label checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.</span>
+                  </label>
   
                   <!-- Pay Button -->
                   <button class="checkout__pay-btn">

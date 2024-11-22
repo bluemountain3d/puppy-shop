@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ### CSS Reset START */
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
@@ -107,7 +108,7 @@ img, picture, svg, video, canvas {
   --clr-grey-dark: #747474;
   --clr-grey-light: #ADADAD;
   --clr-text-red: #8B0000;
-  --clr-text-green-: #008700;
+  --clr-text-green: #008700;
   --clr-bg-green: #198553;
   --ff-primary: "Cronos Pro";
   --ff-secondary: "Canto Pen";
@@ -245,6 +246,125 @@ button * {
   pointer-events: none;
 }
 
+input[type=number] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.rb-custom > input[type=radio] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.rb-custom {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.rb-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--clr-lines);
+  border-radius: 50%;
+  background-color: white;
+  display: grid;
+  place-content: center;
+}
+.rb-checkmark::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  display: none;
+  border-radius: 50%;
+  background-color: var(--clr-light);
+}
+
+.rb-label {
+  line-height: 1.25rem;
+  color: var(--clr-text);
+}
+
+.rb-custom:hover > input:not(:checked) ~ .rb-checkmark {
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  background-color: var(--clr-lines);
+}
+
+.rb-custom > input:checked ~ .rb-checkmark {
+  background-color: var(--clr-text);
+}
+
+.rb-custom > input:checked ~ .rb-checkmark::after {
+  display: block;
+}
+
+.chb-custom > input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.chb-custom {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.chb-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--clr-lines);
+  background-color: white;
+  display: grid;
+  place-content: center;
+}
+.chb-checkmark::after {
+  content: "✔";
+  font-size: 0.75rem;
+  line-height: 1em;
+  font-weight: 600;
+  translate: 0 0.075em;
+  display: none;
+  color: var(--clr-light);
+}
+
+.chb-label {
+  line-height: 1.25rem;
+  color: var(--clr-text);
+}
+
+.chb-custom:hover > input:not(:checked) ~ .chb-checkmark {
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  background-color: var(--clr-lines);
+}
+
+.chb-custom > input:checked ~ .chb-checkmark {
+  background-color: var(--clr-text);
+}
+
+.chb-custom > input:checked ~ .chb-checkmark::after {
+  display: block;
+}
+
 /* ### Form END
 /* ------------------------------------------------------------ */
 /* ### Product Carsd START */
@@ -315,6 +435,7 @@ button * {
   border-width: 0 1px 0 1px;
   border-color: var(--clr-lines);
   border-style: solid;
+  background-color: var(--clr-light);
 }
 .product-card__title {
   font-family: var(--ff-secondary);
@@ -333,6 +454,109 @@ button * {
   display: flex;
   gap: 0.75rem;
   color: var(--clr-grey-dark);
+}
+.product-card__details-title {
+  cursor: pointer;
+  padding: 0.5rem 0;
+  color: var(--clr-text);
+  font-weight: 600;
+  background-color: var(--clr-light);
+}
+.product-card__details-content {
+  padding-block: 0.25rem;
+  padding-inline: 1rem 0;
+  border-left: 2px solid var(--clr-lines);
+  color: var(--clr-text);
+  background-color: white;
+}
+.product-card__details-content h4 + p {
+  margin-top: 0.5rem;
+}
+.product-card__details-content p + h4 {
+  margin-top: 1rem;
+}
+.product-card__details-content p + p {
+  margin-top: 1em;
+}
+.product-card__details-heading {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.product-card__gender {
+  padding: 0.75rem 0.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.5rem;
+}
+.product-card__price-quantity-group {
+  margin-top: 1rem;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+}
+.product-card__pricing {
+  margin: 0 auto;
+}
+.product-card__item-price {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  gap: 0.5rem;
+}
+.product-card__price {
+  font-size: 1.5rem;
+  color: var(--clr-text-green);
+}
+.product-card__price-unit {
+  color: var(--clr-text);
+}
+.product-card__comparison-price {
+  font-size: 0.75rem;
+  color: var(--clr-grey-dark);
+  text-align: center;
+}
+.product-card__quantifier {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--clr-title);
+}
+.product-card__quantifier-btn {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  color: inherit;
+  border: solid var(--clr-lines);
+  border-width: 1px 1px 1px 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  background-color: white;
+}
+.product-card__quantifier-btn:first-of-type {
+  border-width: 1px 0 1px 1px;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+.product-card__quantifier-btn:hover {
+  background-color: var(--clr-lines);
+}
+.product-card__quantifier-input {
+  width: 4.25rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: inherit;
+  border: solid var(--clr-lines);
+  border-width: 1px;
 }
 .product-card__add-to-cart {
   cursor: pointer;
@@ -369,7 +593,7 @@ button * {
   display: inline-block;
   --paw-color-solid: goldenrod;
   --paw-color-empty: rgb(26,26,26);
-  width: 2.5rem;
+  width: 2rem;
   height: auto;
   aspect-ratio: 1;
   -webkit-clip-path: url(#paw-clip);
@@ -624,7 +848,7 @@ main {
         -ms-flex-order: 1;
             order: 1;
     position: sticky;
-    top: 9rem;
+    top: 5rem;
     margin-right: 0.5rem;
   }
 }

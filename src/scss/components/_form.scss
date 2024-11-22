@@ -33,6 +33,142 @@ button {
   }
 }
 
+// input[type="number"],
+// input[type="text"],
+// input[type="tel"],
+// input[type="email"],
+// input[type="password"] {
+//   border: unset;
+//   background-color: unset;
+//   font-family: inherit;
+// }
+
+
+input[type="number"] {
+  appearance: textfield;
+
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+
+//* Custom radio
+
+.rb-custom > input[type="radio"] { // Hide default radio button
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.rb-custom { // label with nested input
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.rb-checkmark { // nested span with class
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--clr-lines);
+  border-radius: 50%;
+  background-color: white;
+  display: grid;
+  place-content: center;
+
+  &::after {
+    content: "";
+    width: .5rem;
+    height: .5rem;
+    display: none;
+    border-radius: 50%;
+    background-color: var(--clr-light);
+  }
+}
+
+.rb-label {
+  line-height: 1.25rem;
+  color: var(--clr-text);
+}
+
+.rb-custom:hover > input:not(:checked) ~ .rb-checkmark {
+  transition: background-color .2s ease;
+  background-color: var(--clr-lines);
+}
+
+.rb-custom > input:checked ~ .rb-checkmark {
+  background-color: var(--clr-text);
+}
+
+.rb-custom > input:checked ~ .rb-checkmark::after {
+  display: block;
+}
+
+
+//* Custom checkbox
+.chb-custom > input[type="checkbox"] { // Hide default checkbox
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.chb-custom {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.chb-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--clr-lines);
+  background-color: white;
+  display: grid;
+  place-content: center;
+
+  &::after {
+    content: "\2714";
+    font-size: .75rem;
+    line-height: 1em;
+    font-weight: 600;
+    translate: 0 .075em;
+    display: none;
+    color: var(--clr-light);
+  }
+}
+
+.chb-label {
+  line-height: 1.25rem;
+  color: var(--clr-text);
+}
+
+.chb-custom:hover > input:not(:checked) ~ .chb-checkmark {
+  transition: background-color .2s ease;
+  background-color: var(--clr-lines);
+}
+
+.chb-custom > input:checked ~ .chb-checkmark {
+  background-color: var(--clr-text);
+}
+
+.chb-custom > input:checked ~ .chb-checkmark::after {
+  display: block;
+}
+
+
+
 
 /* ### #{$_module-name} END
 /* ------------------------------------------------------------ */
