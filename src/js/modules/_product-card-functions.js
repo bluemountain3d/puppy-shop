@@ -56,8 +56,8 @@ export const productCards = ((products) => {
                 <p class="product-card__tags">
                   ${p.breedInfo.type.map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(", ")/* capitalize each string and join */}
                 </p>
-                <details class="product-card__details">
-                  <summary class="product-card__details-title">Läs mer om rasen..</summary>
+                <details class="accordion product-card__details">
+                  <summary class="product-card__details-title">Läs mer om rasen…</summary>
                   <div class="product-card__details-content"><h4 class="product-card__details-heading">${p.description.generally.title}</h4>
                   ${addTextFromArray(p.description.generally.text, 'product-card__details-text')}</div>
                 </details>
@@ -83,7 +83,7 @@ export const productCards = ((products) => {
                   <div class="product-card__comparison-price js-comparison-price">${comparisonPricePerKg(initialPrice, p.properties.weight.male)}</div>
                 </div>
                 <div class="product-card__quantifier js-quantifier">
-                  <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">&ndash;</button>
+                  <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">−</button>
                   <input type="number" class="product-card__quantifier-input js-quantity" aria-label="Antal" value="0">
                   <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">+</button>
                 </div>
