@@ -102,8 +102,7 @@ export const productsObject = {
       generally: {
         title: 'Allmänt',
         text: [
-          'Tysk schäferhund har genom sin mångsidighet och sina bruksegenskaper etablerat sig som en mycket duglig tjänstehund inom en rad olika områden i vårt moderna samhälle. Den är också mycket eftertraktad som tävlingshund och familjehund. Det är en av världens vanligaste hundraser.',
-          'Det finns två pälstyper normalhårig och långhårig.'
+          'Golden retrieverns ursprung som apporterande fågelhund gör den till en lämplig arbetande hundras. Idag är den en allroundhund som lämpar sig väl både som jakthund eller sällskapshund i ett aktivt hem. Rasens egenskaper gör att den är uppskattad i många sammanhang, till exempel som brukshund eller familjehund. En golden retriever ska vara samarbetsvillig, följsam, lyhörd och vänlig, med utpräglad apporterings- och arbetslust.'
         ]
       }
     },
@@ -623,7 +622,7 @@ export const productsObject = {
     description: {
       generally: {
         title: 'Allmänt',
-        text: [],
+        text: ['Siberian husky används i dag som slädhund för nöjes skull, tävling eller i turistverksamhet. Tillgodoser man hundens krav på motion och flockgemenskap får man uppleva en sund, aktiv hund med hög arbetsmoral. Det är en hund som älskar att jobba och trivs inte enbart som sällskapshund.'],
       },
     },
     image: {
@@ -658,7 +657,7 @@ export const productsObject = {
     description: {
       generally: {
         title: 'Allmänt',
-        text: [],
+        text: ['Welsh corgi pembroke är i dag främst en sällskapshund. Med en konsevent uppfostran, framförallt under det första året, så får du en lättsam och positiv kompis under många år framåt. Den deltar gärna i olika hundsporterna såsom lydnad, agility, spår och viltspår med flera.'],
       },
     },
     image: {
@@ -693,7 +692,7 @@ export const productsObject = {
     description: {
       generally: {
         title: 'Allmänt',
-        text: [],
+        text: ['Rasen är lättlärd och mångsidig men är ingen arbetande bruksras. Många tränar sina hundar i lydnad, agility och viltspår.'],
       },
     },
     image: {
@@ -728,7 +727,7 @@ export const productsObject = {
     description: {
       generally: {
         title: 'Allmänt',
-        text: [],
+        text: ['Alaskan malamute har avlats fram för att arbeta som slädhund i polartrakter och då inte för snabba löp utan för att dra tung last. Rasen används fortfarande som draghund som den specialist den är på att dra tunga lass långa sträckor. Snö och kyla är inget som hindrar en alaskan malamute. Den gillar att jobba med fysiskt aktivitet, och hänger gärna med på löpturer, simning och fjällvandring.'],
       },
     },
     image: {
@@ -763,7 +762,10 @@ export const productsObject = {
     description: {
       generally: {
         title: 'Allmänt',
-        text: [],
+        text: [
+          'Australian kelpie har en naturlig instinkt och fallenhet för att valla får, både på öppen ostängslad mark och i inhägnade fållor. Genom sin storlek och kapacitet har kelpie visat sig vara en utmärkt allroundhund. Den har inte bara nått framgångar som vallhund utan lämpar sig också mycket bra till hundsporterna bruks, agility och lydnad. Den passar även som tjänstehund inom såväl bevakning som räddning.',
+          'Rasen är mycket arbetsvillig och trivs bäst när den får någon uppgift att lösa.'
+        ],
       },
     },
     image: {
