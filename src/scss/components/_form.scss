@@ -99,7 +99,7 @@ input[type="number"] {
 
 .rb-custom:hover > input:not(:checked) ~ .rb-checkmark {
   transition: background-color .2s ease;
-  background-color: var(--clr-lines);
+  background-color: #E2E3E5;
 }
 
 .rb-custom > input:checked ~ .rb-checkmark {
@@ -156,7 +156,7 @@ input[type="number"] {
 
 .chb-custom:hover > input:not(:checked) ~ .chb-checkmark {
   transition: background-color .2s ease;
-  background-color: var(--clr-lines);
+  background-color: #E2E3E5;
 }
 
 .chb-custom > input:checked ~ .chb-checkmark {

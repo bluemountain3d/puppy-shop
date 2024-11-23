@@ -9,6 +9,8 @@ $_module-name: "ROOT";
 /* ### #{$_module-name} START */
 
 :root {
+  interpolate-size: allow-keywords;
+
   /* Viewport */
   --vwx: 1vw;
 

@@ -36,6 +36,7 @@ $_module-name: "Product Carsd";
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-template-rows: repeat(3, auto);
   gap: 1.5rem;
+  padding-bottom: 1rem;
 
   // @media screen and (min-width: 720px) {
   //   grid-template-columns: repeat(auto-fit, minmax(336px, 1fr));
@@ -49,13 +50,16 @@ $_module-name: "Product Carsd";
   grid-row: span 3;
   gap: 0;
 
+  box-shadow: 0 .25rem .5rem rgba(black, .33);
+  border-radius: 1rem;
+
   //** Card Image
 
   &__image-wrapper {
     
     display: block;
     position: relative;
-    border-width: 1px 1px 0 1px;
+    border-width: 2px 2px 0 2px;
     border-color: var(--clr-lines);
     border-style: solid;
     border-radius: 1rem 1rem 0 0;
@@ -88,14 +92,22 @@ $_module-name: "Product Carsd";
   }
 
   &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
     padding: 1rem;
-    border-width: 0 1px 0 1px;
+    border-width: 0 2px 0 2px;
     border-color: var(--clr-lines);
     border-style: solid;
     background-color: var(--clr-light);
   }
 
   //** Card Content
+
+  &__info {
+    align-self: self-start;
+    height: fit-content;
+  }
 
   &__title {
     font-family: var(--ff-secondary);
@@ -107,6 +119,7 @@ $_module-name: "Product Carsd";
 
   &__byline {
     color: var(--clr-text);
+    min-height: 2.6em;
   }
 
   &__tags {
@@ -119,31 +132,49 @@ $_module-name: "Product Carsd";
     color: var(--clr-grey-dark);
   }
 
+  //* Accordion
 
-  &__details {}
+  &__details {
+    background-color: transparent;
+    transition: background-color .5s ease;
+  }
+
+  &__details[open] {   
+    background-color: white;
+    // margin-bottom: 1rem;
+    //border: 1px solid var(--clr-lines);
+  }
+
+  &__details[open] > &__details-content {
+    border-color: var(--clr-lines);
+    opacity: 1;
+  }
 
   &__details-title { // <summary>
-    cursor: pointer;
     padding: .5rem 0;
     color: var(--clr-text);
     font-weight: 600;
+    //border-bottom: 1px solid var(--clr-lines);
     background-color: var(--clr-light);
-
   }
 
   &__details-content {
-    padding-block: .25rem;
-    padding-inline: 1rem 0;
-    border-left: 2px solid var(--clr-lines);
+    padding-block: 1rem .5rem;
+    padding-inline: 1rem;
+    //border-left: 2px solid var(--clr-lines);
+    border: 1px solid;
+    border-color: transparent;
     color: var(--clr-text);
-    background-color: white;
+    //background-color: white;
+    opacity: .5;
+    transition: opacity .5s ease, border-color .5s ease;
 
     h4 + p {
       margin-top: .5rem;
     }
 
     p + h4 {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
     }
     p + p {
       margin-top: 1em;
@@ -157,15 +188,20 @@ $_module-name: "Product Carsd";
 
   // Gender radio buttons
   &__gender {
+    margin-top: auto;
     padding: .75rem .75rem;
     display: flex;
+    align-items: flex-end;
     gap: 1.5rem;
   }
 
+  //* Price / Quantifier
 
   &__price-quantity-group {
+    align-self: self-end;
     margin-top: 1rem;
     width: 100%;
+    height: fit-content;
     display: flex;
     gap: 1rem;
   }
@@ -217,7 +253,7 @@ $_module-name: "Product Carsd";
       }
 
       &:hover {
-        background-color: var(--clr-lines);
+        background-color: #E2E3E5;
       }
     }
 
@@ -258,6 +294,10 @@ $_module-name: "Product Carsd";
       width: 2rem;
       height: 2rem;
       fill: var(--clr-light);
+    }
+
+    &:hover {
+      
     }
 
   }

@@ -43,6 +43,7 @@ $_module-name: "Page Header";
 
   &__cart-items {
     padding: 0 2rem;
+    color: var(--clr-light);
 
     display: flex;
     align-items: center;
@@ -60,7 +61,14 @@ $_module-name: "Page Header";
         display: inline-block;
       }
     }
-    
+
+    // show mini cart
+    @media screen and (min-width: 720px) {
+      &:hover {
+        
+      }
+    }
+
   }
 
   &__cart-total {
