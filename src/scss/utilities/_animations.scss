@@ -1,0 +1,26 @@
+//*** Utilitiey: Global Animations ***//
+
+// Name Spaces for common abtracts
+@use '../abstracts/variables' as var;
+@use '../abstracts/functions' as fn;
+@use '../abstracts/mixins' as mx;
+
+// Module Name
+$_module-name: "Global Animations";
+
+/* ### #{$_module-name} START */
+
+@keyframes shaking {
+  0%, 50%, 100% {
+      transform: rotate(0deg);
+  }
+  20% {
+      transform: rotate(-5deg);
+  }
+  70% {
+      transform: rotate(5deg);
+  }
+}
+
+/* ### #{$_module-name} END
+/* ------------------------------------------------------------ */

@@ -17,9 +17,10 @@ $_module-name: "Product Carsd";
   grid-template-rows: auto auto 1fr;
 
 
-  // &.hidden {
-  //   display: none;
-  // }
+  &.hidden {
+    display: none;
+    height: 0;
+  }
 
   &__title {
     padding: 1rem 0;
@@ -124,7 +125,7 @@ $_module-name: "Product Carsd";
 
   &__tags {
     //margin-top: .5rem;
-    padding: .5rem 0 .5rem .5rem;
+    padding: .5rem 0;
     //border-top: 1px solid var(--clr-lines);
     list-style: none;
     display: flex;
@@ -141,6 +142,7 @@ $_module-name: "Product Carsd";
 
   &__details[open] {   
     background-color: white;
+    margin-bottom: 1rem;
     // margin-bottom: 1rem;
     //border: 1px solid var(--clr-lines);
   }
@@ -199,7 +201,7 @@ $_module-name: "Product Carsd";
 
   &__price-quantity-group {
     align-self: self-end;
-    margin-top: 1rem;
+    margin-top: .5rem;
     width: 100%;
     height: fit-content;
     display: flex;
@@ -207,10 +209,13 @@ $_module-name: "Product Carsd";
   }
 
   &__pricing {
-    margin: 0 auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
 
-  &__item-price {
+  &__item-price-wrapper {
     display: flex;
     align-items: baseline;
     gap: .5rem;
@@ -223,6 +228,17 @@ $_module-name: "Product Carsd";
 
   &__price-unit {
     color: var(--clr-text);
+  }
+
+  &__price-details {
+    display: flex;
+    gap: .5ch;
+  }
+
+  &__original-price {
+    font-size: .75rem;
+    color: var(--clr-grey-dark);
+    text-decoration: line-through;
   }
 
   &__comparison-price {
@@ -258,7 +274,7 @@ $_module-name: "Product Carsd";
     }
 
     &-input {
-      width: 4.25rem;
+      width: 4rem;
       height: 3rem;
       text-align: center;
       font-size: 1.5rem;
@@ -288,6 +304,11 @@ $_module-name: "Product Carsd";
     border-radius: 0 0 1rem 1rem;
 
     background-color: var(--clr-dark);
+    transition: background-color .2s ease;
+
+    &:hover {
+      background-color: var(--clr-bg-green);
+    }
 
     & .icon {
       display: inline-block;

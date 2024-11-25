@@ -14,7 +14,7 @@ html {
 }
 
 body {
-
+  height: 100vh;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
@@ -33,6 +33,16 @@ body {
 .hidden {
   display: none;
 }
+
+.icon {
+  fill: inherit;
+  transition: fill .2s ease;
+}
+
+button:hover .icon {
+  animation: shaking 0.2s linear 2;
+}
+
 
 
 /* ### #{$_module-name} END

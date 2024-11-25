@@ -23,13 +23,19 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__wrapper {
 
+    height: 100%;
     display: grid;
-    gap: 1rem; 
+    gap: 1rem;
 
     @media screen and (min-width: 720px) {
       display: flex;
       justify-content: flex-start;
       gap: 0;
+    }
+
+    &.hidden {
+      display: none;
+      height: 0;
     }
   }
 
@@ -111,6 +117,14 @@ $_module-name: "Page specific styles for: Shopping Cart";
     font-family: inherit;
     font-size: 1.25rem;
     color: inherit;
+    transition: color .2s ease;
+
+    &:hover {
+      color: var(--clr-grey-light);
+      & .icon {
+        fill: #FF3D3D;
+      }
+    }
   }
 
   &__items {
@@ -228,19 +242,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
     &:hover > .icon {
       fill: var(--clr-text-red);
-      animation: shaking 0.2s linear 2;
-    }
-  }
-
-  @keyframes shaking {
-    0%, 50%, 100% {
-        transform: rotate(0deg);
-    }
-    20% {
-        transform: rotate(-5deg);
-    }
-    70% {
-        transform: rotate(5deg);
+      //animation: shaking 0.2s linear 2;
     }
   }
 
@@ -271,10 +273,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     text-decoration: line-through;
   }
 
-
-
-
-
+  
   &__summary {
     padding: 1rem;
     border-width: 0 2px 2px;
@@ -314,6 +313,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
   order: 2;
   border-radius: 1rem;
   background-color: transparent;
+  box-shadow: 0 .25rem .5rem rgba(0,0,0,.33);
 
   @media screen and (min-width: 720px) {
     margin-left: .5rem;
@@ -460,7 +460,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__continue-btn {
     width: 100%;
-    margin-bottom: 1rem;
+    //margin-bottom: 1rem;
     padding: 1.375rem;
     background-color: var(--clr-bg-green);
     color: white;
@@ -469,7 +469,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     text-transform: uppercase;
     letter-spacing: .04em;
     line-height: 1;
-    border-radius: 0 0 1rem 1rem;
+    //border-radius: 0 0 1rem 1rem;
   }
 
   &__rb-label {
@@ -518,6 +518,11 @@ $_module-name: "Page specific styles for: Shopping Cart";
     border-radius: 0 0 1rem 1rem;
 
     background-color: var(--clr-dark);
+    transition: background-color .2s ease;
+
+    &:hover {
+      background-color: var(--clr-bg-green);
+    }
 
     & .icon {
       display: inline-block;
