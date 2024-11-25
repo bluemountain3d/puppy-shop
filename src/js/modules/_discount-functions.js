@@ -10,10 +10,19 @@
 // Add 15% on the price from friday 15:00 to monday 03:00
 export function weekendPricing(price, change=1.15) {
   const date = new Date();
-  if ((date.getDay() >= 5 && date.getHours() >= 15) ||
-      (date.getDay() >= 6) ||
-      (date.getDay() < 2 && date.getHours() < 3)) {
-    return parseInt(price * change);
+  const day = date.getDay();
+  const hour = date.getHours();
+
+  // Weekend is:
+  // - Friday from 15:00 onwards
+  // - All of Saturday
+  // - All of Sunday
+  // - Monday until 03:00
+  if ((day === 5 && hour >= 15) || // Friday after 15:00
+      (day === 6) || // All of Saturday
+      (day === 0) || // All of Sunday
+      (day === 2 && hour < 3)) {
+    return parseInt(price * change, 10); // Monday before 03:00
   } else {
     return price;
   }
@@ -22,7 +31,7 @@ export function weekendPricing(price, change=1.15) {
 // 10% discount if quantity is X or more apply dicount
 export function itemQtyDiscount(price, quantity, amount=10, discount=.9) {
   if (Number(quantity) >= amount) {
-    return price * discount;
+    return parseInt(price * discount, 10);
   } else {
     return price;
   }
