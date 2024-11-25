@@ -20,7 +20,7 @@ import {
 
 // Populate products and add functionality
 export const productCards = ((products) => {
-  const productArray = Object.values(products);
+  const productArray = shuffleArray(Object.values(products));
   const productsWrapper = document.querySelector('.products__wrapper');
 
   // If Product wrapper isn not undefined
@@ -54,9 +54,9 @@ export const productCards = ((products) => {
                 <h3 class="product-card__title">${p.breedInfo.breed}</h3>
                 <p class="product-card__byline">${p.breedInfo.byline}</p>
                 <p class="product-card__tags">
-                  ${p.breedInfo.type.map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(", ")/* capitalize each string and join */}
+                  Hundtyp: ${p.breedInfo.type.map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(", ")/* capitalize each string and join */}
                 </p>
-                <details class="accordion product-card__details">
+                <details class="accordion product-card__details" name="breed-info">
                   <summary class="product-card__details-title">Läs mer om rasen…</summary>
                   <div class="product-card__details-content"><h4 class="product-card__details-heading">${p.description.generally.title}</h4>
                   ${addTextFromArray(p.description.generally.text, 'product-card__details-text')}</div>
@@ -76,11 +76,14 @@ export const productCards = ((products) => {
               </fieldset>
               <div class="product-card__price-quantity-group">
                 <div class="product-card__pricing">
-                  <div class="product-card__item-price">
+                  <div class="product-card__item-price-wrapper">
                     <span class="product-card__price js-price">${formatPrice(initialPrice)}</span>
                     <span class="product-card__price-unit">kr/st</span>
                   </div>
-                  <div class="product-card__comparison-price js-comparison-price">${comparisonPricePerKg(initialPrice, p.properties.weight.male)}</div>
+                  <div class="product-card__price-details">
+                    <span class="product-card__original-price js-original-price"></span>
+                    <span class="product-card__comparison-price js-comparison-price">${comparisonPricePerKg(initialPrice, p.properties.weight.male)}</span>
+                  </div>
                 </div>
                 <div class="product-card__quantifier js-quantifier">
                   <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">−</button>
@@ -127,6 +130,18 @@ export const productCards = ((products) => {
     }
 
     return paws;
+  }
+
+  // Shuffle array //! Move to utilities
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      // Generate a random index between 0 and i
+      const j = Math.floor(Math.random() * (i + 1));
+  
+      // Swap elements at indices i and j
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
 
