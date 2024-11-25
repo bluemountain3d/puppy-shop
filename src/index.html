@@ -29,38 +29,44 @@
       <nav class="header__nav"></nav>
       <nav header__nav></nav>
       <div class="header__cart">
-
-        <button class="header__cart-items">
+        <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden">
+          <svg class="icon" aria-hidden="true">
+            <use href="#cart-icon" class="js-header-cart-icon"/>
+          </svg>
+        </button>
+        <button class="header__cart-btn js-header-cart" >
           <svg class="icon" aria-hidden="true">
             <use href="#cart-icon" class="cart-icon"/>
           </svg>
-          <div class="header__go-to-cart-mobile">
-            <svg class="icon" aria-hidden="true">
-              <use href="#cart-icon" class="cart-icon"/>
-            </svg>
-          </div>
           <div class="header__cart-count">0</div>
           <div class="header__cart-total hidden"></div>
-
-          <div class="header__drop-cart"></div>
         </button>
         
-        <button class="header__go-to-cart js-go-to-cart hidden">Till kassan</button>
+        <div class="header__cart-dropdown js-dropdown-cart">
+          <div class="header__cart-dropdown-inner">
+            <ul class="header__cart-items"></ul>
+            <div class="header__cart-summary">
+              <span class="header__cart-label">Summa:</span>
+              <span class="header__cart-subtotal js-subtotal">204 000 kr</span>
+            </div>
+          </div>
+          <button class="header__cart-dropdown-checkout-btn js-go-to-checkout">
+            <svg class="icon" aria-hidden="true">
+              <use href="#cart-forward-icon" class="cart-forward-icon"/>
+            </svg>
+            Till kassan</button>
+        </div>
+        
+        <button class="header__to-checkout js-go-to-checkout hidden">Till kassan</button>
       </div>
 
-      <!-- <button class="icon-button icon header__cart-btn js-header-cart-btn" aria-label="Öppna kundvagnen">
-        <svg class="icon header__cart-icon" aria-hidden="true">
-          <use href="#cart-icon" class="cart-icon"/>
-        </svg>
-        <span class="header__cart-amount js-cart-amount" aria-hidden="true">0</span>
-      </button> -->
       <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button>
     </header>
 
     <main class="main">
 
       <div class="container--full-width">
-        <div class="products container--boxed">
+        <div class="products container--boxed js-products-section">
           <header class="products__header">
             <h2 class="products__title">Våra valpar!</h2>
           </header>
@@ -68,12 +74,12 @@
           <div class="products__wrapper"></div>
         </div>
   
-        <div class="shopping-cart">
+        <div class="shopping-cart hidden js-checkout-section">
           <div class="container--boxed">
             <div class="shopping-cart__wrapper">
               <section class="cart">
                 <header class="cart__header">
-                  <h2 class="cart__header-title"><svg class="icon"><use href="#cart-icon"/></svg>Kundvagn<div class="cart__counter js-cart-counnter">(0)</span></h2>
+                  <h2 class="cart__header-title"><svg class="icon"><use href="#cart-forward-icon"/></svg>Kundvagn<div class="cart__counter js-cart-counnter">(0)</span></h2>
                   <button class="cart__close js-close-cart">
                     <span class="cart__close-text">Stäng</span>
                     <svg class="icon cart__close-icon">
@@ -138,7 +144,7 @@
                     <span class="cart__summary-value js-summary-shipping">0 kr</span>
                   </div>
                   <div class="cart__summary-row">
-                    <p class="cart__summary-label cart__summary-label--large">Summa: </p>
+                    <span class="cart__summary-label cart__summary-label--large">Summa: </span>
                     <div class="cart__summary-column">
                       <div class="cart__summary-total js-summary-total">0 kr</div>
                       <div class="cart__summary-info">inkl. moms</div>
@@ -203,12 +209,12 @@
                       </button>
                     </div> -->
                   </div>
-                  <button class="checkout__continue-btn js-continue-to-shipping">
+                  <button class="checkout__continue-btn js-continue-to-shipping hidden">
                     Fortsätt
                   </button>
                 </fieldset>
                 <!-- Shipping Method -->
-                <fieldset class="checkout__group">
+                <fieldset class="checkout__group js-shipping-selection hidden">
                   <legend class="checkout__header">Fraktalternativ</legend>                  
                   <div class="checkout__group-inner">
                     <p class="checkout__group-info">Just nu har sniglarna extra mycket att göra, duvorna strejkar och hararna är halta. Vill du vara säker på att din order levereras så snabbt som möjligt rekommenderar vi att du väljer leverans med en stork.</p>
@@ -251,7 +257,7 @@
                   </div>
                 </fieldset>
   
-                <form action="" class="checkout__group checkout__form">              
+                <form action="" class="checkout__group checkout__form js-your-information hidden">            
                   <!-- Your Information -->
                   <fieldset class="checkout__form-group">
                     <legend class="checkout__header">Dina uppgifter</legend>
@@ -587,9 +593,9 @@
         <use clip-path="url('')" href="#"/>
       </svg>
 
-      # Declaration template -->
-      <!-- <svg xmlns="http://www.w3.org/2000/svg">
-        <symbol id="" width="48" height="48" viewBox="0 0 48 48" fill="none">
+      # Declaration template
+      <svg class="svg" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="" viewBox="0 0 48 48">
 
         </symbol>
       </svg>
@@ -602,10 +608,26 @@
       </symbol>
     </svg>
 
+    <!-- Cart close icon -->
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="cart-close-icon" viewBox="0 0 48 48">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M41.4324 9.19214H11.7094C11.6038 8.76536 11.4784 8.22817 11.3475 7.66739C11.1426 6.78939 10.9242 5.85356 10.7473 5.19312H4.5V7.76709H8.06167L15.4781 34.6304L15.5528 34.8989C15.9593 36.3619 16.1332 36.9879 16.5376 37.2324C16.8159 37.4006 17.2033 37.3884 17.8507 37.344C17.1145 38.0694 16.6582 39.078 16.6582 40.1931C16.6582 42.4023 18.4491 44.1931 20.6582 44.1931C22.8673 44.1931 24.6582 42.4023 24.6582 40.1931C24.6582 39.0317 24.1632 37.9859 23.3727 37.2551H34.5345C33.744 37.9859 33.249 39.0317 33.249 40.1931C33.249 42.4023 35.0399 44.1931 37.249 44.1931C39.4582 44.1931 41.249 42.4023 41.249 40.1931C41.249 39.6297 41.1325 39.0934 40.9223 38.6072H43.5C43.3991 38.1882 43.2866 37.7073 43.17 37.2091L43.1686 37.2031C42.9174 36.1297 42.6468 34.9733 42.4296 34.1638H18.8837L17.7272 30.8218L39.5879 28.051C40.0453 27.9858 40.4089 27.9531 40.6992 27.927C41.2187 27.8803 41.5034 27.8547 41.6709 27.7012C41.874 27.515 41.9045 27.1405 41.972 26.3119C41.9795 26.2193 41.9876 26.121 41.9963 26.0166L43.1018 11.9756L43.1116 11.8601C43.2739 9.94581 43.3379 9.19214 41.4324 9.19214ZM31.39 11.9794C31.3612 12.009 31.3319 12.0391 31.3019 12.0696L27.622 15.7494L23.9561 12.0752C23.9257 12.0443 23.896 12.0138 23.867 11.9839C23.4244 11.5291 23.1208 11.217 22.5558 11.7952L20.5954 13.7919C19.9597 14.4248 19.9933 14.7945 20.5954 15.3854L24.2921 19.0792L20.727 22.6358C20.6961 22.6662 20.6656 22.6959 20.6357 22.7249C20.1809 23.1675 19.8688 23.4711 20.447 24.0361L22.4438 25.9964C23.0767 26.6321 23.4464 26.5985 24.0345 25.9964L27.622 22.409L31.2151 26.0104C31.8032 26.6181 32.1729 26.6517 32.8058 26.0104L34.8027 24.0501C35.3756 23.4798 35.0631 23.1758 34.6128 22.7379C34.5832 22.7091 34.5531 22.6798 34.5226 22.6498L30.9519 19.0792L34.6626 15.3798C35.2703 14.7889 35.304 14.4192 34.6626 13.7863L32.7022 11.7896C32.1319 11.2166 31.828 11.5291 31.39 11.9794Z"/>
+      </symbol>
+    </svg>      
+
     <!-- Add to cart icon -->
     <svg class="svg" xmlns="http://www.w3.org/2000/svg">
       <symbol id="add-to-cart-icon" viewBox="0 0 48 48">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7094 8.49902H41.4324C43.3758 8.49902 43.2706 9.28296 43.1018 11.2825L41.9963 25.3203C41.8084 27.5579 41.9677 27.0151 39.5879 27.3547L17.7273 30.1255L18.8837 33.4675C28.3677 33.4675 32.952 33.4675 42.4296 33.4675C42.7482 34.6545 43.1814 36.5874 43.5 37.9109H39.5879L39.212 36.5588C31.3113 36.5588 28.3008 36.5588 20.3969 36.5588C16.0802 36.4858 16.5135 37.6506 15.4781 33.9341L8.06167 7.07397H4.5V4.5H10.7473C11.0372 5.58228 11.4386 7.40405 11.7094 8.49902ZM24.7264 12.041H30.3843V17.7603H35.4751L27.5617 25.4314L19.6355 17.7603H24.7264V12.041ZM21.6043 37.4824C23.2705 37.4824 24.6244 38.8313 24.6244 40.4912C24.6244 42.1543 23.2736 43.5 21.6043 43.5C19.935 43.5 18.5842 42.1543 18.5842 40.4912C18.5842 38.8313 19.935 37.4824 21.6043 37.4824ZM34.0606 37.4824C35.7268 37.4824 37.0807 38.8313 37.0807 40.4912C37.0807 42.1543 35.7268 43.5 34.0606 43.5C32.3913 43.5 31.0405 42.1543 31.0405 40.4912C31.0405 38.8313 32.3913 37.4824 34.0606 37.4824Z"/>
+      </symbol>
+    </svg>
+
+    <!-- Cart forward -->
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="cart-forward-icon" viewBox="0 0 48 48">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M41.5054 8.49902H11.7823C11.6769 8.07242 11.5516 7.53552 11.4207 6.97502C11.2157 6.09683 10.9972 5.16065 10.8203 4.5H4.573V7.07397H8.13465L15.5511 33.9341C16.0129 35.5919 16.1826 36.2784 16.6119 36.5368C17.1451 36.8578 18.0787 36.5184 20.4699 36.5588H39.285L39.6609 37.9109H43.573C43.4717 37.4898 43.3587 37.0071 43.2415 36.5063C42.9904 35.433 42.7199 34.2769 42.5026 33.4675H18.9567L17.8003 30.1255L39.6609 27.3547C40.9356 27.1728 41.4819 27.2441 41.7432 27.0055C41.9697 26.7988 41.9821 26.3593 42.0693 25.3203L43.1748 11.2825L43.1846 11.1668C43.3469 9.25264 43.4109 8.49902 41.5054 8.49902ZM20.9079 21.5546V15.9178H26.6487V10.8461L34.3486 18.7298L26.6487 26.6263V21.5546H20.9079Z"/>
+        <path d="M24.6974 40.4912C24.6974 38.8313 23.3434 37.4824 21.6773 37.4824C20.008 37.4824 18.6572 38.8313 18.6572 40.4912C18.6572 42.1543 20.008 43.5 21.6773 43.5C23.3466 43.5 24.6974 42.1543 24.6974 40.4912Z"/>
+        <path d="M37.1537 40.4912C37.1537 38.8313 35.7998 37.4824 34.1336 37.4824C32.4643 37.4824 31.1135 38.8313 31.1135 40.4912C31.1135 42.1543 32.4643 43.5 34.1336 43.5C35.7998 43.5 37.1537 42.1543 37.1537 40.4912Z"/>
       </symbol>
     </svg>
 
