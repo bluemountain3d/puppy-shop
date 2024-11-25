@@ -32,7 +32,8 @@ export function comparisonPricePerKg(price, weight) {
 
 // Function to update pricing
 export function updatePrice(card, obj) {
-  const pricingElem = card.querySelector('.js-price');
+  const priceElem = card.querySelector('.js-price');
+  const origPriceElem = card.querySelector('.js-original-price');
   const quantity = card.querySelector('.js-quantity').value;
 
   if (isNaN(quantity) || quantity < 0) {
@@ -40,11 +41,19 @@ export function updatePrice(card, obj) {
     return;
   }
 
-  let basePrice = obj.priceInfo.price;
-  let adjustedPrice = weekendPricing(basePrice); // Weekend pricing
-  adjustedPrice = itemQtyDiscount(adjustedPrice, quantity); // Quantity discount
+  const basePrice = obj.priceInfo.price;
+  const adjustedPrice = weekendPricing(basePrice); // Weekend pricing
+  const discountPrice = itemQtyDiscount(adjustedPrice, quantity); // Quantity discount
+  priceElem.innerText = formatPrice(discountPrice);
 
-  pricingElem.innerText = formatPrice(adjustedPrice);
+  if (!origPriceElem) return;
+  
+  if (adjustedPrice != discountPrice) {
+    origPriceElem.innerText = `${formatPrice(adjustedPrice)} kr/st,`;
+  } else {
+    origPriceElem.innerText = '';
+  }
+
 }
 
 
