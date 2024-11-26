@@ -1,25 +1,14 @@
-import { productsObject } from '/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/js/modules/_products-object.js';
+import { productsObject } from './_products-object.mjs';
 import {
   formatPrice,
   formatPriceToNumber,
   adjustQuantity
-} from '/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/js/modules/_utility-functions.js';
+} from './_utility-functions.mjs';
 import {
   itemQtyDiscount,
   weekendPricing,
   calculateDiscount
-} from '/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/js/modules/_discount-functions.js';
-// import { productsObject } from '../modules/_products-object.js';
-// import {
-//   formatPrice,
-//   formatPriceToNumber,
-//   adjustQuantity
-// } from '../modules/_utility-functions.js';
-// import {
-//   itemQtyDiscount,
-//   weekendPricing,
-//   calculateDiscount
-// } from '../modules/_discount-functions.js';
+} from './_discount-functions.mjs';
 
 
 // * * * * * *

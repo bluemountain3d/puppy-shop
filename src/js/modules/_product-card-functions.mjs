@@ -1,4 +1,4 @@
-import { productsObject } from './_products-object.js';
+import { productsObject } from './_products-object.mjs';
 import { 
   cartObject,
   genderTranslate,
@@ -10,7 +10,7 @@ import {
   calculateQuantity,
   updateHeaderCartCounter,
   updateCartObject
-} from './_cart-functions.js';
+} from './_cart-functions.mjs';
 import { 
   addTextFromArray, 
   formatPrice, formatPriceToNumber,
@@ -18,12 +18,12 @@ import {
   adjustQuantity,
   updatePrice,
   updateComparisonPrice
-} from './_utility-functions.js';
+} from './_utility-functions.mjs';
 import { 
   weekendPricing,
   itemQtyDiscount,
   calculateDiscount
-} from './_discount-functions.js';
+} from './_discount-functions.mjs';
 
 
 // Populate products and add functionality

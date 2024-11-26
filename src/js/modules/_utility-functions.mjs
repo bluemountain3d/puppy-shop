@@ -1,13 +1,8 @@
-import { cartObject } from '/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/js/modules/_cart-functions.js';
+import { cartObject } from './_cart-functions.mjs';
 import { 
   weekendPricing,
   itemQtyDiscount
-} from '/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/js/modules/_discount-functions.js';
-// import { cartObject } from '../modules/_cart-functions.js';
-// import { 
-//   weekendPricing,
-//   itemQtyDiscount
-// } from '../modules/_discount-functions.js';
+} from './_discount-functions.mjs';
 
 
 // * * * * * * * * * * *
