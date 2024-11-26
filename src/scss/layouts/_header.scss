@@ -153,7 +153,8 @@ $_module-name: "Page Header";
     translate: 100%;
     width: Min(100vw, 400px);
     height: fit-content;
-    max-height: 100vh;
+    //max-height: 100vh;
+    max-height: calc(100vh - 4rem);
     background-color: white;
     box-shadow: 0 .25rem .5rem rgba(black, .33);
     transition: translate .5s ease;
@@ -174,21 +175,29 @@ $_module-name: "Page Header";
   }
 
   &__cart-dropdown-inner {
+    overflow-y: hidden;
     display: block;
-    padding: Max(12px, var(--vwx) * 3.125);
-
+    padding-left: Max(12px, var(--vwx) * 3.125);
     @media screen and (min-width: 720px) {
+      padding-left: 1.5rem;
       border-left: 2px solid var(--clr-lines);
     }
   }
 
   &__cart-items {
     overflow-y: scroll;
+    padding-right: Max(12px, var(--vwx) * 3.125);
+    max-height: calc(100vh - 10.25rem);
+    @media screen and (min-width: 720px) {
+      padding-right: 1.5rem;
+      max-height: calc(100vh - 11.25rem);
+    }
+    
   }
 
 
   &__cart-summary {
-    padding: 1rem 0 0;
+    padding: 1rem 1rem 1rem 0;
     display: flex;
     justify-content: space-between;
     align-items: baseline;

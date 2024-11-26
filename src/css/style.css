@@ -224,11 +224,13 @@ h1, h2, h3, h4, h5, h6 {
 /* ------------------------------------------------------------ */
 /* ### General CSS START */
 html {
+  overflow: hidden;
   font-size: 100%;
   line-height: 1.2;
 }
 
 body {
+  overflow-y: scroll;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -240,6 +242,48 @@ body {
   font-size: 1rem;
   line-height: 1.3;
   font-family: var(--ff-primary);
+}
+body.no-scroll {
+  overflow: hidden;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip-text {
+  z-index: 99;
+  visibility: hidden;
+  position: absolute;
+  top: -0.25rem;
+  left: 0;
+  translate: 0 -100%;
+  padding: 0.5rem;
+  white-space: wrap;
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  opacity: 0;
+  border-radius: 0.25rem;
+  background-color: var(--clr-dark);
+  color: var(--clr-light);
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+.tooltip-text::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  bottom: -0.25rem;
+  left: 1rem;
+  rotate: 45deg;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: inherit;
+}
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 .svg, .clip-path {
@@ -928,7 +972,7 @@ details.accordion[open] summary::before {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  max-height: 100vh;
+  max-height: calc(100vh - 4rem);
   background-color: white;
   -webkit-box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
           box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
@@ -946,19 +990,29 @@ details.accordion[open] summary::before {
   }
 }
 .header__cart-dropdown-inner {
+  overflow-y: hidden;
   display: block;
-  padding: max(12px, var(--vwx) * 3.125);
+  padding-left: max(12px, var(--vwx) * 3.125);
 }
 @media screen and (min-width: 720px) {
   .header__cart-dropdown-inner {
+    padding-left: 1.5rem;
     border-left: 2px solid var(--clr-lines);
   }
 }
 .header__cart-items {
   overflow-y: scroll;
+  padding-right: max(12px, var(--vwx) * 3.125);
+  max-height: calc(100vh - 10.25rem);
+}
+@media screen and (min-width: 720px) {
+  .header__cart-items {
+    padding-right: 1.5rem;
+    max-height: calc(100vh - 11.25rem);
+  }
 }
 .header__cart-summary {
-  padding: 1rem 0 0;
+  padding: 1rem 1rem 1rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1242,6 +1296,7 @@ main {
           align-items: center;
 }
 .cart__item-quantity-wrapper {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

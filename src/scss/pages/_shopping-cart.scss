@@ -195,6 +195,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
   }
 
   &__item-quantity-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     color: var(--clr-title);
