@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <meta name="description" content="">
+    <title>Puppy Shop</title>
+    <meta name="description" content="Välkommen till Puppy Shop – det hunderbara stället för din nästa lurviga bästa vän! 🐶 Upptäck söta valpar, expertråd och allt du behöver för att få svansarna att vifta. Din drömvalp väntar!">
 
     <!-- fav-icon -->
-     <link rel="shortcut icon" type="image/png" href="img/icons/logo-white.png" >
+     <link rel="shortcut icon" type="image/png" href="img/icons/logo-white.png">
      <link rel="shortcut icon" type="image/png" sizes="32x32" href="img/icons/logo-white-32x32.png">
      <link rel="shortcut icon" type="image/png" sizes="48x48" href="img/icons/logo-white-48x48.png">
      <link rel="shortcut icon" type="image/png" sizes="128x128" href="img/icons/logo-white-128x128.png">
@@ -44,7 +44,7 @@
         
         <div class="header__cart-dropdown js-dropdown-cart">
           <div class="header__cart-dropdown-inner">
-            <ul class="header__cart-items"></ul>
+            <ul class="header__cart-items js-cart-items"></ul>
             <div class="header__cart-summary">
               <span class="header__cart-label">Summa:</span>
               <span class="header__cart-subtotal js-subtotal">204 000 kr</span>
@@ -68,9 +68,11 @@
       <div class="container--full-width">
         <div class="products container--boxed js-products-section">
           <header class="products__header">
-            <h2 class="products__title">Våra valpar!</h2>
+            <h1 class="products__title">Våra valpar!</h1>
           </header>
-          <div class="products__filters"></div>
+          <div class="products__filters">
+            Filter kommer att vara här: Hundtyp, Pris (högt/lågt), Popularitet ("rating", högt/lågt)
+          </div>
           <div class="products__wrapper"></div>
         </div>
   
@@ -89,41 +91,7 @@
                 </header>
   
                 <!-- Container for dynamic items -->
-                <ul class="cart__items">
-
-                  <li class="cart__item js-cart-item" data-id="0" data-gender="male">
-                    <article class="cart__item-content-wrapper">
-                      <picture class="cart__item-image-wrapper">
-                        <img class="cart__item-image" src="img/puppies/labrador-retriever-w512.avif" alt="blablabal" width="80" height="80" loading="lazy">
-                      </picture>
-                      <section class="cart__item-info js-item-info">
-                        <h3 class="cart__item-title js-item-title">Labrador retriever</h3>
-                        <span class="cart__item-gender js-item-gender">Hane</span>
-                        <span class="cart__item-price js-item-price">18 000 kr</span>
-                        <div class="cart__item-controlls">
-                          <div class="cart__item-quantity-wrapper">
-                            <button class="cart__item-decrease js-decrease" aria-label="Minska antal">−</button>
-                            <input class="cart__item-quantity js-quantity" type="number" value="0" aria-label="Antal">
-                            <button class="cart__item-increase js-icrease" aria-label="Öka antal">+</button>
-                          </div>
-                          <button class="cart__item-remove" aria-label="Ta bort">
-                            <svg class="icon cart__item-remove-icon" aria-hidden="true">
-                              <use href="#trash-bin-icon"/>
-                            </svg>
-                          </button>
-                        </div>
-                      </section>              
-                    </article>
-                    <div class="cart__item-line-total-wrapper">
-                      <span class="cart__item-label">Radtotal:</span>
-                      <span class="cart__item-line-total-inner">
-                        <span class="cart__item-line-total js-item-line-total">162 000 kr</span>
-                        <span class="cart__item-original-price js-item-original-price">180 000 kr</span>
-                      </span>
-                    </div>
-                  </li>
-
-                </ul>
+                <ul class="cart__items js-cart-items"></ul>
   
                 <!-- Summary container -->
                 <div class="cart__summary">
@@ -421,12 +389,12 @@
                       <legend class="checkout__form-group-header-light">Betalmetod:</legend>
                       <div class="checkout__rb-row">
                         <label class="rb-custom">
-                          <input type="radio" name="payment" checked>
+                          <input type="radio" name="payment" value="card" checked>
                           <span class="rb-checkmark"></span>
                           <span class="rb-label checkout__rb-label">Kortbetalning</span>
                         </label>
                         <label class="rb-custom">
-                          <input type="radio" name="payment">
+                          <input type="radio" name="payment" value="invoice">
                           <span class="rb-checkmark"></span>
                           <span class="rb-label checkout__rb-label">Faktura <span class="checkout__label-info"></span>(Upp till 80 000 kr)</span>
                         </label>
@@ -434,7 +402,7 @@
                       
                     </div>
                   </fieldset>
-  
+                  
                   <!-- Card Info (Visible if Card is choosen) -->
                   <fieldset class="checkout__form-group">
                     <div class="checkout__group-inner">
@@ -449,9 +417,7 @@
                             value=""
                             placeholder=" "
                             inputmode="numeric"
-                            pattern="\d{12}"
-                            required
-                            aria-required="true">
+                            pattern="\d{12}">
                           <label 
                             for="card-number"
                             class="checkout__input-placeholder" 
@@ -473,8 +439,7 @@
                                 maxlength="2"
                                 inputmode="numeric"
                                 pattern="\d{2}"
-                                required
-                                aria-required="true"
+  >
                                 aria-label="Månad">
                               <label 
                                 class="checkout__input-placeholder" 
@@ -492,8 +457,7 @@
                                 inputmode="numeric"
                                 maxlength="2"
                                 pattern="\d{2}"
-                                required
-                                aria-required="true"
+  >
                                 aria-label="År">
                               <label
                                 aria-label="Giltigt till">
@@ -511,8 +475,7 @@
                               maxlength="3"
                               inputmode="numeric"
                               pattern="\d{3}"
-                              required
-                              aria-required="true"
+>
                               aria-label="CVV">
                             <label 
                               for="card-cvv"
@@ -531,15 +494,42 @@
                             class="checkout__input js-card-cvv"
                             value=""
                             placeholder=" "
-                            required
-                            aria-required="true">
+                            aria-label="Ditt namn som det står på kortet">
                           <label
                             for="card-cvv"
-                            class="checkout__input-placeholder" 
-                            aria-label="Ditt namn som det står på kortet">
+                            class="checkout__input-placeholder">
                             Kortinnehavare:
                           </label>
                         </div>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <!-- Social Security Number (Visible if invoice is chosen) -->
+                  <fieldset class="checkout__form-group">
+                    <div class="checkout__group-inner">
+                      <legend class="checkout__form-group-header-light">Kortuppgifter:</legend>
+                      <div class="checkout__input-wrapper checkout__input-wrapper--ssn tooltip" >
+                        <span 
+                          id="ssn-tooltip" 
+                          class="tooltip-text" 
+                          aria-hidden="true">
+                          Ange ett giltigt svenskt personnummer (ÅÅÅÅMMDD-XXXX eller ÅÅMMDD-XXXX eller utan bindestreck)
+                        </span>
+                        <input
+                          type="text"
+                          id="social-security-number"
+                          class="checkout__input js-card-number"
+                          value=""
+                          placeholder=" "
+                          pattern="^\d{6}(-?\d{4})$|^\d{8}(-?\d{4})$"
+                          aria-label="Personnummer"
+                          aria-describedby="ssn-tooltip">
+                        <label 
+                          for="social-security-number"
+                          class="checkout__input-placeholder">
+                          Personnummer:
+                        </label>
                       </div>
                     </div>
                   </fieldset>
