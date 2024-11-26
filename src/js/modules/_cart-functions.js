@@ -1,14 +1,14 @@
-import { productsObject } from './_products-object.js';
+import { productsObject } from '../modules/_products-object.js';
 import {
   formatPrice,
   formatPriceToNumber,
   adjustQuantity
-} from './_utility-functions.js';
+} from '../modules/_utility-functions.js';
 import {
   itemQtyDiscount,
   weekendPricing,
   calculateDiscount
-} from './_discount-functions.js';
+} from '../modules/_discount-functions.js';
 
 
 // * * * * * *

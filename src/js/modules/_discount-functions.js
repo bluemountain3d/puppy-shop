@@ -1,4 +1,4 @@
-import { cartObject } from './_cart-functions.js';
+import { cartObject } from '../modules/_cart-functions.js';
 
 
 //* Discounts *//

@@ -1,8 +1,8 @@
-import { cartObject } from './_cart-functions.js';
+import { cartObject } from '../modules/_cart-functions.js';
 import { 
   weekendPricing,
   itemQtyDiscount
-} from './_discount-functions.js';
+} from '../modules/_discount-functions.js';
 
 
 // * * * * * * * * * * *
