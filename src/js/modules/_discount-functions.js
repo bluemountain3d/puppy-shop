@@ -1,5 +1,5 @@
-import { cartObject } from '../modules/_cart-functions.js';
-
+import { cartObject } from '/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/js/modules/_cart-functions.js';
+// import { cartObject } from '../modules/_cart-functions.js';
 
 //* Discounts *//
 
