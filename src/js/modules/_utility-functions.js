@@ -1,3 +1,4 @@
+import { cartObject } from './_cart-functions.js';
 import { 
   weekendPricing,
   itemQtyDiscount
@@ -30,11 +31,33 @@ export function comparisonPricePerKg(price, weight) {
   return formatPrice((weight > 0) ? (price / weight).toFixed(0) + ' kr/kg' : 'Ej tillgängligt');
 }
 
+// Update Comparison price
+export function updateComparisonPrice(card, obj) {
+  // Get selected gender
+  const selectedGender = card.querySelector('.js-gender-rb:checked').value;
+  // Get price
+  const price = formatPriceToNumber(card.querySelector('.js-price').innerText);
+  // Get the weight based on the selected gender
+  const weight = obj.properties.weight[selectedGender];
+  // Calculate the price per kg
+  const pricePerKg = comparisonPricePerKg(price, weight);
+  // Update the comparison price in the card
+  const comparisonPriceElem = card.querySelector('.js-comparison-price');
+
+  if (comparisonPriceElem) {
+    comparisonPriceElem.textContent = `${pricePerKg}`;
+  }
+}
+
 // Function to update pricing
 export function updatePrice(card, obj) {
+  //console.log('up obj', obj);
+  
   const priceElem = card.querySelector('.js-price');
   const origPriceElem = card.querySelector('.js-original-price');
-  const quantity = card.querySelector('.js-quantity').value;
+  //const comparisonPriceElem = card.querySelector('.js-comparison-price');
+  const itemLineTotalElem = card.querySelector('.js-item-line-total');
+  const quantity = card.querySelector('.js-quantity').value; // from quantifier number input
 
   if (isNaN(quantity) || quantity < 0) {
     console.error('Invalid quantity');
@@ -46,14 +69,19 @@ export function updatePrice(card, obj) {
   const discountPrice = itemQtyDiscount(adjustedPrice, quantity); // Quantity discount
   priceElem.innerText = formatPrice(discountPrice);
 
-  if (!origPriceElem) return;
-  
-  if (adjustedPrice != discountPrice) {
-    origPriceElem.innerText = `${formatPrice(adjustedPrice)} kr/st,`;
-  } else {
-    origPriceElem.innerText = '';
+  if (origPriceElem) {
+    //const gender = card.dataset.gender;
+    //comparisonPriceElem.innerText = comparisonPricePerKg(discountPrice, obj.properties.weight[gender]);
+    if (adjustedPrice != discountPrice) {
+      origPriceElem.innerText = `${formatPrice(adjustedPrice)} kr/st,`;
+    } else {
+      origPriceElem.innerText = '';
+    }
   }
 
+  if (itemLineTotalElem) {
+    itemLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
+  }
 }
 
 
@@ -62,17 +90,21 @@ export function updatePrice(card, obj) {
 // * * * * * * * * * * * * * * * * * * * *
 
 export function adjustQuantity(e, card, obj) {
-
+  console.log('adjustQuantity Called');
+  
   const numberInput = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
   if (!numberInput) return;
 
   const currentValue = Number(numberInput.value);
+  let newValue;
 
+  // Handle input via arrow keys
   if (e.type === 'keydown' && e.target.matches('.js-quantity')) {
     if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-      numberInput.value = e.key === 'ArrowUp'
+      newValue = e.key === 'ArrowUp'
         ? Math.min(99, currentValue + 1)
         : Math.max(0, currentValue - 1);
+      numberInput.value = newValue;
       updatePrice(card, obj);
     }
     if (e.key === 'Enter') {
@@ -82,14 +114,15 @@ export function adjustQuantity(e, card, obj) {
   }
 
   if (e.type === 'click' && (e.target.matches('.js-increase') || e.target.matches('.js-decrease'))) {
-    numberInput.value = e.target.matches('.js-increase')
+    newValue = e.target.matches('.js-increase')
       ? Math.min(99, currentValue + 1)
       : Math.max(0, currentValue - 1);
+    numberInput.value = newValue;
     updatePrice(card, obj);
   }
 
   // Handle manual input via the keyup event
-  if (e.target.matches('.js-quantity')) { //else if
+  if (e.target.matches('.js-quantity')) {
     //console.log('Event type:', e.type, 'Target:', e.target, 'Key:', e.key );
     
     let keyPressStartTime;
@@ -105,6 +138,8 @@ export function adjustQuantity(e, card, obj) {
           //const currentValue = Number(numberInput.value);
           if (currentValue > 99){
             numberInput.value = 99;
+          } else if (currentValue < 0) {
+            numberInput.value = 0;
           }
           // Run your update logic for short press
           updatePrice(card, obj);
@@ -115,9 +150,22 @@ export function adjustQuantity(e, card, obj) {
         // Update price for ArrowUp and ArrowDown keys
         if (currentValue > 99) {
           numberInput.value = 99;
+        } else if (currentValue < 0) {
+          numberInput.value = 0;
         }
         updatePrice(card, obj);
       }
     }
   }
+
+  // if (card.classList.contains('js-card-item')) {
+  //   console.log('udQty: is js-cadr-item');
+    
+  //   const diff = Number(newValue) - Number(currentValue);
+  //   console.log('diff', diff);
+    
+  //   cartObject.counter += diff;
+  //   console.log('udQty: cartObject.counter', cartObject.counter);
+  // }
+
 }

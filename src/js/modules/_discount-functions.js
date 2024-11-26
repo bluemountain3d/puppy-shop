@@ -1,3 +1,5 @@
+import { cartObject } from './_cart-functions.js';
+
 
 //* Discounts *//
 
@@ -34,5 +36,16 @@ export function itemQtyDiscount(price, quantity, amount=10, discount=.9) {
     return parseInt(price * discount, 10);
   } else {
     return price;
+  }
+}
+
+
+export function calculateDiscount(price, quantity, weekendPricing) {
+  const newCurrentPrice = weekendPricing(price) * quantity;
+  if (quantity >= 10) {
+    return newCurrentPrice - itemQtyDiscount(newCurrentPrice, quantity);
+  } else {
+    const currentPrice = itemQtyDiscount(price * quantity, quantity);
+    return price * quantity - currentPrice;
   }
 }

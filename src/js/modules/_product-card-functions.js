@@ -1,20 +1,28 @@
 import { productsObject } from './_products-object.js';
 import { 
   cartObject,
+  genderTranslate,
   findItemByProductIdAndGender,
   getHighestIndex,
-  addToCartSummary
+  addToCartSummary,
+  updateCartSummary,
+  addCartItem,
+  calculateQuantity,
+  updateHeaderCartCounter,
+  updateCartObject
 } from './_cart-functions.js';
 import { 
   addTextFromArray, 
   formatPrice, formatPriceToNumber,
   comparisonPricePerKg,
   adjustQuantity,
-  updatePrice
+  updatePrice,
+  updateComparisonPrice
 } from './_utility-functions.js';
 import { 
   weekendPricing,
-  itemQtyDiscount
+  itemQtyDiscount,
+  calculateDiscount
 } from './_discount-functions.js';
 
 
@@ -36,7 +44,7 @@ export const productCards = ((products) => {
 
       // Add to inner.html
       productsWrapper.innerHTML += `
-        <article class="product-card js-product-card" data-id="${p.id}" data-rating="${p.properties.popularity}" data-gender="male">
+        <article class="product-card js-product-card" data-pid="${p.id}" data-rating="${p.properties.popularity}" data-gender="male">
             <div class="product-card__image-wrapper">
               <picture>
                 <img 
@@ -158,7 +166,7 @@ export const productCards = ((products) => {
     productCards.forEach(card => {
       // If card not undefined
       if (card) {
-        const productId = card.dataset.id;
+        const productId = card.dataset.pid;
         const productData = products[productId];
 
         updatePrice(card, productData);
@@ -181,23 +189,26 @@ export const productCards = ((products) => {
     const card = e.target.closest('.js-product-card');
     if (!card) return; // Exit if not within a product card
 
-    const productId = Number(card.dataset.id);
+    const productId = Number(card.dataset.pid);
     const productData = products[productId];
+    
 
     // Handle events based on target
     if (e.target.matches('.js-gender-rb')) {
       // Update price when gender radio button changes
       updatePrice(card, productData);
+      updateComparisonPrice(card, productData);
     }
     
     if (e.target.matches('.js-quantity') || 
         e.target.matches('.js-increase') || 
         e.target.matches('.js-decrease')) {
       adjustQuantity(e, card, productData);
+      updateComparisonPrice(card, productData);
     }
 
     // Update Comparison Price
-    updateComparisonPrice(card, productData);
+    //updateComparisonPrice(card, productData);
 
 
 
@@ -205,13 +216,16 @@ export const productCards = ((products) => {
     if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
       console.log('Add to card clicked');
 
-      const gender = card.querySelector('.js-gender-rb:checked').value;
+      const gender = genderTranslate[card.querySelector('.js-gender-rb:checked').value];
       const quantity = Number(card.querySelector('.js-quantity').value);
       const originalPrice = productData.priceInfo.price;
       const currentPrice = formatPriceToNumber(card.querySelector('.js-price').innerText);
       const discount = currentPrice - itemQtyDiscount(currentPrice, quantity);
       const cartItem = findItemByProductIdAndGender(cartObject, productId, gender);
       const counter = cartObject.counter;
+
+      console.log('add', discount);
+      
 
       if (!quantity) return;
 
@@ -220,7 +234,7 @@ export const productCards = ((products) => {
       //console.log('gender:', gender);
       
       // Test if cartItem should be added or updated
-      if (!cartItem|| cartItem && cartItem.gender != gender) {
+      if (!cartItem || cartItem && cartItem.gender != gender) {
         // Product not in cart, add
         console.log('Product don\'t exist Add object');
         // New cart item
@@ -236,79 +250,81 @@ export const productCards = ((products) => {
         }
 
         // Add the new item to the cartObject to the next available index.
+        console.log('cartObject Before add:', cartObject);
         cartObject[getHighestIndex(cartObject) + 1] = newItem;
-        //console.log(cartObject);
+        console.log('cartObject After add:', cartObject);
 
-        // Add to cart summary
-        addToCartSummary(originalPrice, discount);
+        // Cart Object Counter
+        cartObject.counter += quantity;
+
+        // Update cart summary
+        updateCartSummary(card, newItem, quantity, 0, currentPrice, discount);
+        //addToCartSummary(quantity, originalPrice, discount);
+        // Add cart Item to Items Containser
+        addCartItem(newItem, productData);
         
+        // Update header counter
+        updateHeaderCartCounter(cartObject);
 
       } else {
         // Product is in cart, update
         console.log('Product exist Update object');
-        // Get Existing Item from cartObject
-        const existingItem = findItemByProductIdAndGender(cartObject, productId, gender);
-        existingItem.quantity += quantity;
-        // 
-        if (existingItem.quantity >= 10) {
-          const newCurrentPrice = weekendPricing(existingItem.priceInfo.price) * existingItem.quantity;
-          existingItem.priceInfo.discount = newCurrentPrice - itemQtyDiscount(newCurrentPrice, existingItem.quantity);
-        } else {
-          existingItem.priceInfo.discount += discount;
-        }
-        existingItem.priceInfo.lineTotal += (currentPrice * quantity);
-        //console.log(cartObject);
+        // Get Existing Item Object from cartObject
+        const itemObj = findItemByProductIdAndGender(cartObject, productId, gender);
+        
+        console.log('cartObject Before update:', cartObject);
+        // Update Cart Object
+        updateCartObject(card, itemObj, cartObject);
+        // Update header counter
+        updateHeaderCartCounter(cartObject);
+        console.log('cartObject After update:', cartObject);
 
-        // Add to cart summary
-        addToCartSummary(originalPrice, discount);
+
+
+
+
+        // itemObj.quantity += quantity;
+        // if (itemObj.quantity >= 10) {
+        //   const newCurrentPrice = weekendPricing(itemObj.priceInfo.price) * itemObj.quantity;
+        //   itemObj.priceInfo.discount = newCurrentPrice - itemQtyDiscount(newCurrentPrice, itemObj.quantity);
+        // } else {
+        //   itemObj.priceInfo.discount += discount;
+        // }
+        // itemObj.priceInfo.lineTotal += (currentPrice * quantity);
+        // //console.log(cartObject);
+
+        // // Add to cart summary
+        // addToCartSummary(itemObj.quantity, originalPrice, discount);
 
       }
 
-      // Update Header Cart Counter
-      cartObject.counter += quantity;
-      console.log(cartObject, cartObject.counter);
+      //updateHeaderCartCounter(cartObject);
+      // // Update Header Cart Counter
+      // cartObject.counter += quantity;
+      // console.log(cartObject, cartObject.counter);
 
-      // Update Header cart counter and total
-      const headerToCart = document.querySelector('.header__go-to-cart');
-      const headerCount = document.querySelector('.header__cart-count');
-      const headerTotal = document.querySelector('.header__cart-total');
+      // // Update Header cart counter and total
+      // const headerToCart = document.querySelector('.header__to-checkout');
+      // const headerCount = document.querySelector('.header__cart-count');
+      // const headerTotal = document.querySelector('.header__cart-total');
 
-      if (cartObject.counter > 0) {
-        headerCount.innerText = `${cartObject.counter} st,`;
-        headerTotal.innerText = `${cartObject.cartSummary.total} kr`;
+      // if (cartObject.counter > 0) {
+      //   headerCount.innerText = `${cartObject.counter} st,`;
+      //   headerTotal.innerText = `${formatPrice(cartObject.cartSummary.total)} kr`;
 
-        if (window.innerWidth >= 720) {
-          headerToCart.classList.remove('hidden');
-          headerTotal.classList.remove('hidden');
-        }
+      //   if (window.innerWidth >= 720) {
+      //     headerToCart.classList.remove('hidden');
+      //     headerTotal.classList.remove('hidden');
+      //   }
 
-      } else {
-        headerCount.innerText = '0';
-        headerToCart.classList.add('hidden');
-        headerTotal.classList.add('hidden');
-      }
+      // } else {
+      //   headerCount.innerText = '0';
+      //   headerToCart.classList.add('hidden');
+      //   headerTotal.classList.add('hidden');
+      // }
 
+      // // Show Added to cart dialog
 
-      // Show Added to cart dialog
-
-    }
-  }
-
-
-  // local help function to update comparison price
-  function updateComparisonPrice(card, product) {
-    // Get selected gender
-    const selectedGender = card.querySelector('.js-gender-rb:checked').value;
-    // Get price
-    const price = formatPriceToNumber(card.querySelector('.js-price').innerText);
-    // Get the weight based on the selected gender
-    const weight = product.properties.weight[selectedGender];
-    // Calculate the price per kg
-    const pricePerKg = comparisonPricePerKg(price, weight);
-    // Update the comparison price in the card
-    const comparisonPriceElem = card.querySelector('.js-comparison-price');
-    if (comparisonPriceElem) {
-      comparisonPriceElem.textContent = `${pricePerKg}`;
     }
   }
     
