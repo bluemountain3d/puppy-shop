@@ -157,15 +157,4 @@ export function adjustQuantity(e, card, obj) {
       }
     }
   }
-
-  // if (card.classList.contains('js-card-item')) {
-  //   console.log('udQty: is js-cadr-item');
-    
-  //   const diff = Number(newValue) - Number(currentValue);
-  //   console.log('diff', diff);
-    
-  //   cartObject.counter += diff;
-  //   console.log('udQty: cartObject.counter', cartObject.counter);
-  // }
-
 }

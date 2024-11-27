@@ -20,7 +20,7 @@
 // const startSum = 0;
 // const sum  = array.reduce((a, b) => a + b.priceInfo.price, startSum);
 
-export function sum(array, startValue, sumValue) {
+export function sum(array, startValue) {
   return array.reduce((sumOf, sum) => {
 
   });

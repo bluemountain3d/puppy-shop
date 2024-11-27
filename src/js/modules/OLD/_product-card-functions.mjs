@@ -118,23 +118,14 @@ export const productCards = ((products) => {
     let paws = '';
 
     for (let i = 1; i <= int; i++) {
-      paws += `<div class="rating-paw rating-paw--solid"></div>`
-      // paws += `<div class="rating-paw rating-paw--solid"><svg class="icon paw-icon">
-      //   <use href="paw-icon"/>
-      // </svg></div>`
+      paws += `<div class="rating-paw rating-paw--solid"></div>`;
     }
     if (decimal >= .2) {
       const decimalPercentage = decimal * 100;
-      paws += `<div class="rating-paw rating-paw--grad-${decimalPercentage}"></div>`
-      // paws += `<div class="rating-paw rating-paw--grad-${decimalPercentage}"><svg class="icon paw-icon">
-      //   <use href="paw-icon"/>
-      // </svg></div>`
+      paws += `<div class="rating-paw rating-paw--grad-${decimalPercentage}"></div>`;
     }
     for (let i = 1; i <= 5 - int; i++) {
-        paws += `<div class="rating-paw rating-paw--empty"></div>`
-      // paws += `<div class="rating-paw rating-paw--empty"><svg class="icon paw-icon">
-      //   <use href="paw-icon"/>
-      // </svg></div>`
+      paws += `<div class="rating-paw rating-paw--empty"></div>`;
     }
 
     return paws;

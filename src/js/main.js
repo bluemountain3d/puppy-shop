@@ -6,4 +6,4 @@
 // Initialize tooltip functionality
 //import { tooltipInit } from "../js/modules/_tooltip.mjs";
 // Populate products and init products functionality
-import { productCards } from "./modules/_product-card-functions.mjs";
+import { initProductCards } from "./modules/product-card-functions.js";
