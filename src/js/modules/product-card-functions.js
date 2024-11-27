@@ -14,7 +14,7 @@ import {
   findItemByProductIdAndGender,
   sumValues,
   adjustQuantity
-} from "./utilitie.js";
+} from "./utilities.js";
 
 // Pricing imports
 import {
@@ -26,6 +26,14 @@ import {
   updateComparisonPrice,
   formatPriceToNumber,
 } from "./pricing.js";
+
+// Cart imports
+import {
+  updateCartSummary,
+  updateHeaderCartCounter,
+  addCartItem,
+  updateCartItem
+} from "./cart-functions.js";
 
 
 // Product card
@@ -204,7 +212,7 @@ export const initProductCards = (() => {
 
     //Add to cart object when add to cart button is clicked
     if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
-      console.log('Add to card clicked');
+      //console.log('Add to card clicked');
       const quantity = Number(card.querySelector('.js-quantity').value);
 
       if (!quantity) return; // Stop id quantity is 0
@@ -214,76 +222,69 @@ export const initProductCards = (() => {
       const adjustedPrice = Number(weekendPricing(basePrice)); // 
       const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
       const discount = adjustedPrice - discountPrice;
-      const cartItem = findItemByProductIdAndGender(cartItemsObject, productId, gender);
+      const itemData = findItemByProductIdAndGender(cartItemsObject, productId, gender);
       const counter = cartSummaryObject.counter;
 
-      console.log('base price', basePrice);
-      console.log('adjusted price', adjustedPrice);
-      console.log('discounted price', discountPrice);
-      console.log('discount', discount);
+      // console.log('base price', basePrice);
+      // console.log('adjusted price', adjustedPrice);
+      // console.log('discounted price', discountPrice);
+      // console.log('discount', discount);
       
 
       // Test if cartItem should be added or updated
       // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
-      if (!cartItem || cartItem && cartItem.gender != gender) {
+      if (!itemData || itemData && itemData.gender != gender) {
         // Create new cart item
         const newItem = {
           productId: productId,
           gender: gender,
           quantity: quantity,
           priceInfo: {
-            price: basePrice,
-            discount: discount,
-            lineTotal: (basePrice * quantity) - discount
+            price: discountPrice,
+            discount: discount * quantity,
+            lineTotal: (discountPrice * quantity) - discount
           },
         }
-        console.log('newItem', newItem);
-        
-
+      
         // Add the new item to the cartObject to the next available index.
-        console.log('Add new Item to index:', getHighestIndex(cartItemsObject) + 1);
         cartItemsObject[getHighestIndex(cartItemsObject) + 1] = newItem;
-        console.log('cartItemObject', cartItemsObject);
-
-        // Cart Object Counter
+        
+        // Update Cart Object Counter
         cartSummaryObject.counter += quantity;
 
         // Update cart summary
         updateCartSummary();
-        console.log('cartSummaryObject', cartSummaryObject);
+
+        // Add cart Item to Items Container
+        addCartItem(newItem, productData);
+
+        // Update header cart counter
+        updateHeaderCartCounter(cartSummaryObject);
         
+      } else {
+        // Product is in cart, update
+        console.log('Product exist Update object');
 
-        function updateCartSummary() {
-          // Array from cartItemsObject
-          const cartItems = Object.values(cartItemsObject);
-          const curSubtotal = cartSummaryObject.subtotal;
-          const curDiscounts = cartSummaryObject.discounts;
+        // Set new quantity
+        const newQuantity = quantity + Number(itemData.quantity);
+        console.log('quantity', quantity);
+        console.log('newQuantity', newQuantity);
+        console.log('cartSummaryObject.counter',cartSummaryObject.counter);
+        
+        // Update Cart Object
+        updateCartItem(itemData, newQuantity, discountPrice, discount);
 
-          // New subtotal
-          const newSubtotal = sumValues(cartItemsObject, 'priceInfo.linetotal');
-          const newDiscounts = sumValues(cartItemsObject, 'priceInfo.discount');
+        // Update Cart Object Counter
+        cartSummaryObject.counter += quantity;
 
+        // Update cart summary
+        updateCartSummary();
+      
+        //cartSummaryObject.counter = Math.max(counter + diff, 0);
+        updateHeaderCartCounter(cartSummaryObject);
 
-
-
-          // cartSummaryObject = {
-          //   counter: 0,
-          //   subtotal: 0,
-          //   discounts: 0,
-          //   vat: 0,
-          //   shippingCost: 0,
-          //   total: 0
-          // };
-
-        }
       }
     }
+  }
 
-
-   }
-
-
-   
-
-
- })();
+})();

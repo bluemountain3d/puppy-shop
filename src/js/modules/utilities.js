@@ -46,33 +46,45 @@ export function shuffleArray(array) {
  */
 export function adjustQuantity(e, card, obj) {
   console.log('adjustQuantity Called');
+  console.log('event type, key', e.type, e.key);
   
   const numberInput = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
   if (!numberInput) return;
 
   const currentValue = Number(numberInput.value);
+  console.log('currentValue (quantity input)', currentValue);
+  
   let newValue;
 
   // Handle input via arrow keys
   if (e.type === 'keydown' && e.target.matches('.js-quantity')) {
     if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+
       newValue = e.key === 'ArrowUp'
         ? Math.min(99, currentValue + 1)
         : Math.max(0, currentValue - 1);
+      console.log('newValue', newValue);
+      
       numberInput.value = newValue;
       updatePrice(card, obj);
     }
     if (e.key === 'Enter') {
+      console.log('Enter');
+
       e.preventDefault(); // Prevent default Enter behavior
       updatePrice(card, obj);
     }
   }
 
-  if (e.type === 'click' && (e.target.matches('.js-increase') || e.target.matches('.js-decrease'))) {
+  if (e.type === 'click' && (e.target.matches('.js-increase') || e.target.matches('.js-decrease'))) { 
     newValue = e.target.matches('.js-increase')
       ? Math.min(99, currentValue + 1)
       : Math.max(0, currentValue - 1);
+    console.log('newValue', newValue);
+
     numberInput.value = newValue;
+    console.log('numberInput.value', numberInput.value);
+
     updatePrice(card, obj);
   }
 
@@ -112,6 +124,10 @@ export function adjustQuantity(e, card, obj) {
       }
     }
   }
+
+  const diff = newValue - currentValue;
+  
+  return [diff, newValue];
 }
 
 
@@ -169,9 +185,35 @@ export function sumValues(obj = {}, sumValue = '') {
   const objArray = Object.values(obj);
 
   // Helper function to access nested properties
-  const getNestedValue = (item, path) => {
-    return path.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : 0), item);
+  const getNestedValue = (item, sumValue) => {
+    return sumValue.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : 0), item);
   };
-
+  
   return objArray.reduce((sum, item) => sum + getNestedValue(item, sumValue), 0);
+}
+
+
+/**
+ * A function to translate gender 
+ * @param {*} gender 
+ * @returns 
+ */
+export function translateGender(gender) {
+  const genderTranslateObject = {
+    male: 'Hane',
+    female: 'Tik',
+    Hane: 'male',
+    Tik: 'female'
+  }
+
+  return genderTranslateObject[gender];
+}
+
+
+export function updateCartObject() {
+
+
+
+  const newCounter = Number(sumValues(cartItemsObject, 'quantity'));
+
 }

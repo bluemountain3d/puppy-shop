@@ -47,7 +47,7 @@
             <ul class="header__cart-items js-cart-items"></ul>
             <div class="header__cart-summary">
               <span class="header__cart-label">Summa:</span>
-              <span class="header__cart-subtotal js-subtotal">204 000 kr</span>
+              <span class="header__cart-subtotal js-cart-subtotal">204 000 kr</span>
             </div>
           </div>
           <button class="header__cart-dropdown-checkout-btn js-go-to-checkout">
@@ -73,9 +73,22 @@
           <div class="products__filters">
             Filter kommer att vara här: Hundtyp, Pris (högt/lågt), Popularitet ("rating", högt/lågt)
             <div>
-              <select name="" id="">
-                <optgroup>
+              <label for="dog-type">Sortera på hundtyp:</label>
+              <select class="custom-select products__select" name="" id="dog-type">
+                
+              </select>
 
+              <label for="filter">Sortera på:</label>
+              <select class="custom-select products__select" name="" id="filter">
+                <optgroup>
+                  <option value="">Pupularitet - fallande</option>
+                  <option value="">Pupularitet - stigande</option>
+                  <option value="">Hundras - fallande</option>
+                  <option value="">Hundras - stigande</option>
+                  <option value="">Pris - fallande</option>
+                  <option value="">Pris - stigande</option>
+                  <option value="">Kilopris - fallande</option>
+                  <option value="">Kilopris - stigande</option>
                 </optgroup>
               </select>
             </div>
@@ -121,7 +134,7 @@
                   <div class="cart__summary-row">
                     <span class="cart__summary-label cart__summary-label--large">Summa: </span>
                     <div class="cart__summary-column">
-                      <div class="cart__summary-total js-summary-total">0 kr</div>
+                      <div class="cart__summary-total js-cart-total">0 kr</div>
                       <div class="cart__summary-info">inkl. moms</div>
                     </div>
                   </div>
@@ -680,12 +693,7 @@
         <path d="M65.9878 42.9411V13.2525C65.9878 10.2397 65.9878 7.6663 65.7363 4.77904C67.622 4.4652 71.0791 4.15137 74.0334 4.15137C82.2047 4.15137 88.2389 7.6663 88.2389 15.8887C88.2389 23.7973 81.9532 27.8144 76.2333 27.8144C74.4105 27.8144 73.3419 27.5633 72.6505 26.9984C72.2734 26.6846 71.7077 25.5548 71.8962 24.8643C72.9648 25.2409 74.6619 25.4292 75.8562 25.4292C79.0619 25.4292 84.4046 23.5462 84.4046 16.2025C84.4046 7.60353 77.679 6.66203 73.7191 6.66203C72.022 6.66203 70.8905 6.7248 69.4448 6.9131V35.9112C69.4448 40.2421 69.5706 42.3134 69.6334 43.5688C68.8163 43.8826 67.8106 44.0709 66.8677 44.0709C66.4277 44.0709 65.9878 43.8826 65.9878 42.9411Z"/>
       </symbol>
     </svg>
-      
-      
-      
-      
-    
-      
+  
   
     <!-- # # # # # # # -->
     <!-- #  Scripts  # -->

@@ -151,7 +151,6 @@ export function updatePrice(card, obj) {
   const priceElem = card.querySelector('.js-price');
   const origPriceElem = card.querySelector('.js-original-price');
   const comparisonPriceElem = card.querySelector('.js-comparison-price');
-  const itemLineTotalElem = card.querySelector('.js-item-line-total');
   const quantity = card.querySelector('.js-quantity').value; // from quantifier number input
 
   if (isNaN(quantity) || quantity < 0) {
@@ -176,8 +175,30 @@ export function updatePrice(card, obj) {
     const gender = card.dataset.gender;
     comparisonPriceElem.innerText = comparisonPricePerKg(discountPrice, obj.properties.weight[gender]);
   }
-
-  if (itemLineTotalElem) {
-    itemLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
-  }
 }
+
+
+// Get Shipping Cost
+/**
+ * 
+ * @param {*} cartObj 
+ * @param {*} costObj 
+ * @param {*} varPercent 
+ * @returns 
+ */
+export function getShippingCost(cartObj, costObj, varPercent = 1) {
+  // Safely access subtotal from cartObj
+  const subtotal = cartObj?.cartSummary?.subtotal ?? 0;
+  // Get the selected radio button
+  const shippingRadios = Array.from(document.querySelectorAll('input[name="shipping"]'));
+  // Find the checked radio button
+  const selectedRadio = shippingRadios.find(radio => radio.checked);
+  // Calculate fixed and variable costs
+  const fixedCost = selectedRadio ? costObj[selectedRadio.value] : 0;
+  const variableCost = Number((cartObj?.cartSummary?.subtotal ?? 0) * varPercent / 100);
+  
+  // Return total cost
+  return parseInt(fixedCost + variableCost, 10);
+}
+
+
