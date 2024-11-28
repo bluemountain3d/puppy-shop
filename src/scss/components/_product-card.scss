@@ -29,6 +29,10 @@ $_module-name: "Product Carsd";
     font-weight: 700;
     color: var(--clr-title);
   }
+
+  &__filters {
+    margin-bottom: 2rem;
+  }
 }
 
 .products__wrapper {

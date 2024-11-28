@@ -211,9 +211,9 @@ $_module-name: "Page Header";
   }
 
   &__cart-subtotal {
-    font-size: 1rem;
+    font-size: 1.25rem;
     line-height: 1;
-    color: var(--clr-grey-dark);
+    color: var(--clr-text);
   }
 
   &__cart-dropdown-checkout-btn {
