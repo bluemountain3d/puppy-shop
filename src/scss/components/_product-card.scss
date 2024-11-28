@@ -31,15 +31,28 @@ $_module-name: "Product Carsd";
   }
 
   &__filters {
-    width: Min(900px + 1rem, 100%);
+    //width: Min(900px + 1rem, 100%);
     margin-bottom: 2rem;
     display: grid;
     gap: .5rem;
 
     @media screen and (min-width: 720px) {
+      margin-right: auto;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
     }
+  }
+
+  &__cbx {
+    width: calc(50ch + .5rem);
+
+    @media screen and (min-width: 720px) {
+      width: fit-content;
+    }
+  }
+
+  &__select {
+    width: 30ch;
   }
 
   &__arrow {

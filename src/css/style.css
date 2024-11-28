@@ -475,7 +475,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   text-wrap: nowrap;
   font-size: 1rem;
   color: var(--clr-text);
-  width: 24ch;
+  width: 20ch;
 }
 @media screen and (min-width: 720px) {
   .combobox__label {
@@ -628,16 +628,29 @@ details.accordion[open] summary::before {
   color: var(--clr-title);
 }
 .products__filters {
-  width: min(900px + 1rem, 100%);
   margin-bottom: 2rem;
   display: grid;
   gap: 0.5rem;
 }
 @media screen and (min-width: 720px) {
   .products__filters {
+    margin-right: auto;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
   }
+}
+.products__cbx {
+  width: calc(50ch + 0.5rem);
+}
+@media screen and (min-width: 720px) {
+  .products__cbx {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+.products__select {
+  width: 30ch;
 }
 .products__arrow {
   position: absolute;

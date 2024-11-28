@@ -182,7 +182,7 @@ input[type='number'] {
     text-wrap: nowrap;
     font-size: 1rem;
     color: var(--clr-text);
-    width: 24ch;
+    width: 20ch;
 
     @media screen and (min-width: 720px) {
       width: auto;
