@@ -122,18 +122,24 @@ export function productCard(obj, quantity=0) {
 
 // Create rating paws 
 export function populateRating(rating) {
-  const int = parseInt(Math.floor(rating));
-  const decimal = (Number(rating) - int).toFixed(1);
+  const int = Math.floor(rating); // Integer part
+  const decimal = rating - int; // Fractional part
   let paws = '';
 
+  // Add solid paws for the integer part
   for (let i = 1; i <= int; i++) {
     paws += `<div class="rating-paw rating-paw--solid"></div>`;
   }
-  if (decimal >= .2) {
-    const decimalPercentage = decimal * 100;
+
+  // Add a partial paw if there is a decimal value
+  if (decimal > 0) {
+    const decimalPercentage = Math.round(decimal * 100); // Convert to percentage
     paws += `<div class="rating-paw rating-paw--grad-${decimalPercentage}"></div>`;
   }
-  for (let i = 1; i <= 5 - int; i++) {
+
+  // Add empty paws for the remaining slots
+  const totalPaws = decimal > 0 ? int + 1 : int; // Adjust total paws if a partial one is added
+  for (let i = 1; i <= 5 - totalPaws; i++) {
     paws += `<div class="rating-paw rating-paw--empty"></div>`;
   }
 
@@ -141,26 +147,12 @@ export function populateRating(rating) {
 }
 
 
-
-export const initProductCards = (() => {
-  const productArray = shuffleArray(Object.values(productsObject));
-  const productsWrapper = document.querySelector('.products__wrapper');
-
-  // Populate product cards with default values
-  productArray.forEach(item => {
-    const pid = item.id;
-
-    productsWrapper.innerHTML += productCard(item);
-  });
-
-
-  //*---------- Functionality ----------*//
-
-
-  // Update pricing every X interval in minutes
-  const interval = 15;
+// Update card price every x minute
+export function setCardUpdateInterval(interval=15) {
+  // Update pricing every X interval in miliseconds
   const updateInterval = 1000 * 60 * interval;
   setInterval(() => {
+    const productsWrapper = document.querySelector('.js-products');
     const productCards = Array.from(productsWrapper.querySelectorAll('.js-product-card'));
     productCards.forEach(card => {
       // If card not undefined
@@ -173,7 +165,138 @@ export const initProductCards = (() => {
       }
     });
   }, updateInterval);
+}
 
+
+// Event handler function
+function handleProductCardEvent(e) {
+
+  const card = e.target.closest('.js-product-card'); // Find the product card related to target
+  if (!card) return; // Exit if not within a product card
+
+  const productId = Number(card.dataset.pid); // Get "pid" from card
+  const productData = productsObject[productId]; // Product Object from Card "pid"
+
+  //* Handle events based on target *//
+
+  // If target is radio button
+  if (e.target.matches('.js-gender-rb')) {
+    //console.log('Product card gender change event');
+    
+    updatePrice(card, productData); // Update price when gender radio button changes
+    updateComparisonPrice(card, productData); // Update comparison based on selected gender weight
+  }
+  
+  // If target is buttons of input in quantifier group
+  if (e.target.matches('.js-quantity') || 
+      e.target.matches('.js-increase') || 
+      e.target.matches('.js-decrease')) {
+    //console.log('Product card quantity event', e.type);
+
+    adjustQuantity(e, card, productData); // Update quantity input
+    updateComparisonPrice(card, productData); // Update comparison price if item discount is valid
+  }
+
+  //Add to cart object when add to cart button is clicked
+  if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
+    //console.log('Add to card clicked');
+    const numberInput = card.querySelector('.js-quantity');
+    const quantity = Number(numberInput.value);
+
+    if (!quantity) return; // Stop id quantity is 0
+
+    const gender = card.querySelector('.js-gender-rb:checked').value; // OLD genderTranslate[card.querySelector('.js-gender-rb:checked').value];
+    const basePrice = Number(productData.priceInfo.price); // Original price set in productsObject
+    const adjustedPrice = Number(weekendPricing(basePrice)); // 
+    const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
+    const discount = adjustedPrice - discountPrice;
+    const itemData = findItemByProductIdAndGender(cartItemsObject, productId, gender);
+    const counter = cartSummaryObject.counter;
+
+    // console.log('base price', basePrice);
+    // console.log('adjusted price', adjustedPrice);
+    // console.log('discounted price', discountPrice);
+    // console.log('discount', discount);
+    
+
+    // Test if cartItem should be added or updated
+    // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
+    if (!itemData || itemData && itemData.gender != gender) {
+      // Create new cart item
+      //console.log('Product don't exist, Add object');
+
+      const newItem = {
+        productId: productId,
+        gender: gender,
+        quantity: quantity,
+        priceInfo: {
+          price: discountPrice,
+          discount: discount * quantity,
+          lineTotal: (discountPrice * quantity) - discount
+        },
+      }
+    
+      // Add the new item to the cartObject to the next available index.
+      cartItemsObject[getHighestIndex(cartItemsObject) + 1] = newItem;
+      
+      // Update Cart Object Counter
+      cartSummaryObject.counter += quantity;
+
+      // Update cart summary
+      updateCartSummary();
+
+      // Add cart Item to Items Container
+      addCartItem(newItem, productData);
+
+      // Update header cart counter
+      updateHeaderCartCounter(cartSummaryObject);
+
+      // Resewt input
+      numberInput.value = 0;
+      
+    } else {
+      // Product is in cart, update
+      //console.log('Product already exist, Update object');
+
+      // Set new quantity
+      const newQuantity = quantity + Number(itemData.quantity);
+      // console.log('quantity', quantity);
+      // console.log('newQuantity', newQuantity);
+      // console.log('cartSummaryObject.counter',cartSummaryObject.counter);
+      
+      // Update Cart Object
+      updateCartItem(itemData, newQuantity, discountPrice, discount);
+
+      // Update Cart Object Counter
+      cartSummaryObject.counter += quantity;
+
+      // Update cart summary
+      updateCartSummary();
+    
+      //cartSummaryObject.counter = Math.max(counter + diff, 0);
+      updateHeaderCartCounter(cartSummaryObject);
+
+      // Resewt input
+      numberInput.value = 0;
+
+    }
+  }
+}
+
+
+
+export const initProductCards = (() => {
+  // const productArray = shuffleArray(Object.values(productsObject));
+  const productsArray = Object.values(productsObject);
+  const productsWrapper = document.querySelector('.js-products');
+
+  // Populate product cards with default values
+  productsArray.forEach(item => {
+    productsWrapper.innerHTML += productCard(item);
+  });
+
+
+  //*---------- Functionality ----------*//
 
   // Attach event listeners to the products wrapper
   productsWrapper.addEventListener('click', handleProductCardEvent);
@@ -181,119 +304,7 @@ export const initProductCards = (() => {
   productsWrapper.addEventListener('keyup', handleProductCardEvent);
   productsWrapper.addEventListener('change', handleProductCardEvent);
 
-   // Function for change and event listeners
-   function handleProductCardEvent(e) {
-
-    const card = e.target.closest('.js-product-card'); // Find the product card related to target
-    if (!card) return; // Exit if not within a product card
-
-    const productId = Number(card.dataset.pid); // Get "pid" from card
-    const productData = productsObject[productId]; // Product Object from Card "pid"
-
-    //* Handle events based on target *//
-
-    // If target is radio button
-    if (e.target.matches('.js-gender-rb')) {
-      //console.log('Product card gender change event');
-      
-      updatePrice(card, productData); // Update price when gender radio button changes
-      updateComparisonPrice(card, productData); // Update comparison based on selected gender weight
-    }
-    
-    // If target is buttons of input in quantifier group
-    if (e.target.matches('.js-quantity') || 
-        e.target.matches('.js-increase') || 
-        e.target.matches('.js-decrease')) {
-      //console.log('Product card quantity event', e.type);
-
-      adjustQuantity(e, card, productData); // Update quantity input
-      updateComparisonPrice(card, productData); // Update comparison price if item discount is valid
-    }
-
-    //Add to cart object when add to cart button is clicked
-    if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
-      //console.log('Add to card clicked');
-      const numberInput = card.querySelector('.js-quantity');
-      const quantity = Number(numberInput.value);
-
-      if (!quantity) return; // Stop id quantity is 0
-
-      const gender = card.querySelector('.js-gender-rb:checked').value; // OLD genderTranslate[card.querySelector('.js-gender-rb:checked').value];
-      const basePrice = Number(productData.priceInfo.price); // Original price set in productsObject
-      const adjustedPrice = Number(weekendPricing(basePrice)); // 
-      const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
-      const discount = adjustedPrice - discountPrice;
-      const itemData = findItemByProductIdAndGender(cartItemsObject, productId, gender);
-      const counter = cartSummaryObject.counter;
-
-      // console.log('base price', basePrice);
-      // console.log('adjusted price', adjustedPrice);
-      // console.log('discounted price', discountPrice);
-      // console.log('discount', discount);
-      
-
-      // Test if cartItem should be added or updated
-      // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
-      if (!itemData || itemData && itemData.gender != gender) {
-        // Create new cart item
-        //console.log('Product don't exist, Add object');
-
-        const newItem = {
-          productId: productId,
-          gender: gender,
-          quantity: quantity,
-          priceInfo: {
-            price: discountPrice,
-            discount: discount * quantity,
-            lineTotal: (discountPrice * quantity) - discount
-          },
-        }
-      
-        // Add the new item to the cartObject to the next available index.
-        cartItemsObject[getHighestIndex(cartItemsObject) + 1] = newItem;
-        
-        // Update Cart Object Counter
-        cartSummaryObject.counter += quantity;
-
-        // Update cart summary
-        updateCartSummary();
-
-        // Add cart Item to Items Container
-        addCartItem(newItem, productData);
-
-        // Update header cart counter
-        updateHeaderCartCounter(cartSummaryObject);
-
-        // Resewt input
-        numberInput.value = 0;
-        
-      } else {
-        // Product is in cart, update
-        //console.log('Product already exist, Update object');
-
-        // Set new quantity
-        const newQuantity = quantity + Number(itemData.quantity);
-        // console.log('quantity', quantity);
-        // console.log('newQuantity', newQuantity);
-        // console.log('cartSummaryObject.counter',cartSummaryObject.counter);
-        
-        // Update Cart Object
-        updateCartItem(itemData, newQuantity, discountPrice, discount);
-
-        // Update Cart Object Counter
-        cartSummaryObject.counter += quantity;
-
-        // Update cart summary
-        updateCartSummary();
-      
-        //cartSummaryObject.counter = Math.max(counter + diff, 0);
-        updateHeaderCartCounter(cartSummaryObject);
-
-        // Resewt input
-        numberInput.value = 0;
-
-      }
-    }
-  }
+  // Update card price every x minute
+  setCardUpdateInterval(15);
 
 })();

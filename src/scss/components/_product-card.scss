@@ -31,25 +31,52 @@ $_module-name: "Product Carsd";
   }
 
   &__filters {
+    width: Min(900px + 1rem, 100%);
     margin-bottom: 2rem;
+    display: grid;
+    gap: .5rem;
+
+    @media screen and (min-width: 720px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
   }
 }
 
 .products__wrapper {
   display: grid;
+  margin: 0 auto;
+  min-width: 312px;
+  max-width: 450px;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  // grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(3, auto);
   gap: 1.5rem;
+  justify-content: center;
   padding-bottom: 1rem;
 
-  // @media screen and (min-width: 720px) {
-  //   grid-template-columns: repeat(auto-fit, minmax(336px, 1fr));
-  // }
+  @media screen and (min-width: 700px) {
+    max-width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (min-width: 1059px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (min-width: 1417px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (min-width: 1775px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 .product-card {
-  
+  position: relative;
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 3;
@@ -204,19 +231,33 @@ $_module-name: "Product Carsd";
   //* Price / Quantifier
 
   &__price-quantity-group {
-    align-self: self-end;
-    margin-top: .5rem;
-    width: 100%;
+    align-self: self-start;
+    margin-top: 0;
+    // width: 100%;
+    width: Min(100%, 366px);
     height: fit-content;
     display: flex;
     gap: 1rem;
+
+    // @media screen and (min-width: 720px) {
+      
+    // }
+
+    // @media screen and (min-width: 720px) {
+      
+    // }
   }
 
   &__pricing {
     margin-left: auto;
+    //margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+
+    @media screen and (min-width: 720px) {
+      margin: 0 auto;
+    }
   }
 
   &__item-price-wrapper {
@@ -285,6 +326,7 @@ $_module-name: "Product Carsd";
       color: inherit;
       border: solid var(--clr-lines);
       border-width: 1px;
+      user-select: none;
     }
   }
 

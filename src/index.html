@@ -72,26 +72,41 @@
           </header>
           <div class="products__filters">
             <!-- Filter kommer att vara här: Hundtyp, Pris (högt/lågt), Popularitet ("rating", högt/lågt) -->
-            <label for="dog-type">Sortera på hundtyp:</label>
-            <select class="custom-select products__select" name="" id="dog-type">
-              <option value="brukshund">Brukshund</option>
-              <option value="grythund">Grythund</option>
-              <option value="jakthund">Jakthund</option>
-              <option value="sällskapshund">Sällskapshund</option>
-              <option value="slädhund">Slädhund</option>
-              <option value="tjänstehund">Tjänstehund</option>
-              <option value="vallhund">Vallhund</option>
-            </select>
+            <div class="combobox">
+              <label class="combobox__label" for="dog-type">Sortera på hundtyp:</label>
+              <select class="combobox__select products__select" name="type-filter" id="dog-type">
+                <option value="alla">Visa alla</option>
+                <option value="brukshund">Brukshund</option>
+                <option value="grythund">Grythund</option>
+                <option value="jakthund">Jakthund</option>
+                <option value="sällskapshund">Sällskapshund</option>
+                <option value="slädhund">Slädhund</option>
+                <option value="tjänstehund">Tjänstehund</option>
+                <option value="vallhund">Vallhund</option>
+              </select>
+              <span class="combobox__arrow" aria-hidden="true">
+                <svg class="icon">
+                  <use href="#caret-icon"/>
+                </svg>
+              </span>
+            </div>
 
-            <label for="filter">Sortera på:</label>
-            <select class="custom-select products__select" name="" id="filter">
-              <option value="0">Pupularitet - fallande</option>
-              <option value="1">Pupularitet - stigande</option>
-              <option value="2">Hundras - fallande</option>
-              <option value="3">Hundras - stigande</option>
-              <option value="4">Pris - fallande</option>
-              <option value="5">Pris - stigande</option>
-            </select>
+            <div class="combobox">
+              <label class="combobox__label" for="filter">Sortera på:</label>
+              <select class="combobox__select products__select" name="common-filter" id="filter">
+                <option value="0">Pupularitet - fallande</option>
+                <option value="1">Pupularitet - stigande</option>
+                <option value="2">Hundras - fallande</option>
+                <option value="3">Hundras - stigande</option>
+                <option value="4">Pris - fallande</option>
+                <option value="5">Pris - stigande</option>
+              </select>
+              <span class="combobox__arrow" aria-hidden="true">
+                <svg class="icon">
+                  <use href="#caret-icon"/>
+                </svg>
+              </span>
+            </div>
           </div>
           <div class="products__wrapper js-products "></div>
         </div>
@@ -680,6 +695,14 @@
       </clipPath>
     </svg>
 
+    <!-- Caret icon -->
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="caret-icon" viewBox="0 0 48 48">
+        <path d="M24.2158 27.1305L39.3465 11.9998L43.7153 16.3687C35.5079 24.5762 32.5067 27.7196 24.2158 35.8413L4.71533 16.3686L9.0842 11.9998L24.2158 27.1305Z"/>
+      </symbol>
+    </svg>
+
+    
     <!-- Brand logo wide -->
     <svg class="svg" xmlns="http://www.w3.org/2000/svg">
       <symbol id="puppy-shop-wide" viewBox="0 0 180 48">

@@ -230,6 +230,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
       color: inherit;
       border: solid var(--clr-lines);
       border-width: 1px;
+      user-select: none;
     }
   }
 

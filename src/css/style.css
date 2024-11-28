@@ -232,6 +232,8 @@ html {
 body {
   overflow-y: scroll;
   overflow-x: hidden;
+  margin: 0 auto;
+  max-width: 1920px;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -454,15 +456,69 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   display: block;
 }
 
-.custom-select {
-  border: none;
+.combobox {
+  position: relative;
+  width: 100%;
+  min-width: 15rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5rem;
+}
+.combobox__label {
+  text-wrap: nowrap;
+  font-size: 1rem;
+  color: var(--clr-text);
+  width: 24ch;
+}
+@media screen and (min-width: 720px) {
+  .combobox__label {
+    width: auto;
+  }
+}
+.combobox__select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  padding: 0 2rem 0 1rem;
-  background-color: white;
+  border: 1px solid var(--clr-lines);
+  border-radius: 0.25rem;
+  padding: 0.25rem 2em 0.25rem 1em;
+  width: 100%;
+  height: 3rem;
   color: var(--clr-text);
-  font-size: 1.125rem;
+  background-color: white;
+  font-size: 1rem;
+  font-family: var(--ff-primary);
+}
+@media screen and (min-width: 720px) {
+  .combobox__select {
+    height: 2rem;
+  }
+}
+.combobox__arrow {
+  pointer-events: none;
+  position: absolute;
+  height: 100%;
+  width: 2rem;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-content: center;
+}
+.combobox__arrow .icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: var(--clr-text);
+}
+.combobox__select > option {
+  font-size: 1em;
+  height: 3rem;
 }
 
 /* ### Form END
@@ -572,19 +628,59 @@ details.accordion[open] summary::before {
   color: var(--clr-title);
 }
 .products__filters {
+  width: min(900px + 1rem, 100%);
   margin-bottom: 2rem;
+  display: grid;
+  gap: 0.5rem;
+}
+@media screen and (min-width: 720px) {
+  .products__filters {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+.products__arrow {
+  position: absolute;
 }
 
 .products__wrapper {
   display: grid;
+  margin: 0 auto;
+  min-width: 312px;
+  max-width: 450px;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(3, auto);
   gap: 1.5rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding-bottom: 1rem;
+}
+@media screen and (min-width: 700px) {
+  .products__wrapper {
+    max-width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 1059px) {
+  .products__wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1417px) {
+  .products__wrapper {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (min-width: 1775px) {
+  .products__wrapper {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 .product-card {
+  position: relative;
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 3;
@@ -721,10 +817,10 @@ details.accordion[open] summary::before {
   gap: 1.5rem;
 }
 .product-card__price-quantity-group {
-  -ms-flex-item-align: self-end;
-      align-self: self-end;
-  margin-top: 0.5rem;
-  width: 100%;
+  -ms-flex-item-align: self-start;
+      align-self: self-start;
+  margin-top: 0;
+  width: min(100%, 366px);
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -745,6 +841,11 @@ details.accordion[open] summary::before {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+}
+@media screen and (min-width: 720px) {
+  .product-card__pricing {
+    margin: 0 auto;
+  }
 }
 .product-card__item-price-wrapper {
   display: -webkit-box;
@@ -814,6 +915,10 @@ details.accordion[open] summary::before {
   color: inherit;
   border: solid var(--clr-lines);
   border-width: 1px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .product-card__add-to-cart {
   cursor: pointer;
@@ -1348,6 +1453,10 @@ main {
   color: inherit;
   border: solid var(--clr-lines);
   border-width: 1px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .cart__item-remove > .icon {
   width: 2.5rem;
