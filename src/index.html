@@ -29,12 +29,12 @@
       <nav class="header__nav"></nav>
       <nav header__nav></nav>
       <div class="header__cart">
-        <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden">
+        <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden" aria-label="Gå till kundvagn och kassa">
           <svg class="icon" aria-hidden="true">
             <use href="#cart-icon" class="js-header-cart-icon"/>
           </svg>
         </button>
-        <button class="header__cart-btn js-header-cart" >
+        <button class="header__cart-btn js-header-cart" aria-label="Öppna och stänga kundvagn">
           <svg class="icon" aria-hidden="true">
             <use href="#cart-icon" class="cart-icon"/>
           </svg>
@@ -46,7 +46,7 @@
           <div class="header__cart-dropdown-inner">
             <ul class="header__cart-items js-cart-items"></ul>
             <div class="header__cart-summary">
-              <span class="header__cart-label">Summa:</span>
+              <span class="header__cart-label">Delsumma:</span>
               <span class="header__cart-subtotal js-cart-subtotal">204 000 kr</span>
             </div>
           </div>
@@ -71,29 +71,29 @@
             <h1 class="products__title">Våra valpar!</h1>
           </header>
           <div class="products__filters">
-            Filter kommer att vara här: Hundtyp, Pris (högt/lågt), Popularitet ("rating", högt/lågt)
-            <div>
-              <label for="dog-type">Sortera på hundtyp:</label>
-              <select class="custom-select products__select" name="" id="dog-type">
-                
-              </select>
+            <!-- Filter kommer att vara här: Hundtyp, Pris (högt/lågt), Popularitet ("rating", högt/lågt) -->
+            <label for="dog-type">Sortera på hundtyp:</label>
+            <select class="custom-select products__select" name="" id="dog-type">
+              <option value="brukshund">Brukshund</option>
+              <option value="grythund">Grythund</option>
+              <option value="jakthund">Jakthund</option>
+              <option value="sällskapshund">Sällskapshund</option>
+              <option value="slädhund">Slädhund</option>
+              <option value="tjänstehund">Tjänstehund</option>
+              <option value="vallhund">Vallhund</option>
+            </select>
 
-              <label for="filter">Sortera på:</label>
-              <select class="custom-select products__select" name="" id="filter">
-                <optgroup>
-                  <option value="">Pupularitet - fallande</option>
-                  <option value="">Pupularitet - stigande</option>
-                  <option value="">Hundras - fallande</option>
-                  <option value="">Hundras - stigande</option>
-                  <option value="">Pris - fallande</option>
-                  <option value="">Pris - stigande</option>
-                  <option value="">Kilopris - fallande</option>
-                  <option value="">Kilopris - stigande</option>
-                </optgroup>
-              </select>
-            </div>
+            <label for="filter">Sortera på:</label>
+            <select class="custom-select products__select" name="" id="filter">
+              <option value="0">Pupularitet - fallande</option>
+              <option value="1">Pupularitet - stigande</option>
+              <option value="2">Hundras - fallande</option>
+              <option value="3">Hundras - stigande</option>
+              <option value="4">Pris - fallande</option>
+              <option value="5">Pris - stigande</option>
+            </select>
           </div>
-          <div class="products__wrapper js-products"></div>
+          <div class="products__wrapper js-products "></div>
         </div>
   
         <div class="shopping-cart hidden js-checkout-section">
@@ -115,11 +115,15 @@
   
                 <!-- Summary container -->
                 <div class="cart__summary">
-                  <!-- <div class="cart__summary-row">
+                   <div class="cart__summary-row">
                     <p class="cart__summary-label">Delsumma: </p>
-                    <span class="cart__subtotal js-summary-subtotal">0 kr</span> 
+                    <div class="cart__summary-column">
+                      <span class="cart__subtotal js-cart-subtotal">0 kr</span>
+                      <p class="cart__summary-info js-cart-monday-discount hidden"></p>
+                    </div>
                   </div>
-                  <div class="cart__summary-row">
+                  
+                  <!--<div class="cart__summary-row">
                     <p class="cart__summary-label">Rabatter: </p>
                     <span class="cart__value js-summary-discount">0 kr</span>
                   </div>
@@ -129,10 +133,10 @@
                   </div> -->
                   <div class="cart__summary-row">
                     <p class="cart__summary-label">Fraktkostnad: </p>
-                    <span class="cart__summary-value js-summary-shipping">0 kr</span>
+                    <span class="cart__summary-value js-cart-shipping">0 kr</span>
                   </div>
                   <div class="cart__summary-row">
-                    <span class="cart__summary-label cart__summary-label--large">Summa: </span>
+                    <p class="cart__summary-label cart__summary-label--large">Summa:</p>
                     <div class="cart__summary-column">
                       <div class="cart__summary-total js-cart-total">0 kr</div>
                       <div class="cart__summary-info">inkl. moms</div>
