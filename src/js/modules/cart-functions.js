@@ -2,8 +2,7 @@
 import {
   cartSummaryObject,
   cartItemsObject,
-  productsObject,
-  shippingCostObject
+  productsObject
 } from "./objects.js";
 
 // Untilites imports
@@ -11,8 +10,7 @@ import {
   translateGender,
   sumValues,
   adjustQuantity,
-  findKeyByProductIdAndGender,
-  findItemByProductIdAndGender
+  findKeyByProductIdAndGender
 } from "./utilities.js";
 
 // Pricing imports

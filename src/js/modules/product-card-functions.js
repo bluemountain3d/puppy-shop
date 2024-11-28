@@ -8,11 +8,8 @@ import {
 // Utility imports
 import { 
   addTextFromArray,
-  shuffleArray,
   getHighestIndex,
-  findItemByProductId,
   findItemByProductIdAndGender,
-  sumValues,
   adjustQuantity
 } from "./utilities.js";
 
