@@ -1,10 +1,40 @@
-import { cartItemsObject } from "./objects.js";
+import { cartItemsObject, cartSummaryObject, shippingCostObject } from "./objects.js";
 
 //*---------- Discounts ----------*//
 
 /* Discount functions ToDo
- * Cart total discount. 10% if total amount is > 15
+
+ * Om kunden har beställt för totalt mer än 800 kr ska det inte gå att
+   välja faktura som betalsätt.
+   
 */
+
+
+/**
+ * check if subtotal qualifies for monday discount
+ * @param {*} subtotal 
+ * @param {*} discount 
+ * @returns 
+ */
+export function mondayDiscount(subtotal=0, discount=.9) {
+  const date = new Date();
+  const day = date.getDay();
+  const hour = date.getHours();
+
+  if (!subtotal) {
+    if (day === 1 && hour > 3 && hour < 10) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  if (day === 1 && hour > 3 && hour < 10) {
+    return subtotal * discount;
+  } else {
+    return subtotal;
+  }
+}
 
 
 /**
@@ -13,10 +43,21 @@ import { cartItemsObject } from "./objects.js";
  * @param {*} change 
  * @returns 
  */
-export function weekendPricing(price, change=1.15) {
+export function weekendPricing(price=0, change=1.15) {
   const date = new Date();
   const day = date.getDay();
   const hour = date.getHours();
+
+  if (!price) {
+    if ((day === 5 && hour >= 15) || // Friday after 15:00
+        (day === 6) || // All of Saturday
+        (day === 0) || // All of Sunday
+        (day === 2 && hour < 3)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // Weekend is:
   // - Friday from 15:00 onwards
@@ -49,6 +90,7 @@ export function itemQtyDiscount(price, quantity, amount=10, discount=.9) {
     return price;
   }
 }
+
 
 /**
  * 
@@ -186,19 +228,25 @@ export function updatePrice(card, obj) {
  * @param {*} varPercent 
  * @returns 
  */
-export function getShippingCost(cartObj, costObj, varPercent = 1) {
-  // Safely access subtotal from cartObj
-  const subtotal = cartObj?.cartSummary?.subtotal ?? 0;
+export function getShippingCost(subtotal, counter, limit=15, percent = 1) {
+  //console.log('getShippingCost Called');
+  
   // Get the selected radio button
   const shippingRadios = Array.from(document.querySelectorAll('input[name="shipping"]'));
+
   // Find the checked radio button
-  const selectedRadio = shippingRadios.find(radio => radio.checked);
+  const selectedRadio = shippingRadios.find(radio => radio.checked).value; 
+
   // Calculate fixed and variable costs
-  const fixedCost = selectedRadio ? costObj[selectedRadio.value] : 0;
-  const variableCost = Number((cartObj?.cartSummary?.subtotal ?? 0) * varPercent / 100);
-  
-  // Return total cost
-  return parseInt(fixedCost + variableCost, 10);
+  const fixedCost = Number(shippingCostObject[selectedRadio]);
+  const variableCost = subtotal / 100 * percent;
+
+  // Return shipping cost
+  if (!counter || counter > limit) {
+    return 0;
+  } else {
+    return fixedCost + variableCost;
+  }
 }
 
 

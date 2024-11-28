@@ -102,7 +102,7 @@ export function productCard(obj, quantity=0) {
                 </div>
                 <div class="product-card__quantifier js-quantifier">
                   <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">−</button>
-                  <input type="number" class="product-card__quantifier-input js-quantity" aria-label="Antal" value="${quantity}">
+                  <input type="number" class="product-card__quantifier-input js-quantity" aria-label="Antal" value="${quantity}" disabled>
                   <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">+</button>
                 </div>
               </div>
@@ -213,7 +213,8 @@ export const initProductCards = (() => {
     //Add to cart object when add to cart button is clicked
     if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
       //console.log('Add to card clicked');
-      const quantity = Number(card.querySelector('.js-quantity').value);
+      const numberInput = card.querySelector('.js-quantity');
+      const quantity = Number(numberInput.value);
 
       if (!quantity) return; // Stop id quantity is 0
 
@@ -235,6 +236,8 @@ export const initProductCards = (() => {
       // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
       if (!itemData || itemData && itemData.gender != gender) {
         // Create new cart item
+        //console.log('Product don't exist, Add object');
+
         const newItem = {
           productId: productId,
           gender: gender,
@@ -260,16 +263,19 @@ export const initProductCards = (() => {
 
         // Update header cart counter
         updateHeaderCartCounter(cartSummaryObject);
+
+        // Resewt input
+        numberInput.value = 0;
         
       } else {
         // Product is in cart, update
-        console.log('Product exist Update object');
+        //console.log('Product already exist, Update object');
 
         // Set new quantity
         const newQuantity = quantity + Number(itemData.quantity);
-        console.log('quantity', quantity);
-        console.log('newQuantity', newQuantity);
-        console.log('cartSummaryObject.counter',cartSummaryObject.counter);
+        // console.log('quantity', quantity);
+        // console.log('newQuantity', newQuantity);
+        // console.log('cartSummaryObject.counter',cartSummaryObject.counter);
         
         // Update Cart Object
         updateCartItem(itemData, newQuantity, discountPrice, discount);
@@ -282,6 +288,9 @@ export const initProductCards = (() => {
       
         //cartSummaryObject.counter = Math.max(counter + diff, 0);
         updateHeaderCartCounter(cartSummaryObject);
+
+        // Resewt input
+        numberInput.value = 0;
 
       }
     }

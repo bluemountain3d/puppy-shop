@@ -11,7 +11,8 @@ import {
   translateGender,
   sumValues,
   adjustQuantity,
-  findKeyByProductIdAndGender
+  findKeyByProductIdAndGender,
+  findItemByProductIdAndGender
 } from "./utilities.js";
 
 // Pricing imports
@@ -19,6 +20,7 @@ import {
   formatPrice,
   weekendPricing,
   itemQtyDiscount,
+  mondayDiscount,
   getShippingCost
 } from "./pricing.js";
 
@@ -38,7 +40,7 @@ export function cartItemCard(itemData, productData) {
           <div class="cart__item-controlls">
             <div class="cart__item-quantity-wrapper js-quantifier">
               <button class="cart__item-decrease js-decrease" aria-label="Minska antal">−</button>
-              <input class="cart__item-quantity js-quantity" type="number" value="${itemData.quantity}" aria-label="Antal">
+              <input class="cart__item-quantity js-quantity" type="number" value="${itemData.quantity}" aria-label="Antal" disabled>
               <button class="cart__item-increase js-increase" aria-label="Öka antal">+</button>
             </div>
             <button class="cart__item-remove js-remove-item" aria-label="Ta bort">
@@ -69,19 +71,29 @@ export function addCartItem(itemData, productData) {
 
 
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
+  //console.log('updateCartItem Called');
+  //console.log('itemData', itemData);
+  
   // Get Element
   const cartItemsContainerArray = Array.from(document.querySelectorAll('.js-cart-items'));
+  const productId = Number(itemData.productId);
+  const gender = itemData.gender;
 
   // Update Item
+  itemData.quantity = quantity;
   itemData.priceInfo.price = discountPrice;
   itemData.priceInfo.discount = discount * quantity;
   itemData.priceInfo.lineTotal = discountPrice * quantity
   
   // Update in both carts
   cartItemsContainerArray.forEach(container => {
-    const priceElem = container.querySelector('.js-price');
-    const quantityElem = container.querySelector('.js-quantity');
-    const itemLineTotalElem = container.querySelector('.js-item-line-total');
+    // Get item
+    const item = container.querySelector(`.js-cart-item[data-pid="${productId}"][data-gender="${gender}"]`);
+    
+    // Get item elements
+    const priceElem = item.querySelector('.js-price');
+    const quantityElem = item.querySelector('.js-quantity');
+    const itemLineTotalElem = item.querySelector('.js-item-line-total');
 
     // Update item price text
     if (priceElem) priceElem.innerText = formatPrice(discountPrice);
@@ -91,13 +103,15 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
     if (itemLineTotalElem) itemLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
   });
 
+  //console.log('itemData', itemData);
+  //console.log('updateCartItem END');
 }
 
 
 
 // Remove Item from Cart
 export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
-  //console.log('removeCartItem Called');
+  console.log('removeCartItem Called');
 
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items')); // Find all containers holding cart items
   const itemData = cartItemsObj[cartKey];
@@ -106,7 +120,10 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
     //console.log('Before remove cartItemsObj', cartItemsObj);
 
     // Update cart counter
+    console.log('itemData.quantity:', itemData.quantity);
+    console.log('cartSummaryObject.counter A:', cartSummaryObject.counter);   
     cartSummaryObject.counter -= itemData.quantity;
+    console.log('cartSummaryObject.counter B:', cartSummaryObject.counter);
     
     // Delete the item from the cart items object
     delete cartItemsObj[cartKey];
@@ -128,15 +145,23 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
 
 // Update Cart Summary
 export function updateCartSummary() {
-  // Get elements
-  const cartSubtotal = document.querySelectorAll('.js-cart-subtotal');
-  const cartTotal = document.querySelectorAll('.js-cart-total');
-  // New subtotal
-  const newSubtotal = Number(sumValues(cartItemsObject, 'priceInfo.lineTotal'));
-  const newDiscounts = Number(sumValues(cartItemsObject, 'priceInfo.discount'));
-  // Update shipping cost
-  const shippingCost = getShippingCost(cartSummaryObject, shippingCostObject);
+  //console.log('updateCartSummary Called');
+  const counter = cartSummaryObject.counter;
   
+  // Get elements
+  const cartSubtotal = document.querySelector('.js-cart-subtotal');
+  const cartMondayDiscount = document.querySelector('.js-cart-monday-discount');
+  const cartShipping = document.querySelector('.js-cart-shipping');
+  const cartTotal = document.querySelector('.js-cart-total');
+  
+  // New subtotal
+  const newSubtotal = mondayDiscount(sumValues(cartItemsObject, 'priceInfo.lineTotal'));
+  const newDiscounts = sumValues(cartItemsObject, 'priceInfo.discount');
+  
+  // Update shipping cost
+  const shippingCost = getShippingCost(newSubtotal, counter);
+  
+  //cartQtyDiscount(subtotal, counter, limit=15, discount=.9)
   // Set new values
   cartSummaryObject.subtotal = newSubtotal;
   cartSummaryObject.discounts = newDiscounts;
@@ -144,11 +169,20 @@ export function updateCartSummary() {
   cartSummaryObject.vat = newSubtotal * .2;
   cartSummaryObject.total = newSubtotal + shippingCost;
 
-  // Hader Cart Subtotal
-  cartSubtotal.innerText = newSubtotal;
+  // Hader and Checkout Cart Subtotal
+  cartSubtotal.innerText = `${formatPrice(newSubtotal)} kr`;
+
+  // if monday discount is applied show text
+  if (mondayDiscount()) {
+    cartMondayDiscount.innerText = 'Måndagsrabatt: 10 % på hela beställningen';
+    cartMondayDiscount.classList.remove('hidden');
+  }
+
+  // Checkout Cart Shipping Cost
+  cartShipping.innerText = `${formatPrice(shippingCost)} kr`;
 
   // Checkout Cart Total
-  cartTotal.innerText = newSubtotal + shippingCost;
+  cartTotal.innerText = `${formatPrice(newSubtotal + shippingCost)} kr`;
 }
 
 
@@ -157,6 +191,7 @@ export function updateHeaderCartCounter(cartObj) {
   //console.log('updateHeaderCartCounter Called');
   
   // Get elements
+  const productsSection = document.querySelector('.js-products-section');
   const headerToCart = document.querySelector('.header__to-checkout');
   const headerCount = document.querySelector('.header__cart-count');
   const headerTotal = document.querySelector('.header__cart-total');
@@ -177,7 +212,9 @@ export function updateHeaderCartCounter(cartObj) {
 
     // Show elements if the window width is greater than or equal to the breakpoint
     if (window.innerWidth >= breakpoint) {
-      headerToCart.classList.remove('hidden');
+      if (!productsSection.classList.contains('hidden')) {
+        headerToCart.classList.remove('hidden');
+      }
       headerTotal.classList.remove('hidden');
     }
   } else {
@@ -202,6 +239,8 @@ const headerGoToBtn = document.querySelector('.header__to-checkout');
 const productsSection = document.querySelector('.js-products-section');
 const checkoutSection = document.querySelector('.js-checkout-section');
 
+// Set breakpoint true or false
+const breakpoint = window.innerWidth > 720;
 
 //* Go to checkout
 // Header Mobile: Go to Checkout
@@ -231,7 +270,9 @@ function toggleDropdownCart() {
   if (headerCart.classList.contains('active')) {
     // Hide the cart if it is already open
     headerCart.classList.remove('active');
-  } else if (!productsSection.classList.contains('hidden')) {
+  } else if (!productsSection.classList.contains('hidden')
+             && cartSummaryObject.counter > 0
+             && breakpoint) {
     // Show the cart
     headerCart.classList.add('active');
     document.body.classList.add('no-scroll');
@@ -240,7 +281,9 @@ function toggleDropdownCart() {
 
 // Function to show the dropdown
 function showDropdownCart() {
-  if (!productsSection.classList.contains('hidden') && cartSummaryObject.counter > 0) {
+  if (!productsSection.classList.contains('hidden') 
+      && cartSummaryObject.counter > 0
+      && breakpoint) {
     headerCart.classList.add('active');
     document.body.classList.add('no-scroll');
   }
@@ -255,10 +298,10 @@ headerCart.addEventListener('mouseleave', hideDropdownCart);
 headerCart.addEventListener('blur', hideDropdownCart, true);
 
 // Function to blur the dropdown with a delay to allow focus to settle
-function blurDropdownCart(e) {
+function blurDropdownCart(e, breakpoint) {
   setTimeout(() => {
     const isFocusInsideDropdown = headerCart.contains(document.activeElement);
-    if (!isFocusInsideDropdown) {
+    if (!isFocusInsideDropdown && breakpoint) {
       headerCart.classList.remove('active');
       document.body.classList.remove('no-scroll');
     }
@@ -266,7 +309,7 @@ function blurDropdownCart(e) {
 }
 
 // Function to hide the dropdown on mouse leave
-function hideDropdownCart(e) {
+function hideDropdownCart(e) {              
   setTimeout(() => {
     if (!headerCart.matches(':hover') && 
       !headerCartBtn.matches(':hover')) { 
@@ -284,7 +327,8 @@ closeCart.addEventListener('click', e => {
   productsSection.classList.remove('hidden');
   checkoutSection.classList.add('hidden');
 
-  if (Number(cartSummaryObject.counter) > 0) {
+  if (Number(cartSummaryObject.counter) > 0
+      && !productsSection.classList.contains('hidden')) {
     headerGoToBtn.classList.remove('hidden');
   }
 });
@@ -297,17 +341,18 @@ const headerCartItems = document.querySelector('.header__cart-items');
 const checkoutCartItems = document.querySelector('.cart__items');
 
 headerCartItems.addEventListener('click', handleCartEvent);
-headerCartItems.addEventListener('keydown', handleCartEvent);
-headerCartItems.addEventListener('keyup', handleCartEvent);
-headerCartItems.addEventListener('change', handleCartEvent);
+// headerCartItems.addEventListener('keydown', handleCartEvent);
+// headerCartItems.addEventListener('keyup', handleCartEvent);
+// headerCartItems.addEventListener('change', handleCartEvent);
 
 checkoutCartItems.addEventListener('click', handleCartEvent);
-checkoutCartItems.addEventListener('keydown', handleCartEvent);
-checkoutCartItems.addEventListener('keyup', handleCartEvent);
-checkoutCartItems.addEventListener('change', handleCartEvent);
+// checkoutCartItems.addEventListener('keydown', handleCartEvent);
+// checkoutCartItems.addEventListener('keyup', handleCartEvent);
+// checkoutCartItems.addEventListener('change', handleCartEvent);
 
 function handleCartEvent(e) {
-
+  console.log('handleCartEvent Called on:', e.type);
+  
   const cartItemsContainer = e.target.closest('.js-cart-items'); // Find the DOM element
   const card = e.target.closest('.js-cart-item');
   const products = productsObject;
@@ -323,27 +368,15 @@ function handleCartEvent(e) {
   if (e.target.matches('.js-quantity') || 
       e.target.matches('.js-increase') || 
       e.target.matches('.js-decrease')) {
-
-    console.log('cartSummary Before', cartSummaryObject);
-    console.log('itemData Before', itemData);
     
     const adjQty = adjustQuantity(e, card, itemData);
     const diff = adjQty[0];
     const newVal = adjQty[1];
-    const curVal = Number(numberInput.value);
-    console.log('diff', diff);
-    console.log('nv', newVal);
-    
 
-    //if (curVal != newVal) numberInput.value = numberInput.value;
-    
     // Update values
-    const counter = cartSummaryObject.counter += diff;
-    console.log('itemData.quantity', itemData.quantity);
-    console.log('itemData.quantity += diff', itemData.quantity += diff);
+    const newCount = sumValues(cartItemsObject, 'quantity') + diff;
+    cartSummaryObject.counter = newCount;
     const quantity = newVal; // set quantity and update item quantity
-    console.log('quantity', quantity);
-
     const basePrice = Number(productData.priceInfo.price); // Original price set in productsObject
     const adjustedPrice = Number(weekendPricing(basePrice)); // 
     const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
@@ -357,7 +390,6 @@ function handleCartEvent(e) {
     // console.log('discount', discount);
     
     // Update CartItem
-    console.log('quantity', quantity);
     updateCartItem(itemData, quantity, discountPrice, discount);
     
     // Update cart summary
@@ -365,10 +397,6 @@ function handleCartEvent(e) {
   
     // Update header cart values
     updateHeaderCartCounter(cartSummaryObject);
-
-    console.log('itemData After', itemData);
-    console.log('cartSummary After', cartSummaryObject);
-    console.log('----------');
 
   }
 
