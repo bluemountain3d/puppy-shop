@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* ### CSS Reset START */
-*, *::before, *::after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+*:focus-visible {
+  border: none;
+  outline: 2px solid #285796;
 }
 
 html {
@@ -313,6 +313,14 @@ button:hover .icon {
 /* ### General CSS END
 /* ------------------------------------------------------------ */
 /* ### Form START */
+:is(button, a, input:not([type=radio], [type=checkbox]), textarea, select, details, summary, [tabindex]):focus-visible,
+input[type=radio]:focus-visible ~ .rb-checkmark,
+input[type=checkbox]:focus-visible ~ .chb-checkmark {
+  border: none;
+  outline: 3px solid #FF9800;
+  outline-offset: 2px;
+}
+
 form {
   margin: 0;
   padding: 0;
@@ -335,6 +343,10 @@ button {
 }
 button * {
   pointer-events: none;
+}
+button:focus-visible {
+  border: none;
+  outline: 2px solid #285796;
 }
 
 input[type=number] {
@@ -977,8 +989,9 @@ details.accordion[open] summary::before {
   margin-bottom: 1rem;
   color: var(--clr-light);
   background-color: var(--clr-dark);
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -995,6 +1008,7 @@ details.accordion[open] summary::before {
   min-width: 100%;
 }
 .header__cart {
+  margin-left: auto;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1211,7 +1225,7 @@ details.accordion[open] summary::before {
 /* ------------------------------------------------------------ */
 /* ### Page Main content START */
 main {
-  overflow: visible;
+  overflow-y: visible;
   width: 100%;
 }
 

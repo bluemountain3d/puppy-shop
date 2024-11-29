@@ -19,8 +19,7 @@ $_module-name: "Page Header";
   color: var(--clr-light);
   background-color: var(--clr-dark);
 
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  display: flex;
   align-items: center;
 
   &__brand {
@@ -37,6 +36,7 @@ $_module-name: "Page Header";
   }
 
   &__cart {
+    margin-left: auto;
     position: relative;
     display: flex;
     height: 100%;

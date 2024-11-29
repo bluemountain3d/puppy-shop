@@ -7,8 +7,10 @@ $_module-name: "CSS Reset";
 
 /* ### #{$_module-name} START */
 
-*, *::before, *::after {
-  box-sizing: border-box;
+
+*:focus-visible {
+  border: none;//1px solid white;
+  outline: 2px solid #285796;
 }
 
 // Set Smooth scroll
