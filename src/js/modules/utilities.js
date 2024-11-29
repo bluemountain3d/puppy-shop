@@ -45,7 +45,7 @@ export function shuffleArray(array) {
  * @returns 
  */
 export function adjustQuantity(e, card, obj) {
-  // console.log('adjustQuantity Called');
+  //console.log('adjustQuantity Called');
   // console.log('event type, key', e.type, e.key);
   // console.log('card ID', card.dataset.pid);
   
@@ -211,13 +211,4 @@ export function translateGender(gender) {
   }
 
   return genderTranslateObject[gender];
-}
-
-
-export function updateCartObject() {
-
-
-
-  const newCounter = Number(sumValues(cartItemsObject, 'quantity'));
-
 }

@@ -109,7 +109,7 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
 
 // Remove Item from Cart
 export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
-  console.log('removeCartItem Called');
+  //console.log('removeCartItem Called');
 
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items')); // Find all containers holding cart items
   const itemData = cartItemsObj[cartKey];
@@ -117,18 +117,15 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
   if (cartKey && itemData) {
     //console.log('Before remove cartItemsObj', cartItemsObj);
 
-    // Update cart counter
-    console.log('itemData.quantity:', itemData.quantity);
-    console.log('cartSummaryObject.counter A:', cartSummaryObject.counter);   
+    // Update cart counter  
     cartSummaryObject.counter -= itemData.quantity;
-    console.log('cartSummaryObject.counter B:', cartSummaryObject.counter);
     
     // Delete the item from the cart items object
     delete cartItemsObj[cartKey];
 
     // Remove matching items from each container
     itemContainers.forEach(container => {
-      const item = container.querySelector(`.js-cart-item[data-pid="${id}"][data-gender="${gender}"]`);
+      //const item = container.querySelector(`.js-cart-item[data-pid="${id}"][data-gender="${gender}"]`);
       if (item) {
         item.remove(); // Remove the DOM element
         //console.log(`Removed item from container:`, item);
@@ -186,42 +183,72 @@ export function updateCartSummary() {
 
 // Update Header Cart Counter
 export function updateHeaderCartCounter(cartObj) {
+  // Log function call for debugging
   //console.log('updateHeaderCartCounter Called');
   
   // Get elements
   const productsSection = document.querySelector('.js-products-section');
+  const headerCart = document.querySelector('.js-header-cart');
   const headerToCart = document.querySelector('.header__to-checkout');
   const headerCount = document.querySelector('.header__cart-count');
   const headerTotal = document.querySelector('.header__cart-total');
 
-  // Ensure elements exist
-  if (!headerToCart || !headerCount || !headerTotal) {
+  // Ensure required elements exist
+  if (!headerCart || !headerToCart || !headerCount || !headerTotal) {
     console.error('One or more header cart elements are missing.');
     return;
   }
   
   // Define breakpoint for responsive logic
   const breakpoint = 720;
-  
-  if (Number(cartObj.counter) > 0) {
-    // Update counter and total text
-    headerCount.innerText = `${cartObj.counter} st,`;
-    headerTotal.innerText = `${formatPrice(Number(cartObj.subtotal))} kr`;
 
-    // Show elements if the window width is greater than or equal to the breakpoint
+  // Check if cart has items
+  const hasItems = Number(cartObj.counter) > 0;
+
+  // Update counter and total text
+  headerCount.innerText = hasItems ? `${cartObj.counter} st,` : '0';
+  headerTotal.innerText = hasItems ? `${formatPrice(Number(cartObj.subtotal))} kr` : '';
+
+  // Show or hide elements based on cart state and viewport width
+  if (hasItems) {
     if (window.innerWidth >= breakpoint) {
-      if (!productsSection.classList.contains('hidden')) {
+      if (productsSection && !productsSection.classList.contains('hidden')) {
         headerToCart.classList.remove('hidden');
       }
       headerTotal.classList.remove('hidden');
     }
+    headerCart.removeAttribute('disabled');
+    headerCart.removeAttribute('aria-disabled');
   } else {
-    // Reset counter and hide elements
-    headerCount.innerText = '0';
-    headerTotal.innerText = '';
     headerToCart.classList.add('hidden');
     headerTotal.classList.add('hidden');
+    headerCart.setAttribute('disabled', '');
+    headerCart.setAttribute('aria-disabled', 'true');
   }
+
+  // if (Number(cartObj.counter) > 0) {
+  //   // Update counter and total text
+  //   headerCount.innerText = `${cartObj.counter} st,`;
+  //   headerTotal.innerText = `${formatPrice(Number(cartObj.subtotal))} kr`;
+
+  //   // Show elements if the window width is greater than or equal to the breakpoint
+  //   if (window.innerWidth >= breakpoint) {
+  //     if (!productsSection.classList.contains('hidden')) {
+  //       headerToCart.classList.remove('hidden');
+  //     }
+  //     headerTotal.classList.remove('hidden');
+  //     headerCart.removeAttribute('disabled');
+  //     headerCart.removeAttribute('aria-disabled');
+  //   }
+  // } else {
+  //   // Reset counter and hide elements
+  //   headerCount.innerText = '0';
+  //   headerTotal.innerText = '';
+  //   headerToCart.classList.add('hidden');
+  //   headerTotal.classList.add('hidden');
+  //   headerCart.setAttribute('disabled', "");
+  //   headerCart.setAttribute('aria-disabled', "true");
+  // }
 }
 
 
@@ -353,8 +380,7 @@ checkoutCartItems.addEventListener('click', handleCartEvent);
 // checkoutCartItems.addEventListener('change', handleCartEvent);
 
 function handleCartEvent(e) {
-  e.preventdefault();
-  console.log('handleCartEvent Called on:', e.type);
+  //console.log('handleCartEvent Called on:', e.type);
   
   const cartItemsContainer = e.target.closest('.js-cart-items'); // Find the DOM element
   const card = e.target.closest('.js-cart-item');
