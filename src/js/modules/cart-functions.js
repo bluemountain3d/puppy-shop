@@ -57,6 +57,7 @@ export function cartItemCard(itemData, productData) {
   `;
 }
 
+
 export function addCartItem(itemData, productData) {
   // Add Header Cart and Checkout Cart in an array
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
@@ -65,7 +66,6 @@ export function addCartItem(itemData, productData) {
     container.innerHTML += cartItemCard(itemData, productData);
   });
 }
-
 
 
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
@@ -299,7 +299,10 @@ headerCart.addEventListener('blur', hideDropdownCart, true);
 function blurDropdownCart(e, breakpoint) {
   setTimeout(() => {
     const isFocusInsideDropdown = headerCart.contains(document.activeElement);
-    if (!isFocusInsideDropdown && breakpoint) {
+    
+    if (!isFocusInsideDropdown
+        && breakpoint
+        && !e.target.matches('.js-decrease, .js-increase, .js-remove-item')) {    
       headerCart.classList.remove('active');
       document.body.classList.remove('no-scroll');
     }
@@ -307,10 +310,11 @@ function blurDropdownCart(e, breakpoint) {
 }
 
 // Function to hide the dropdown on mouse leave
-function hideDropdownCart(e) {              
+function hideDropdownCart(e) {
   setTimeout(() => {
     if (!headerCart.matches(':hover') && 
-      !headerCartBtn.matches(':hover')) { 
+        !headerCartBtn.matches(':hover') &&
+        !e.target.matches('.js-decrease, .js-increase, .js-remove-item')) { 
       headerCart.classList.remove('active');
       document.body.classList.remove('no-scroll');
     }
@@ -349,6 +353,7 @@ checkoutCartItems.addEventListener('click', handleCartEvent);
 // checkoutCartItems.addEventListener('change', handleCartEvent);
 
 function handleCartEvent(e) {
+  e.preventdefault();
   console.log('handleCartEvent Called on:', e.type);
   
   const cartItemsContainer = e.target.closest('.js-cart-items'); // Find the DOM element
@@ -363,7 +368,7 @@ function handleCartEvent(e) {
   const [key, itemData] = findKeyByProductIdAndGender(cartItemsObject, productId, gender) || [];
     
 
-  if (e.target.matches('.js-quantity') || 
+  if (/*e.target.matches('.js-quantity') ||*/ 
       e.target.matches('.js-increase') || 
       e.target.matches('.js-decrease')) {
     
