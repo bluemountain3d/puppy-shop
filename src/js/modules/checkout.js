@@ -265,7 +265,6 @@ function updateInvalidState(element, isInvalid) {
  * @param {String} value - The current value of the input field.
  */
 export function toggleMessage(input, name, value) {
-  console.log('toggleMessage Called');
   
   // Store valid state
   const valid = isValid(value, validation[name].regex);
@@ -276,25 +275,23 @@ export function toggleMessage(input, name, value) {
   const messageEl = wrapper.querySelector('.js-input-message');
 
   if (!valid && (!messageEl.classList.contains('visible') || messageEl.textContent !== message)) {
-    console.log('Invalid', input.name);
-    
     messageEl.textContent = message;
     messageEl.classList.add('visible');
     updateInvalidState(input, true); // If the input is not valid, the invalid class is added
     messageEl.setAttribute('aria-live', 'polite');
     input.setAttribute('aria-invalid', 'true');
   } else if (valid && (messageEl.classList.contains('visible') || messageEl.textContent !== '')) {
-    console.log('Valid', input.name);
-
     // Transform value
     // Zip
     if (name === 'info-zip') {
       input.value = formatPostalCode(value);
       postalZip.value = input.value;
     }
+    else if (name === 'info-email') {
+      postalEmail.value = input.value;
+    }
     // Mobile phone
     else if (name === 'mobile-phone') {
-      console.log('MOBILE PHONE');
       input.value = transformSwedishPhoneNumber(value);
     }
     
@@ -436,7 +433,6 @@ function handleValidation(e) {
     const name = e.target.name;
     const value = e.target.value;
 
-    //console.log('Type:', type, ', Input:', name, ', Value:', value);
 
     //------------------------------------//
     //---------- Update pricing ----------//
@@ -471,11 +467,9 @@ function handleValidation(e) {
     //------------------------------------//
 
     if (type === 'change') {
-      console.log('type, target:', type, name);
 
       // Validate fields on change
       if (checkoutFields.includes(name)) {
-        console.log('checkoutFields Includes:', name);
         toggleMessage(target, name, value); // Toggle message
       }
 
@@ -501,7 +495,6 @@ function handleValidation(e) {
     //------------------------------------//
 
     if (type === 'click') {
-      //console.log('type, target', type, name);
       e.preventDefault();
 
       // Continue to shipping and info
@@ -530,10 +523,8 @@ function handleValidation(e) {
         let allValid = true;
 
         requiredFields.forEach(field => {
-          //console.log('forEach fi.nameeld:', field.name);
           
-          if (field.type != 'checkbox') { // || !field.closest('fieldset').classList.contains('hidden')
-            //console.log('input not CHB', field.name);
+          if (field.type != 'checkbox') {
             
             const value = field.value.trim();
             const name = field.name;
@@ -546,7 +537,6 @@ function handleValidation(e) {
           }
 
           if (field.type === 'checkbox') {
-            console.log('input is CHB', field.name);
 
             // Validate required checkboxes are checked
             if (field.required && !field.checked) {
@@ -566,7 +556,6 @@ function handleValidation(e) {
       
         if (allValid) {
           // Proceed with payment
-          //console.log('All fields are valid. Proceeding with payment...');
           
           stopTimer('checkout'); // Stop the timer if all fields are valid
 
@@ -593,7 +582,7 @@ function handleValidation(e) {
           // Reset form
           checkoutForm.reset();
         } else {
-          console.log('Some required fields are invalid.');
+          console.warn('Some required fields are invalid.');
         }
       }
 
@@ -604,7 +593,6 @@ function handleValidation(e) {
     //------------------------------------//
 
     if (type === 'input') {
-      //console.log('type, target', type, name);
       // Postal Email
       if (
         name === 'postal-email' && 
@@ -623,7 +611,6 @@ function handleValidation(e) {
       }
     }
 
-    //console.log('Validating form for event:', e.type);
   }, 50); // 50ms debounce
 }
 

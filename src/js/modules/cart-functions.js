@@ -103,16 +103,13 @@ export function addCartItem(itemData, productData) {
 
 
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
-  //console.log('updateCartItem Called');
-  //console.log('itemData', itemData);
-  
+
   // Get Element
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
   const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items'));
   const productId = Number(itemData.productId);
   const gender = itemData.gender;
   
-
   // Update Item
   itemData.quantity = quantity;
   itemData.priceInfo.price = discountPrice;
@@ -147,22 +144,18 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
     if (sumLineTotalElem) sumLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
   });
 
-  //console.log('itemData', itemData);
-  //console.log('updateCartItem END');
 }
 
 
 
 // Remove Item from Cart
 export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
-  //console.log('removeCartItem Called');
 
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items')); // Find all containers holding cart items
   const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items')); // Find all containers holding summary items
   const itemData = cartItemsObj[cartKey];
   
   if (cartKey && itemData) {
-    //console.log('Before remove cartItemsObj', cartItemsObj);
 
     // Update cart counter  
     cartSummaryObject.counter -= itemData.quantity;
@@ -175,7 +168,6 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
       const item = container.querySelector(`.js-cart-item[data-pid="${id}"][data-gender="${gender}"]`);
       if (item) {
         item.remove(); // Remove the DOM element
-        //console.log(`Removed item from container:`, item);
       }
     });
 
@@ -183,11 +175,9 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
       const item = container.querySelector(`.js-summary-item[data-pid="${productId}"][data-gender="${gender}"]`);
       if (item) {
         item.remove(); // Remove the DOM element
-        //console.log(`Removed item from container:`, item);
       }
     });
 
-    //console.log('After remove cartObj', cartObj);
   } else {
     console.warn('Cart key or object not valid. No changes made.');
   }
@@ -196,7 +186,6 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
 
 // Update Cart Summary
 export function updateCartSummary() {
-  //console.log('updateCartSummary Called');
   const counter = cartSummaryObject.counter;
   
   // Get elements
@@ -211,12 +200,6 @@ export function updateCartSummary() {
   const monDiscount = mondayDiscount(sumValues(cartItemsObject, 'priceInfo.lineTotal')) - subtotal;
   const newSubtotal = subtotal - monDiscount - discounts;
   const newDiscounts = discounts + monDiscount;
-
-  // console.log('subtotal:', subtotal);
-  // console.log('discounts:', discounts);
-  // console.log('monDiscount:', monDiscount);
-  // console.log('newSubtotal:', newSubtotal);
-  // console.log('newDiscounts:', newDiscounts);
   
   // Update shipping cost
   const shippingCost = getShippingCost(newSubtotal, counter);
@@ -278,8 +261,6 @@ export function updateCartSummary() {
 
 // Update Header Cart Counter
 export function updateHeaderCartCounter(cartObj) {
-  // Log function call for debugging
-  //console.log('updateHeaderCartCounter Called');
   
   // Get elements
   const productsSection = document.querySelector('.js-products-section');
@@ -320,30 +301,6 @@ export function updateHeaderCartCounter(cartObj) {
     headerCart.setAttribute('disabled', '');
     headerCart.setAttribute('aria-disabled', 'true');
   }
-
-  // if (Number(cartObj.counter) > 0) {
-  //   // Update counter and total text
-  //   headerCount.innerText = `${cartObj.counter} st,`;
-  //   headerTotal.innerText = `${formatPrice(Number(cartObj.subtotal))} kr`;
-
-  //   // Show elements if the window width is greater than or equal to the breakpoint
-  //   if (window.innerWidth >= breakpoint) {
-  //     if (!productsSection.classList.contains('hidden')) {
-  //       headerToCart.classList.remove('hidden');
-  //     }
-  //     headerTotal.classList.remove('hidden');
-  //     headerCart.removeAttribute('disabled');
-  //     headerCart.removeAttribute('aria-disabled');
-  //   }
-  // } else {
-  //   // Reset counter and hide elements
-  //   headerCount.innerText = '0';
-  //   headerTotal.innerText = '';
-  //   headerToCart.classList.add('hidden');
-  //   headerTotal.classList.add('hidden');
-  //   headerCart.setAttribute('disabled', "");
-  //   headerCart.setAttribute('aria-disabled', "true");
-  // }
 }
 
 
@@ -475,7 +432,6 @@ checkoutCartItems.addEventListener('click', handleCartEvent);
 // checkoutCartItems.addEventListener('change', handleCartEvent);
 
 function handleCartEvent(e) {
-  //console.log('handleCartEvent Called on:', e.type);
   
   const cartItemsContainer = e.target.closest('.js-cart-items'); // Find the DOM element
   const card = e.target.closest('.js-cart-item');
@@ -506,13 +462,6 @@ function handleCartEvent(e) {
     const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
     const discount = adjustedPrice - discountPrice;
     
-    // console.log('counter', counter);
-    // console.log('quantity', quantity);
-    // console.log('base price', basePrice);
-    // console.log('adjusted price', adjustedPrice);
-    // console.log('discounted price', discountPrice);
-    // console.log('discount', discount);
-    
     // Update CartItem
     updateCartItem(itemData, quantity, discountPrice, discount);
     
@@ -525,7 +474,6 @@ function handleCartEvent(e) {
   }
 
   if (e.target.matches('.js-remove-item') && e.type == 'click' && key) {
-    console.log('Remove item');
     removeCartItem(e, productId, gender, key, cartItemsObject);
 
     // Update cart summary

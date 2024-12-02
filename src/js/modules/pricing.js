@@ -204,7 +204,6 @@ export function updateComparisonPrice(card, obj) {
  * @returns {void} - This function does not return anything. It directly updates the DOM elements in the card.
  */
 export function updatePrice(card, obj) {
-  //console.log('up obj', obj);
   
   const priceElem = card.querySelector('.js-price');
   const origPriceElem = card.querySelector('.js-original-price');
@@ -247,7 +246,6 @@ export function updatePrice(card, obj) {
  *   - Returns the sum of the fixed cost and a variable cost based on the subtotal for the selected shipping option.
  */
 export function getShippingCost(subtotal, counter, limit=15) {
-  //console.log('getShippingCost Called');
   
   // Get the selected radio button
   const shippingRadios = Array.from(document.querySelectorAll('input[name="shipping"]'));

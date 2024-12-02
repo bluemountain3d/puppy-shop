@@ -45,16 +45,12 @@ export function shuffleArray(array) {
  * @returns 
  */
 export function adjustQuantity(e, card, obj) {
-  //console.log('adjustQuantity Called');
-  // console.log('event type, key', e.type, e.key);
-  // console.log('card ID', card.dataset.pid);
   
   //const numberInput = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
   const numberInput = card.querySelector('.js-quantity');
   if (!numberInput) return;
 
   const currentValue = Number(numberInput.value);
-  //console.log('currentValue (quantity input)', currentValue);
   
   let newValue;
 
@@ -65,13 +61,11 @@ export function adjustQuantity(e, card, obj) {
   //     newValue = e.key === 'ArrowUp'
   //       ? Math.min(99, currentValue + 1)
   //       : Math.max(0, currentValue - 1);
-  //     console.log('newValue', newValue);
       
   //     numberInput.value = newValue;
   //     updatePrice(card, obj);
   //   }
   //   if (e.key === 'Enter') {
-  //     console.log('Enter');
 
   //     e.preventDefault(); // Prevent default Enter behavior
   //     updatePrice(card, obj);
@@ -82,17 +76,14 @@ export function adjustQuantity(e, card, obj) {
     newValue = e.target.matches('.js-increase')
       ? Math.min(99, currentValue + 1)
       : Math.max(0, currentValue - 1);
-    //console.log('newValue', newValue);
 
     numberInput.value = newValue;
-    //console.log('numberInput.value', numberInput.value);
 
     updatePrice(card, obj);
   }
 
   // Handle manual input via the keyup event
   // if (e.target.matches('.js-quantity')) {
-  //   //console.log('Event type:', e.type, 'Target:', e.target, 'Key:', e.key );
     
   //   let keyPressStartTime;
   //   if (e.key === 'Enter') {
@@ -103,7 +94,6 @@ export function adjustQuantity(e, card, obj) {
   //     if (e.key === 'Enter') {
   //       const keyPressDuration = Date.now() - keyPressStartTime;
   //       if (keyPressDuration < 800) {
-  //         //console.log('Enter key pressed and released within 2 seconds');
   //         //const currentValue = Number(numberInput.value);
   //         if (currentValue > 99){
   //           numberInput.value = 99;

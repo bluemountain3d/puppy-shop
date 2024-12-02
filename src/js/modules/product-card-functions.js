@@ -35,7 +35,6 @@ import {
 
 // Product card
 export function productCard(obj, quantity=0) {
-  //console.log('productCard() Called');
   
   const pid = obj.id;
   const imgUrl = obj.image.url;
@@ -180,7 +179,6 @@ function handleProductCardEvent(e) {
 
   // If target is radio button
   if (e.target.matches('.js-gender-rb')) {
-    //console.log('Product card gender change event');
     
     updatePrice(card, productData); // Update price when gender radio button changes
     updateComparisonPrice(card, productData); // Update comparison based on selected gender weight
@@ -190,7 +188,6 @@ function handleProductCardEvent(e) {
   if (e.target.matches('.js-quantity') || 
       e.target.matches('.js-increase') || 
       e.target.matches('.js-decrease')) {
-    //console.log('Product card quantity event', e.type);
 
     adjustQuantity(e, card, productData); // Update quantity input
     updateComparisonPrice(card, productData); // Update comparison price if item discount is valid
@@ -198,7 +195,7 @@ function handleProductCardEvent(e) {
 
   //Add to cart object when add to cart button is clicked
   if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
-    //console.log('Add to card clicked');
+
     const numberInput = card.querySelector('.js-quantity');
     const quantity = Number(numberInput.value);
 
@@ -211,19 +208,12 @@ function handleProductCardEvent(e) {
     const discount = adjustedPrice - discountPrice;
     const itemData = findItemByProductIdAndGender(cartItemsObject, productId, gender);
     const counter = cartSummaryObject.counter;
-
-    // console.log('base price', basePrice);
-    // console.log('adjusted price', adjustedPrice);
-    // console.log('discounted price', discountPrice);
-    // console.log('discount', discount);
     
 
     // Test if cartItem should be added or updated
     // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
     if (!itemData || itemData && itemData.gender != gender) {
       // Create new cart item
-      //console.log('Product don't exist, Add object');
-
       const newItem = {
         productId: productId,
         gender: gender,
@@ -255,13 +245,9 @@ function handleProductCardEvent(e) {
       
     } else {
       // Product is in cart, update
-      //console.log('Product already exist, Update object');
 
       // Set new quantity
       const newQuantity = quantity + Number(itemData.quantity);
-      // console.log('quantity', quantity);
-      // console.log('newQuantity', newQuantity);
-      // console.log('cartSummaryObject.counter',cartSummaryObject.counter);
       
       // Update Cart Object
       updateCartItem(itemData, newQuantity, discountPrice, discount);
@@ -281,7 +267,6 @@ function handleProductCardEvent(e) {
     }
   }
 }
-
 
 
 export const initProductCards = (() => {
