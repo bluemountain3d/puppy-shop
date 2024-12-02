@@ -208,6 +208,8 @@ const gdprChb = document.querySelector('.js-gdpr-chb');
  * @returns {boolean} - Returns `true` if the `value` matches the `pattern`, otherwise `false`.
  */
 export function isValid(value, pattern) {
+  // console.log('isValid Called');
+  
   return pattern.test(value);
 }
 
@@ -225,6 +227,8 @@ export function isValid(value, pattern) {
  *                     - Returns `undefined` if no condition is met.
  */
 export function getMessage(name, value, valid) {
+  // console.log('getMessage Called');
+  
   if (!value) {
     return validation[name].empty;
   }
@@ -250,6 +254,8 @@ export function getMessage(name, value, valid) {
  *                              and the `invalid` class is removed.
  */
 function updateInvalidState(element, isInvalid) {
+  // console.log('updateInvalidState Called');
+  
   element.classList.toggle('invalid', isInvalid); // Add/remove "invalid" class
   element.classList.toggle('valid', !isInvalid); // Add/remove "valid" class
 }
@@ -265,15 +271,18 @@ function updateInvalidState(element, isInvalid) {
  * @param {String} value - The current value of the input field.
  */
 export function toggleMessage(input, name, value) {
+  // console.log('toggleMessage Called');
   
   // Store valid state
   const valid = isValid(value, validation[name].regex);
+  
   // Get message
   const message = getMessage(name, value, valid);
+  
   // Get elements
   const wrapper = input.closest('.js-input-wrapper');
   const messageEl = wrapper.querySelector('.js-input-message');
-
+  
   if (!valid && (!messageEl.classList.contains('visible') || messageEl.textContent !== message)) {
     messageEl.textContent = message;
     messageEl.classList.add('visible');
@@ -312,6 +321,8 @@ export function toggleMessage(input, name, value) {
  *                     If the postal code does not match the expected pattern, it remains unchanged.
  */
 function formatPostalCode(postalCode) {
+  // console.log('formatPostalCode Called');
+  
   return postalCode.replace(/(\d{3})(\d{2})/, '$1 $2');
 }
 
@@ -323,6 +334,8 @@ function formatPostalCode(postalCode) {
  * classes and adjusting the "required" attribute on input fields.
  */
 function hideSections() {
+  // console.log('hideSections Called');
+  
   shipping.classList.add('hidden');
   yourInfo.classList.add('hidden');
   ssnGroup.classList.add('hidden');
@@ -344,6 +357,8 @@ function hideSections() {
  * @param {Boolean} required - Whether the inputs should be required
  */
 function setRequired(inputs, required) {
+  // console.log('setRequired Called');
+  
   inputs.forEach(input => {
     if (required) {
       input.setAttribute('required', '');
@@ -369,6 +384,8 @@ function setRequired(inputs, required) {
  *                     If the input does not contain enough digits, the output might be incomplete.
  */
 function transformSwedishPhoneNumber(phoneNumber) {
+  // console.log('transformSwedishPhoneNumber Called');
+  
   // Remove all whitespace and hyphens
   const cleanedNumber = phoneNumber.replace(/[\s\-]/g, '');
   
@@ -377,7 +394,7 @@ function transformSwedishPhoneNumber(phoneNumber) {
   if (formattedNumber.startsWith('0')) {
       formattedNumber = '+46' + formattedNumber.slice(1);
   } else if (!formattedNumber.startsWith('+46')) {
-      formattedNumber = '+46' + formattedNumber;
+    formattedNumber = '+46' + formattedNumber;
   }
   
   // Format the number: +46 70-123 45 67
@@ -385,7 +402,7 @@ function transformSwedishPhoneNumber(phoneNumber) {
   const subscriberPart1 = formattedNumber.slice(5, 8);
   const subscriberPart2 = formattedNumber.slice(8, 10);
   const subscriberPart3 = formattedNumber.slice(10, 12);
-  
+
   return `+46 ${areaCode}-${subscriberPart1} ${subscriberPart2} ${subscriberPart3}`;
 }
 
@@ -423,6 +440,7 @@ startTimer('checkout', checkoutDuration, onCheckoutTimeout);
 let validationTimeout; // Declare timeout variable
 
 function handleValidation(e) {
+  // console.log('handleValidation Called');  
 
   clearTimeout(validationTimeout); // Clear any previous timeout
   validationTimeout = setTimeout(() => {
@@ -432,6 +450,11 @@ function handleValidation(e) {
     const target = e.target;
     const name = e.target.name;
     const value = e.target.value;
+    // console.log('const type = ',type);
+    // console.log('const target = ',target);
+    // console.log('const name = ',name);
+    // console.log('const value = ',value);
+    
 
 
     //------------------------------------//
@@ -453,7 +476,7 @@ function handleValidation(e) {
         ssnGroup.classList.add('hidden');
         setRequired(cardInputs, true);
         setRequired([ssnInput], false);
-      } else if (value === 'invoice') {
+      } else if (value === 'invoice') {        
         cardGroup.classList.add('hidden');
         ssnGroup.classList.remove('hidden');
         setRequired(cardInputs, false);
@@ -467,7 +490,9 @@ function handleValidation(e) {
     //------------------------------------//
 
     if (type === 'change') {
-
+      //console.log('Change');
+      
+      
       // Validate fields on change
       if (checkoutFields.includes(name)) {
         toggleMessage(target, name, value); // Toggle message
@@ -485,6 +510,8 @@ function handleValidation(e) {
       }
 
       if (name === 'gdpr') {
+        // console.log("if name === 'gdpr'", name === 'gdpr');
+        
         gdprChb.classList.toggle('valid', gdprChb.checked);
         gdprChb.classList.toggle('invalid', !gdprChb.checked);
       }
@@ -495,8 +522,10 @@ function handleValidation(e) {
     //------------------------------------//
 
     if (type === 'click') {
-      e.preventDefault();
+      //console.log('Click');
 
+      e.preventDefault();
+      
       // Continue to shipping and info
       if (
         name === 'checkout-continue-btn' &&
@@ -509,8 +538,9 @@ function handleValidation(e) {
         checkoutContinue.classList.add('hidden');
 
         const cardRb = document.querySelector('input[name="payment-method"][value="card"]');
+        
         if (cardRb) cardRb.checked = true;
-
+      
         setRequired(infoInputs, true);
         setRequired(cardInputs, true);
         setRequired([ssnInput], false);
@@ -519,34 +549,35 @@ function handleValidation(e) {
 
       // Hide Checkout and show order resume
       else if (name === 'checkout-pay-btn') {
+        
         const requiredFields = checkoutForm.querySelectorAll('[required]');
+        
         let allValid = true;
 
-        requiredFields.forEach(field => {
-          
-          if (field.type != 'checkbox') {
-            
+        requiredFields.forEach(field => {               
+          if (field.type != 'checkbox') {            
             const value = field.value.trim();
             const name = field.name;
-            const isValidField = isValid(value, validation[name].regex);
+            const isValidField = isValid(value, validation[name].regex);            
         
-            if (!isValidField) {
+            if (!isValidField) {              
               toggleMessage(field, name, value); // Show error message if invalid
               allValid = false;
             }
           }
 
           if (field.type === 'checkbox') {
-
             // Validate required checkboxes are checked
             if (field.required && !field.checked) {
               // Optional: Add visual feedback or error message
               field.classList.add('invalid');
               
-              // You might want to create a specific toggle message for checkboxes
-              //toggleMessage(field, field.name, 'checkbox');
+              // ? Maybe create a specific toggle message for checkboxes
+              // toggleMessage(field, field.name, 'checkbox');
               
               allValid = false;
+              // console.log('ALL VALID:', allValid);
+              
             } else if (field.required && field.checked) {
               field.classList.remove('invalid');
             }
@@ -555,8 +586,9 @@ function handleValidation(e) {
         });
       
         if (allValid) {
+          // console.log('ALL VALID:', allValid);
           // Proceed with payment
-          
+  
           stopTimer('checkout'); // Stop the timer if all fields are valid
 
           // Set checkout data
