@@ -18,23 +18,21 @@
     <link rel="stylesheet" href="css/style.min.css">
   </head>
   <body>
-    
-    <header class="header">
+    <header class="header"> 
 
       <a class="header__brand" href="/src/" aria-label="Puppy Shop logotyp, gå tillbaka till startsidan">
         <svg class="icon cart__brand-icon">
           <use href="#puppy-shop-wide"/>
         </svg>
       </a>
-      <nav class="header__nav"></nav>
-      <nav header__nav></nav>
+      <!-- <nav class="header__nav"></nav> -->
       <div class="header__cart">
         <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden" aria-label="Gå till kundvagn och kassa">
           <svg class="icon" aria-hidden="true">
             <use href="#cart-icon" class="js-header-cart-icon"/>
           </svg>
         </button>
-        <button class="header__cart-btn js-header-cart" aria-label="Öppna och stänga kundvagn">
+        <button class="header__cart-btn js-header-cart" aria-label="Öppna och stänga kundvagn" disabled aria-disabled="true">
           <svg class="icon" aria-hidden="true">
             <use href="#cart-icon" class="cart-icon"/>
           </svg>
@@ -60,7 +58,7 @@
         <button class="header__to-checkout js-go-to-checkout hidden">Till kassan</button>
       </div>
 
-      <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button>
+      <!-- <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button> -->
     </header>
 
     <main class="main">
@@ -71,7 +69,7 @@
             <h1 class="products__title">Våra valpar!</h1>
           </header>
           <div class="products__filters">
-            <!-- Filter kommer att vara här: Hundtyp, Pris (högt/lågt), Popularitet ("rating", högt/lågt) -->
+            <!-- Filteer for dod type -->
             <div class="combobox products__cbx">
               <label class="combobox__label" for="dog-type">Sortera på hundtyp:</label>
               <select class="combobox__select products__select" name="type-filter" id="dog-type">
@@ -90,7 +88,7 @@
                 </svg>
               </span>
             </div>
-
+            <!-- Filter for Rating, Name and Price. Ascending and Descending -->
             <div class="combobox products__cbx">
               <label class="combobox__label" for="filter">Sortera på:</label>
               <select class="combobox__select products__select" name="common-filter" id="filter">
@@ -113,7 +111,7 @@
   
         <div class="shopping-cart hidden js-checkout-section">
           <div class="container--boxed">
-            <div class="shopping-cart__wrapper">
+            <section class="shopping-cart__wrapper">
               <section class="cart">
                 <header class="cart__header">
                   <h2 class="cart__header-title"><svg class="icon"><use href="#cart-forward-icon"/></svg>Kundvagn<div class="cart__counter js-cart-counnter">(0)</span></h2>
@@ -130,13 +128,13 @@
   
                 <!-- Summary container -->
                 <div class="cart__summary">
-                   <div class="cart__summary-row">
+                   <!-- <div class="cart__summary-row">
                     <p class="cart__summary-label">Delsumma: </p>
                     <div class="cart__summary-column">
                       <span class="cart__subtotal js-cart-subtotal">0 kr</span>
                       <p class="cart__summary-info js-cart-monday-discount hidden"></p>
                     </div>
-                  </div>
+                  </div> -->
                   
                   <!--<div class="cart__summary-row">
                     <p class="cart__summary-label">Rabatter: </p>
@@ -146,6 +144,7 @@
                     <p class="cart__summary-label">Moms ingår med: </p>
                     <span class="cart__value js-summary-vat">0 kr</span>
                   </div> -->
+
                   <div class="cart__summary-row">
                     <p class="cart__summary-label">Fraktkostnad: </p>
                     <span class="cart__summary-value js-cart-shipping">0 kr</span>
@@ -160,444 +159,655 @@
                 </div>
               </section>
   
-              <section class="checkout">
-                <fieldset class="checkout__group">
-                  <legend class="checkout__header checkout__header--first">E-postadress / Postnummer</legend>
-                  <div class="checkout__group-inner">
-                    <p class="checkout__group-info">Ange mejl samt postnummer dit ordern ska skickas för att se tillgängliga leveransval. Klicka sedan på fortsätt.</p>
-                    <!-- Postal E-mail -->
-                    <div class="checkout__input-wrapper checkout__input-wrapper--intro">
-                      <input
-                        type="email"
-                        id="postal-email"
-                        class="js-email"
-                        value=""
-                        placeholder=" "
-                        required
-                        aria-required="true">
-                      <label 
-                        for="postal-email" 
-                        class="" 
-                        aria-label="E-postadress, obligatoriskt fält">
-                        E-postadress: *
-                      </label>
-                    </div>
-                    <!-- Postal Zip -->
-                    <div class="checkout__input-wrapper checkout__input-wrapper--intro">
-                      <input
-                        type="text"
-                        id="postal-zip"
-                        class="js-zip"
-                        value=""
-                        placeholder=" "
-                        inputmode="numeric"
-                        pattern="^\d{3}\s?\d{2}$"
-                        required
-                        aria-required="true">
-                      <label 
-                        for="postal-zip" 
-                        class="" 
-                        aria-label="E-postadress, obligatoriskt fält">
-                        Postnummer: *
-                      </label>
-                    </div>
-                    <div class="checkout__input-wrapper">
-                      <!-- News Letter -->
-                      <label class="chb-custom checkout__chb-single">
-                        <input type="checkbox" name="newsletter" checked>
-                        <span class="chb-checkmark"></span>
-                        <span class="chb-label checkout__chb-label">Ja, jag vill ha nyhetsbrev och special-erbjudanden från Pyppy Shop.</span>
-                      </label>
-                    </div>
-                    <!-- Continue to Shipping Button -->
-                    <!-- <div class="checkout__input-wrapper">
-                      <button class="checkout__continue-btn js-continue-to-shipping">
-                        Fortsätt med beställningen
-                      </button>
-                    </div> -->
-                  </div>
-                  <button class="checkout__continue-btn js-continue-to-shipping hidden">
-                    Fortsätt
-                  </button>
-                </fieldset>
-                <!-- Shipping Method -->
-                <fieldset class="checkout__group js-shipping-selection hidden">
-                  <legend class="checkout__header">Fraktalternativ</legend>                  
-                  <div class="checkout__group-inner">
-                    <p class="checkout__group-info">Just nu har sniglarna extra mycket att göra, duvorna strejkar och hararna är halta. Vill du vara säker på att din order levereras så snabbt som möjligt rekommenderar vi att du väljer leverans med en stork.</p>
-                    <!-- Shipping Method Stork -->
-                    <div class="checkout__shipping-alt">
-                      <label class="rb-custom checkout__rb-single">
-                        <input type="radio" name="shipping" value="stork" checked>
-                        <span class="rb-checkmark"></span>
-                        <span class="rb-label checkout__rb-label">Stork <span class="checkout__shipping-price">250 kr + 1% av delsumman</span></span>
-                      </label>
-                      <p class="checkout__shipping-alt-info">Leveranstid 1-12 arbetsdagar.</p>
-                    </div>
-                    <!-- Shipping Method Dove -->
-                    <div class="checkout__shipping-alt">
-                      <label class="rb-custom checkout__rb-single">
-                        <input type="radio" name="shipping" value="dove">
-                        <span class="rb-checkmark"></span>
-                        <span class="rb-label checkout__rb-label">Duva <span class="checkout__shipping-price">150 kr + 1% av delsumman</span></span>
-                      </label>
-                      <p class="checkout__shipping-alt-info">Leveranstid 12-24 arbetsdagar.</p>
-                    </div> 
-                    <!-- Shipping Method Hare -->
-                    <div class="checkout__shipping-alt">
-                      <label class="rb-custom checkout__rb-single">
-                        <input type="radio" name="shipping" value="hare">
-                        <span class="rb-checkmark"></span>
-                        <span for="shipping-hare" class="rb-label checkout__rb-label">Hare <span class="checkout__shipping-price">75 kr + 1% av delsumman</span></span>
-                      </label>
-                      <p class="checkout__shipping-alt-info">Leveranstid 4-8 veckor.</p>
-                    </div>                  
-                    <!-- Shipping Method Snail -->
-                    <div class="checkout__shipping-alt">
-                      <label class="rb-custom checkout__rb-single">
-                        <input type="radio" name="shipping" value="snail">
-                        <span class="rb-checkmark"></span>
-                        <label for="shipping-snail" class="rb-label checkout__rb-label">Snigel <span class="checkout__shipping-price">25 kr + 1% av delsumman</span></label>
-                      </label>
-                      <p class="checkout__shipping-alt-info">Leveranstid 2-4 månader.</p>
-                    </div>                  
-                  </div>
-                </fieldset>
-  
-                <form action="" class="checkout__group checkout__form js-your-information hidden">            
-                  <!-- Your Information -->
-                  <fieldset class="checkout__form-group">
-                    <legend class="checkout__header">Dina uppgifter</legend>
+              <section class="checkout js-checkout">
+                <form action="" class="checkout__form js-checkout-form">
+                  <fieldset class="checkout__group">
+                    <legend class="checkout__header checkout__header--first">E-postadress / Postnummer</legend>
                     <div class="checkout__group-inner">
-                      <p class="checkout__group-info">Adressen ska vara i Sverige.</p>
-  
-                      <div class="checkout__billing-wrapper">
-                        <!-- E-mail -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">
-                          <!-- Get input value from postal-email -->
-                          <input
-                            type="email"
-                            id="postal-email"
-                            class="checkout__input checkout__input--billing js-email"
-                            value=""
-                            placeholder=" "
-                            required
-                            aria-required="true">
-                          <label 
-                            for="email"
-                            class="checkout__input-placeholder" 
-                            aria-label="E-postadress">
-                            E-postadress:
-                          </label>
-                        </div>
-
-                        <!-- Zip -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">                          
-                          <!-- Get input value from postal-zip -->
-                          <input
-                            type="text"
-                            id="zip"
-                            class="checkout__input checkout__input--billing js-zip"
-                            value=""
-                            placeholder=" "
-                            required
-                            aria-required="true">
-                          <label 
-                            for="zip"
-                            class="checkout__input-placeholder" 
-                            aria-label="Postnummer">
-                            Postnummer:
-                          </label>
-                        </div>
-      
-                        <!-- Name -->
-                        <div class="checkout__input-row">      
-                          <!-- Given Name -->
-                          <div class="checkout__input-wrapper checkout__input-wrapper--billing">                            
-                            <input
-                              type="text"
-                              id="given-name"
-                              class="checkout__input checkout__input--billing js-given-name"
-                              value=""
-                              placeholder=" "
-                              required
-                              aria-required="true">
-                            <label 
-                              for="given-name"
-                              class="checkout__input-placeholder" 
-                              aria-label="Förnamn">
-                              Förnamn:
-                            </label>
-                          </div>
-      
-                          <!-- Family Name -->
-                          <div class="checkout__input-wrapper checkout__input-wrapper--billing">                            
-                            <input
-                              type="text"
-                              id="family-name"
-                              class="checkout__input checkout__input--billing js-family-name"
-                              value=""
-                              placeholder=" "
-                              required
-                              aria-required="true">
-                            <label 
-                              for="family-name"
-                              class="checkout__input-placeholder" 
-                              aria-label="Efternamn">
-                              Efternamn:
-                            </label>
-                          </div>
-                        </div>
-                        <!-- Street Address -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">                          
-                          <input
-                            type="text"
-                            id="street-address"
-                            class="checkout__input checkout__input--billing js-street-address"
-                            value=""
-                            placeholder=" "
-                            required
-                            aria-required="true">
-                          <label 
-                            for="street-address"
-                            class="checkout__input-placeholder" 
-                            aria-label="Gatuadress">
-                            Adress:
-                          </label>
-                        </div>
-      
-                        <!-- Town/City -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">                          
-                          <input
-                            type="text"
-                            id="town"
-                            class="checkout__input checkout__input--billing js-town"
-                            value=""
-                            placeholder=" "
-                            required
-                            aria-required="true">
-                          <label 
-                            for="town"
-                            class="checkout__input-placeholder" 
-                            aria-label="Ort">
-                            Ort:
-                          </label>
-                        </div>
-      
-                        <!-- Entry Code -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">                          
-                          <input
-                            type="text"
-                            id="entry-code"
-                            class="checkout__input checkout__input--billing js-entry-code"
-                            value=""
-                            placeholder=" ">
-                          <label 
-                            for="entry-code"
-                            class="checkout__input-placeholder" 
-                            aria-label="Eventuell portkod">
-                            Eventuell Portkod:
-                          </label>
-                        </div>
-      
-                        <!-- Mobile Phone Number -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">                          
-                          <input
-                            type="tel"
-                            id="phone"
-                            class="checkout__input checkout__input--billing js-phone"
-                            value=""
-                            placeholder=" "
-                            pattern="^\+?\d{1,4}(\(?0\)?)?\d{2,3}([- ]?\d{2,3}){0,3}$"
-                            required
-                            aria-required="true">
-                          <label 
-                            for="phone"
-                            class="checkout__input-placeholder checkout__input-placeholder" 
-                            aria-label="Mobilnummer, behövs för att vi ska kunna kontaktra dig angående din beställning">
-                            Mobilnummer:
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
-  
-                  <!-- Payment Method -->
-                  <fieldset class="checkout__form-group">
-                    <div class="checkout__group-inner">
-                      <legend class="checkout__form-group-header-light">Betalmetod:</legend>
-                      <div class="checkout__rb-row">
-                        <label class="rb-custom">
-                          <input type="radio" name="payment" value="card" checked>
-                          <span class="rb-checkmark"></span>
-                          <span class="rb-label checkout__rb-label">Kortbetalning</span>
-                        </label>
-                        <label class="rb-custom">
-                          <input type="radio" name="payment" value="invoice">
-                          <span class="rb-checkmark"></span>
-                          <span class="rb-label checkout__rb-label">Faktura <span class="checkout__label-info"></span>(Upp till 80 000 kr)</span>
-                        </label>
-                      </div>
-                      
-                    </div>
-                  </fieldset>
-                  
-                  <!-- Card Info (Visible if Card is choosen) -->
-                  <fieldset class="checkout__form-group">
-                    <div class="checkout__group-inner">
-                      <legend class="checkout__form-group-header-light">Kortuppgifter:</legend>
-                      <div class="checkout__charge-card-wrapper">
-                        <!-- Card Number -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">
-                          <input
-                            type="text"
-                            id="card-number"
-                            class="checkout__input js-card-number"
-                            value=""
-                            placeholder=" "
-                            inputmode="numeric"
-                            pattern="\d{12}">
-                          <label 
-                            for="card-number"
-                            class="checkout__input-placeholder" 
-                            aria-label="Kortnummer">
-                            Kortnummer:
-                          </label>
-                        </div>
-      
-                        <!-- Expire Date and CVV -->
-                        <fieldset class="checkout__input-row">
-                          <!-- Expire Date -->
-                          <div class="checkout__input-wrapper checkout__input-wrapper--date-cvv">
-                            <div class="">
-                              <input
-                                type="text"
-                                class="checkout__input checkout__input--expire-month js-card-expire-month"
-                                value=""
-                                placeholder="MM"
-                                maxlength="2"
-                                inputmode="numeric"
-                                pattern="\d{2}"
-  >
-                                aria-label="Månad">
-                              <label 
-                                class="checkout__input-placeholder" 
-                                aria-label="Giltigt till">
-                                Giltigt till:
-                              </label>
-                            </div>
-                            <div class="checkout__date-cvv-divider">/</div>
-                            <div class="">
-                              <input
-                                type="text"
-                                class="checkout__input checkout__input--expire-year js-card-expire-year"
-                                value=""
-                                placeholder="YY"
-                                inputmode="numeric"
-                                maxlength="2"
-                                pattern="\d{2}"
-  >
-                                aria-label="År">
-                              <label
-                                aria-label="Giltigt till">
-                              </label>
-                            </div>
-                          </div>
-                          <!-- CVV -->
-                          <div class="checkout__input-wrapper checkout__input-wrapper--billing">                            
-                            <input
-                              type="text"
-                              id="card-cvv"
-                              class="checkout__input js-card-cvv"
-                              value=""
-                              placeholder=" "
-                              maxlength="3"
-                              inputmode="numeric"
-                              pattern="\d{3}"
->
-                              aria-label="CVV">
-                            <label 
-                              for="card-cvv"
-                              class="checkout__input-placeholder" 
-                              aria-label="CVV">
-                              CVV:
-                            </label>
-                          </div>                      
-                        </fieldset>             
-    
-                        <!-- Card Owner -->
-                        <div class="checkout__input-wrapper checkout__input-wrapper--billing">                            
-                          <input
-                            type="text"
-                            id="card-cvv"
-                            class="checkout__input js-card-cvv"
-                            value=""
-                            placeholder=" "
-                            aria-label="Ditt namn som det står på kortet">
-                          <label
-                            for="card-cvv"
-                            class="checkout__input-placeholder">
-                            Kortinnehavare:
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
-
-                  <!-- Social Security Number (Visible if invoice is chosen) -->
-                  <fieldset class="checkout__form-group">
-                    <div class="checkout__group-inner">
-                      <legend class="checkout__form-group-header-light">Kortuppgifter:</legend>
-                      <div class="checkout__input-wrapper checkout__input-wrapper--ssn tooltip" >
+                      <p class="checkout__group-info">Ange mejl samt postnummer dit ordern ska skickas för att se tillgängliga leveransval. Klicka sedan på fortsätt.</p>
+                      <!-- Postal E-mail -->
+                      <div class="tooltip checkout__input-wrapper checkout__input-wrapper--intro js-input-wrapper">
                         <span 
-                          id="ssn-tooltip" 
+                          id="postal-email-tooltip" 
                           class="tooltip-text" 
                           aria-hidden="true">
-                          Ange ett giltigt svenskt personnummer (ÅÅÅÅMMDD-XXXX eller ÅÅMMDD-XXXX eller utan bindestreck)
+                          Ange en giltig e-postadress, t.ex. exempel@domän.se
+                        </span>
+                        <input
+                          type="email"
+                          id="postal-email"
+                          class="js-postal-email"
+                          name="postal-email"
+                          value=""
+                          placeholder=" "
+                          pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
+                          title="Ange en giltig e-postadress, till exempel exempel@domän.se."
+                          autocomplete="email"
+                          required
+                          aria-required="true"
+                          aria-label="E-postadress, obligatoriskt fält"
+                          aria-describedby="postal-email-tooltip">
+                        <label 
+                          for="postal-email" 
+                          class="">
+                          E-postadress: *
+                        </label>
+                        <span class="checkout__input-message js-input-message"></span>
+                      </div>
+                      <!-- Postal Zip -->
+                      <div class="tooltip checkout__input-wrapper checkout__input-wrapper--intro js-input-wrapper">
+                        <span 
+                          id="postal-zip-tooltip" 
+                          class="tooltip-text" 
+                          aria-hidden="true">
+                          Fem siffror 12345 eller 123 45
                         </span>
                         <input
                           type="text"
-                          id="social-security-number"
-                          class="checkout__input js-card-number"
+                          id="postal-zip"
+                          class="checkout__input checkout__input--billing js-postal-zip"
+                          name="postal-zip"
                           value=""
                           placeholder=" "
-                          pattern="^\d{6}(-?\d{4})$|^\d{8}(-?\d{4})$"
-                          aria-label="Personnummer"
-                          aria-describedby="ssn-tooltip">
+                          pattern="^\d{3}\s?\d{2}$"
+                          title="Fem siffror 12345 eller 123 45."
+                          required
+                          aria-required="true"
+                          aria-label="Postnummer"
+                          aria-describedby="zip-tooltip">
                         <label 
-                          for="social-security-number"
+                          for="postal-zip"
                           class="checkout__input-placeholder">
-                          Personnummer:
+                          Postnummer:
+                        </label>
+                        <span class="checkout__input-message js-input-message"></span>
+                      </div>
+                      <div class="checkout__input-wrapper js-input-wrapper">
+                        <!-- News Letter -->
+                        <label class="chb-custom checkout__chb-single">
+                          <input type="checkbox" name="newsletter" checked>
+                          <span class="chb-checkmark"></span>
+                          <span class="chb-label checkout__chb-label">Ja, jag vill ha nyhetsbrev och special-erbjudanden från Pyppy Shop.</span>
                         </label>
                       </div>
+                      <!-- Continue to Shipping Button -->
+                      <!-- <div class="checkout__input-wrapper">
+                        <button class="checkout__continue-btn js-continue-to-shipping">
+                          Fortsätt med beställningen
+                        </button>
+                      </div> -->
+                    </div>
+                    <button type="button" class="checkout__continue-btn js-checkout-continue-btn" name="checkout-continue-btn">
+                      Fortsätt
+                    </button>
+                  </fieldset>
+                  <!-- Shipping Method -->
+                  <fieldset class="checkout__group js-shipping-selection hidden">
+                    <legend class="checkout__header">Fraktalternativ</legend>                  
+                    <div class="checkout__group-inner checkout__group-inner--shipping">
+                      <p class="checkout__group-info">Just nu har sniglarna extra mycket att göra, duvorna strejkar och hararna är halta. Vill du vara säker på att din order levereras så snabbt som möjligt rekommenderar vi att du väljer leverans med en stork.</p>
+                      <!-- Shipping Method Stork -->
+                      <div class="checkout__shipping-alt">
+                        <label class="rb-custom checkout__rb-single">
+                          <input type="radio" name="shipping" value="stork" aria-label="Välj leverans med Stork" checked>
+                          <span class="rb-checkmark"></span>
+                          <span class="rb-label checkout__rb-label">Stork <span class="checkout__shipping-price">250 kr + 4% av delsumman</span></span>
+                        </label>
+                        <p class="checkout__shipping-alt-info">Leveranstid 1-12 arbetsdagar.</p>
+                      </div>
+                      <!-- Shipping Method Dove -->
+                      <div class="checkout__shipping-alt">
+                        <label class="rb-custom checkout__rb-single">
+                          <input type="radio" name="shipping" value="dove" aria-label="Välj leverans med Duva">
+                          <span class="rb-checkmark"></span>
+                          <span class="rb-label checkout__rb-label">Duva <span class="checkout__shipping-price">150 kr + 3% av delsumman</span></span>
+                        </label>
+                        <p class="checkout__shipping-alt-info">Leveranstid 12-24 arbetsdagar.</p>
+                      </div> 
+                      <!-- Shipping Method Hare -->
+                      <div class="checkout__shipping-alt">
+                        <label class="rb-custom checkout__rb-single">
+                          <input type="radio" name="shipping" value="hare" aria-label="Välj leverans med Hare">
+                          <span class="rb-checkmark"></span>
+                          <span for="shipping-hare" class="rb-label checkout__rb-label">Hare <span class="checkout__shipping-price">75 kr + 2% av delsumman</span></span>
+                        </label>
+                        <p class="checkout__shipping-alt-info">Leveranstid 4-8 veckor.</p>
+                      </div>                  
+                      <!-- Shipping Method Snail -->
+                      <div class="checkout__shipping-alt">
+                        <label class="rb-custom checkout__rb-single">
+                          <input type="radio" name="shipping" value="snail" aria-label="Välj leverans med Snigel">
+                          <span class="rb-checkmark"></span>
+                          <span for="shipping-snail" class="rb-label checkout__rb-label">Snigel <span class="checkout__shipping-price">25 kr + 1% av delsumman</span></span>
+                        </label>
+                        <p class="checkout__shipping-alt-info">Leveranstid 2-4 månader.</p>
+                      </div>                  
                     </div>
                   </fieldset>
+    
+                  <div class="checkout__group js-your-information hidden">
+                    <!-- Your Information -->
+                    <fieldset class="checkout__form-group js-your-info-field">
+                      <legend class="checkout__header">Dina uppgifter</legend>
+                      <div class="checkout__group-inner">
+                        <p class="checkout__group-info">Adressen ska vara i Sverige.</p>
+    
+                        <div class="checkout__billing-wrapper">
+                          <!-- E-mail -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing js-input-wrapper">
+                            <!-- Get input value from postal-email -->
+                            <span 
+                              id="email-tooltip" 
+                              class="tooltip-text" 
+                              aria-hidden="true">
+                              Ange en giltig e-postadress, t.ex. exempel@domän.se
+                            </span>
+                            <input
+                              type="email"
+                              id="info-email"
+                              class="checkout__input checkout__input--billing js-email"
+                              name="info-email"
+                              value=""
+                              placeholder=" "
+                              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
+                              title="Ange en giltig e-postadress, till exempel exempel@domän.se."
+                              autocomplete="email"
+                              aria-label="E-postadress"
+                              aria-describedby="email-tooltip">
+                            <label 
+                              for="email"
+                              class="checkout__input-placeholder">
+                              E-postadress:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
   
-                  <!-- Policy & GDPR -->
-                  <div class="checkout__group-inner">
-                    <label class="chb-custom checkout__chb-single">
-                      <input type="checkbox" name="gdpr">
-                      <span class="chb-checkmark"></span>
-                      <span class="chb-label checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.</span>
-                    </label>
+                          <!-- Zip -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing js-input-wrapper">                          
+                            <!-- Get input value from postal-zip -->
+                            <span 
+                              id="zip-tooltip" 
+                              class="tooltip-text" 
+                              aria-hidden="true">
+                              Fem siffror 12345 eller 123 45
+                            </span>
+                            <input
+                              type="text"
+                              id="info-zip"
+                              class="checkout__input checkout__input--billing js-zip"
+                              name="info-zip"
+                              value=""
+                              placeholder=" "
+                              pattern="^\d{3}\s?\d{2}$"
+                              title="Fem siffror 12345 eller 123 45."
+                              aria-label="Postnummer"
+                              aria-describedby="zip-tooltip">
+                            <label 
+                              for="zip"
+                              class="checkout__input-placeholder">
+                              Postnummer:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+        
+                          <!-- Name -->
+                          <div class="checkout__input-row js-input-wrapper">      
+                            <!-- Given Name -->
+                            <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing">
+                              <span 
+                                id="given-name-tooltip" 
+                                class="tooltip-text" 
+                                aria-hidden="true">
+                                Vänligen ange ditt förnamn
+                              </span>                          
+                              <input
+                                type="text"
+                                id="given-name"
+                                name="given-name"
+                                class="checkout__input checkout__input--billing js-given-name"
+                                value=""
+                                placeholder=" "
+                                pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
+                                title="Ange endast bokstäver, mellanslag, apostrofer, bindestreck och punkt."
+                                aria-label="Förnamn"
+                                aria-describedby="given-name-tooltip">
+                              <label 
+                                for="given-name"
+                                class="checkout__input-placeholder">
+                                Förnamn:
+                              </label>
+                              <!-- <span class="checkout__input-message js-input-message"></span> -->
+                            </div>
+        
+                            <!-- Family Name -->
+                            <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing">
+                              <span 
+                                id="family-name-tooltip" 
+                                class="tooltip-text" 
+                                aria-hidden="true">
+                                Vänligen ange ditt efternamn
+                              </span>                          
+                              <input
+                                type="text"
+                                id="family-name"
+                                name="family-name"
+                                class="checkout__input checkout__input--billing js-family-name"
+                                value=""
+                                placeholder=" "
+                                pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
+                                title="Ange endast bokstäver, mellanslag, apostrofer, bindestreck och punkt."
+                                aria-label="Efternamn"
+                                aria-describedby="family-name-tooltip">
+                              <label 
+                                for="family-name"
+                                class="checkout__input-placeholder">
+                                Efternamn:
+                              </label>
+                              <!-- <span class="checkout__input-message js-input-message"></span> -->
+                            </div>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+                          <!-- Street Address -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing  js-input-wrapper">
+                            <span 
+                              id="street-address-tooltip" 
+                              class="tooltip-text" 
+                              aria-hidden="true">
+                              Vänligen ange din gatuadress
+                            </span>                        
+                            <input
+                              type="text"
+                              id="street-address"
+                              name="street-address"
+                              class="checkout__input checkout__input--billing js-street-address"
+                              value=""
+                              placeholder=" "
+                              pattern="^[a-zA-ZÀ-ž][a-zA-ZÀ-ž0-9.,'\/\- ]*[a-zA-ZÀ-ž0-9.]$"
+                              title="Ange din gatuadress. Endast bokstäver, siffror, mellanslag, punkt, komma, apostrof, snedstreck och bindestreck är tillåtna."
+                              aria-label="Gatuadress"
+                              aria-describedby="street-address-tooltip">
+                            <label 
+                              for="street-address"
+                              class="checkout__input-placeholder">
+                              Adress:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+        
+                          <!-- Town/City -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing  js-input-wrapper">
+                            <span 
+                              id="town-tooltip" 
+                              class="tooltip-text" 
+                              aria-hidden="true">
+                              Ange ortens namn, t.ex. Krokom, Flateby, eller Slut
+                            </span>             
+                            <input
+                              type="text"
+                              id="town-city"
+                              name="town-city"
+                              class="checkout__input checkout__input--billing js-town"
+                              value=""
+                              placeholder=" "
+                              pattern="^[a-zA-ZÀ-ž]{2,}(?:[.'\- ][a-zA-ZÀ-ž]*)*$"
+                              title="Ange namnet på orten. Endast bokstäver, mellanslag, punkt, apostrof och bindestreck är tillåtna."
+                              aria-label="Ort"
+                              aria-describedby="town-tooltip">
+                            <label 
+                              for="town"
+                              class="checkout__input-placeholder">
+                              Ort:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+        
+                          <!-- Entry Code -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing  js-input-wrapper">
+                            <span 
+                              id="entry-code-tooltip" 
+                              class="tooltip-text" 
+                              aria-hidden="true">
+                              Ange portkod med siffror, *, #, eller A–D. Exempel: 1234 eller A12B
+                            </span>                          
+                            <input
+                              type="text"
+                              id="entry-code"
+                              name="entry-code"
+                              class="checkout__input checkout__input--billing js-entry-code"
+                              value=""
+                              placeholder=" "
+                              pattern="^[0-9ABCD#*]{4,8}$"
+                              title="Ange en giltig portkod (endast siffror, #, *, A, B, C eller D är tillåtna)."
+                              aria-label="Eventuell portkod"
+                              aria-describedby="entry-code-tooltip">
+                            <label 
+                              for="entry-code"
+                              class="checkout__input-placeholder">
+                              Eventuell Portkod:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+        
+                          <!-- Mobile Phone Number -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing js-input-wrapper">
+                            <span 
+                              id="phone-tooltip" 
+                              class="tooltip-text"
+                              aria-hidden="true">
+                              Ange ett giltigt svenskt mobiltelefonnummer, t.ex. '+46701234567' eller '070-123 45 67'
+                            </span>                         
+                            <input
+                              type="tel"
+                              id="mobile-phone"
+                              name="mobile-phone"
+                              class="checkout__input checkout__input--billing js-phone"
+                              value=""
+                              placeholder=" "
+                              pattern="^(\+46\s?|0)(7[0236][\s\-1-9]?)(\s\d{2}|\d{3})(\s?\d{2}){2}$"
+                              title="Ange ett giltigt svenskt mobiltelefonnummer, t.ex. '+46701234567' eller '070-123 45 67'."
+                              aria-label="Mobilnummer, behövs för att vi ska kunna kontaktra dig angående din beställning"
+                              aria-describedby="phone-tooltip">
+                            <label 
+                              for="phone"
+                              class="checkout__input-placeholder checkout__input-placeholder">
+                              Mobilnummer:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+    
+                    <!-- Payment Method -->
+                    <fieldset class="checkout__form-group">
+                      <div class="checkout__group-inner">
+                        <legend class="checkout__form-group-header-light">Betalmetod:</legend>
+                        <div class="checkout__rb-row">
+                          <label class="rb-custom">
+                            <input type="radio" name="payment-method" value="card" aria-label="Betalmetod: kort" checked>
+                            <span class="rb-checkmark"></span>
+                            <span class="rb-label checkout__rb-label">Kortbetalning</span>
+                          </label>
+                          <label class="rb-custom">
+                            <input type="radio" name="payment-method" value="invoice" aria-label="Betalmetor: faktura (valbart för ordrar upp till 80 000 kr)">
+                            <span class="rb-checkmark"></span>
+                            <span class="rb-label checkout__rb-label">Faktura <span class="checkout__label-info"></span>(Upp till 80 000 kr)</span>
+                          </label>
+                        </div>
+                        
+                      </div>
+                    </fieldset>
+                    
+                    <!-- Card Info (Visible if Card is choosen) -->
+                    <fieldset class="checkout__form-group js-card-info">
+                      <div class="checkout__group-inner">
+                        <legend class="checkout__form-group-header-light">Kortuppgifter:</legend>
+                        <div class="checkout__charge-card-wrapper">
+                          <!-- Card Number -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing js-input-wrapper">
+                            <span 
+                              id="card-number-tooltip" 
+                              class="tooltip-text" 
+                              aria-hidden="true">
+                              Ange ett giltigt 16-siffrigt kretid- eller betalkortsnummer
+                            </span> 
+                            <input
+                              type="text"
+                              id="card-number"
+                              name="card-number"
+                              class="checkout__input js-card-number"
+                              value=""
+                              placeholder=" "
+                              inputmode="numeric"
+                              pattern="^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$"
+                              title="Ange ett giltigt 16-siffrigt kretid- eller betalkortsnummer"
+                              aria-label="Kortnummer"
+                              aria-describedby="card-number-tooltip">
+                            <label 
+                              for="card-number"
+                              class="checkout__input-placeholder">
+                              Kortnummer:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+        
+                          <!-- Expire Date and CVV -->
+                          <fieldset class="checkout__input-row">
+                            <!-- Expire Date -->
+                            <div class="checkout__input-wrapper checkout__input-wrapper--date-cvv js-input-wrapper">
+                              <div class="checkout__input-wrapper-inner checkout__input-wrapper--inner-date-cvv js-input-wrapper-inner" id="card-date">
+                                <div class="">
+                                  <input
+                                    type="text"
+                                    name="card-expire-month"
+                                    class="checkout__input checkout__input--expire-month js-card-expire-month js-split-input"
+                                    value=""
+                                    placeholder="MM"
+                                    maxlength="2"
+                                    inputmode="numeric"
+                                    pattern="^(0[1-9]|1[0-2])$"
+                                    title="Skriv månad med två siffror, t.ex. 06 för juni."
+                                    aria-label="Månad"
+                                    aria-describedby="card-mm-tooltip">
+                                </div>
+                                <div class="checkout__date-cvv-divider">/</div>
+                                <div class="">
+                                  <input
+                                    type="text"
+                                    name="card-expire-year"
+                                    class="checkout__input checkout__input--expire-year js-card-expire-year js-split-input"
+                                    value=""
+                                    placeholder="YY"
+                                    inputmode="numeric"
+                                    maxlength="2"
+                                    pattern="^\d{2}$"
+                                    aria-label="År">
+                                </div>
+                                <label 
+                                  class="checkout__input-placeholder"
+                                  for="card-date">
+                                  Giltigt till:
+                                </label>
+                              </div>
+                              <span class="checkout__input-message js-input-message"></span>
+                            </div>
+                            <!-- CVV -->
+                            <div class="checkout__input-wrapper checkout__input-wrapper--billing js-input-wrapper">                            
+                              <input
+                                type="text"
+                                id="card-cvv"
+                                name="card-cvv"
+                                class="checkout__input js-card-cvv"
+                                value=""
+                                placeholder="000"
+                                maxlength="3"
+                                inputmode="numeric"
+                                pattern="^\d{3}$"
+                                title="Ange det 3-siffriga CVV-nummer som finns på baksidan av ditt kort."
+                                aria-label="CVV">
+                              <label 
+                                for="card-cvv"
+                                class="checkout__input-placeholder">
+                                CVV:
+                              </label>
+                              <span class="checkout__input-message js-input-message"></span>
+                            </div>                      
+                          </fieldset>             
+      
+                          <!-- Card Owner -->
+                          <div class="tooltip checkout__input-wrapper checkout__input-wrapper--billing js-input-wrapper">
+                            <span 
+                              id="card-name-tooltip"
+                              class="tooltip-text" 
+                              aria-hidden="true">
+                              Skriv hela ditt namn som står på kortet
+                            </span>                           
+                            <input
+                              type="text"
+                              name="card-owner"
+                              id="card-owner"
+                              class="checkout__input js-card-owner"
+                              value=""
+                              placeholder=" "
+                              pattern="^[A-Za-zÅÄÖåäöÉéÈèÁá\s\-']+$"
+                              title="Ange ditt namn precis som det står på kortet. Endast bokstäver, mellanslag, bindestreck och apostrofer är tillåtna."
+                              aria-label="Ditt namn som det står på kortet"
+                              aria-describedby="card-name-tooltip">
+                            <label
+                              for="card-owner"
+                              class="checkout__input-placeholder">
+                              Kortinnehavare:
+                            </label>
+                            <span class="checkout__input-message js-input-message"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+  
+                    <!-- Social Security Number (Visible if invoice is chosen) -->
+                    <fieldset class="checkout__form-group js-ssn-group hidden">
+                      <div class="checkout__group-inner">
+                        <legend class="checkout__form-group-header-light">Personnummer:</legend>
+                        <div class="checkout__input-wrapper checkout__input-wrapper--ssn tooltip js-input-wrapper" >
+                          <span 
+                            id="ssn-tooltip" 
+                            class="tooltip-text" 
+                            aria-hidden="true">
+                            Ange ett giltigt svenskt personnummer (ÅÅÅÅMMDD-XXXX eller ÅÅMMDD-XXXX eller utan bindestreck)
+                          </span>
+                          <input
+                            type="text"
+                            name="social-security-number"
+                            id="social-security-number"
+                            class="checkout__input js-social-security-number"
+                            value=""
+                            placeholder=" "
+                            pattern="^\d{6}(-?\d{4})$|^\d{8}(-?\d{4})$"
+                            title="Ange ett svenskt personnummer, 10-12 siffror med eller utan bindestreck."
+                            aria-label="Personnummer"
+                            aria-describedby="ssn-tooltip">
+                          <label 
+                            for="social-security-number"
+                            class="checkout__input-placeholder">
+                            Personnummer:
+                          </label>
+                          <span class="checkout__input-message js-input-message"></span>
+                        </div>
+                      </div>
+                    </fieldset>
+    
+                    <!-- Policy & GDPR -->
+                    <div class="checkout__group-inner">
+                      <label class="chb-custom checkout__chb-single">
+                        <input type="checkbox" name="gdpr" class="js-gdpr-chb" required aria>
+                        <span class="chb-checkmark"></span>
+                        <span class="chb-label checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.</span>
+                      </label>
+                    </div>
+    
+                    <!-- Pay Button -->
+                    <button type="button" class="checkout__pay-btn js-pay-btn" name="checkout-pay-btn" disabled>
+                      <svg class="icon">
+                        <use href="#checkout-icon"/>
+                      </svg>
+                      <span>Betala köp</span>
+                    </button>
                   </div>
-  
-                  <!-- Pay Button -->
-
-                  <button class="checkout__pay-btn">
-                    <svg class="icon">
-                      <use href="#checkout-icon"/>
-                    </svg>
-                    <span>Betala köp</span>
-                  </button>
                 </form>
+                
               </section>
   
-              <div class="order-confirmed"></div>
+              
   
             </div>
           </div>
         </div>
+
+        <section class="order-confirmed js-order-confirmed container--boxed hidden" role="region" aria-labelledby="order-confirmed-header">
+
+          <div class="order-confirmed__wrapper">
+            <header id="order-confirmed-header" class="order-confirmed__header">
+              <span class="order-confirmed__heading" role="heading">Orderbekräftelse</span>
+            </header>
+
+            <div class="order-confirmed__inner">
+              
+    
+              <div class="order-confirmed__content">
+                <div class="order-confirmed__information">
+                  <!-- Delivery info/message -->
+                  <div class="order-confirmed__intro">
+                    <h2 class="order-confirmed__title">Tack för din beställning!</h2>
+                    <p class="order-confirmed__text">Vi är överlyckliga att du valt att handla hos oss på Puppy Shop. Att få välkomna en ny valp till familjen är en underbar upplevelse, full av kärlek, bus och oförglömliga stunder. Din nya fyrbenta vän är redan redo att flytta hem till dig och sprida glädje i ditt liv.</p>
+                    <!-- <p class="order-confirmed__text">Med valpköp kommer ansvar, se till att vaplsäkra hemmet och boka gärna in en valpkurs. På en valpkurs ni kommer få ovärderliga tips för ett enklare hundliv samt social träning för valpar och pälsföräldrar.</p> -->
+                    <p class="order-confirmed__text">Din beställning behandlas inom 24 timmar på helgfria vardagar och skickar en bekräftelse till din e-post så snart valpen är på väg.</p>
+                  </div>
+                  <h3 class="order-confirmed__sub-title" role="heading">Fakturaadress:<span>(samma som leveransadress)</span></h3>
+                  <div class="order-confirmed__info-data">
+                    <div class="order-confirmed__info-row">
+                      <span class="order-confirmed__label">Namn:</span>
+                      <span class="order-confirmed__data js-summary-name">Kalle Anka</span>
+                    </div>              
+                    <div class="order-confirmed__info-row">
+                      <span class="order-confirmed__label">Adress:</span>
+                      <div class="order-confirmed__data order-confirmed__data--column">
+                        <div class="js-summary-street-address">Ankdamsgatan 25</div>
+                        <div ><span class="js-summary-zip">123 45</span>&nbsp;<span class="js-summary-town">Ankeborg</span></div>
+                      </div>
+                    </div>              
+                    <div class="order-confirmed__info-row">
+                      <span class="order-confirmed__label">Telefon:</span>
+                      <span class="order-confirmed__data js-summary-phone">+46 70-123 45 67</span>
+                    </div>              
+                    <div class="order-confirmed__info-row">
+                      <span class="order-confirmed__label">E-postadress:</span>
+                      <span class="order-confirmed__data js-summary-email">kalle-anka@gmail.com</span>
+                    </div>
+                  </div>
+    
+                  <button type="button" class="order-confirmed__track js-summary-track-btn"></button>           
+                </div>
+                <div class="order-confirmed__summary js-summary">
+                  <!-- Order summary -->
+                  <h3 class="order-confirmed__sub-title" role="heading">Ordersammanställning:</h3>
+    
+                  <ul class="order-confirmed__order-data js-summary-items"></ul>
+    
+                  <div class="order-confirmed__details">
+                    <div class="order-confirmed__details-row">
+                      <span class="order-confirmed__label">Delsumma:</span>
+                      <span class="order-confirmed__data js-summary-subtotal"></span>
+                    </div>
+                    <div class="order-confirmed__details-row">
+                      <span class="order-confirmed__label">Rabatter:</span>
+                      <span class="order-confirmed__data order-confirmed__data--red js-summary-discounts"></span>
+                    </div>
+                    <div class="order-confirmed__details-row">
+                      <span class="order-confirmed__label">Moms ingår med:</span>
+                      <span class="order-confirmed__data order-confirmed__data--grey js-summary-vat"></span>
+                    </div>
+                    <div class="order-confirmed__details-row">
+                      <span class="order-confirmed__label">Fraktkostnad:</span>
+                      <span class="order-confirmed__data js-summary-shipping"></span>
+                    </div>
+                    <div class="order-confirmed__details-row order-confirmed__details-row--borde-top order-confirmed__details-row--borde-bottom">
+                      <span class="order-confirmed__label order-confirmed__label--large">Summa:</span>
+                      <span class="order-confirmed__data order-confirmed__data--large js-summary-total"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="order-confirmed__close-btn js-summary-close-btn" aria-label="Stäng orderbekräftelse">
+              Stäng
+              <svg class="icon">
+                <use href="#close-icon"/>
+              </svg>
+            </button>
+          </div>
+        </section>
+
       </div>
       
     </main>
