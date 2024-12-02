@@ -22,15 +22,7 @@ export const shippingCostObject = {
 };
 
 
-// Gender translation object
-// export const genderTranslateObject = {
-//   male: 'Hane',
-//   female: 'Tik',
-//   Hane: 'male',
-//   Tik: 'female'
-// }
-
-
+// Object with information of each product
 export const productsObject = {
   0: {
     id: 0,
