@@ -303,6 +303,10 @@ export function toggleMessage(input, name, value) {
     else if (name === 'mobile-phone') {
       input.value = transformSwedishPhoneNumber(value);
     }
+    // Card Number
+    else if (name === 'card-number') {
+      input.value = formatCardNumber(value);
+    }
     
     messageEl.textContent = '';
     messageEl.classList.remove('visible');
@@ -333,7 +337,7 @@ function formatPostalCode(postalCode) {
  * This function is used to control the visibility of various elements in the checkout process by toggling 
  * classes and adjusting the "required" attribute on input fields.
  */
-function hideSections() {
+export function hideSections() {
   // console.log('hideSections Called');
   
   shipping.classList.add('hidden');
@@ -356,7 +360,7 @@ function hideSections() {
  * @param {Array|HTMLElement} inputs - The input(s) to modify
  * @param {Boolean} required - Whether the inputs should be required
  */
-function setRequired(inputs, required) {
+export function setRequired(inputs, required) {
   // console.log('setRequired Called');
   
   inputs.forEach(input => {
@@ -404,6 +408,29 @@ function transformSwedishPhoneNumber(phoneNumber) {
   const subscriberPart3 = formattedNumber.slice(10, 12);
 
   return `+46 ${areaCode}-${subscriberPart1} ${subscriberPart2} ${subscriberPart3}`;
+}
+
+
+/**
+ * Transforms a 16-digit number into the format "#### #### #### ####".
+ *
+ * This function takes a 16-digit number as input and converts it into a
+ * string where groups of 4 digits are separated by spaces.
+ *
+ * @param {string|number} input - The 16-digit number to be transformed.
+ * @returns {string} - The formatted string in the format "#### #### #### ####".
+ */
+function formatCardNumber(input) {
+  // Ensure the input is treated as a string
+  const numberString = input.toString();
+
+  // Validate the input length
+  if (!/^\d{16}$/.test(numberString)) {
+    throw new Error('Input must be a 16-digit number.');
+  }
+
+  // Format the number
+  return numberString.replace(/(\d{4})(?=\d)/g, '$1 ');
 }
 
 
@@ -531,7 +558,7 @@ function handleValidation(e) {
         name === 'checkout-continue-btn' &&
         isValid(postalEmail.value, regex.email) &&
         isValid(postalZip.value, regex.zip) &&
-        cartItemsObject
+        Object.keys(cartItemsObject).length > 0
       ) {
         shipping.classList.remove('hidden');
         yourInfo.classList.remove('hidden');
@@ -585,7 +612,7 @@ function handleValidation(e) {
           
         });
       
-        if (allValid) {
+        if (allValid & cartItemsObject) {
           // console.log('ALL VALID:', allValid);
           // Proceed with payment
   

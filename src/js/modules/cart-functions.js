@@ -23,8 +23,36 @@ import {
   availablePaymentMethods
 } from "./pricing.js";
 
+import {
+  hideSections
+} from "./checkout.js";
 
 
+/**
+ * Generates an HTML string for a cart item card.
+ *
+ * This function creates the structure of a cart item to be displayed in the shopping cart.
+ * It includes the product image, title, gender, price, quantity controls, and options to
+ * adjust or remove the item. The function dynamically incorporates product and item data
+ * into the card.
+ *
+ * @param {Object} itemData - Data specific to the individual cart item.
+ * @param {string} itemData.productId - Unique identifier for the product.
+ * @param {string} itemData.gender - Gender associated with the product (e.g., male, female, or unisex).
+ * @param {Object} itemData.priceInfo - Object containing price information for the item.
+ * @param {number} itemData.priceInfo.price - Unit price of the item.
+ * @param {number} itemData.priceInfo.lineTotal - Total price for the item based on quantity.
+ * @param {number} itemData.quantity - The current quantity of the item in the cart.
+ *
+ * @param {Object} productData - Data specific to the product associated with the cart item.
+ * @param {Object} productData.image - Image information for the product.
+ * @param {string} productData.image.url - URL of the product image.
+ * @param {string} productData.image.alt - Alternative text for the product image.
+ * @param {Object} productData.breedInfo - Object containing breed information for the product.
+ * @param {string} productData.breedInfo.breed - Breed or type name of the product (e.g., "Golden Retriever").
+ *
+ * @returns {string} - A string containing the HTML markup for the cart item card.
+ */
 export function cartItemCard(itemData, productData) {
   return `
     <li class="cart__item js-cart-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
@@ -59,6 +87,29 @@ export function cartItemCard(itemData, productData) {
 }
 
 
+/**
+ * Generates an HTML string for an order summary item card.
+ *
+ * This function creates the structure for an item displayed in the order summary.
+ * It includes the product image, breed information, gender, quantity, and line total.
+ * The function dynamically incorporates product and item data into the summary card.
+ *
+ * @param {Object} itemData - Data specific to the individual item in the order.
+ * @param {string} itemData.productId - Unique identifier for the product.
+ * @param {string} itemData.gender - Gender associated with the product (e.g., male, female, or unisex).
+ * @param {Object} itemData.priceInfo - Object containing price information for the item.
+ * @param {number} itemData.priceInfo.lineTotal - Total price for the item based on quantity.
+ * @param {number} itemData.quantity - The number of units of the item in the order.
+ *
+ * @param {Object} productData - Data specific to the product associated with the order item.
+ * @param {Object} productData.image - Image information for the product.
+ * @param {string} productData.image.url - URL of the product image.
+ * @param {string} productData.image.alt - Alternative text for the product image.
+ * @param {Object} productData.breedInfo - Object containing breed information for the product.
+ * @param {string} productData.breedInfo.breed - Breed or type name of the product (e.g., "Golden Retriever").
+ *
+ * @returns {string} - A string containing the HTML markup for the order summary item card.
+ */
 export function summaryItemCard(itemData, productData) {
   return `
     <li class="order-confirmed__item js-summary-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
@@ -87,6 +138,31 @@ export function summaryItemCard(itemData, productData) {
 }
 
 
+/**
+ * Adds a cart item to both the cart and the order summary sections.
+ *
+ * This function dynamically appends a cart item and its corresponding summary item
+ * to designated containers in the DOM. It utilizes `cartItemCard` and `summaryItemCard`
+ * functions to generate the required HTML for each item and updates the content
+ * of all relevant containers.
+ *
+ * @param {Object} itemData - Data specific to the cart item being added.
+ * @param {string} itemData.productId - Unique identifier for the product.
+ * @param {string} itemData.gender - Gender associated with the product (e.g., male, female, or unisex).
+ * @param {Object} itemData.priceInfo - Object containing price information for the item.
+ * @param {number} itemData.priceInfo.price - Unit price of the item.
+ * @param {number} itemData.priceInfo.lineTotal - Total price for the item based on quantity.
+ * @param {number} itemData.quantity - The current quantity of the item in the cart.
+ *
+ * @param {Object} productData - Data specific to the product associated with the cart item.
+ * @param {Object} productData.image - Image information for the product.
+ * @param {string} productData.image.url - URL of the product image.
+ * @param {string} productData.image.alt - Alternative text for the product image.
+ * @param {Object} productData.breedInfo - Object containing breed information for the product.
+ * @param {string} productData.breedInfo.breed - Breed or type name of the product (e.g., "Golden Retriever").
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 export function addCartItem(itemData, productData) {
   // Add Header Cart and Checkout Cart in an array
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
@@ -102,6 +178,25 @@ export function addCartItem(itemData, productData) {
 }
 
 
+/**
+ * Updates a cart item's quantity, discount price, and line total in both the cart and order summary sections.
+ *
+ * This function modifies the quantity and pricing information for a specific cart item
+ * and updates the corresponding elements in the DOM. It ensures that the cart and
+ * order summary sections reflect the updated values.
+ *
+ * @param {Object} itemData - Data specific to the cart item being updated.
+ * @param {string} itemData.productId - Unique identifier for the product.
+ * @param {string} itemData.gender - Gender associated with the product (e.g., male, female, or unisex).
+ * @param {Object} itemData.priceInfo - Object containing price information for the item.
+ * @param {number} itemData.priceInfo.price - Current price per unit of the item.
+ * @param {number} itemData.priceInfo.lineTotal - Total price for the item based on quantity.
+ * @param {number} quantity - The updated quantity of the item.
+ * @param {number} discountPrice - The discounted price per unit of the item.
+ * @param {number} discount - The total discount applied to the item (per unit).
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
 
   // Get Element
@@ -147,8 +242,21 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
 }
 
 
-
-// Remove Item from Cart
+/**
+ * Removes an item from the cart and order summary.
+ *
+ * This function deletes a specified cart item from both the `cartItemsObj` object
+ * and its corresponding DOM elements in all cart and summary containers. It also
+ * updates the cart counter to reflect the removal.
+ *
+ * @param {Event} e - The event object associated with the remove action (e.g., click event).
+ * @param {string|number} id - The unique identifier for the product to be removed.
+ * @param {string} gender - The gender associated with the product (e.g., male, female, or unisex).
+ * @param {string} cartKey - The key identifying the cart item in the `cartItemsObj` object.
+ * @param {Object} cartItemsObj - The object holding all current cart items, indexed by their keys.
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM and the cart object.
+ */
 export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
 
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items')); // Find all containers holding cart items
@@ -178,13 +286,28 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
       }
     });
 
+    // Close checkout sections if no cart items remains
+    if (Object.keys(cartItemsObj).length === 0) {
+      hideSections();
+    }
+
   } else {
     console.warn('Cart key or object not valid. No changes made.');
   }
 }
 
 
-// Update Cart Summary
+/**
+ * Updates the cart summary values and DOM elements based on the current cart contents.
+ *
+ * This function recalculates and updates various aspects of the cart summary, including subtotal,
+ * discounts, VAT, shipping cost, and total price. It dynamically updates the header cart, checkout cart,
+ * and order summary sections to reflect the new values. It also handles Monday-specific discounts and
+ * adjusts the available payment methods based on the total price.
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM and the global
+ *                   `cartSummaryObject` with the latest cart summary values.
+ */
 export function updateCartSummary() {
   const counter = cartSummaryObject.counter;
   
@@ -259,7 +382,20 @@ export function updateCartSummary() {
 }
 
 
-// Update Header Cart Counter
+/**
+ * Updates the header cart counter and related elements based on the current cart state.
+ *
+ * This function modifies the header cart UI to reflect the current number of items in the cart
+ * and their total price. It dynamically shows or hides elements and enables or disables the
+ * cart interaction based on whether the cart has items. It also applies responsive logic for
+ * displaying elements based on the viewport width.
+ *
+ * @param {Object} cartObj - An object representing the current state of the cart.
+ * @param {number} cartObj.counter - The total number of items in the cart.
+ * @param {number} cartObj.subtotal - The subtotal price of all items in the cart.
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 export function updateHeaderCartCounter(cartObj) {
   
   // Get elements
@@ -320,13 +456,37 @@ const checkoutSection = document.querySelector('.js-checkout-section');
 const breakpoint = window.innerWidth > 720;
 
 //* Go to checkout
-// Header Mobile: Go to Checkout
+
+/**
+ * Handles navigation to the checkout section when the mobile cart button is clicked.
+ *
+ * This event listener is attached to the `headerCartMobileBtn` element. When the button
+ * is clicked, it transitions the UI to the checkout section by performing the following actions:
+ * - Hides the products section by adding the `hidden` class to `productsSection`.
+ * - Reveals the checkout section by removing the `hidden` class from `checkoutSection`.
+ *
+ * @param {Event} e - The click event triggered by the button.
+ * 
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 headerCartMobileBtn.addEventListener('click', (e) => {
   productsSection.classList.add('hidden');
   checkoutSection.classList.remove('hidden');
 });
 
-// Header: Go to Checkout
+
+/**
+ * Handles navigation to the checkout section when "Go to Checkout" buttons are clicked.
+ *
+ * This code snippet adds a `click` event listener to each button in the `goToCheckoutBtns` list.
+ * When a button is clicked, the following actions are performed:
+ * - Hides the "Go to Checkout" button in the header by adding the `hidden` class to `headerGoToBtn`.
+ * - Hides the products section by adding the `hidden` class to `productsSection`.
+ * - Reveals the checkout section by removing the `hidden` class from `checkoutSection`.
+ * - Closes the dropdown cart by removing the `active` class from `headerCart`.
+ *
+ * @returns {void} - This code does not return a value; it directly updates the DOM.
+ */
 goToCheckoutBtns.forEach(btn => {
   btn.addEventListener('click', (e) => {
     headerGoToBtn.classList.add('hidden');
@@ -342,7 +502,21 @@ headerCartBtn.addEventListener('click', toggleDropdownCart);
 headerCartBtn.addEventListener('mouseenter', showDropdownCart);
 headerCart.addEventListener('mouseenter', showDropdownCart);
 
-// Function to toggle the dropdown
+
+/**
+ * Toggles the visibility of the dropdown cart in the header.
+ *
+ * This function checks the current state of the header cart and toggles its visibility.
+ * If the cart is already open, it hides the cart. If the cart is not open, it ensures that
+ * the cart is displayed only if:
+ * - The products section is visible.
+ * - The cart has items (`cartSummaryObject.counter > 0`).
+ * - The viewport width meets the defined breakpoint condition.
+ * 
+ * Additionally, when the cart is opened, it disables body scrolling for better UX.
+ *
+ * @returns {void} - This function does not return a value; it directly manipulates DOM elements.
+ */
 function toggleDropdownCart() {
   if (headerCart.classList.contains('active')) {
     // Hide the cart if it is already open
@@ -356,7 +530,21 @@ function toggleDropdownCart() {
   }
 }
 
-// Function to show the dropdown
+
+/**
+ * Displays the dropdown cart in the header if certain conditions are met.
+ *
+ * This function checks whether the dropdown cart can be shown by validating the following conditions:
+ * - The `productsSection` is visible (does not have the `hidden` class).
+ * - The cart has at least one item (`cartSummaryObject.counter > 0`).
+ * - The current viewport width satisfies the defined `breakpoint` condition.
+ *
+ * If all conditions are met, the function:
+ * - Adds the `active` class to `headerCart` to display the dropdown cart.
+ * - Adds the `no-scroll` class to the `<body>` element to disable scrolling while the cart is visible.
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 function showDropdownCart() {
   if (!productsSection.classList.contains('hidden') 
       && cartSummaryObject.counter > 0
@@ -366,6 +554,7 @@ function showDropdownCart() {
   }
 }
 
+
 // Add event listeners for showing/hiding the dropdown
 const headerCart_GoBtn = headerCart.querySelector('.js-go-to-checkout');
 headerCartBtn.addEventListener('focus', blurDropdownCart);
@@ -374,7 +563,21 @@ headerCartBtn.addEventListener('mouseleave', hideDropdownCart);
 headerCart.addEventListener('mouseleave', hideDropdownCart);
 headerCart.addEventListener('blur', hideDropdownCart, true);
 
-// Function to blur the dropdown with a delay to allow focus to settle
+
+/**
+ * Hides the dropdown cart when focus is lost or an irrelevant interaction occurs.
+ *
+ * This function checks if the focus has moved outside the dropdown cart or if an irrelevant
+ * action occurs (such as clicking outside specific cart-related buttons). If these conditions are met,
+ * the dropdown cart is hidden by removing the `active` class from `headerCart` and the `no-scroll` class
+ * from the `<body>` element. A small delay is introduced to account for focus shifts.
+ *
+ * @param {Event} e - The event object, typically triggered by a focus or click event.
+ * @param {boolean} breakpoint - A condition indicating whether the current viewport satisfies
+ *                                the breakpoint for showing the dropdown cart.
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 function blurDropdownCart(e, breakpoint) {
   setTimeout(() => {
     const isFocusInsideDropdown = headerCart.contains(document.activeElement);
@@ -388,7 +591,22 @@ function blurDropdownCart(e, breakpoint) {
   }, 50); // Small delay to account for focus shift
 }
 
-// Function to hide the dropdown on mouse leave
+
+/**
+ * Hides the dropdown cart when the mouse moves away or an irrelevant action occurs.
+ *
+ * This function checks if the mouse is no longer hovering over the dropdown cart (`headerCart`),
+ * the cart button (`headerCartBtn`), or any specific cart-related buttons (such as decrease, 
+ * increase, or remove item buttons). If these conditions are met, it hides the dropdown cart by:
+ * - Removing the `active` class from `headerCart`.
+ * - Removing the `no-scroll` class from the `<body>` element.
+ *
+ * A small delay is introduced to account for rapid mouse movements or hover transitions.
+ *
+ * @param {Event} e - The event object, typically triggered by a mouseleave or similar event.
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 function hideDropdownCart(e) {
   setTimeout(() => {
     if (!headerCart.matches(':hover') && 
@@ -401,7 +619,18 @@ function hideDropdownCart(e) {
 }
 
 
-// Checkout: Close
+/**
+ * Handles the "close cart" action to transition back to the products section.
+ *
+ * This code listens for a `click` event on the `closeCart` button (or element).
+ * When triggered, it performs the following actions:
+ * - Displays the products section by removing the `hidden` class from `productsSection`.
+ * - Hides the checkout section by adding the `hidden` class to `checkoutSection`.
+ * - If the cart contains items (`cartSummaryObject.counter > 0`) and the products section is visible,
+ *   it ensures that the "Go to Checkout" button (`headerGoToBtn`) is displayed by removing the `hidden` class.
+ *
+ * @returns {void} - This function does not return a value; it directly updates the DOM.
+ */
 const closeCart = document.querySelector('.cart__close');
 
 closeCart.addEventListener('click', e => {
