@@ -172,7 +172,7 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
     });
 
     summaryItemContainers.forEach(container => {
-      const item = container.querySelector(`.js-summary-item[data-pid="${productId}"][data-gender="${gender}"]`);
+      const item = container.querySelector(`.js-summary-item[data-pid="${id}"][data-gender="${gender}"]`);
       if (item) {
         item.remove(); // Remove the DOM element
       }
