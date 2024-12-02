@@ -8,13 +8,43 @@ $_module-name: 'Form';
 
 /* ### #{$_module-name} START */
 
-:is(button, a, input:not([type="radio"], [type="checkbox"]), textarea, select, details, summary, [tabindex]):focus-visible,
+/* Focus styles for keyboard navigation */
+:is( 
+  a, 
+  input:not([type="radio"], [type="checkbox"]), 
+  textarea, 
+  select, 
+  details, 
+  summary, 
+  [tabindex]
+):focus-visible,
 input[type="radio"]:focus-visible ~ .rb-checkmark,
 input[type="checkbox"]:focus-visible ~ .chb-checkmark {
   border: none;
-  outline: 3px solid #FF9800;
+  outline: 3px solid #007CF7;//#0066CC; //#FF9800;
   outline-offset: 2px;
 }
+
+/* Remove focus outline for mouse and touch interactions */
+:is(
+  a, 
+  input:not([type="radio"], [type="checkbox"]), 
+  textarea, 
+  select, 
+  details, 
+  summary, 
+  [tabindex]
+):focus:not(:focus-visible) {
+  outline: none;
+}
+
+:is(button):focus-visible {
+  border: none;
+  outline: 3px solid #007CF7;//#0066CC; //#FF9800;
+  outline-offset: -3px;
+  //box-shadow: inset 0 0 0 3px #007CF7;       
+}
+
 
 form {
   margin: 0;
@@ -39,11 +69,6 @@ button {
   & * {
     pointer-events: none;
   }
-
-  &:focus-visible {
-    border: none;//1px solid white;
-    outline: 2px solid #285796;
-  }
 }
 
 // input[type='number'],
@@ -67,12 +92,6 @@ input[type='number'] {
 
 //* Custom radio
 
-// label:has(input[type="radio"]:focus-visible, input[type="checkbox"]:focus-visible) {
-//   border: none;
-//   outline: 3px solid orange;
-//   outline-offset: 3px;
-// }
-
 .rb-custom > input[type='radio'] { // Hide default radio button
   position: absolute;
   opacity: 0;
@@ -85,13 +104,13 @@ input[type='number'] {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  padding-left: 2rem;
+  padding-left: 2.75rem;
 }
 
 .rb-checkmark { // nested span with class
   position: absolute;
   top: 0;
-  left: 0;
+  left: .75rem;
   width: 1.25rem;
   height: 1.25rem;
   border: 1px solid var(--clr-lines);
@@ -115,7 +134,7 @@ input[type='number'] {
   color: var(--clr-text);
 }
 
-.rb-custom:hover > input:not(:checked) ~ .rb-checkmark {
+.rb-custom:hover > input:not(:checked):not(:disabled) ~ .rb-checkmark {
   transition: background-color .2s ease;
   background-color: #E2E3E5;
 }
@@ -126,6 +145,13 @@ input[type='number'] {
 
 .rb-custom > input:checked ~ .rb-checkmark::after {
   display: block;
+}
+
+.rb-custom:has(input:disabled) {
+  opacity: .5;
+  & * {
+    color: var(--clr-grey-dark);
+  }
 }
 
 
@@ -142,19 +168,57 @@ input[type='number'] {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  padding-left: 2rem;
+  padding-left: 2.75rem;
+
+  // &:focus-within { //?
+  //   outline: 2px solid cyan;
+  //   outline-offset: 2px;
+  // }
+
+  &:has(input.invalid) > .chb-checkmark {
+    border-color: #F44336;
+    background-color: #FFEBEE;
+  }
+
+  &:has(input.invalid) > .chb-label {
+    color: #D32F2F;
+  }
+
+  &:has(input.invalid):hover > .chb-checkmark {
+    outline-color: #F44336;
+  }
+
+  &:has(input.invalid)::before {
+    content: '';
+    position: absolute;
+    top: -.5rem;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 1rem);
+    outline: 2px solid #F44336;
+    outline-offset: 0;
+  }
 }
 
 .chb-checkmark {
   position: absolute;
   top: 0;
-  left: 0;
+  left: .75rem;
   width: 1.25rem;
   height: 1.25rem;
   border: 1px solid var(--clr-lines);
+  outline: 0 solid;
+  outline-color: transparent;
+  outline-offset: -1px;
   background-color: white;
   display: grid;
   place-content: center;
+  transition: outline-color .2s ease, background-color .2s ease;
+
+  // &:hover { //?
+  //   outline-width: 2px;
+  //   outline-color: orange;
+  // }
 
   &::after {
     content: '\2714';
@@ -172,9 +236,13 @@ input[type='number'] {
   color: var(--clr-text);
 }
 
-.chb-custom:hover > input:not(:checked) ~ .chb-checkmark {
-  transition: background-color .2s ease;
+.chb-custom:hover > input:not(:checked):not(.invalid) ~ .chb-checkmark {
   background-color: #E2E3E5;
+}
+
+.chb-custom:hover > .chb-checkmark {
+  outline-width: 2px;
+  outline-color: #007CF7; //#0066CC;
 }
 
 .chb-custom > input:checked ~ .chb-checkmark {
@@ -200,7 +268,7 @@ input[type='number'] {
     text-wrap: nowrap;
     font-size: 1rem;
     color: var(--clr-text);
-    width: 20ch;
+    width: auto;
 
     @media screen and (min-width: 720px) {
       width: auto;
@@ -227,9 +295,10 @@ input[type='number'] {
   &__arrow {
     pointer-events: none;
     position: absolute;
-    height: 100%;
+    //height: 100%;
+    height: 3rem;
     width: 2rem;
-    top: 0;
+    bottom: 0;
     right: 0;
 
     display: grid;
@@ -240,6 +309,10 @@ input[type='number'] {
       height: .75rem;
       fill: var(--clr-text);
     }
+
+    @media screen and (min-width: 720px) {
+      height: 2rem;
+    }
   }
 
   &__select > option {
@@ -249,6 +322,128 @@ input[type='number'] {
 
 }
 
+
+// Validation
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"] {
+
+  &.valid,
+  &:not(:placeholder-shown):valid {
+    border-color: #4CAF50 !important;
+    background-color: #E6F3E6 !important;
+    color: #2E7D32 !important;
+
+    &:focus-visible {
+      outline-color: #4CAF50 !important;
+    }
+
+    & + label {
+      color: #2E7D32 !important;
+    }
+  }
+
+  &.invalid {
+    border-color: #F44336 !important;
+    background-color: #FFEBEE !important;
+    color: #D32F2F !important;
+    &:focus-visible {
+      outline-color: #F44336 !important;
+    }
+
+    & + label {
+      color: #D32F2F !important;
+    }
+  }
+
+}
+
+div.valid, span.valid {
+  border-color: #4CAF50 !important;
+  background-color: #E6F3E6 !important;
+  color: #2E7D32 !important;
+
+  &:focus-visible {
+    outline-color: #4CAF50 !important;
+  }
+
+  & + label {
+    color: #2E7D32 !important;
+  }
+}
+
+div.invalid, span.invalid {
+  border-color: #F44336 !important;
+  background-color: #FFEBEE !important;
+  color: #D32F2F !important;
+  &:focus-visible {
+    outline-color: #F44336 !important;
+  }
+
+  & + label {
+    color: #D32F2F !important;
+  }
+}
+
+
+// input[type="text"],
+// input[type="email"],
+// input[type="tel"],
+// input[type="number"] {
+
+//   // Valid State (HTML Validation or JS-Added Class)
+//   &:not(:placeholder-shown):valid,
+//   &:not(:placeholder-shown).valid {
+//     border-color: #4CAF50 !important;
+//     background-color: #E6F3E6 !important;
+//     color: #2E7D32 !important;
+
+//     &:focus-visible {
+//       outline-color: #4CAF50 !important;
+//     }
+
+//     & + label {
+//       color: #2E7D32 !important;
+//     }
+//   }
+
+//   // Invalid State (HTML Validation or JS-Added Class)
+//   &:not(:placeholder-shown):invalid,
+//   &.invalid:not(:placeholder-shown) {
+//     border-color: #F44336 !important;
+//     background-color: #FFEBEE !important;
+//     color: #D32F2F !important;
+//     &:focus-visible {
+//       outline-color: #F44336 !important;
+//     }
+
+//     & + label {
+//       color: #D32F2F !important;
+//     }
+    
+//   }
+
+//   //Focused Invalid State
+//   &:focus:invalid,
+//   &:focus.invalid {
+//     border-color: #FF9800 !important;
+//     background-color: #FFF4E5 !important;
+//     color: #F57C00 !important;
+//     &:focus-visible {
+//       outline-color: #FF9800 !important;
+//     }
+
+//     & + label {
+//       color: #F57C00 !important;
+//     }
+//   }
+// }
+
+// input[type="checkbox"] {
+//   // Checkbox-specific styles
+// }
 
 
 /* ### #{$_module-name} END

@@ -34,25 +34,29 @@ $_module-name: "Product Carsd";
     //width: Min(900px + 1rem, 100%);
     margin-bottom: 2rem;
     display: grid;
-    gap: .5rem;
+    gap: 1rem;
 
     @media screen and (min-width: 720px) {
       margin-right: auto;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      gap: 2rem;
     }
   }
 
   &__cbx {
-    width: calc(50ch + .5rem);
+    //width: calc(50ch + .5rem);
+    width: fit-content;
+    display: grid;
+    gap: 2px;
 
     @media screen and (min-width: 720px) {
+      //display: flex;
       width: fit-content;
     }
   }
 
   &__select {
-    width: 30ch;
+    //width: 30ch;
   }
 
   &__arrow {
@@ -235,7 +239,7 @@ $_module-name: "Product Carsd";
   // Gender radio buttons
   &__gender {
     margin-top: auto;
-    padding: .75rem .75rem;
+    padding: .75rem 0;
     display: flex;
     align-items: flex-end;
     gap: 1.5rem;
