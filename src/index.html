@@ -19,43 +19,44 @@
   </head>
   <body>
     <header class="header"> 
-
-      <a class="header__brand" href="/src/" aria-label="Puppy Shop logotyp, gå tillbaka till startsidan">
-        <svg class="icon cart__brand-icon">
-          <use href="#puppy-shop-wide"/>
-        </svg>
-      </a>
-      <!-- <nav class="header__nav"></nav> -->
-      <div class="header__cart">
-        <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden" aria-label="Gå till kundvagn och kassa">
-          <svg class="icon" aria-hidden="true">
-            <use href="#cart-icon" class="js-header-cart-icon"/>
+      <div class="header__inner">
+        <a class="header__brand" href="/src/" aria-label="Puppy Shop logotyp, gå tillbaka till startsidan">
+          <svg class="icon cart__brand-icon">
+            <use href="#puppy-shop-wide"/>
           </svg>
-        </button>
-        <button class="header__cart-btn js-header-cart" aria-label="Öppna och stänga kundvagn" disabled aria-disabled="true">
-          <svg class="icon" aria-hidden="true">
-            <use href="#cart-icon" class="cart-icon"/>
-          </svg>
-          <div class="header__cart-count">0</div>
-          <div class="header__cart-total hidden"></div>
-        </button>
-        
-        <div class="header__cart-dropdown js-dropdown-cart">
-          <div class="header__cart-dropdown-inner">
-            <ul class="header__cart-items js-cart-items"></ul>
-            <div class="header__cart-summary">
-              <span class="header__cart-label">Delsumma:</span>
-              <span class="header__cart-subtotal js-cart-subtotal">204 000 kr</span>
-            </div>
-          </div>
-          <button class="header__cart-dropdown-checkout-btn js-go-to-checkout">
+        </a>
+        <!-- <nav class="header__nav"></nav> -->
+        <div class="header__cart">
+          <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden" aria-label="Gå till kundvagn och kassa">
             <svg class="icon" aria-hidden="true">
-              <use href="#cart-forward-icon" class="cart-forward-icon"/>
+              <use href="#cart-icon" class="js-header-cart-icon"/>
             </svg>
-            Till kassan</button>
+          </button>
+          <button class="header__cart-btn js-header-cart" aria-label="Öppna och stänga kundvagn" disabled aria-disabled="true">
+            <svg class="icon" aria-hidden="true">
+              <use href="#cart-icon" class="cart-icon"/>
+            </svg>
+            <div class="header__cart-count">0</div>
+            <div class="header__cart-total hidden"></div>
+          </button>
+          
+          <div class="header__cart-dropdown js-dropdown-cart">
+            <div class="header__cart-dropdown-inner">
+              <ul class="header__cart-items js-cart-items"></ul>
+              <div class="header__cart-summary">
+                <span class="header__cart-label">Delsumma:</span>
+                <span class="header__cart-subtotal js-cart-subtotal">204 000 kr</span>
+              </div>
+            </div>
+            <button class="header__cart-dropdown-checkout-btn js-go-to-checkout">
+              <svg class="icon" aria-hidden="true">
+                <use href="#cart-forward-icon" class="cart-forward-icon"/>
+              </svg>
+              Till kassan</button>
+          </div>
+          
+          <button class="header__to-checkout js-go-to-checkout hidden">Till kassan</button>
         </div>
-        
-        <button class="header__to-checkout js-go-to-checkout hidden">Till kassan</button>
       </div>
 
       <!-- <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button> -->
@@ -63,8 +64,8 @@
 
     <main class="main">
 
-      <div class="container--full-width">
-        <div class="products container--boxed js-products-section">
+      <div class="container--boxed">
+        <div class="products js-products-section">
           <header class="products__header">
             <h1 class="products__title">Våra valpar!</h1>
           </header>
@@ -706,7 +707,7 @@
                     </div>
     
                     <!-- Pay Button -->
-                    <button type="button" class="checkout__pay-btn js-pay-btn" name="checkout-pay-btn" disabled>
+                    <button type="button" class="checkout__pay-btn js-pay-btn" name="checkout-pay-btn">
                       <svg class="icon">
                         <use href="#checkout-icon"/>
                       </svg>
@@ -813,7 +814,9 @@
     </main>
 
     <footer class="footer">
-      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> | Puppy Shop, Alla rättigheter förbehållna</p>
+      <div class="footer__inner">
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> | Puppy Shop, Alla rättigheter förbehållna</p>
+      </div>
     </footer>
 
 
