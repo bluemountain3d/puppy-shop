@@ -33,6 +33,7 @@ $_module-name: "Product Carsd";
   &__filters {
     //width: Min(900px + 1rem, 100%);
     margin-bottom: 2rem;
+    padding-inline: .5rem;
     display: grid;
     gap: 1rem;
 
@@ -112,7 +113,8 @@ $_module-name: "Product Carsd";
     border-color: var(--clr-lines);
     border-style: solid;
     border-radius: 1rem 1rem 0 0;
-    overflow: hidden;
+    //overflow: hidden;
+
 
     & > picture {
 
@@ -123,6 +125,7 @@ $_module-name: "Product Carsd";
     width: 100%;
     height: auto;
     aspect-ratio: 1;
+    border-radius: calc(1rem - 2px) calc(1rem - 2px)  0 0;
   }
 
   &__rating {

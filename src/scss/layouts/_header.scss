@@ -12,15 +12,22 @@ $_module-name: "Page Header";
   z-index: 900;
   position: sticky;
   top: 0;
-
-  width: Min(100%, 1920px);
-  margin-inline: auto;
-  margin-bottom: 1rem;
+  width: 100%;
+  //margin-bottom: 1rem;
   color: var(--clr-light);
   background-color: var(--clr-dark);
 
-  display: flex;
-  align-items: center;
+  // clip-path: polygon(calc(50% - 960px) 0, 
+  //                    calc(50% + 960px) 0,
+  //                    calc(50% + 960px) 100vh,
+  //                    calc(50% - 960px) 100vh);
+
+  clip-path: polygon(0 0, 100% 0, 
+                     100% 4rem, 
+                     calc(50% + 960px) 4rem,
+                     calc(50% + 960px) 100vh, calc(50% - 960px) 100vh,
+                     calc(50% - 960px) 4rem,
+                     0 4rem);
 
   &__brand {
     padding: .5rem 2rem;
@@ -29,6 +36,14 @@ $_module-name: "Page Header";
       height: 3rem;
       fill: var(--clr-light);
     }
+  }
+
+  &__inner {
+    margin-inline: auto;
+    max-width: 1920px;
+    display: flex;
+    align-items: center;
+    //overflow-x: clip;
   }
 
   &__nav {
@@ -44,6 +59,7 @@ $_module-name: "Page Header";
 
   &__cart-btn {
     cursor: pointer;
+    height: 4rem;
     padding: 0 2rem 0 1rem;
     color: var(--clr-light);
 
@@ -144,23 +160,27 @@ $_module-name: "Page Header";
   //* Header dropdown cart
     
   &__cart-dropdown {
+    z-index: 800;
     display: block;
     visibility: hidden;
-    overflow: hidden;
+    //overflow: hidden;
     position: absolute;
     top: 100%;
     right: 0;
+    opacity: 0;
     translate: 100%;
     width: Min(100vw, 400px);
     height: fit-content;
     //max-height: 100vh;
-    max-height: calc(100vh - 4rem);
+    max-height: calc(100vh - 5rem);
     background-color: white;
     box-shadow: 0 .25rem .5rem rgba(black, .33);
-    transition: translate .5s ease;
+    transition: translate .5s ease, opacity .5s ease;
 
     &.active {
+      transition: translate .5s ease;
       visibility: visible;
+      opacity: 1;
       translate: 0;
     }
     // &:hover {
@@ -175,8 +195,9 @@ $_module-name: "Page Header";
   }
 
   &__cart-dropdown-inner {
-    overflow-y: hidden;
+    //overflow-y: hidden;
     display: block;
+    max-height: 100%;
     padding-left: Max(12px, var(--vwx) * 3.125);
     @media screen and (min-width: 720px) {
       padding-left: 1.5rem;
@@ -185,34 +206,37 @@ $_module-name: "Page Header";
   }
 
   &__cart-items {
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-right: Max(12px, var(--vwx) * 3.125);
-    max-height: calc(100vh - 10.25rem);
+    max-height: calc(100vh - 12.5rem);
+
     @media screen and (min-width: 720px) {
       padding-right: 1.5rem;
-      max-height: calc(100vh - 11.25rem);
+      //max-height: calc(100vh - 11.25rem);
     }
     
   }
 
 
   &__cart-summary {
-    padding: 1rem 1rem 1rem 0;
+    margin-right: 2rem;
+    padding-block: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    border-top: 1px solid var(--clr-lines);
   }
 
   &__cart-label {
     font-size: 1.25rem;
-    line-height: 1;
+    line-height: 1.5rem;
     font-weight: 600;
     color: var(--clr-text);
   }
 
   &__cart-subtotal {
     font-size: 1.25rem;
-    line-height: 1;
+    line-height: 1.5rem;
     color: var(--clr-text);
   }
 
@@ -220,6 +244,8 @@ $_module-name: "Page Header";
     cursor: pointer;
     width: 100%;
     padding: 1rem;
+    position: sticky;
+    bottom: 0;
     
     font-family: var(--ff-primary);
     font-size: 1.5rem;

@@ -9,19 +9,64 @@ $_module-name: "General CSS";
 /* ### #{$_module-name} START */
 
 html {
-  overflow: hidden;
+  //overflow: hidden;
   font-size: 100%;
   line-height: 1.2;
+  background-color: var(--clr-light);
+
+  //=== Scrollbar Start
+
+  // IE
+  & {
+    -ms-overflow-style: none;
+  }
+
+
+  // This will work on Firefox
+  &, & * {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--clr-grey-dark) transparent !important;
+    scrollbar-gutter: stable;
+  }
+
+  // Targtes on Chrome, Edge, and Safari
+  &::-webkit-scrollbar, & *::-webkit-scrollbar {
+    width: 7px;
+    display: block;
+  }
+
+  &::-webkit-scrollbar-track, & *::-webkit-scrollbar-track {
+    //background-color: var.$primary-dark;
+    background-color: transparent; //transparent; // rgb(41, 41, 41);
+    padding-inline: 0;
+    display: none;
+    
+  }
+
+  &::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb {
+    height: Max(8px, 5.628373vh);
+    background-color: var(--clr-grey-dark);
+    transition: background-color 0.5s ease;
+
+    &:hover {
+      //background-color: rgba(var.$primary-gold, 1);
+      background-color: var(--clr-grey-light);
+    }
+  }
+  //=== Scrollbar End
+
+
+
 }
 
 body {
-  overflow-y: scroll;
+  //overflow-y: scroll;
   overflow-x: hidden;
 
   margin: 0 auto;
   max-width: 1920px;
 
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
@@ -31,6 +76,13 @@ body {
 
   &.no-scroll {
     overflow: hidden;
+  }
+
+  @media screen and (min-width: 1902px) {
+    // border-color: var(--clr-lines);
+    // border-style: solid;
+    // border-width: 0 2px;
+    box-shadow: 0 .25rem .5rem rgba(black, .33);   
   }
 }
 
@@ -115,22 +167,22 @@ button:hover .icon {
 }
 
 
-*[style*="overflow:auto"],
-*[style*="overflow:scroll"],
-.scrollable {
-  scrollbar-width: auto;
-  scrollbar-color: var(--clr-grey-dark) transparent;
-}
+// *[style*="overflow:auto"],
+// *[style*="overflow:scroll"],
+// .scrollable {
+//   scrollbar-width: thin;
+//   scrollbar-color: var(--clr-grey-dark) transparent;
+// }
 
-*[style*="overflow:auto"]::-webkit-scrollbar,
-*[style*="overflow:scroll"]::-webkit-scrollbar {
-  width: 8px;
-}
+// *[style*="overflow:auto"]::-webkit-scrollbar,
+// *[style*="overflow:scroll"]::-webkit-scrollbar {
+//   width: 8px;
+// }
 
-*[style*="overflow:auto"]::-webkit-scrollbar-thumb,
-*[style*="overflow:scroll"]::-webkit-scrollbar-thumb {
-  background-color: var(--clr-grey-dark);
-}
+// *[style*="overflow:auto"]::-webkit-scrollbar-thumb,
+// *[style*="overflow:scroll"]::-webkit-scrollbar-thumb {
+//   background-color: var(--clr-grey-dark);
+// }
 
 
 

@@ -43,9 +43,9 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
 .cart, .checkout {
   width: 100%;
-
+  
   @media screen and (min-width: 720px) {
-    overflow: hidden;
+    //overflow: hidden;
     width: 50%;
     height: 100%;
   }
@@ -89,11 +89,11 @@ $_module-name: "Page specific styles for: Shopping Cart";
   
   
   @media screen and (min-width: 720px) {
-    overflow: hidden;
+    //overflow: hidden;
     order: 1;
     position: sticky;
     top: 5rem;
-    margin-right: .5rem;
+    margin-right: 1rem; //.5rem;
   }
 
   &__header {
@@ -141,7 +141,10 @@ $_module-name: "Page specific styles for: Shopping Cart";
     list-style: none;
     display: grid;
     gap: 1rem;
-    border-bottom: 1px solid var(--clr-lines);
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--clr-lines);
+    }
   }
 
   &__item-content-wrapper {
@@ -320,12 +323,12 @@ $_module-name: "Page specific styles for: Shopping Cart";
   box-shadow: 0 .25rem .5rem rgba(0,0,0,.33);
 
   @media screen and (min-width: 720px) {
-    margin-left: .5rem;
+    margin-left: 1rem; //.5rem;
   }
 
   &__group {
     width: 100%;
-    box-shadow: 0 .25rem .5rem rgba(black, .33);
+    //box-shadow: 0 .25rem .5rem rgba(black, .33);
   }
 
   &__header {
@@ -351,6 +354,10 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
     &--shipping {
       padding-bottom: 0;
+    }
+
+    &--shipping > :last-child {
+      margin-bottom: 0;
     }
   }
 
@@ -532,6 +539,10 @@ $_module-name: "Page specific styles for: Shopping Cart";
     font-size: 1.25rem;
     color: var(--clr-text);
     font-weight: 600;
+  }
+
+  &__cb-label {
+    max-width: 70ch;
   }
 
   &__chb-single, &__rb-single {

@@ -11,6 +11,14 @@ $_module-name: "Page Main content";
 main {
   overflow-y: visible;
   width: 100%;
+  padding-top: 1rem;
+
+  @media screen and (min-width: 1902px) {
+    // border-color: var(--clr-lines);
+    // border-style: solid;
+    // border-width: 0 2px;
+    // box-shadow: 0 .25rem .5rem rgba(black, .33);   
+  }
 }
 
 /* ### #{$_module-name} END

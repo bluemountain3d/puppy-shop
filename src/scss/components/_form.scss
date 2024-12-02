@@ -81,12 +81,23 @@ button {
 //   font-family: inherit;
 // }
 
+fieldset {
+  min-inline-size: unset;
+  margin-inline: unset;
+  padding-block: unset;
+  padding-inline: unset;
+}
+
 
 input[type='number'] {
   appearance: textfield;
 
   &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
     -webkit-appearance: none;
+  }
+
+  &:disabled {
+    background-color: white;
   }
 }
 
