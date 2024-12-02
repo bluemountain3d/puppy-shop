@@ -35,6 +35,8 @@ import {
 
 // Product card
 export function productCard(obj, quantity=0) {
+  //console.log('productCard() Called');
+  
   const pid = obj.id;
   const imgUrl = obj.image.url;
   const imgAlt = obj.image.alt;
@@ -45,7 +47,7 @@ export function productCard(obj, quantity=0) {
   const infoTitle = obj.description.generally.title;
   const infoText = addTextFromArray(obj.description.generally.text, 'product-card__details-text'); // Make a string of <p> elements from each string in array
   const initialPrice = formatPrice(weekendPricing(Number(obj.priceInfo.price)));
-  const kgPrice = comparisonPricePerKg((formatPriceToNumber(initialPrice)), obj.properties.weight.male);
+  const kgPrice = comparisonPricePerKg(weekendPricing(Number(obj.priceInfo.price)), Number(obj.properties.weight.male));
   
   const card = `
         <article class="product-card js-product-card" data-pid="${pid}" data-rating="${rating}" data-gender="male">

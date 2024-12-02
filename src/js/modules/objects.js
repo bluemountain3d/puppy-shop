@@ -15,10 +15,10 @@ export const cartItemsObject = {};
 
 // Object with shipping prices
 export const shippingCostObject = {
-  stork: 250,
-  dove: 150,
-  hare: 75,
-  snail: 25
+  stork: {fixed: 250, variable: 4},
+  dove: {fixed: 150, variable: 3},
+  hare: {fixed: 75, variable: 2},
+  snail: {fixed: 25, variable: 1}
 };
 
 

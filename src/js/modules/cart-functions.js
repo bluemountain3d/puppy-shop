@@ -19,7 +19,8 @@ import {
   weekendPricing,
   itemQtyDiscount,
   mondayDiscount,
-  getShippingCost
+  getShippingCost,
+  availablePaymentMethods
 } from "./pricing.js";
 
 
@@ -58,12 +59,45 @@ export function cartItemCard(itemData, productData) {
 }
 
 
+export function summaryItemCard(itemData, productData) {
+  return `
+    <li class="order-confirmed__item js-summary-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
+      <article class="order-confirmed__item-content-wrapper">
+        <picture class="order-confirmed__item-image-wrapper">
+          <img class="order-confirmed__item-image" src="${productData.image.url}-w512.avif" alt="${productData.image.alt}" width="80" height="80" loading="lazy">
+        </picture>
+        <section class="order-confirmed__item-info">
+          <h4 class="order-confirmed__item-title js-summary-breed">${productData.breedInfo.breed}</h4>
+          <div class="order-confirmed__item-row">
+            <span class="order-confirmed__item-label">Ras:</span>
+            <span class="order-confirmed__item-data js-summary-gender">${translateGender(itemData.gender)}</span>
+          </div>
+          <div class="order-confirmed__item-row">
+            <span class="order-confirmed__item-label">Antal:</span>
+            <span class="order-confirmed__item-data js-summary-quantity">${itemData.quantity} st</span>
+          </div>
+          <div class="order-confirmed__item-row">
+            <span class="order-confirmed__item-label">Radtotal:</span>
+            <span class="order-confirmed__item-data js-summary-line-total">${formatPrice(itemData.priceInfo.lineTotal)} kr</span>
+          </div>
+        </section>
+      </article>
+    </li>
+  `;
+}
+
+
 export function addCartItem(itemData, productData) {
   // Add Header Cart and Checkout Cart in an array
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
+  const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items'));
 
   itemContainers.forEach(container => {
     container.innerHTML += cartItemCard(itemData, productData);
+  });
+
+  summaryItemContainers.forEach(container => {
+    container.innerHTML += summaryItemCard(itemData, productData);
   });
 }
 
@@ -73,9 +107,11 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
   //console.log('itemData', itemData);
   
   // Get Element
-  const cartItemsContainerArray = Array.from(document.querySelectorAll('.js-cart-items'));
+  const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
+  const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items'));
   const productId = Number(itemData.productId);
   const gender = itemData.gender;
+  
 
   // Update Item
   itemData.quantity = quantity;
@@ -84,10 +120,9 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
   itemData.priceInfo.lineTotal = discountPrice * quantity
   
   // Update in both carts
-  cartItemsContainerArray.forEach(container => {
-    // Get item
+  itemContainers.forEach(container => {
+    // Item
     const item = container.querySelector(`.js-cart-item[data-pid="${productId}"][data-gender="${gender}"]`);
-    
     // Get item elements
     const priceElem = item.querySelector('.js-price');
     const quantityElem = item.querySelector('.js-quantity');
@@ -101,6 +136,17 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
     if (itemLineTotalElem) itemLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
   });
 
+  summaryItemContainers.forEach(container => {
+    // Item
+    const item = container.querySelector(`.js-summary-item[data-pid="${productId}"][data-gender="${gender}"]`);
+    // Get Item elements
+    const sumQuantityElem = item.querySelector('.js-summary-quantity');
+    const sumLineTotalElem = item.querySelector('.js-summary-line-total');
+    
+    if (sumQuantityElem) sumQuantityElem.innerText = quantity;
+    if (sumLineTotalElem) sumLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
+  });
+
   //console.log('itemData', itemData);
   //console.log('updateCartItem END');
 }
@@ -112,6 +158,7 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
   //console.log('removeCartItem Called');
 
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items')); // Find all containers holding cart items
+  const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items')); // Find all containers holding summary items
   const itemData = cartItemsObj[cartKey];
   
   if (cartKey && itemData) {
@@ -125,12 +172,21 @@ export function removeCartItem(e, id, gender, cartKey, cartItemsObj) {
 
     // Remove matching items from each container
     itemContainers.forEach(container => {
-      //const item = container.querySelector(`.js-cart-item[data-pid="${id}"][data-gender="${gender}"]`);
+      const item = container.querySelector(`.js-cart-item[data-pid="${id}"][data-gender="${gender}"]`);
       if (item) {
         item.remove(); // Remove the DOM element
         //console.log(`Removed item from container:`, item);
       }
     });
+
+    summaryItemContainers.forEach(container => {
+      const item = container.querySelector(`.js-summary-item[data-pid="${productId}"][data-gender="${gender}"]`);
+      if (item) {
+        item.remove(); // Remove the DOM element
+        //console.log(`Removed item from container:`, item);
+      }
+    });
+
     //console.log('After remove cartObj', cartObj);
   } else {
     console.warn('Cart key or object not valid. No changes made.');
@@ -144,14 +200,23 @@ export function updateCartSummary() {
   const counter = cartSummaryObject.counter;
   
   // Get elements
-  const cartSubtotal = document.querySelector('.js-cart-subtotal');
-  const cartMondayDiscount = document.querySelector('.js-cart-monday-discount');
+  const cartSubtotal = document.querySelectorAll('.js-cart-subtotal');
+  const cartMondayDiscountElem = document.querySelector('.js-cart-monday-discount');
   const cartShipping = document.querySelector('.js-cart-shipping');
   const cartTotal = document.querySelector('.js-cart-total');
-  
+
   // New subtotal
-  const newSubtotal = mondayDiscount(sumValues(cartItemsObject, 'priceInfo.lineTotal'));
-  const newDiscounts = sumValues(cartItemsObject, 'priceInfo.discount');
+  const subtotal = sumValues(cartItemsObject, 'priceInfo.lineTotal');
+  const discounts = sumValues(cartItemsObject, 'priceInfo.discount');
+  const monDiscount = mondayDiscount(sumValues(cartItemsObject, 'priceInfo.lineTotal')) - subtotal;
+  const newSubtotal = subtotal - monDiscount - discounts;
+  const newDiscounts = discounts + monDiscount;
+
+  // console.log('subtotal:', subtotal);
+  // console.log('discounts:', discounts);
+  // console.log('monDiscount:', monDiscount);
+  // console.log('newSubtotal:', newSubtotal);
+  // console.log('newDiscounts:', newDiscounts);
   
   // Update shipping cost
   const shippingCost = getShippingCost(newSubtotal, counter);
@@ -161,23 +226,53 @@ export function updateCartSummary() {
   cartSummaryObject.subtotal = newSubtotal;
   cartSummaryObject.discounts = newDiscounts;
   cartSummaryObject.shippingCost = shippingCost
-  cartSummaryObject.vat = newSubtotal * .2;
-  cartSummaryObject.total = newSubtotal + shippingCost;
+  cartSummaryObject.vat = Math.round(newSubtotal * .2);
+  cartSummaryObject.total = newSubtotal + shippingCost ;
 
   // Hader and Checkout Cart Subtotal
-  cartSubtotal.innerText = `${formatPrice(newSubtotal)} kr`;
-
+  cartSubtotal.forEach(sub => {
+    sub.innerText = `${formatPrice(newSubtotal)} kr`;
+  });
+  
   // if monday discount is applied show text
   if (mondayDiscount()) {
-    cartMondayDiscount.innerText = 'Måndagsrabatt: 10 % på hela beställningen';
-    cartMondayDiscount.classList.remove('hidden');
+    cartMondayDiscountElem.innerText = 'Måndagsrabatt: 10 % på hela beställningen';
+    cartMondayDiscountElem.classList.remove('hidden');
   }
 
   // Checkout Cart Shipping Cost
-  cartShipping.innerText = `${formatPrice(shippingCost)} kr`;
-
+  cartShipping.innerText = shippingCost 
+  ? `${formatPrice(shippingCost)} kr` 
+  : 'Frakten kostar gratis!';
+  
   // Checkout Cart Total
   cartTotal.innerText = `${formatPrice(newSubtotal + shippingCost)} kr`;
+
+  // Update payment methods
+  availablePaymentMethods('invoice', 80000);
+
+
+  // Get summary containers
+  const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary'));
+
+  summaryItemContainers.forEach(container => {
+    // Get summary elements in container
+    const sumSubtotalElem = container.querySelector('.js-summary-subtotal');
+    const sumDiscountsElem = container.querySelector('.js-summary-discounts');
+    const sumVatElem = container.querySelector('.js-summary-vat');
+    const sumShippingElem = container.querySelector('.js-summary-shipping');
+    const sumTotalElem = container.querySelector('.js-summary-total');
+
+    sumSubtotalElem.innerText = `${formatPrice(subtotal)} kr`;
+    sumDiscountsElem.innerText = `${formatPrice(newDiscounts * -1)} kr`;
+    sumVatElem.innerText = `${formatPrice(Math.round((newSubtotal - newDiscounts) * .2))} kr`;
+    sumShippingElem.innerText = shippingCost 
+    ? `${formatPrice(shippingCost)} kr` 
+    : 'Frakten kostar gratis!';
+    sumTotalElem.innerText = `${formatPrice(subtotal - newDiscounts + shippingCost)} kr`;
+  });
+  
+  //sumValues(cartItemsObject, 'priceInfo.discount');
 }
 
 
