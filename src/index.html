@@ -212,6 +212,7 @@
                           placeholder=" "
                           pattern="^\d{3}\s?\d{2}$"
                           title="Fem siffror 12345 eller 123 45."
+                          autocomplete="postal-code"
                           required
                           aria-required="true"
                           aria-label="Postnummer"
@@ -341,6 +342,7 @@
                               placeholder=" "
                               pattern="^\d{3}\s?\d{2}$"
                               title="Fem siffror 12345 eller 123 45."
+                              autocomplete="postal-code"
                               aria-label="Postnummer"
                               aria-describedby="zip-tooltip">
                             <label 
@@ -370,6 +372,7 @@
                                 placeholder=" "
                                 pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
                                 title="Ange endast bokstäver, mellanslag, apostrofer, bindestreck och punkt."
+                                autocomplete="given-name"
                                 aria-label="Förnamn"
                                 aria-describedby="given-name-tooltip">
                               <label 
@@ -397,6 +400,7 @@
                                 placeholder=" "
                                 pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
                                 title="Ange endast bokstäver, mellanslag, apostrofer, bindestreck och punkt."
+                                autocomplete="family-name"
                                 aria-label="Efternamn"
                                 aria-describedby="family-name-tooltip">
                               <label 
@@ -425,6 +429,7 @@
                               placeholder=" "
                               pattern="^[a-zA-ZÀ-ž][a-zA-ZÀ-ž0-9.,'\/\- ]*[a-zA-ZÀ-ž0-9.]$"
                               title="Ange din gatuadress. Endast bokstäver, siffror, mellanslag, punkt, komma, apostrof, snedstreck och bindestreck är tillåtna."
+                              autocomplete="street-address"
                               aria-label="Gatuadress"
                               aria-describedby="street-address-tooltip">
                             <label 
@@ -452,6 +457,7 @@
                               placeholder=" "
                               pattern="^[a-zA-ZÀ-ž]{2,}(?:[.'\- ][a-zA-ZÀ-ž]*)*$"
                               title="Ange namnet på orten. Endast bokstäver, mellanslag, punkt, apostrof och bindestreck är tillåtna."
+                              autocomplete="address-level2"
                               aria-label="Ort"
                               aria-describedby="town-tooltip">
                             <label 
@@ -506,6 +512,7 @@
                               placeholder=" "
                               pattern="^(\+46\s?|0)(7[0236][\s\-1-9]?)(\s\d{2}|\d{3})(\s?\d{2}){2}$"
                               title="Ange ett giltigt svenskt mobiltelefonnummer, t.ex. '+46701234567' eller '070-123 45 67'."
+                              autocomplete="tel"
                               aria-label="Mobilnummer, behövs för att vi ska kunna kontaktra dig angående din beställning"
                               aria-describedby="phone-tooltip">
                             <label 
@@ -562,6 +569,7 @@
                               inputmode="numeric"
                               pattern="^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$"
                               title="Ange ett giltigt 16-siffrigt kretid- eller betalkortsnummer"
+                              autocomplete="cc-number"
                               aria-label="Kortnummer"
                               aria-describedby="card-number-tooltip">
                             <label 
@@ -588,6 +596,7 @@
                                     inputmode="numeric"
                                     pattern="^(0[1-9]|1[0-2])$"
                                     title="Skriv månad med två siffror, t.ex. 06 för juni."
+                                    autocomplete="cc-exp-month"
                                     aria-label="Månad"
                                     aria-describedby="card-mm-tooltip">
                                 </div>
@@ -602,6 +611,8 @@
                                     inputmode="numeric"
                                     maxlength="2"
                                     pattern="^\d{2}$"
+                                    title="Skriv år med två siffror, t.ex. 24 för 2024."
+                                    autocomplete="cc-exp-year"
                                     aria-label="År">
                                 </div>
                                 <label 
@@ -625,6 +636,7 @@
                                 inputmode="numeric"
                                 pattern="^\d{3}$"
                                 title="Ange det 3-siffriga CVV-nummer som finns på baksidan av ditt kort."
+                                autocomplete="cc-csc"
                                 aria-label="CVV">
                               <label 
                                 for="card-cvv"
