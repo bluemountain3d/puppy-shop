@@ -115,6 +115,24 @@ button:hover .icon {
 }
 
 
+*[style*="overflow:auto"],
+*[style*="overflow:scroll"],
+.scrollable {
+  scrollbar-width: auto;
+  scrollbar-color: var(--clr-grey-dark) transparent;
+}
+
+*[style*="overflow:auto"]::-webkit-scrollbar,
+*[style*="overflow:scroll"]::-webkit-scrollbar {
+  width: 8px;
+}
+
+*[style*="overflow:auto"]::-webkit-scrollbar-thumb,
+*[style*="overflow:scroll"]::-webkit-scrollbar-thumb {
+  background-color: var(--clr-grey-dark);
+}
+
+
 
 /* ### #{$_module-name} END
 /* ------------------------------------------------------------ */

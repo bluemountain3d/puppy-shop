@@ -323,6 +323,23 @@ button:hover .icon {
           animation: shaking 0.2s linear 2;
 }
 
+*[style*="overflow:auto"],
+*[style*="overflow:scroll"],
+.scrollable {
+  scrollbar-width: auto;
+  scrollbar-color: var(--clr-grey-dark) transparent;
+}
+
+*[style*="overflow:auto"]::-webkit-scrollbar,
+*[style*="overflow:scroll"]::-webkit-scrollbar {
+  width: 8px;
+}
+
+*[style*="overflow:auto"]::-webkit-scrollbar-thumb,
+*[style*="overflow:scroll"]::-webkit-scrollbar-thumb {
+  background-color: var(--clr-grey-dark);
+}
+
 /* ### General CSS END
 /* ------------------------------------------------------------ */
 /* ### Form START */
