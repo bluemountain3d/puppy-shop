@@ -51,15 +51,14 @@ $_module-name: "Order Confirmed";
     color: var(--clr-text);
     background-color: var(--clr-light);
 
-    @media screen and (min-width: 720px) {
-      max-width: unset;
+    @media screen and (min-width: 720px) and (min-height: 540px) {
       max-width: 848px;
+      max-height: calc((100vh - (4rem + Max(24px, 6.25vw))));
       justify-content: center;
       align-items: center;
     }
 
     @media screen and (min-width: 900px) and (max-height: 840px) {
-      max-height: unset;
       max-height: calc((100vh - (4rem + Max(24px, 6.25vw))));
       //height: 80vh; //min(calc(100vh - 6.25vw), 720px);
     }

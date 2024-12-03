@@ -63,7 +63,6 @@
     </header>
 
     <main class="main">
-
       <div class="container--boxed">
         <div class="products js-products-section">
           <header class="products__header">
@@ -732,94 +731,92 @@
             </div>
           </div>
         </div>
+      </div>
+      
+      <section class="order-confirmed js-order-confirmed container--boxed hidden" role="region" aria-labelledby="order-confirmed-header">
 
-        <section class="order-confirmed js-order-confirmed container--boxed hidden" role="region" aria-labelledby="order-confirmed-header">
+        <div class="order-confirmed__wrapper">
+          <header id="order-confirmed-header" class="order-confirmed__header">
+            <span class="order-confirmed__heading" role="heading">Orderbekräftelse</span>
+          </header>
 
-          <div class="order-confirmed__wrapper">
-            <header id="order-confirmed-header" class="order-confirmed__header">
-              <span class="order-confirmed__heading" role="heading">Orderbekräftelse</span>
-            </header>
-
-            <div class="order-confirmed__inner">
-              
-    
-              <div class="order-confirmed__content">
-                <div class="order-confirmed__information">
-                  <!-- Delivery info/message -->
-                  <div class="order-confirmed__intro">
-                    <h2 class="order-confirmed__title">Tack för din beställning!</h2>
-                    <p class="order-confirmed__text">Vi är överlyckliga att du valt att handla hos oss på Puppy Shop. Att få välkomna en ny valp till familjen är en underbar upplevelse, full av kärlek, bus och oförglömliga stunder. Din nya fyrbenta vän är redan redo att flytta hem till dig och sprida glädje i ditt liv.</p>
-                    <!-- <p class="order-confirmed__text">Med valpköp kommer ansvar, se till att vaplsäkra hemmet och boka gärna in en valpkurs. På en valpkurs ni kommer få ovärderliga tips för ett enklare hundliv samt social träning för valpar och pälsföräldrar.</p> -->
-                    <p class="order-confirmed__text">Din beställning behandlas inom 24 timmar på helgfria vardagar och skickar en bekräftelse till din e-post så snart valpen är på väg.</p>
-                  </div>
-                  <h3 class="order-confirmed__sub-title" role="heading">Fakturaadress:<span>(samma som leveransadress)</span></h3>
-                  <div class="order-confirmed__info-data">
-                    <div class="order-confirmed__info-row">
-                      <span class="order-confirmed__label">Namn:</span>
-                      <span class="order-confirmed__data js-summary-name">Kalle Anka</span>
-                    </div>              
-                    <div class="order-confirmed__info-row">
-                      <span class="order-confirmed__label">Adress:</span>
-                      <div class="order-confirmed__data order-confirmed__data--column">
-                        <div class="js-summary-street-address">Ankdamsgatan 25</div>
-                        <div ><span class="js-summary-zip">123 45</span>&nbsp;<span class="js-summary-town">Ankeborg</span></div>
-                      </div>
-                    </div>              
-                    <div class="order-confirmed__info-row">
-                      <span class="order-confirmed__label">Telefon:</span>
-                      <span class="order-confirmed__data js-summary-phone">+46 70-123 45 67</span>
-                    </div>              
-                    <div class="order-confirmed__info-row">
-                      <span class="order-confirmed__label">E-postadress:</span>
-                      <span class="order-confirmed__data js-summary-email">kalle-anka@gmail.com</span>
-                    </div>
-                  </div>
-    
-                  <button type="button" class="order-confirmed__track js-summary-track-btn"></button>           
+          <div class="order-confirmed__inner">
+            
+  
+            <div class="order-confirmed__content">
+              <div class="order-confirmed__information">
+                <!-- Delivery info/message -->
+                <div class="order-confirmed__intro">
+                  <h2 class="order-confirmed__title">Tack för din beställning!</h2>
+                  <p class="order-confirmed__text">Vi är överlyckliga att du valt att handla hos oss på Puppy Shop. Att få välkomna en ny valp till familjen är en underbar upplevelse, full av kärlek, bus och oförglömliga stunder. Din nya fyrbenta vän är redan redo att flytta hem till dig och sprida glädje i ditt liv.</p>
+                  <!-- <p class="order-confirmed__text">Med valpköp kommer ansvar, se till att vaplsäkra hemmet och boka gärna in en valpkurs. På en valpkurs ni kommer få ovärderliga tips för ett enklare hundliv samt social träning för valpar och pälsföräldrar.</p> -->
+                  <p class="order-confirmed__text">Din beställning behandlas inom 24 timmar på helgfria vardagar och skickar en bekräftelse till din e-post så snart valpen är på väg.</p>
                 </div>
-                <div class="order-confirmed__summary js-summary">
-                  <!-- Order summary -->
-                  <h3 class="order-confirmed__sub-title" role="heading">Ordersammanställning:</h3>
-    
-                  <ul class="order-confirmed__order-data js-summary-items"></ul>
-    
-                  <div class="order-confirmed__details">
-                    <div class="order-confirmed__details-row">
-                      <span class="order-confirmed__label">Delsumma:</span>
-                      <span class="order-confirmed__data js-summary-subtotal"></span>
+                <h3 class="order-confirmed__sub-title" role="heading">Fakturaadress:<span>(samma som leveransadress)</span></h3>
+                <div class="order-confirmed__info-data">
+                  <div class="order-confirmed__info-row">
+                    <span class="order-confirmed__label">Namn:</span>
+                    <span class="order-confirmed__data js-summary-name">Kalle Anka</span>
+                  </div>              
+                  <div class="order-confirmed__info-row">
+                    <span class="order-confirmed__label">Adress:</span>
+                    <div class="order-confirmed__data order-confirmed__data--column">
+                      <div class="js-summary-street-address">Ankdamsgatan 25</div>
+                      <div ><span class="js-summary-zip">123 45</span>&nbsp;<span class="js-summary-town">Ankeborg</span></div>
                     </div>
-                    <div class="order-confirmed__details-row">
-                      <span class="order-confirmed__label">Rabatter:</span>
-                      <span class="order-confirmed__data order-confirmed__data--red js-summary-discounts"></span>
-                    </div>
-                    <div class="order-confirmed__details-row">
-                      <span class="order-confirmed__label">Moms ingår med:</span>
-                      <span class="order-confirmed__data order-confirmed__data--grey js-summary-vat"></span>
-                    </div>
-                    <div class="order-confirmed__details-row">
-                      <span class="order-confirmed__label">Fraktkostnad:</span>
-                      <span class="order-confirmed__data js-summary-shipping"></span>
-                    </div>
-                    <div class="order-confirmed__details-row order-confirmed__details-row--borde-top order-confirmed__details-row--borde-bottom">
-                      <span class="order-confirmed__label order-confirmed__label--large">Summa:</span>
-                      <span class="order-confirmed__data order-confirmed__data--large js-summary-total"></span>
-                    </div>
+                  </div>              
+                  <div class="order-confirmed__info-row">
+                    <span class="order-confirmed__label">Telefon:</span>
+                    <span class="order-confirmed__data js-summary-phone">+46 70-123 45 67</span>
+                  </div>              
+                  <div class="order-confirmed__info-row">
+                    <span class="order-confirmed__label">E-postadress:</span>
+                    <span class="order-confirmed__data js-summary-email">kalle-anka@gmail.com</span>
+                  </div>
+                </div>
+  
+                <button type="button" class="order-confirmed__track js-summary-track-btn"></button>           
+              </div>
+              <div class="order-confirmed__summary js-summary">
+                <!-- Order summary -->
+                <h3 class="order-confirmed__sub-title" role="heading">Ordersammanställning:</h3>
+  
+                <ul class="order-confirmed__order-data js-summary-items"></ul>
+  
+                <div class="order-confirmed__details">
+                  <div class="order-confirmed__details-row">
+                    <span class="order-confirmed__label">Delsumma:</span>
+                    <span class="order-confirmed__data js-summary-subtotal"></span>
+                  </div>
+                  <div class="order-confirmed__details-row">
+                    <span class="order-confirmed__label">Rabatter:</span>
+                    <span class="order-confirmed__data order-confirmed__data--red js-summary-discounts"></span>
+                  </div>
+                  <div class="order-confirmed__details-row">
+                    <span class="order-confirmed__label">Moms ingår med:</span>
+                    <span class="order-confirmed__data order-confirmed__data--grey js-summary-vat"></span>
+                  </div>
+                  <div class="order-confirmed__details-row">
+                    <span class="order-confirmed__label">Fraktkostnad:</span>
+                    <span class="order-confirmed__data js-summary-shipping"></span>
+                  </div>
+                  <div class="order-confirmed__details-row order-confirmed__details-row--borde-top order-confirmed__details-row--borde-bottom">
+                    <span class="order-confirmed__label order-confirmed__label--large">Summa:</span>
+                    <span class="order-confirmed__data order-confirmed__data--large js-summary-total"></span>
                   </div>
                 </div>
               </div>
             </div>
-
-            <button type="button" class="order-confirmed__close-btn js-summary-close-btn" aria-label="Stäng orderbekräftelse">
-              Stäng
-              <svg class="icon">
-                <use href="#close-icon"/>
-              </svg>
-            </button>
           </div>
-        </section>
 
-      </div>
-      
+          <button type="button" class="order-confirmed__close-btn js-summary-close-btn" aria-label="Stäng orderbekräftelse">
+            Stäng
+            <svg class="icon">
+              <use href="#close-icon"/>
+            </svg>
+          </button>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">

@@ -1240,10 +1240,10 @@ details.accordion[open] summary::before {
   color: var(--clr-text);
   background-color: var(--clr-light);
 }
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 720px) and (min-height: 540px) {
   .order-confirmed__wrapper {
-    max-width: unset;
     max-width: 848px;
+    max-height: calc(100vh - (4rem + max(24px, 6.25vw)));
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -1254,7 +1254,6 @@ details.accordion[open] summary::before {
 }
 @media screen and (min-width: 900px) and (max-height: 840px) {
   .order-confirmed__wrapper {
-    max-height: unset;
     max-height: calc(100vh - (4rem + max(24px, 6.25vw)));
   }
 }
@@ -2172,6 +2171,8 @@ main {
 @media screen and (min-width: 720px) {
   .checkout {
     margin-left: 1rem;
+    position: sticky;
+    top: 5rem;
   }
 }
 .checkout__group {

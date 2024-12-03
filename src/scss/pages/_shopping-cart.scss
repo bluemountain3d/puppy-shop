@@ -76,7 +76,6 @@ $_module-name: "Page specific styles for: Shopping Cart";
 }
 
 .cart {
-  // float: left;
   background-color: var(--clr-light);
   box-shadow: 0 .25rem .5rem rgba(black, .33);
   border-radius: 1rem;
@@ -330,6 +329,8 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   @media screen and (min-width: 720px) {
     margin-left: 1rem; //.5rem;
+    position: sticky;
+    top: 5rem;
   }
 
   &__group {
