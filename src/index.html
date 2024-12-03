@@ -151,6 +151,15 @@
                     <span class="cart__summary-value js-cart-shipping">0 kr</span>
                   </div>
                   <div class="cart__summary-row">
+                    <label class="cart__summary-label" for="discount-code">Ev. rabattkod: </label>
+                    <input 
+                      type="text" 
+                      name="discount-code" 
+                      id="discount-code"
+                      class="cart__summary-discount-code js-discount-code"
+                      placeholder=" ">
+                  </div>
+                  <div class="cart__summary-row">
                     <p class="cart__summary-label cart__summary-label--large">Summa:</p>
                     <div class="cart__summary-column">
                       <div class="cart__summary-total js-cart-total">0 kr</div>
@@ -182,7 +191,6 @@
                           value=""
                           placeholder=" "
                           pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
-                          title="Ange en giltig e-postadress, till exempel exempel@domän.se."
                           autocomplete="email"
                           required
                           aria-required="true"
@@ -211,7 +219,6 @@
                           value=""
                           placeholder=" "
                           pattern="^\d{3}\s?\d{2}$"
-                          title="Fem siffror 12345 eller 123 45."
                           autocomplete="postal-code"
                           required
                           aria-required="true"
@@ -239,7 +246,7 @@
                         </button>
                       </div> -->
                     </div>
-                    <button type="button" class="checkout__continue-btn js-checkout-continue-btn" name="checkout-continue-btn">
+                    <button type="button" class="checkout__continue-btn js-checkout-continue-btn" name="checkout-continue-btn" disabled>
                       Fortsätt
                     </button>
                   </fieldset>
@@ -312,7 +319,6 @@
                               value=""
                               placeholder=" "
                               pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
-                              title="Ange en giltig e-postadress, till exempel exempel@domän.se."
                               autocomplete="email"
                               aria-label="E-postadress"
                               aria-describedby="email-tooltip">
@@ -341,7 +347,6 @@
                               value=""
                               placeholder=" "
                               pattern="^\d{3}\s?\d{2}$"
-                              title="Fem siffror 12345 eller 123 45."
                               autocomplete="postal-code"
                               aria-label="Postnummer"
                               aria-describedby="zip-tooltip">
@@ -371,7 +376,6 @@
                                 value=""
                                 placeholder=" "
                                 pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
-                                title="Ange endast bokstäver, mellanslag, apostrofer, bindestreck och punkt."
                                 autocomplete="given-name"
                                 aria-label="Förnamn"
                                 aria-describedby="given-name-tooltip">
@@ -399,7 +403,6 @@
                                 value=""
                                 placeholder=" "
                                 pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
-                                title="Ange endast bokstäver, mellanslag, apostrofer, bindestreck och punkt."
                                 autocomplete="family-name"
                                 aria-label="Efternamn"
                                 aria-describedby="family-name-tooltip">
@@ -428,7 +431,6 @@
                               value=""
                               placeholder=" "
                               pattern="^[a-zA-ZÀ-ž][a-zA-ZÀ-ž0-9.,'\/\- ]*[a-zA-ZÀ-ž0-9.]$"
-                              title="Ange din gatuadress. Endast bokstäver, siffror, mellanslag, punkt, komma, apostrof, snedstreck och bindestreck är tillåtna."
                               autocomplete="street-address"
                               aria-label="Gatuadress"
                               aria-describedby="street-address-tooltip">
@@ -456,7 +458,6 @@
                               value=""
                               placeholder=" "
                               pattern="^[a-zA-ZÀ-ž]{2,}(?:[.'\- ][a-zA-ZÀ-ž]*)*$"
-                              title="Ange namnet på orten. Endast bokstäver, mellanslag, punkt, apostrof och bindestreck är tillåtna."
                               autocomplete="address-level2"
                               aria-label="Ort"
                               aria-describedby="town-tooltip">
@@ -484,7 +485,6 @@
                               value=""
                               placeholder=" "
                               pattern="^[0-9ABCD#*]{4,8}$"
-                              title="Ange en giltig portkod (endast siffror, #, *, A, B, C eller D är tillåtna)."
                               aria-label="Eventuell portkod"
                               aria-describedby="entry-code-tooltip">
                             <label 
@@ -510,8 +510,7 @@
                               class="checkout__input checkout__input--billing js-phone"
                               value=""
                               placeholder=" "
-                              pattern="^(\+46\s?|0)(7[0236][\s\-1-9]?)(\s\d{2}|\d{3})(\s?\d{2}){2}$"
-                              title="Ange ett giltigt svenskt mobiltelefonnummer, t.ex. '+46701234567' eller '070-123 45 67'."
+                              pattern="^(\+46\s?|0)(7[0236][\s\-1-9]?)(\s\d{2}|\d{3})(\s?\d{2}){2}$"                              
                               autocomplete="tel"
                               aria-label="Mobilnummer, behövs för att vi ska kunna kontaktra dig angående din beställning"
                               aria-describedby="phone-tooltip">
@@ -568,7 +567,6 @@
                               placeholder=" "
                               inputmode="numeric"
                               pattern="^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$"
-                              title="Ange ett giltigt 16-siffrigt kretid- eller betalkortsnummer"
                               autocomplete="cc-number"
                               aria-label="Kortnummer"
                               aria-describedby="card-number-tooltip">
@@ -610,7 +608,7 @@
                                     placeholder="YY"
                                     inputmode="numeric"
                                     maxlength="2"
-                                    pattern="^\d{2}$"
+                                    pattern=""
                                     title="Skriv år med två siffror, t.ex. 24 för 2024."
                                     autocomplete="cc-exp-year"
                                     aria-label="År">
@@ -696,7 +694,6 @@
                             value=""
                             placeholder=" "
                             pattern="^\d{6}(-?\d{4})$|^\d{8}(-?\d{4})$"
-                            title="Ange ett svenskt personnummer, 10-12 siffror med eller utan bindestreck."
                             aria-label="Personnummer"
                             aria-describedby="ssn-tooltip">
                           <label 
@@ -717,9 +714,12 @@
                         <span class="chb-label checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.</span>
                       </label>
                     </div>
+
+                    <!-- Reset form and remove all cart items -->
+                    <button type="button" class="checkout__reset-btn js-reset-form-btn" name="reset-form-btn">Rensa formuläret</button>
     
                     <!-- Pay Button -->
-                    <button type="button" class="checkout__pay-btn js-pay-btn" name="checkout-pay-btn">
+                    <button type="button" class="checkout__pay-btn js-pay-btn" name="checkout-pay-btn" disabled>
                       <svg class="icon">
                         <use href="#checkout-icon"/>
                       </svg>
