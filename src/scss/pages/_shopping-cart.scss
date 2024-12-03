@@ -301,6 +301,12 @@ $_module-name: "Page specific styles for: Shopping Cart";
       font-size: 1.5rem;
     }
   }
+
+
+  &__summary-discount-code {
+    text-align: right;
+    max-width: 15ch;
+  }
   
   &__summary-total {
     text-align: right;
@@ -572,6 +578,11 @@ $_module-name: "Page specific styles for: Shopping Cart";
     letter-spacing: .04em;
     line-height: 1;
     //border-radius: 0 0 1rem 1rem;
+
+    &:disabled {
+      background-color: var(--clr-grey-light);
+      color: var(--clr-grey-dark);
+    }
   }
 
   &__rb-label {
@@ -607,6 +618,25 @@ $_module-name: "Page specific styles for: Shopping Cart";
   }
 
 
+  &__reset-btn {
+    cursor: pointer;
+    width: 100%;
+    margin-top: -1rem;
+    padding: 1rem;
+    text-align: center;
+    color: var(--clr-text);
+    font-size: 1rem;
+    border-style: solid;
+    border-color: var(--clr-lines);
+    border-width: 0 2px;
+
+    transition: color .2s ease;
+
+    &:hover {
+      color: var(--clr-text-red);
+    }
+  }  
+
   // Checkout order
   &__pay-btn {
     cursor: pointer;
@@ -627,7 +657,16 @@ $_module-name: "Page specific styles for: Shopping Cart";
     background-color: var(--clr-dark);
     transition: background-color .2s ease;
 
-    &:hover {
+    &:disabled {
+      background-color: var(--clr-grey-light);
+      color: var(--clr-grey-dark);
+    }
+
+    &:disabled .icon {
+      fill: var(--clr-grey-dark);
+    }
+
+    &:not(:disabled):hover {
       background-color: var(--clr-bg-green);
     }
 

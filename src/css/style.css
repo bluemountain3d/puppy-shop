@@ -647,19 +647,19 @@ input[type=number]:disabled {
   height: 3rem;
 }
 
-input[type=text]:not(:-moz-placeholder-shown):valid, input[type=email]:not(:-moz-placeholder-shown):valid, input[type=tel]:not(:-moz-placeholder-shown):valid, input[type=number]:not(:-moz-placeholder-shown):valid {
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):valid, input[type=email]:not(:-moz-placeholder-shown):valid, input[type=tel]:not(:-moz-placeholder-shown):valid, input[type=number]:not(:-moz-placeholder-shown):valid {
   border-color: #4CAF50 !important;
   background-color: #E6F3E6 !important;
   color: #2E7D32 !important;
 }
 
-input[type=text]:not(:-ms-input-placeholder):valid, input[type=email]:not(:-ms-input-placeholder):valid, input[type=tel]:not(:-ms-input-placeholder):valid, input[type=number]:not(:-ms-input-placeholder):valid {
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):valid, input[type=email]:not(:-ms-input-placeholder):valid, input[type=tel]:not(:-ms-input-placeholder):valid, input[type=number]:not(:-ms-input-placeholder):valid {
   border-color: #4CAF50 !important;
   background-color: #E6F3E6 !important;
   color: #2E7D32 !important;
 }
 
-input[type=text].valid, input[type=text]:not(:placeholder-shown):valid,
+input[type=text]:not(#discount-code).valid, input[type=text]:not(#discount-code):not(:placeholder-shown):valid,
 input[type=email].valid,
 input[type=email]:not(:placeholder-shown):valid,
 input[type=tel].valid,
@@ -670,13 +670,13 @@ input[type=number]:not(:placeholder-shown):valid {
   background-color: #E6F3E6 !important;
   color: #2E7D32 !important;
 }
-input[type=text]:not(:-moz-placeholder-shown):valid:focus-visible, input[type=email]:not(:-moz-placeholder-shown):valid:focus-visible, input[type=tel]:not(:-moz-placeholder-shown):valid:focus-visible, input[type=number]:not(:-moz-placeholder-shown):valid:focus-visible {
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):valid:focus-visible, input[type=email]:not(:-moz-placeholder-shown):valid:focus-visible, input[type=tel]:not(:-moz-placeholder-shown):valid:focus-visible, input[type=number]:not(:-moz-placeholder-shown):valid:focus-visible {
   outline-color: #4CAF50 !important;
 }
-input[type=text]:not(:-ms-input-placeholder):valid:focus-visible, input[type=email]:not(:-ms-input-placeholder):valid:focus-visible, input[type=tel]:not(:-ms-input-placeholder):valid:focus-visible, input[type=number]:not(:-ms-input-placeholder):valid:focus-visible {
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):valid:focus-visible, input[type=email]:not(:-ms-input-placeholder):valid:focus-visible, input[type=tel]:not(:-ms-input-placeholder):valid:focus-visible, input[type=number]:not(:-ms-input-placeholder):valid:focus-visible {
   outline-color: #4CAF50 !important;
 }
-input[type=text].valid:focus-visible, input[type=text]:not(:placeholder-shown):valid:focus-visible,
+input[type=text]:not(#discount-code).valid:focus-visible, input[type=text]:not(#discount-code):not(:placeholder-shown):valid:focus-visible,
 input[type=email].valid:focus-visible,
 input[type=email]:not(:placeholder-shown):valid:focus-visible,
 input[type=tel].valid:focus-visible,
@@ -685,13 +685,13 @@ input[type=number].valid:focus-visible,
 input[type=number]:not(:placeholder-shown):valid:focus-visible {
   outline-color: #4CAF50 !important;
 }
-input[type=text]:not(:-moz-placeholder-shown):valid + label, input[type=email]:not(:-moz-placeholder-shown):valid + label, input[type=tel]:not(:-moz-placeholder-shown):valid + label, input[type=number]:not(:-moz-placeholder-shown):valid + label {
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):valid + label, input[type=email]:not(:-moz-placeholder-shown):valid + label, input[type=tel]:not(:-moz-placeholder-shown):valid + label, input[type=number]:not(:-moz-placeholder-shown):valid + label {
   color: #2E7D32 !important;
 }
-input[type=text]:not(:-ms-input-placeholder):valid + label, input[type=email]:not(:-ms-input-placeholder):valid + label, input[type=tel]:not(:-ms-input-placeholder):valid + label, input[type=number]:not(:-ms-input-placeholder):valid + label {
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):valid + label, input[type=email]:not(:-ms-input-placeholder):valid + label, input[type=tel]:not(:-ms-input-placeholder):valid + label, input[type=number]:not(:-ms-input-placeholder):valid + label {
   color: #2E7D32 !important;
 }
-input[type=text].valid + label, input[type=text]:not(:placeholder-shown):valid + label,
+input[type=text]:not(#discount-code).valid + label, input[type=text]:not(#discount-code):not(:placeholder-shown):valid + label,
 input[type=email].valid + label,
 input[type=email]:not(:placeholder-shown):valid + label,
 input[type=tel].valid + label,
@@ -700,7 +700,7 @@ input[type=number].valid + label,
 input[type=number]:not(:placeholder-shown):valid + label {
   color: #2E7D32 !important;
 }
-input[type=text].invalid,
+input[type=text]:not(#discount-code).invalid,
 input[type=email].invalid,
 input[type=tel].invalid,
 input[type=number].invalid {
@@ -708,13 +708,13 @@ input[type=number].invalid {
   background-color: #FFEBEE !important;
   color: #D32F2F !important;
 }
-input[type=text].invalid:focus-visible,
+input[type=text]:not(#discount-code).invalid:focus-visible,
 input[type=email].invalid:focus-visible,
 input[type=tel].invalid:focus-visible,
 input[type=number].invalid:focus-visible {
   outline-color: #F44336 !important;
 }
-input[type=text].invalid + label,
+input[type=text]:not(#discount-code).invalid + label,
 input[type=email].invalid + label,
 input[type=tel].invalid + label,
 input[type=number].invalid + label {
@@ -2146,6 +2146,10 @@ main {
 .cart__summary-label--large {
   font-size: 1.5rem;
 }
+.cart__summary-discount-code {
+  text-align: right;
+  max-width: 15ch;
+}
 .cart__summary-total {
   text-align: right;
   font-size: 1.5rem;
@@ -2417,6 +2421,10 @@ main {
   letter-spacing: 0.04em;
   line-height: 1;
 }
+.checkout__continue-btn:disabled {
+  background-color: var(--clr-grey-light);
+  color: var(--clr-grey-dark);
+}
 .checkout__rb-label {
   width: 100%;
   display: -webkit-box;
@@ -2444,6 +2452,23 @@ main {
 .checkout__date-cvv-divider {
   color: var(--clr-grey-dark);
 }
+.checkout__reset-btn {
+  cursor: pointer;
+  width: 100%;
+  margin-top: -1rem;
+  padding: 1rem;
+  text-align: center;
+  color: var(--clr-text);
+  font-size: 1rem;
+  border-style: solid;
+  border-color: var(--clr-lines);
+  border-width: 0 2px;
+  -webkit-transition: color 0.2s ease;
+  transition: color 0.2s ease;
+}
+.checkout__reset-btn:hover {
+  color: var(--clr-text-red);
+}
 .checkout__pay-btn {
   cursor: pointer;
   width: 100%;
@@ -2467,7 +2492,14 @@ main {
   -webkit-transition: background-color 0.2s ease;
   transition: background-color 0.2s ease;
 }
-.checkout__pay-btn:hover {
+.checkout__pay-btn:disabled {
+  background-color: var(--clr-grey-light);
+  color: var(--clr-grey-dark);
+}
+.checkout__pay-btn:disabled .icon {
+  fill: var(--clr-grey-dark);
+}
+.checkout__pay-btn:not(:disabled):hover {
   background-color: var(--clr-bg-green);
 }
 .checkout__pay-btn .icon {

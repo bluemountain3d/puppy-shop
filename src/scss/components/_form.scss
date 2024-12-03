@@ -336,7 +336,7 @@ input[type='number'] {
 
 // Validation
 
-input[type="text"],
+input[type="text"]:not(#discount-code),
 input[type="email"],
 input[type="tel"],
 input[type="number"] {
