@@ -57,6 +57,16 @@ $_module-name: "Page Header";
     height: 100%;
   }
 
+  &__cart-inner {
+    position: relative;
+    display: flex;
+    height: 100%;
+
+    &.change {
+      animation: horizontal-shaking 0.25s linear 2;
+    }
+  }
+
   &__cart-btn {
     cursor: pointer;
     height: 4rem;

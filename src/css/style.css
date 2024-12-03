@@ -182,6 +182,50 @@ img, picture, svg, video, canvas {
             transform: rotate(5deg);
   }
 }
+@-webkit-keyframes horizontal-shaking {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  25% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  50% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  75% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@keyframes horizontal-shaking {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  25% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  50% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  75% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
 /* ### Global Animations END
 /* ------------------------------------------------------------ */
 /* ### Font Faces START */
@@ -1608,6 +1652,17 @@ details.accordion[open] summary::before {
   display: -ms-flexbox;
   display: flex;
   height: 100%;
+}
+.header__cart-inner {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+.header__cart-inner.change {
+  -webkit-animation: horizontal-shaking 0.25s linear 2;
+          animation: horizontal-shaking 0.25s linear 2;
 }
 .header__cart-btn {
   cursor: pointer;

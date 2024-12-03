@@ -27,19 +27,24 @@
         </a>
         <!-- <nav class="header__nav"></nav> -->
         <div class="header__cart">
-          <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden" aria-label="Gå till kundvagn och kassa">
-            <svg class="icon" aria-hidden="true">
-              <use href="#cart-icon" class="js-header-cart-icon"/>
-            </svg>
-          </button>
-          <button class="header__cart-btn js-header-cart" aria-label="Öppna och stänga kundvagn" disabled aria-disabled="true">
-            <svg class="icon" aria-hidden="true">
-              <use href="#cart-icon" class="cart-icon"/>
-            </svg>
-            <div class="header__cart-count">0</div>
-            <div class="header__cart-total hidden"></div>
-          </button>
           
+          <div class="header__cart-inner js-header-cart-inner">
+            <button class="header__to-checkout-mobile js-header-cart-btn js-go-to-checkout hidden" aria-label="Gå till kundvagn och kassa">
+              <svg class="icon" aria-hidden="true">
+                <use href="#cart-icon" class="js-header-cart-icon"/>
+              </svg>
+            </button>
+            <button class="header__cart-btn js-header-cart" aria-label="Öppna och stänga kundvagn" disabled aria-disabled="true">
+              <svg class="icon" aria-hidden="true">
+                <use href="#cart-icon" class="cart-icon"/>
+              </svg>
+              <div class="header__cart-count">0</div>
+              <div class="header__cart-total hidden"></div>
+            </button>
+            
+            <button class="header__to-checkout js-go-to-checkout hidden">Till kassan</button>
+          </div>
+
           <div class="header__cart-dropdown js-dropdown-cart">
             <div class="header__cart-dropdown-inner">
               <ul class="header__cart-items js-cart-items"></ul>
@@ -54,8 +59,6 @@
               </svg>
               Till kassan</button>
           </div>
-          
-          <button class="header__to-checkout js-go-to-checkout hidden">Till kassan</button>
         </div>
       </div>
 

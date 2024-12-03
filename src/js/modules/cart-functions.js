@@ -404,6 +404,7 @@ export function updateHeaderCartCounter(cartObj) {
   
   // Get elements
   const productsSection = document.querySelector('.js-products-section');
+  const headerCartOuter = document.querySelector('.js-header-cart-inner');
   const headerCart = document.querySelector('.js-header-cart');
   const headerToCart = document.querySelector('.header__to-checkout');
   const headerCount = document.querySelector('.header__cart-count');
@@ -441,6 +442,12 @@ export function updateHeaderCartCounter(cartObj) {
     headerCart.setAttribute('disabled', '');
     headerCart.setAttribute('aria-disabled', 'true');
   }
+
+  // Header shaking
+  headerCartOuter.classList.add('change');
+  setTimeout(() => {
+    headerCartOuter.classList.remove('change');
+  }, 500);
 }
 
 
