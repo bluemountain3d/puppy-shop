@@ -1219,6 +1219,7 @@ details.accordion[open] summary::before {
   }
 }
 .order-confirmed__wrapper {
+  scrollbar-gutter: unset;
   width: 100%;
   background-color: white;
   -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1384,6 +1385,7 @@ details.accordion[open] summary::before {
 }
 @media screen and (min-width: 720px) and (min-height: 840px) {
   .order-confirmed__order-data {
+    scrollbar-gutter: stable;
     -webkit-box-flex: 1;
         -ms-flex: 1 1 0px;
             flex: 1 1 0;

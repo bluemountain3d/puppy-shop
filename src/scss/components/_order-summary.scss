@@ -32,6 +32,7 @@ $_module-name: "Order Confirmed";
   }
 
   &__wrapper {
+    scrollbar-gutter: unset;
     width: 100%;
     // max-width: 848px;
     // height: Min(80vh, 720px);
@@ -180,6 +181,7 @@ $_module-name: "Order Confirmed";
     }
 
     @media screen and (min-width: 720px) and (min-height: 840px) {
+      scrollbar-gutter: stable;
       flex: 1 1 0;
       overflow-y: auto;
       padding-right: 1rem;
