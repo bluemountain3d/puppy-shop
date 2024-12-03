@@ -6,7 +6,8 @@ import {
 } from "./objects.js";
 
 import {
-  updateCartSummary
+  updateCartSummary,
+  updateHeaderCartCounter
 } from "./cart-functions.js";
 
 import {
@@ -14,6 +15,10 @@ import {
   stopTimer
 } from "./timers.js";
 
+
+//--------------------------------------//
+//---------- Objects & Arrays ----------//
+//--------------------------------------//
 
 // Patterns
 export const regex = {
@@ -150,7 +155,11 @@ const validation = {
 };
 
 
-// Globals
+//-------------------------------------------------//
+//---------- Globals & Required elements ----------//
+//-------------------------------------------------//
+
+// Array with form field names
 const checkoutFields = [
   'postal-email',
   'postal-zip',
@@ -170,17 +179,21 @@ const checkoutFields = [
   'social-security-number'
 ];
 
-// Elements
+// Sections & forms
 const productsSection = document.querySelector('.js-products-section');
 const checkoutSection = document.querySelector('.js-checkout-section');
 const orderConfirmedSection = document.querySelector('.js-order-confirmed');
 const checkoutForm = document.querySelector('.js-checkout-form');
+
+// Checkout Intro related 
 const postalEmail = document.querySelector('.js-postal-email');
 const postalZip = document.querySelector('.js-postal-zip');
 const checkoutContinue = document.querySelector('.js-checkout-continue-btn')
 
+// Shipping
 const shipping = document.querySelector('.js-shipping-selection');
 
+// Your Info related
 const yourInfo = document.querySelector('.js-your-information');
 const infoField = document.querySelector('.js-your-info-field');
 const infoInputs = Array.from(infoField.querySelectorAll('input:not(.js-entry-code)'));
@@ -192,13 +205,30 @@ const streetAddressInput = checkoutForm.querySelector('.js-street-address');
 const townInput = checkoutForm.querySelector('.js-town');
 const phoneInput = checkoutForm.querySelector('.js-phone');
 
+// Card related
 const cardGroup = document.querySelector('.js-card-info');
-const cardInputs = cardGroup.querySelectorAll('input');
+const cardInputs = Array.from(cardGroup.querySelectorAll('input'));
+const cardNumberInput = checkoutForm.querySelector('input[name="card-number"]');
+const cardExpMonthInput = checkoutForm.querySelector('input[name="card-expire-month"]');
+const cardExpYearInput = checkoutForm.querySelector('input[name="card-expire-year"]');
+const cardCVVInput = checkoutForm.querySelector('input[name="card-cvv"]');
+const cardOwnerInput = checkoutForm.querySelector('input[name="card-owner"]');
+
+// Invoice related
 const ssnGroup = document.querySelector('.js-ssn-group');
 const ssnInput = ssnGroup.querySelector('input');
 
+// GDPR
 const gdprChb = document.querySelector('.js-gdpr-chb');
 
+// Pay Button
+const payBtn = document.querySelector('.js-pay-btn');
+
+
+
+//-------------------------------//
+//---------- Functions ----------//
+//-------------------------------//
 
 /**
  * Validates an input value against a given regular expression pattern.
@@ -209,9 +239,63 @@ const gdprChb = document.querySelector('.js-gdpr-chb');
  */
 export function isValid(value, pattern) {
   // console.log('isValid Called');
-  
+
   return pattern.test(value);
 }
+
+
+
+
+
+/**
+ * Validates all required fields in the checkout form.
+ *
+ * This function iterates through all fields marked with the `required` attribute
+ * within the checkout form. It checks if each field meets its respective validation
+ * criteria and displays error messages for invalid fields. Additionally, it handles
+ * required checkboxes to ensure they are checked.
+ *
+ * @returns {boolean} - Returns `true` if all required fields are valid; otherwise, `false`.
+ */
+export function validateAllRequired(name) {
+  //console.log('validateAllRequired Called');
+  
+  const requiredFields = checkoutForm.querySelectorAll('[required]');
+  let allValid = true; // Assume all fields are valid initially
+
+  requiredFields.forEach(field => {
+    if (field.type !== 'checkbox') {
+      const value = field.value.trim(); // Trim the input value
+      const fieldName = field.name; // Get the name of the field
+      const isValidField = value && isValid(value, validation[fieldName]?.regex); // Check both value presence and regex validity
+      //console.log('field.name', field.name, isValidField);
+      // If the field is invalid
+      if (!isValidField) {
+        if (name === 'checkout-pay-btn') {
+          toggleMessage(field, fieldName, value); // Show error message
+        }
+        allValid = false; // Mark form as invalid
+      }
+    }
+
+    if (field.type === 'checkbox') {
+      // Check if the checkbox is required but not checked
+      if (field.required && !field.checked) {
+        if (name === 'checkout-pay-btn') {
+          field.classList.add('invalid'); // Add invalid class for visual feedback
+        }
+        allValid = false; // Mark form as invalid
+      } else if (field.required && field.checked) {
+        field.classList.remove('invalid'); // Remove invalid class if checkbox is checked
+      }
+    }
+  });
+
+  return allValid; // Return overall form validity
+}
+
+
+
 
 
 /**
@@ -227,8 +311,7 @@ export function isValid(value, pattern) {
  *                     - Returns `undefined` if no condition is met.
  */
 export function getMessage(name, value, valid) {
-  // console.log('getMessage Called');
-  
+  // console.log('getMessage Called'); 
   if (!value) {
     return validation[name].empty;
   }
@@ -239,6 +322,9 @@ export function getMessage(name, value, valid) {
     return validation[name].invalid;
   }
 }
+
+
+
 
 
 /**
@@ -261,60 +347,79 @@ function updateInvalidState(element, isInvalid) {
 }
 
 
+
+
+
 /**
- * Toggle error or success messages for input fields
- * This function handles the display of validation messages for input fields
- * and updates their `invalid` or `valid` state accordingly.
+ * Handles validation messages and input transformations for a given form input field.
+ * 
+ * This function determines whether an input is valid, displays error messages for invalid inputs,
+ * and applies specific transformations to valid inputs (e.g., formatting phone numbers or card numbers).
+ * It also manages the input's visual and accessibility states, such as adding/removing validation messages
+ * and setting ARIA attributes.
  *
- * @param {HTMLElement} input - The input element being validated.
- * @param {String} name - The name of the input field (used to retrieve validation patterns and messages).
- * @param {String} value - The current value of the input field.
- */
+ * @param {HTMLElement} input - The input element to validate and update.
+ * @param {string} name - The name attribute of the input field, used to determine validation rules and transformations.
+ * @param {string} value - The current value of the input field, which will be validated and possibly transformed.
+ * @returns {void}
+*/
 export function toggleMessage(input, name, value) {
-  // console.log('toggleMessage Called');
-  
-  // Store valid state
-  const valid = isValid(value, validation[name].regex);
-  
-  // Get message
-  const message = getMessage(name, value, valid);
-  
-  // Get elements
-  const wrapper = input.closest('.js-input-wrapper');
-  const messageEl = wrapper.querySelector('.js-input-message');
-  
-  if (!valid && (!messageEl.classList.contains('visible') || messageEl.textContent !== message)) {
-    messageEl.textContent = message;
-    messageEl.classList.add('visible');
-    updateInvalidState(input, true); // If the input is not valid, the invalid class is added
-    messageEl.setAttribute('aria-live', 'polite');
-    input.setAttribute('aria-invalid', 'true');
-  } else if (valid && (messageEl.classList.contains('visible') || messageEl.textContent !== '')) {
-    // Transform value
-    // Zip
+  const valid = isValid(value, validation[name].regex); // Check if the input is valid
+  const message = getMessage(name, value, valid); // Get appropriate validation message
+
+  const wrapper = input.closest('.js-input-wrapper'); // Find the wrapper element
+  const messageEl = wrapper.querySelector('.js-input-message'); // Find the message element
+
+  // Special validation for card expiration dates
+  if (valid && name === 'card-expire-year') {
+    const expirationMessage = testCardDates(name);
+    if (expirationMessage) {
+      messageEl.textContent = expirationMessage;
+      messageEl.classList.add('visible');
+      updateInvalidState(input, true);
+      input.setAttribute('aria-invalid', 'true');
+      return; // Exit if there's an expiration date issue
+    }
+  }
+
+  // Handle invalid input state
+  if (!valid) {
+    if (!messageEl.classList.contains('visible') || messageEl.textContent !== message) {
+      messageEl.textContent = message;
+      messageEl.classList.add('visible');
+      updateInvalidState(input, true);
+      messageEl.setAttribute('aria-live', 'polite');
+      input.setAttribute('aria-invalid', 'true');
+    }
+    return; // Exit here to prevent further processing for invalid inputs
+  }
+
+  // If the input is valid, handle transformations and remove error state
+  if (valid) {
+    // Handle special cases based on the input name
     if (name === 'info-zip') {
       input.value = formatPostalCode(value);
       postalZip.value = input.value;
-    }
-    else if (name === 'info-email') {
+    } else if (name === 'info-email') {
       postalEmail.value = input.value;
-    }
-    // Mobile phone
-    else if (name === 'mobile-phone') {
+    } else if (name === 'mobile-phone') {
       input.value = transformSwedishPhoneNumber(value);
+    } else if (name === 'card-number') {
+      console.log('card-number');
+      input.value = formatCardNumber(value); // Apply card number formatting
     }
-    // Card Number
-    else if (name === 'card-number') {
-      input.value = formatCardNumber(value);
-    }
-    
+
+    // Clear error message and update state
     messageEl.textContent = '';
     messageEl.classList.remove('visible');
-    updateInvalidState(input, false); // The input is valid, so the "invalid" state should be removed
+    updateInvalidState(input, false);
     messageEl.removeAttribute('aria-live');
     input.removeAttribute('aria-invalid');
   }
 }
+
+
+
 
 
 /**
@@ -331,6 +436,9 @@ function formatPostalCode(postalCode) {
 }
 
 
+
+
+
 /**
  * Hides specific sections of the checkout process and resets required field attributes.
  *
@@ -344,13 +452,18 @@ export function hideSections() {
   yourInfo.classList.add('hidden');
   ssnGroup.classList.add('hidden');
   checkoutContinue.classList.remove('hidden');
+  checkoutContinue.setAttribute('disabled','');
   cardGroup.classList.remove('hidden');
+  payBtn.setAttribute('disabled','');
 
+  // setRequired([postalEmail, postalZip], true);
   setRequired(infoInputs, false);
   setRequired(cardInputs, false);
   setRequired([ssnInput], false);
   setRequired([gdprChb], false);
 };
+
+
 
 
 
@@ -373,6 +486,8 @@ export function setRequired(inputs, required) {
     }
   });
 }
+
+
 
 
 
@@ -411,6 +526,9 @@ function transformSwedishPhoneNumber(phoneNumber) {
 }
 
 
+
+
+
 /**
  * Transforms a 16-digit number into the format "#### #### #### ####".
  *
@@ -421,6 +539,8 @@ function transformSwedishPhoneNumber(phoneNumber) {
  * @returns {string} - The formatted string in the format "#### #### #### ####".
  */
 function formatCardNumber(input) {
+  console.log('formatCardNumber Called');
+
   // Ensure the input is treated as a string
   const numberString = input.toString();
 
@@ -431,6 +551,52 @@ function formatCardNumber(input) {
 
   // Format the number
   return numberString.replace(/(\d{4})(?=\d)/g, '$1 ');
+}
+
+
+
+
+
+/**
+ * Validates the expiration date of a credit card.
+ *
+ * This function checks whether the provided credit card expiration date (month and year)
+ * is valid and not expired based on the current date. It handles invalid or empty inputs
+ * gracefully and returns an appropriate error message if the card is expired or the input is invalid.
+ *
+ * @param {string} name - The name attribute of the input field (not actively used in this function but passed for consistency).
+ * 
+ * @returns {string|undefined} - Returns a validation message if the card date is invalid or expired.
+ *                               Returns `undefined` if the expiration date is valid.
+ */
+function testCardDates(name) {
+  console.log('testCardDates Called');
+
+  const date = new Date();
+  const month = Number(date.getMonth() + 1);
+  const year = Number(date.getFullYear().toString().slice(-2));
+
+  console.log('month:',month,', year', year);
+
+  const cardMM = cardExpMonthInput.value ? Number(cardExpMonthInput.value) : null;
+  const cardYY = cardExpYearInput.value ? Number(cardExpYearInput.value) : null;
+
+  // Check for empty or invalid input
+  if (cardMM === null || cardYY === null || isNaN(cardMM) || isNaN(cardYY)) {
+    console.log('Invalid card month or year input');
+    return 'Ange en giltigt år!';
+  }
+
+  console.log('cardMM:',cardMM,', cardYY', cardYY);  
+
+  // Check if card is expired
+  if (cardYY < year || (cardYY === year && cardMM < month)) {
+    console.log('Card is expired');
+    return 'Giltighetstiden för kortet har gått ut!';
+  }
+
+  // Card is not expired
+  return undefined;
 }
 
 
@@ -481,9 +647,9 @@ function handleValidation(e) {
     // console.log('const target = ',target);
     // console.log('const name = ',name);
     // console.log('const value = ',value);
+
     
-
-
+  
     //------------------------------------//
     //---------- Update pricing ----------//
     //------------------------------------//
@@ -517,11 +683,23 @@ function handleValidation(e) {
     //------------------------------------//
 
     if (type === 'change') {
-      //console.log('Change');
+      //console.log('Change, name:',name);
       
+      // Validate all inputs to enable pay button
+      if ((name !== 'postal-email' || name !== 'postal-zip') && target.type !== 'radio' ) {
+        if (validateAllRequired(name)) {
+          // If all required fields are valid, enable the "Pay" button
+          payBtn.removeAttribute('disabled');
+        } else {
+          // If any required field is invalid, disable the "Pay" button
+          payBtn.setAttribute('disabled', '')
+        }
+      }
       
       // Validate fields on change
       if (checkoutFields.includes(name)) {
+        console.log('checkoutFields.includes(name)', checkoutFields.includes(name));
+        
         toggleMessage(target, name, value); // Toggle message
       }
 
@@ -531,34 +709,93 @@ function handleValidation(e) {
         isValid(postalEmail.value, validation['postal-email'].regex) &&
         isValid(postalZip.value, validation['postal-zip'].regex)
       ) {
+        //checkoutContinue.removeAttribute('disabled');
         postalZip.value = formatPostalCode(postalZip.value);
         emailInput.value = postalEmail.value;
         zipInput.value = postalZip.value;
       }
 
+      // Handle messages for name fields
+      if (name === 'given-name' && 
+          familyNameInput.value &&
+          isValid(value, validation[name].regex)
+      ) {
+        toggleMessage(familyNameInput, 'family-name', familyNameInput.value);
+      }
+
+      // Handle GDPR checkbox
       if (name === 'gdpr') {
-        // console.log("if name === 'gdpr'", name === 'gdpr');
-        
         gdprChb.classList.toggle('valid', gdprChb.checked);
         gdprChb.classList.toggle('invalid', !gdprChb.checked);
       }
     }
+
+
+    //------------------------------------//
+    //------------- On input -------------//
+    //------------------------------------//
+
+    if (type === 'input') {
+      //console.log('inpuy, name:', name);
+      
+      // Postal Email
+      if (
+        name === 'postal-email' && 
+        !isValid(value, regex.email)
+      ) {
+        // Hide Shipping and Info
+        hideSections();
+      }
+
+      // Postal Zip
+      if (
+        name === 'postal-zip' && 
+        !isValid(value, regex.zip)
+      ) {
+        // Hide Shipping and Info
+        hideSections();
+      } 
+
+      if (
+        (name === 'postal-email' || name === 'postal-zip') &&
+        isValid(postalEmail.value, validation['postal-email'].regex) &&
+        isValid(postalZip.value, validation['postal-zip'].regex)
+      ) {
+        checkoutContinue.removeAttribute('disabled');
+      }
+
+      // Card MM || Card YY || Card CVV
+      if (
+        (name === 'card-expire-month' /*|| name === 'card-expire-year'*/) &&
+        isValid(value, validation[name].regex)
+      ) {
+        // Get index of validated input
+        const curIndex = cardInputs.indexOf(target)
+
+        if (curIndex >= 0 && curIndex < cardInputs.length - 1) {
+          cardInputs[curIndex + 1].focus() // Move focus to the next input
+        }
+      }
+    }
+
 
     //------------------------------------//
     //------------- On Click -------------//
     //------------------------------------//
 
     if (type === 'click') {
-      //console.log('Click');
+      //console.log('Click, name:', name);
 
       e.preventDefault();
+
+      const cartNotEmpty = Object.keys(cartItemsObject).length > 0;
       
       // Continue to shipping and info
       if (
         name === 'checkout-continue-btn' &&
         isValid(postalEmail.value, regex.email) &&
         isValid(postalZip.value, regex.zip) &&
-        Object.keys(cartItemsObject).length > 0
+        cartNotEmpty
       ) {
         shipping.classList.remove('hidden');
         yourInfo.classList.remove('hidden');
@@ -567,52 +804,47 @@ function handleValidation(e) {
         const cardRb = document.querySelector('input[name="payment-method"][value="card"]');
         
         if (cardRb) cardRb.checked = true;
-      
+        // setRequired([postalEmail, postalZip], false);
         setRequired(infoInputs, true);
         setRequired(cardInputs, true);
         setRequired([ssnInput], false);
         setRequired([gdprChb], true);
       }
 
+
+      // Reset form
+      else if (name === 'reset-form-btn') {
+        const itemContainers = Array.from(document.querySelectorAll('.js-cart-items')); // Find all containers holding cart items
+        const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items')); // Find all containers holding summary items
+        
+        hideSections();
+        checkoutForm.reset();
+
+        itemContainers.forEach(container => {
+          container.innerHTML = '';
+        });
+
+        summaryItemContainers.forEach(container => {
+          container.innerHTML = '';
+        });
+
+        for (let key in cartItemsObject) {
+          if (cartItemsObject.hasOwnProperty(key)) {
+            delete cartItemsObject[key]; // Remove each property
+          }
+        }
+
+        cartSummaryObject.counter = 0;
+
+        updateCartSummary();
+        updateHeaderCartCounter(cartSummaryObject);
+      }
+
+
       // Hide Checkout and show order resume
       else if (name === 'checkout-pay-btn') {
-        
-        const requiredFields = checkoutForm.querySelectorAll('[required]');
-        
-        let allValid = true;
-
-        requiredFields.forEach(field => {               
-          if (field.type != 'checkbox') {            
-            const value = field.value.trim();
-            const name = field.name;
-            const isValidField = isValid(value, validation[name].regex);            
-        
-            if (!isValidField) {              
-              toggleMessage(field, name, value); // Show error message if invalid
-              allValid = false;
-            }
-          }
-
-          if (field.type === 'checkbox') {
-            // Validate required checkboxes are checked
-            if (field.required && !field.checked) {
-              // Optional: Add visual feedback or error message
-              field.classList.add('invalid');
-              
-              // ? Maybe create a specific toggle message for checkboxes
-              // toggleMessage(field, field.name, 'checkbox');
-              
-              allValid = false;
-              // console.log('ALL VALID:', allValid);
-              
-            } else if (field.required && field.checked) {
-              field.classList.remove('invalid');
-            }
-          }
-          
-        });
-      
-        if (allValid & cartItemsObject) {
+        // If all required inputs are valid
+        if (validateAllRequired(name) && cartNotEmpty) {
           // console.log('ALL VALID:', allValid);
           // Proceed with payment
   
@@ -644,36 +876,17 @@ function handleValidation(e) {
           console.warn('Some required fields are invalid.');
         }
       }
-
     }
 
-    //------------------------------------//
-    //------------- On input -------------//
-    //------------------------------------//
-
-    if (type === 'input') {
-      // Postal Email
-      if (
-        name === 'postal-email' && 
-        !isValid(value, regex.email)
-      ) {
-        // Hide Shipping and Info
-        hideSections();
-      } 
-      // Postal Zip
-      if (
-        name === 'postal-zip' && 
-        !isValid(value, regex.zip)
-      ) {
-        // Hide Shipping and Info
-        hideSections();
-      }
-    }
+    
 
   }, 50); // 50ms debounce
 }
 
 
+//---------------------------------------//
+//--------- Order confirmation ----------//
+//---------------------------------------//
 
 const orderConfirmCloseBtn = document.querySelector('.js-summary-close-btn');
 orderConfirmCloseBtn.addEventListener('click', (e) => {
@@ -704,9 +917,12 @@ export const initFormValidation = (() => {
 
 
 
+//--------------------------------------//
+//---------- Work In Progress ----------//
+//--------------------------------------//
 
-// WORK IN PROGRESS
-export function validateSSN (
+
+function validateSSN (
   a, // social security number
   b, // placeholder
   c, // --||--

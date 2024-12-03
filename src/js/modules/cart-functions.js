@@ -347,9 +347,13 @@ export function updateCartSummary() {
   }
 
   // Checkout Cart Shipping Cost
-  cartShipping.innerText = shippingCost 
+  if (counter) {
+    cartShipping.innerText = shippingCost 
   ? `${formatPrice(shippingCost)} kr` 
   : 'Frakten kostar gratis!';
+  } else {
+    cartShipping.innerText = '0 kr'
+  }
   
   // Checkout Cart Total
   cartTotal.innerText = `${formatPrice(newSubtotal + shippingCost)} kr`;
