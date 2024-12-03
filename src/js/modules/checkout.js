@@ -405,7 +405,7 @@ export function toggleMessage(input, name, value) {
     } else if (name === 'mobile-phone') {
       input.value = transformSwedishPhoneNumber(value);
     } else if (name === 'card-number') {
-      console.log('card-number');
+      //console.log('card-number');
       input.value = formatCardNumber(value); // Apply card number formatting
     }
 
@@ -539,7 +539,7 @@ function transformSwedishPhoneNumber(phoneNumber) {
  * @returns {string} - The formatted string in the format "#### #### #### ####".
  */
 function formatCardNumber(input) {
-  console.log('formatCardNumber Called');
+  //console.log('formatCardNumber Called');
 
   // Ensure the input is treated as a string
   const numberString = input.toString();
@@ -570,28 +570,22 @@ function formatCardNumber(input) {
  *                               Returns `undefined` if the expiration date is valid.
  */
 function testCardDates(name) {
-  console.log('testCardDates Called');
+  //console.log('testCardDates Called');
 
   const date = new Date();
   const month = Number(date.getMonth() + 1);
   const year = Number(date.getFullYear().toString().slice(-2));
-
-  console.log('month:',month,', year', year);
 
   const cardMM = cardExpMonthInput.value ? Number(cardExpMonthInput.value) : null;
   const cardYY = cardExpYearInput.value ? Number(cardExpYearInput.value) : null;
 
   // Check for empty or invalid input
   if (cardMM === null || cardYY === null || isNaN(cardMM) || isNaN(cardYY)) {
-    console.log('Invalid card month or year input');
     return 'Ange en giltigt år!';
   }
 
-  console.log('cardMM:',cardMM,', cardYY', cardYY);  
-
   // Check if card is expired
   if (cardYY < year || (cardYY === year && cardMM < month)) {
-    console.log('Card is expired');
     return 'Giltighetstiden för kortet har gått ut!';
   }
 
@@ -698,7 +692,7 @@ function handleValidation(e) {
       
       // Validate fields on change
       if (checkoutFields.includes(name)) {
-        console.log('checkoutFields.includes(name)', checkoutFields.includes(name));
+        //console.log('checkoutFields.includes(name)', checkoutFields.includes(name));
         
         toggleMessage(target, name, value); // Toggle message
       }
