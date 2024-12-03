@@ -606,7 +606,7 @@ const checkoutDuration = 15 * 60 * 1000; // 15 minutes in miliseconds
 
 // Defines what happens when the timer expires
 function onCheckoutTimeout() {
-  alert("Ooops! Du är visst långsammare än en torr snigel. Du tog för lång tid på dig att beställa, alla valpar han tyvärr ta slut, buhuu.. Bättre lycka nästa gånng!!");
+  alert("Ooops! Du är visst långsammare än en torr snigel. Du tog för lång tid på dig att beställa, alla valpar han tyvärr ta slut. Så du blir utan, buhuuu buhuu.. Bättre lycka nästa gånng!!");
   productsSection.classList.remove('hidden');
   checkoutSection.classList.add('hidden');
   orderConfirmedSection.classList.add('hidden');
