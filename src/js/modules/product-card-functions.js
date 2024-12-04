@@ -100,7 +100,7 @@ export function productCard(obj, quantity=0) {
                 </div>
                 <div class="product-card__quantifier js-quantifier">
                   <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">−</button>
-                  <input type="number" class="product-card__quantifier-input js-quantity" aria-label="Antal" value="${quantity}" disabled>
+                  <input type="number" class="product-card__quantifier-input js-card-quantity js-quantity" aria-label="Antal" value="${quantity}" data-pid="${pid}" disabled>
                   <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">+</button>
                 </div>
               </div>
@@ -174,12 +174,13 @@ function handleProductCardEvent(e) {
 
   const productId = Number(card.dataset.pid); // Get "pid" from card
   const productData = productsObject[productId]; // Product Object from Card "pid"
+  const gender = card.querySelector('.js-gender-rb:checked').value; // Get selected gender
+  const itemData = findItemByProductIdAndGender(cartItemsObject, productId, gender);
 
   //* Handle events based on target *//
 
   // If target is radio button
-  if (e.target.matches('.js-gender-rb')) {
-    
+  if (e.target.matches('.js-gender-rb')) {    
     updatePrice(card, productData); // Update price when gender radio button changes
     updateComparisonPrice(card, productData); // Update comparison based on selected gender weight
   }
@@ -196,23 +197,36 @@ function handleProductCardEvent(e) {
   //Add to cart object when add to cart button is clicked
   if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
 
-    const numberInput = card.querySelector('.js-quantity');
+    console.log(`\n//--- handleProductCardEvent('${e.type}') Called ---//`);
+    console.log(
+      'Clicked Add to Cart Button',
+      '\nproductId:',productId,
+      '\ngender:',gender,
+      '\nitemData:',itemData
+    );
+    
+    const numberInput = card.querySelector(`input[data-pid="${productId}"].js-card-quantity`);
     const quantity = Number(numberInput.value);
 
+    console.log(
+      'numberInput.value',numberInput.value,
+      '\nquantity:', quantity
+    );
+    
     if (!quantity) return; // Stop id quantity is 0
 
-    const gender = card.querySelector('.js-gender-rb:checked').value; // OLD genderTranslate[card.querySelector('.js-gender-rb:checked').value];
     const basePrice = Number(productData.priceInfo.price); // Original price set in productsObject
     const adjustedPrice = Number(weekendPricing(basePrice)); // 
     const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
     const discount = adjustedPrice - discountPrice;
-    const itemData = findItemByProductIdAndGender(cartItemsObject, productId, gender);
     const counter = cartSummaryObject.counter;
     
 
     // Test if cartItem should be added or updated
     // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
-    if (!itemData || itemData && itemData.gender != gender) {
+    if (!itemData || itemData && itemData.gender != gender) { 
+      console.log('Cart item doesn\'t exist, create new!');
+      
       // Create new cart item
       const newItem = {
         productId: productId,
@@ -224,7 +238,7 @@ function handleProductCardEvent(e) {
           lineTotal: (discountPrice * quantity) - discount
         },
       }
-    
+
       // Add the new item to the cartObject to the next available index.
       cartItemsObject[getHighestIndex(cartItemsObject) + 1] = newItem;
       
@@ -240,10 +254,11 @@ function handleProductCardEvent(e) {
       // Update header cart counter
       updateHeaderCartCounter(cartSummaryObject);
 
-      // Resewt input
+      // Reset input
       numberInput.value = 0;
-      
     } else {
+      console.log('Cart item exist, update existing item!');
+
       // Product is in cart, update
 
       // Set new quantity
@@ -261,10 +276,11 @@ function handleProductCardEvent(e) {
       //cartSummaryObject.counter = Math.max(counter + diff, 0);
       updateHeaderCartCounter(cartSummaryObject);
 
-      // Resewt input
+      // Reset input
       numberInput.value = 0;
-
     }
+
+    console.log(`\n//--- handleProductCardEvent('${e.type}') End ---//`);
   }
 }
 
@@ -284,8 +300,8 @@ export const initProductCards = (() => {
 
   // Attach event listeners to the products wrapper
   productsWrapper.addEventListener('click', handleProductCardEvent);
-  productsWrapper.addEventListener('keydown', handleProductCardEvent);
-  productsWrapper.addEventListener('keyup', handleProductCardEvent);
+  // productsWrapper.addEventListener('keydown', handleProductCardEvent);
+  // productsWrapper.addEventListener('keyup', handleProductCardEvent);
   productsWrapper.addEventListener('change', handleProductCardEvent);
 
   // Update card price every x minute

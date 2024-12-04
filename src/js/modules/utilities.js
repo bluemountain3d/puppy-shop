@@ -70,6 +70,8 @@ export function shuffleArray(array) {
  *                                        Returns `undefined` if no valid quantity input is found.
  */
 export function adjustQuantity(e, card, obj) {
+
+  console.log(`\n//--- adjustQuantity('${e.type}') Called ---//\n`);
   
   //const numberInput = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
   const numberInput = card.querySelector('.js-quantity');
@@ -79,71 +81,30 @@ export function adjustQuantity(e, card, obj) {
   
   let newValue;
 
-  // Handle input via arrow keys
-  // if (e.type === 'keydown' && e.target.matches('.js-quantity')) {
-  //   if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-
-  //     newValue = e.key === 'ArrowUp'
-  //       ? Math.min(99, currentValue + 1)
-  //       : Math.max(0, currentValue - 1);
-      
-  //     numberInput.value = newValue;
-  //     updatePrice(card, obj);
-  //   }
-  //   if (e.key === 'Enter') {
-
-  //     e.preventDefault(); // Prevent default Enter behavior
-  //     updatePrice(card, obj);
-  //   }
-  // }
-
-  if (e.type === 'click' && (e.target.matches('.js-increase') || e.target.matches('.js-decrease'))) { 
+  if (
+    e.type === 'click' && 
+    (e.target.matches('.js-increase') || 
+    e.target.matches('.js-decrease'))
+  ) { 
     newValue = e.target.matches('.js-increase')
       ? Math.min(99, currentValue + 1)
       : Math.max(0, currentValue - 1);
 
     numberInput.value = newValue;
 
+    console.log(
+      '// click decrease or increase button',
+      '\n// currentValue', currentValue,
+      '\n// newValue', newValue
+    );
+    
     updatePrice(card, obj);
   }
 
-  // Handle manual input via the keyup event
-  // if (e.target.matches('.js-quantity')) {
-    
-  //   let keyPressStartTime;
-  //   if (e.key === 'Enter') {
-  //     keyPressStartTime = Date.now();
-  //   }
-
-  //   if (['ArrowUp', 'ArrowDown', 'Enter', 'Tab'].includes(e.key)) {
-  //     if (e.key === 'Enter') {
-  //       const keyPressDuration = Date.now() - keyPressStartTime;
-  //       if (keyPressDuration < 800) {
-  //         //const currentValue = Number(numberInput.value);
-  //         if (currentValue > 99){
-  //           numberInput.value = 99;
-  //         } else if (currentValue < 0) {
-  //           numberInput.value = 0;
-  //         }
-  //         // Run your update logic for short press
-  //         updatePrice(card, obj);
-  //       } else {
-  //         console.log('Enter key held for too long, action skipped');
-  //       }
-  //     } else {
-  //       // Update price for ArrowUp and ArrowDown keys
-  //       if (currentValue > 99) {
-  //         numberInput.value = 99;
-  //       } else if (currentValue < 0) {
-  //         numberInput.value = 0;
-  //       }
-  //       updatePrice(card, obj);
-  //     }
-  //   }
-  // }
-
   const diff = newValue - currentValue;
   
+  console.log(`//--- adjustQuantity('${e.type}') End ---//`);
+
   return [diff, newValue];
 }
 
