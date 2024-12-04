@@ -4,4 +4,5 @@ node_modules
 notes/
 assets/
 **/*-todo.md
-*test.*
+*test*.*
+.gitignore
