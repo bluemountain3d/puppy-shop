@@ -301,6 +301,12 @@ $_module-name: "Page specific styles for: Shopping Cart";
     }
   }
 
+  &__summary-value {
+    
+    &--red {
+      color: var(--clr-text-red);
+    }
+  }
 
   &__summary-discount-code {
     text-align: right;

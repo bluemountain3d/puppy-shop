@@ -320,8 +320,8 @@ body.no-scroll {
 }
 @media screen and (min-width: 1902px) {
   body {
-    -webkit-box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
-            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
+    -webkit-box-shadow: 0 0 1.25rem 0.5rem rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 1.25rem 0.5rem rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -877,7 +877,6 @@ details.accordion[open] summary::before {
 /* ------------------------------------------------------------ */
 /* ### Product Carsd START */
 .products {
-  overflow: hidden;
   height: 100%;
   margin-bottom: 2rem;
   display: grid;
@@ -1689,6 +1688,10 @@ details.accordion[open] summary::before {
     display: inline-block;
   }
 }
+.header__cart-btn.change > .icon {
+  -webkit-animation: shaking 0.25s linear 2;
+          animation: shaking 0.25s linear 2;
+}
 .header__cart-total {
   display: none;
 }
@@ -1709,7 +1712,11 @@ details.accordion[open] summary::before {
   transition: fill 0.15s ease;
 }
 .header__to-checkout-mobile > .icon:hover {
-  fill: var(--grey-light);
+  fill: var(--clr-bg-green);
+}
+.header__to-checkout-mobile.change > .icon {
+  -webkit-animation: shaking 0.25s linear 2;
+          animation: shaking 0.25s linear 2;
 }
 @media screen and (min-width: 720px) {
   .header__to-checkout-mobile {
@@ -2201,6 +2208,9 @@ main {
 }
 .cart__summary-label--large {
   font-size: 1.5rem;
+}
+.cart__summary-value--red {
+  color: var(--clr-text-red);
 }
 .cart__summary-discount-code {
   text-align: right;
