@@ -393,7 +393,7 @@ body.no-scroll {
   transition: fill 0.2s ease;
 }
 
-button:hover .icon {
+button:not(.no-shake):hover .icon {
   -webkit-animation: shaking 0.2s linear 2;
           animation: shaking 0.2s linear 2;
 }

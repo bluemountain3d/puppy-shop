@@ -162,7 +162,7 @@ body {
   transition: fill .2s ease;
 }
 
-button:hover .icon {
+button:not(.no-shake):hover .icon {
   animation: shaking 0.2s linear 2;
 }
 
