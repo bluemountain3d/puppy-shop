@@ -24,6 +24,8 @@ $_module-name: "Page specific styles for: Shopping Cart";
   &__wrapper {
 
     height: 100%;
+    // max-height: calc(100vh - 10rem);
+    // overflow-y: hidden;
     display: grid;
     gap: 1rem;
 
@@ -43,6 +45,9 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
 .cart, .checkout {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+
   
   @media screen and (min-width: 720px) {
     //overflow: hidden;
@@ -79,6 +84,8 @@ $_module-name: "Page specific styles for: Shopping Cart";
   background-color: var(--clr-light);
   box-shadow: 0 .25rem .5rem rgba(black, .33);
   border-radius: 1rem;
+  max-height: calc(100vh - 10rem);
+  overflow-y: hidden;
   
 
   // border-radius: 1rem;
@@ -128,6 +135,8 @@ $_module-name: "Page specific styles for: Shopping Cart";
   }
 
   &__items {
+    max-height: 100%;
+    overflow-y: auto;
     padding: 1rem;
     border-width: 0 2px;
     border-style: solid;
@@ -141,7 +150,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     display: grid;
     gap: 1rem;
     
-    &:not(:last-child) {
+    & {
       border-bottom: 1px solid var(--clr-lines);
     }
   }
@@ -225,13 +234,15 @@ $_module-name: "Page specific styles for: Shopping Cart";
       }
     }
 
-    & > input {
+    & > span {
       width: 3.75rem;
       height: 2.5rem;
+      line-height: 2.5rem;
       text-align: center;
       font-size: 1.25rem;
       color: inherit;
       border: solid var(--clr-lines);
+      background-color: white;
       border-width: 1px;
       user-select: none;
     }

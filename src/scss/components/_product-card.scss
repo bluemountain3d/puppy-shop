@@ -338,12 +338,14 @@ $_module-name: "Product Carsd";
       }
     }
 
-    &-input {
+    &-value {
       width: 4rem;
       height: 3rem;
+      line-height: 3rem;
       text-align: center;
       font-size: 1.5rem;
       color: inherit;
+      background-color: white;
       border: solid var(--clr-lines);
       border-width: 1px;
       user-select: none;

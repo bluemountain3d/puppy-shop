@@ -9,8 +9,10 @@ $_module-name: "Page Footer";
 /* ### #{$_module-name} START */
 
 .footer {
+  position: sticky;
+  bottom: 0;
   //overflow: hidden;
-  align-self: flex-end;
+  //align-self: flex-end;
   margin-top: auto;
   padding: 1rem;
   width: 100%;
