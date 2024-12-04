@@ -73,11 +73,11 @@ export function adjustQuantity(e, card, obj) {
 
   console.log(`\n//--- adjustQuantity('${e.type}') Called ---//\n`);
   
-  //const numberInput = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
-  const numberInput = card.querySelector('.js-quantity');
-  if (!numberInput) return;
+  //const quantityValue = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
+  const quantityValue = card.querySelector('.js-quantity');
+  if (!quantityValue) return;
 
-  const currentValue = Number(numberInput.value);
+  const currentValue = Number(quantityValue.innerText);
   
   let newValue;
 
@@ -90,7 +90,7 @@ export function adjustQuantity(e, card, obj) {
       ? Math.min(99, currentValue + 1)
       : Math.max(0, currentValue - 1);
 
-    numberInput.value = newValue;
+    quantityValue.innerText = newValue;
 
     console.log(
       '// click decrease or increase button',

@@ -100,7 +100,7 @@ export function productCard(obj, quantity=0) {
                 </div>
                 <div class="product-card__quantifier js-quantifier">
                   <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">−</button>
-                  <input type="number" class="product-card__quantifier-input js-card-quantity js-quantity" aria-label="Antal" value="${quantity}" data-pid="${pid}" disabled>
+                  <span type="number" class="product-card__quantifier-value js-card-quantity js-quantity" aria-label="Antal" data-pid="${pid}">${quantity}</span>
                   <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">+</button>
                 </div>
               </div>
@@ -186,8 +186,7 @@ function handleProductCardEvent(e) {
   }
   
   // If target is buttons of input in quantifier group
-  if (e.target.matches('.js-quantity') || 
-      e.target.matches('.js-increase') || 
+  if (e.target.matches('.js-increase') || 
       e.target.matches('.js-decrease')) {
 
     adjustQuantity(e, card, productData); // Update quantity input
@@ -205,11 +204,11 @@ function handleProductCardEvent(e) {
       '\nitemData:',itemData
     );
     
-    const numberInput = card.querySelector(`input[data-pid="${productId}"].js-card-quantity`);
-    const quantity = Number(numberInput.value);
+    const quantityValue = card.querySelector(`span[data-pid="${productId}"].js-card-quantity`);
+    const quantity = Number(quantityValue.innerText);
 
     console.log(
-      'numberInput.value',numberInput.value,
+      'quantityValue.innerText',quantityValue.innerText,
       '\nquantity:', quantity
     );
     
@@ -255,7 +254,7 @@ function handleProductCardEvent(e) {
       updateHeaderCartCounter(cartSummaryObject);
 
       // Reset input
-      numberInput.value = 0;
+      quantityValue.innerText = 0;
     } else {
       console.log('Cart item exist, update existing item!');
 
@@ -277,7 +276,7 @@ function handleProductCardEvent(e) {
       updateHeaderCartCounter(cartSummaryObject);
 
       // Reset input
-      numberInput.value = 0;
+      quantityValue.innerText = 0;
     }
 
     console.log(`\n//--- handleProductCardEvent('${e.type}') End ---//`);

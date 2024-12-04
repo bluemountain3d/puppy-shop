@@ -67,7 +67,7 @@ export function cartItemCard(itemData, productData) {
           <div class="cart__item-controlls">
             <div class="cart__item-quantity-wrapper js-quantifier">
               <button class="cart__item-decrease js-decrease" aria-label="Minska antal">−</button>
-              <input class="cart__item-quantity js-quantity js-quantity-cart" type="number" value="${itemData.quantity}" aria-label="Antal" disabled>
+              <span class="cart__item-quantity js-quantity js-quantity-cart" aria-label="Antal">${itemData.quantity}</span>
               <button class="cart__item-increase js-increase" aria-label="Öka antal">+</button>
             </div>
             <button class="cart__item-remove js-remove-item" aria-label="Ta bort">
@@ -196,7 +196,6 @@ export function addCartItem(itemData, productData) {
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
   console.log(
     'updateCartItem() Called',
-    // '\nCart Items Object:', cartItemsObject
   );
 
   // Get Element
@@ -235,7 +234,7 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
     // Update item price text
     if (priceElem) priceElem.innerText = formatPrice(discountPrice);
     // Update item quantity
-    if (quantityElem) quantityElem.value = quantity;
+    if (quantityElem) quantityElem.innerText = quantity;
     // Update item line total
     if (itemLineTotalElem) itemLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
   });
@@ -717,7 +716,7 @@ function handleCartItemEvent(e) {
   const productId = Number(card.dataset.pid); // Extract productId from data-id
   const gender = card.dataset.gender; // Extract gender from data-gender
   const productData = productsObject[productId];
-  const numberInput = card.querySelector('.js-quantity');
+  const quantityValue = card.querySelector('.js-quantity');
 
   // Get [key, item] from cartObject
   const [key, itemData] = findKeyByProductIdAndGender(cartItemsObject, productId, gender) || [];
@@ -735,7 +734,7 @@ function handleCartItemEvent(e) {
     const newVal = adjQty[1];
     
     // Update values
-    numberInput.value = newVal;
+    quantityValue.innerText = newVal;
     const newCount = sumValues(cartItemsObject, 'quantity') + diff;
     cartSummaryObject.counter = newCount;    
     const quantity = newVal; // set quantity and update item quantity
@@ -764,7 +763,7 @@ function handleCartItemEvent(e) {
     console.log('CHANGE!!!!');
     
     if (itemData && key) {
-      const quantity = Number(e.target.value); // Get the new quantity
+      const quantity = Number(e.target.innerText); // Get the new quantity
 
       // Update the cart object with the new quantity
       itemData.quantity = quantity;

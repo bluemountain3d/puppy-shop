@@ -208,7 +208,7 @@ export function updatePrice(card, obj) {
   const priceElem = card.querySelector('.js-price');
   const origPriceElem = card.querySelector('.js-original-price');
   const comparisonPriceElem = card.querySelector('.js-comparison-price');
-  const quantity = card.querySelector('.js-quantity').value; // from quantifier number input
+  const quantity = Number(card.querySelector('.js-quantity').innerText); // from quantifier number input
 
   if (isNaN(quantity) || quantity < 0) {
     console.error('Invalid quantity');
