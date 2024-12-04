@@ -232,7 +232,7 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
     const itemLineTotalElem = item.querySelector('.js-item-line-total');
 
     // Update item price text
-    if (priceElem) priceElem.innerText = formatPrice(discountPrice);
+    if (priceElem) priceElem.innerText = `${formatPrice(discountPrice)} kr`;
     // Update item quantity
     if (quantityElem) quantityElem.innerText = quantity;
     // Update item line total
