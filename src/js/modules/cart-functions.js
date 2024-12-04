@@ -67,7 +67,7 @@ export function cartItemCard(itemData, productData) {
           <div class="cart__item-controlls">
             <div class="cart__item-quantity-wrapper js-quantifier">
               <button class="cart__item-decrease js-decrease" aria-label="Minska antal">−</button>
-              <input class="cart__item-quantity js-quantity" type="number" value="${itemData.quantity}" aria-label="Antal" disabled>
+              <input class="cart__item-quantity js-quantity js-quantity-cart" type="number" value="${itemData.quantity}" aria-label="Antal" disabled>
               <button class="cart__item-increase js-increase" aria-label="Öka antal">+</button>
             </div>
             <button class="cart__item-remove js-remove-item" aria-label="Ta bort">
@@ -147,23 +147,19 @@ export function summaryItemCard(itemData, productData) {
  * of all relevant containers.
  *
  * @param {Object} itemData - Data specific to the cart item being added.
- * @param {string} itemData.productId - Unique identifier for the product.
- * @param {string} itemData.gender - Gender associated with the product (e.g., male, female, or unisex).
- * @param {Object} itemData.priceInfo - Object containing price information for the item.
- * @param {number} itemData.priceInfo.price - Unit price of the item.
- * @param {number} itemData.priceInfo.lineTotal - Total price for the item based on quantity.
- * @param {number} itemData.quantity - The current quantity of the item in the cart.
- *
  * @param {Object} productData - Data specific to the product associated with the cart item.
- * @param {Object} productData.image - Image information for the product.
- * @param {string} productData.image.url - URL of the product image.
- * @param {string} productData.image.alt - Alternative text for the product image.
- * @param {Object} productData.breedInfo - Object containing breed information for the product.
- * @param {string} productData.breedInfo.breed - Breed or type name of the product (e.g., "Golden Retriever").
  *
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
 export function addCartItem(itemData, productData) {
+
+  // Debugg
+  console.log(
+    'addCartItem() Called',
+    // '\nitemData', itemData,
+    // '\nproductData', productData
+  );
+  
   // Add Header Cart and Checkout Cart in an array
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
   const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items'));
@@ -198,36 +194,53 @@ export function addCartItem(itemData, productData) {
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
+  console.log(
+    'updateCartItem() Called',
+    // '\nCart Items Object:', cartItemsObject
+  );
 
   // Get Element
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
   const summaryItemContainers = Array.from(document.querySelectorAll('.js-summary-items'));
   const productId = Number(itemData.productId);
   const gender = itemData.gender;
-  
+
   // Update Item
   itemData.quantity = quantity;
   itemData.priceInfo.price = discountPrice;
   itemData.priceInfo.discount = discount * quantity;
   itemData.priceInfo.lineTotal = discountPrice * quantity
+
+
+  // Debugg
+  // console.log(
+    // '\nitemData.quantity', itemData.quantity,
+    // '\ndiscountPrice', discountPrice,
+    // '\ndiscount', discount,
+    // '\nproductId', productId,
+    // '\ngender', gender,
+    // '\nitemData', itemData
+  // );
   
-  // Update in both carts
+  // Update carts
   itemContainers.forEach(container => {
+
     // Item
     const item = container.querySelector(`.js-cart-item[data-pid="${productId}"][data-gender="${gender}"]`);
     // Get item elements
     const priceElem = item.querySelector('.js-price');
-    const quantityElem = item.querySelector('.js-quantity');
+    const quantityElem = item.querySelector('.js-quantity-cart');
     const itemLineTotalElem = item.querySelector('.js-item-line-total');
 
     // Update item price text
     if (priceElem) priceElem.innerText = formatPrice(discountPrice);
-    // Update item quantity if needed
-    if (quantityElem && Number(quantityElem.value) != Number(quantity)) quantityElem.value = quantity;
+    // Update item quantity
+    if (quantityElem) quantityElem.value = quantity;
     // Update item line total
     if (itemLineTotalElem) itemLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
   });
 
+  // Update summary 
   summaryItemContainers.forEach(container => {
     // Item
     const item = container.querySelector(`.js-summary-item[data-pid="${productId}"][data-gender="${gender}"]`);
@@ -314,18 +327,31 @@ export function updateCartSummary() {
   // Get elements
   const cartSubtotal = document.querySelectorAll('.js-cart-subtotal');
   const cartMondayDiscountElem = document.querySelector('.js-cart-monday-discount');
+  const cartDiscounts = document.querySelector('.js-cart-discounts');
   const cartShipping = document.querySelector('.js-cart-shipping');
   const cartTotal = document.querySelector('.js-cart-total');
 
   // New subtotal
   const subtotal = sumValues(cartItemsObject, 'priceInfo.lineTotal');
   const discounts = sumValues(cartItemsObject, 'priceInfo.discount');
-  const monDiscount = mondayDiscount(sumValues(cartItemsObject, 'priceInfo.lineTotal')) - subtotal;
-  const newSubtotal = subtotal - monDiscount - discounts;
+  const monDiscount = Math.abs((mondayDiscount(subtotal) - subtotal));
+  const newSubtotal = subtotal ; //- monDiscount - discounts;
   const newDiscounts = discounts + monDiscount;
   
   // Update shipping cost
   const shippingCost = getShippingCost(newSubtotal, counter);
+
+  // Debugg
+  // console.log(
+  //   'updateCartSummary() Called',
+  //   '\ncounter',counter,
+  //   '\nsubtotal',subtotal,
+  //   '\ndiscounts',discounts,
+  //   '\nmonDiscount',monDiscount,
+  //   '\nnewSubtotal',newSubtotal,
+  //   '\nnewDiscounts',newDiscounts,
+  //   '\nshippingCost',shippingCost,
+  // );
   
   //cartQtyDiscount(subtotal, counter, limit=15, discount=.9)
   // Set new values
@@ -333,12 +359,15 @@ export function updateCartSummary() {
   cartSummaryObject.discounts = newDiscounts;
   cartSummaryObject.shippingCost = shippingCost
   cartSummaryObject.vat = Math.round(newSubtotal * .2);
-  cartSummaryObject.total = newSubtotal + shippingCost ;
+  cartSummaryObject.total = newSubtotal + shippingCost - newDiscounts;
 
-  // Hader and Checkout Cart Subtotal
+  // Header and Checkout Cart Subtotal
   cartSubtotal.forEach(sub => {
     sub.innerText = `${formatPrice(newSubtotal)} kr`;
   });
+
+  // Discounts
+  cartDiscounts.innerText = `${formatPrice(-discounts)} kr`;
   
   // if monday discount is applied show text
   if (mondayDiscount()) {
@@ -349,8 +378,8 @@ export function updateCartSummary() {
   // Checkout Cart Shipping Cost
   if (counter) {
     cartShipping.innerText = shippingCost 
-  ? `${formatPrice(shippingCost)} kr` 
-  : 'Frakten kostar gratis!';
+      ? `${formatPrice(shippingCost)} kr` 
+      : 'Frakten kostar gratis!';
   } else {
     cartShipping.innerText = '0 kr'
   }
@@ -405,7 +434,8 @@ export function updateHeaderCartCounter(cartObj) {
   // Get elements
   const productsSection = document.querySelector('.js-products-section');
   const headerCartOuter = document.querySelector('.js-header-cart-inner');
-  const headerCart = document.querySelector('.js-header-cart');
+  const headerCartMobileBtn = document.querySelector('.js-header-cart-mobile-btn');
+  const headerCart = document.querySelector('.js-header-cart-btn');
   const headerToCart = document.querySelector('.header__to-checkout');
   const headerCount = document.querySelector('.header__cart-count');
   const headerTotal = document.querySelector('.header__cart-total');
@@ -445,8 +475,12 @@ export function updateHeaderCartCounter(cartObj) {
 
   // Header shaking
   headerCartOuter.classList.add('change');
+  headerCartMobileBtn.classList.add('change');
+  headerCart.classList.add('change');
   setTimeout(() => {
     headerCartOuter.classList.remove('change');
+    headerCartMobileBtn.classList.remove('change');
+    headerCart.classList.remove('change');    
   }, 500);
 }
 
@@ -455,8 +489,8 @@ export function updateHeaderCartCounter(cartObj) {
 //*---------- Cart Show/hide functionality ----------*//
 
 // Get required element
-const headerCartMobileBtn = document.querySelector('.js-header-cart-btn');
-const headerCartBtn = document.querySelector('.js-header-cart');
+const headerCartMobileBtn = document.querySelector('.js-header-cart-mobile-btn');
+const headerCartBtn = document.querySelector('.js-header-cart-btn');
 const headerCart = document.querySelector('.js-dropdown-cart');
 const goToCheckoutBtns = Array.from(document.querySelectorAll('.js-go-to-checkout'));
 const headerGoToBtn = document.querySelector('.header__to-checkout');
@@ -655,52 +689,63 @@ closeCart.addEventListener('click', e => {
 });
 
 
-//*---------- Cart Items functionality ----------*//
+
+
+
+
+
+//----------------------------------------------//
+//---------- Cart Items functionality ----------//
+//----------------------------------------------//
+
 
 // Checkout: Cart items
-const headerCartItems = document.querySelector('.header__cart-items');
-const checkoutCartItems = document.querySelector('.cart__items');
+const headerCartItems = document.querySelector('.js-header-cart-items');
+const checkoutCartItems = document.querySelector('.js-checkout-cart-items');
 
-headerCartItems.addEventListener('click', handleCartEvent);
-// headerCartItems.addEventListener('keydown', handleCartEvent);
-// headerCartItems.addEventListener('keyup', handleCartEvent);
-// headerCartItems.addEventListener('change', handleCartEvent);
+headerCartItems.addEventListener('click', handleCartItemEvent);
+headerCartItems.addEventListener('change', handleCartItemEvent);
 
-checkoutCartItems.addEventListener('click', handleCartEvent);
-// checkoutCartItems.addEventListener('keydown', handleCartEvent);
-// checkoutCartItems.addEventListener('keyup', handleCartEvent);
-// checkoutCartItems.addEventListener('change', handleCartEvent);
+checkoutCartItems.addEventListener('click', handleCartItemEvent);
+checkoutCartItems.addEventListener('change', handleCartItemEvent);
 
-function handleCartEvent(e) {
+
+function handleCartItemEvent(e) {
   
   const cartItemsContainer = e.target.closest('.js-cart-items'); // Find the DOM element
   const card = e.target.closest('.js-cart-item');
-  const products = productsObject;
   const productId = Number(card.dataset.pid); // Extract productId from data-id
   const gender = card.dataset.gender; // Extract gender from data-gender
-  const productData = products[productId];
+  const productData = productsObject[productId];
   const numberInput = card.querySelector('.js-quantity');
-;
+
   // Get [key, item] from cartObject
   const [key, itemData] = findKeyByProductIdAndGender(cartItemsObject, productId, gender) || [];
-    
+  
+  // Click on increase or decrease buttons
+  if (
+    e.type === 'click' &&
+    (e.target.matches('.js-increase') || 
+    e.target.matches('.js-decrease'))
+  ) {
+    console.log(`\n//--- handleCartEvent('${e.type}') Called ---//`);
 
-  if (/*e.target.matches('.js-quantity') ||*/ 
-      e.target.matches('.js-increase') || 
-      e.target.matches('.js-decrease')) {
-    
     const adjQty = adjustQuantity(e, card, itemData);
     const diff = adjQty[0];
     const newVal = adjQty[1];
-
+    
     // Update values
+    numberInput.value = newVal;
     const newCount = sumValues(cartItemsObject, 'quantity') + diff;
-    cartSummaryObject.counter = newCount;
+    cartSummaryObject.counter = newCount;    
     const quantity = newVal; // set quantity and update item quantity
     const basePrice = Number(productData.priceInfo.price); // Original price set in productsObject
     const adjustedPrice = Number(weekendPricing(basePrice)); // 
     const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
     const discount = adjustedPrice - discountPrice;
+
+    // Debugg
+    
     
     // Update CartItem
     updateCartItem(itemData, quantity, discountPrice, discount);
@@ -711,6 +756,34 @@ function handleCartEvent(e) {
     // Update header cart values
     updateHeaderCartCounter(cartSummaryObject);
 
+    console.log(`//--- handleCartEvent('${e.type}') End ---//`);
+    
+  }
+
+  if (e.type === 'change' && e.target.matches('.js-quantity-cart')) {
+    console.log('CHANGE!!!!');
+    
+    if (itemData && key) {
+      const quantity = Number(e.target.value); // Get the new quantity
+
+      // Update the cart object with the new quantity
+      itemData.quantity = quantity;
+
+      // Recalculate the item's price
+      const basePrice = Number(productsObject[productId].priceInfo.price);
+      const adjustedPrice = weekendPricing(basePrice);
+      const discountPrice = itemQtyDiscount(adjustedPrice, quantity);
+      const discount = adjustedPrice - discountPrice;
+
+      // Update item data in cartItemsObject
+      updateCartItem(itemData, quantity, discountPrice, discount);
+
+      // Update cart summary
+      updateCartSummary();
+
+      // Update header cart counter
+      updateHeaderCartCounter(cartSummaryObject);
+    }
   }
 
   if (e.target.matches('.js-remove-item') && e.type == 'click' && key) {
