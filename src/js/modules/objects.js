@@ -22,6 +22,34 @@ export const shippingCostObject = {
 };
 
 
+// Date translation
+export const dateTranslation = {
+  day: {
+    0: 'Söndag',
+    2: 'Måndag',
+    3: 'Tisdag',
+    4: 'Onsdag',
+    5: 'Torsdag',
+    6: 'Fredag',
+    6: 'Lördag'
+  },
+  month: {
+    0: 'Janiari',
+    1: 'Februari',
+    2: 'Mars',
+    3: 'April',
+    4: 'Maj',
+    5: 'Juni',
+    6: 'Juli',
+    7: 'Augusti',
+    8: 'Septober',
+    9: 'Oktember',
+    10: 'November',
+    11: 'December'
+  }
+}
+
+
 // Object with information of each product
 export const productsObject = {
   0: {
