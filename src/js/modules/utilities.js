@@ -254,3 +254,21 @@ export function translateGender(gender) {
 
   return genderTranslateObject[gender];
 }
+
+
+
+/**
+ * Generates a random integer between the specified minimum (inclusive) and maximum (exclusive) values.
+ *
+ * @param {number} min - The minimum integer value (inclusive).
+ * @param {number} max - The maximum integer value (exclusive).
+ * @returns {number} A random integer between the specified min (inclusive) and max (exclusive).
+ *
+ * @example
+ * getRandomInt(1, 10); // Returns a random integer between 1 (inclusive) and 10 (exclusive), e.g., 1, 2, ..., 9.
+ */
+export function getRandomInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+}

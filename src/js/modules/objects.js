@@ -13,24 +13,40 @@ export const cartSummaryObject = {
 export const cartItemsObject = {};
 
 
-// Object with shipping prices
-export const shippingCostObject = {
-  stork: {fixed: 250, variable: 4},
-  dove: {fixed: 150, variable: 3},
-  hare: {fixed: 75, variable: 2},
-  snail: {fixed: 25, variable: 1}
-};
+// Shipping Object
+export const shippingObject = {
+  stork: {
+    fixed: 250, variable: 4,
+    min: 1, max: 12,
+    text: 'stork'
+  },
+  dove: {
+    fixed: 150, variable: 3,
+    min: 8, max: 16,
+    text: 'duva'
+  },
+  hare: {
+    fixed: 75, variable: 2,
+    min: 14, max: 28,
+    text: 'hare'
+  },
+  snail: {
+    fixed: 25, variable: 1,
+    min: 42, max: 82,
+    text: 'snigel'
+  }
+}
 
 
 // Date translation
-export const dateTranslation = {
+export const dateTranslationObject = {
   day: {
     0: 'Söndag',
-    2: 'Måndag',
-    3: 'Tisdag',
-    4: 'Onsdag',
-    5: 'Torsdag',
-    6: 'Fredag',
+    1: 'Måndag',
+    2: 'Tisdag',
+    3: 'Onsdag',
+    4: 'Torsdag',
+    5: 'Fredag',
     6: 'Lördag'
   },
   month: {

@@ -1,8 +1,9 @@
 import { 
   productsObject, 
   cartSummaryObject, 
-  cartItemsObject, 
-  shippingCostObject
+  cartItemsObject,
+  dateTranslationObject,
+  shippingObject
 } from "./objects.js";
 
 import {
@@ -14,6 +15,10 @@ import {
   startTimer,
   stopTimer
 } from "./timers.js";
+
+import {
+  getRandomInt 
+} from "./utilities.js";
 
 
 //--------------------------------------//
@@ -597,6 +602,63 @@ function testCardDates(name) {
 
 
 
+
+/**
+ * Calculates an estimated delivery date based on the selected shipping method and current date.
+ *
+ * The function retrieves the selected shipping method from radio buttons, determines the range of possible 
+ * shipping days, calculates a random number of days within that range, and returns the estimated delivery 
+ * date in the format `weekday den day month year`.
+ *
+ * @returns {string|null} The estimated delivery date in the format `weekday den day month year`, or `null` if no shipping method is selected.
+ *
+ * @example
+ * getEstimatedShippingDate(); // Returns a string like "Måndag den 5 maj 2024"
+ */
+function getEstimatedShippingDate() {
+  // Get shipping alternatives radio buttons
+  const shippingChoices = Array.from(document.querySelectorAll('input[name="shipping"]'));
+
+  // Find the checked radio button 
+  const selectedShipping = shippingChoices.find(radio => radio.checked)?.value;
+
+  if (!selectedShipping) {
+    console.error('No shipping method selected.');
+    return null;
+  }
+
+  // Get current date
+  const currentDate = new Date();
+
+  // Get shipping time range
+  const shippingMinDays = shippingObject[selectedShipping].min;
+  const shippingMaxDays = shippingObject[selectedShipping].max;
+
+  // Generate random shipping days
+  const shippingDays = getRandomInt(shippingMinDays, shippingMaxDays);
+
+  // Calculate estimated delivery date
+  const estimatedDate = new Date(currentDate);
+  estimatedDate.setDate(currentDate.getDate() + shippingDays);
+
+  // Get day, month, and year
+  const weekdayIndex = estimatedDate.getDay();
+  const day = estimatedDate.getDate();
+  const monthIndex = estimatedDate.getMonth();
+  const year = estimatedDate.getFullYear();
+
+  // Use the dateTranslation object
+  const weekday = dateTranslationObject.day[weekdayIndex];
+  const month = dateTranslationObject.month[monthIndex];
+
+  // Return the formatted string
+  return `En ${shippingObject[selectedShipping].text} kommer någon gång under dagen ${weekday} den ${day} ${month.toLowerCase()} ${year}`;
+}
+
+
+
+
+
 //---------------------------------//
 //---------- Order Timer ----------//
 //---------------------------------//
@@ -651,6 +713,7 @@ function handleValidation(e) {
     if (name === 'shipping') {
       updateCartSummary();
     }
+    
 
 
     //------------------------------------//
@@ -845,6 +908,7 @@ function handleValidation(e) {
           stopTimer('checkout'); // Stop the timer if all fields are valid
 
           // Set checkout data
+          const sumShippingDateElem = document.querySelector('.js-summary-shipping-date');
           const sumNameElem = document.querySelector('.js-summary-name');
           const sumStreetAddressElem = document.querySelector('.js-summary-street-address');
           const sumZipElem = document.querySelector('.js-summary-zip');
@@ -852,7 +916,7 @@ function handleValidation(e) {
           const sumPhoneElem = document.querySelector('.js-summary-phone');
           const sumEmailElem = document.querySelector('.js-summary-email');
 
-
+          sumShippingDateElem.innerText = `${getEstimatedShippingDate()}.`;
           sumNameElem.innerText = `${givenNameInput.value} ${familyNameInput.value}`;
           sumStreetAddressElem.innerText = streetAddressInput.value;
           sumZipElem.innerText = zipInput.value;

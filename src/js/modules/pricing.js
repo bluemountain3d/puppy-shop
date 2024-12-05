@@ -1,4 +1,4 @@
-import { cartItemsObject, cartSummaryObject, shippingCostObject } from "./objects.js";
+import { cartItemsObject, cartSummaryObject, shippingObject } from "./objects.js";
 
 //*---------- Discounts ----------*//
 
@@ -254,8 +254,8 @@ export function getShippingCost(subtotal, counter, limit=15) {
   const selectedRadio = shippingRadios.find(radio => radio.checked).value;
 
   // Calculate fixed and variable costs
-  const fixedCost = Number(shippingCostObject[selectedRadio].fixed);
-  const variableCost = subtotal / 100 * Number(shippingCostObject[selectedRadio].variable);
+  const fixedCost = Number(shippingObject[selectedRadio].fixed);
+  const variableCost = subtotal / 100 * Number(shippingObject[selectedRadio].variable);
 
   // Return shipping cost
   if (!counter || counter > limit) {
