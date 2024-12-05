@@ -842,8 +842,8 @@ details.accordion[open] summary::before {
 /* ### Rating Paws START */
 .rating-paw {
   display: inline-block;
-  --paw-color-solid: rgb(214, 160, 23);
-  --paw-color-empty: rgb(0, 0, 0);
+  --paw-color-solid: #FEB900;
+  --paw-color-empty: #000;
   width: 2rem;
   height: auto;
   aspect-ratio: 1;
@@ -1258,9 +1258,8 @@ details.accordion[open] summary::before {
 }
 @media screen and (min-width: 720px) and (min-height: 840px) {
   .order-confirmed {
-    position: fixed;
-    top: 4rem;
-    height: calc(100vh - 7rem);
+    position: relative;
+    height: calc(100vh - 8rem);
   }
 }
 .order-confirmed__wrapper {
@@ -1288,7 +1287,7 @@ details.accordion[open] summary::before {
 }
 @media screen and (min-width: 720px) and (min-height: 540px) {
   .order-confirmed__wrapper {
-    max-width: 848px;
+    max-width: calc(900px + 6rem);
     max-height: calc(100vh - (4rem + max(24px, 6.25vw)));
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -1362,6 +1361,10 @@ details.accordion[open] summary::before {
   .order-confirmed__intro {
     padding-bottom: 2rem;
   }
+}
+.order-confirmed__delivery-info {
+  margin-top: 2rem;
+  display: grid;
 }
 .order-confirmed__content {
   display: grid;
@@ -1617,13 +1620,12 @@ details.accordion[open] summary::before {
 /* ### Page Header START */
 .header {
   z-index: 900;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   color: var(--clr-light);
   background-color: var(--clr-dark);
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 4rem, calc(50% + 960px) 4rem, calc(50% + 960px) 100vh, calc(50% - 960px) 100vh, calc(50% - 960px) 4rem, 0 4rem);
-          clip-path: polygon(0 0, 100% 0, 100% 4rem, calc(50% + 960px) 4rem, calc(50% + 960px) 100vh, calc(50% - 960px) 100vh, calc(50% - 960px) 4rem, 0 4rem);
 }
 .header__brand {
   padding: 0.5rem 2rem;
@@ -1642,6 +1644,7 @@ details.accordion[open] summary::before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  overflow-x: clip;
 }
 .header__nav {
   min-width: 100%;
@@ -1893,17 +1896,19 @@ details.accordion[open] summary::before {
 main {
   overflow-y: visible;
   width: 100%;
-  padding-top: 1rem;
+  padding-block: 4rem;
 }
 /* ### Page Main content END
 /* ------------------------------------------------------------ */
 /* ### Page Footer START */
 .footer {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
   margin-top: auto;
   padding: 1rem;
   width: 100%;
+  height: 4rem;
   background-color: var(--clr-dark);
   color: var(--clr-light);
 }

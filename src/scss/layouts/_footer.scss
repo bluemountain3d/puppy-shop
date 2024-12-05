@@ -9,13 +9,15 @@ $_module-name: "Page Footer";
 /* ### #{$_module-name} START */
 
 .footer {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
   //overflow: hidden;
   //align-self: flex-end;
   margin-top: auto;
   padding: 1rem;
   width: 100%;
+  height: 4rem;
   
   background-color: var(--clr-dark);
   color: var(--clr-light);

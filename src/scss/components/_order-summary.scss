@@ -26,9 +26,9 @@ $_module-name: "Order Confirmed";
 
   @media screen and (min-width: 720px) and (min-height: 840px) {
     //padding-top: Max(12px, 3.125vw);
-    position: fixed;
-    top: 4rem;
-    height: calc(100vh - 7rem);
+    position: relative;
+    //top: 4rem;
+    height: calc(100vh - 8rem);
   }
 
   &__wrapper {
@@ -53,7 +53,7 @@ $_module-name: "Order Confirmed";
     background-color: var(--clr-light);
 
     @media screen and (min-width: 720px) and (min-height: 540px) {
-      max-width: 848px;
+      max-width: calc(450px * 2 + 6rem);
       max-height: calc((100vh - (4rem + Max(24px, 6.25vw))));
       justify-content: center;
       align-items: center;
@@ -121,6 +121,11 @@ $_module-name: "Order Confirmed";
     @media screen and (min-width: 720px) {
       padding-bottom: 2rem;
     }
+  }
+
+  &__delivery-info {
+    margin-top: 2rem;
+    display: grid;
   }
 
   &__content {

@@ -10,8 +10,9 @@ $_module-name: "Page Header";
 
 .header {
   z-index: 900;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   //margin-bottom: 1rem;
   color: var(--clr-light);
@@ -22,12 +23,12 @@ $_module-name: "Page Header";
   //                    calc(50% + 960px) 100vh,
   //                    calc(50% - 960px) 100vh);
 
-  clip-path: polygon(0 0, 100% 0, 
-                     100% 4rem, 
-                     calc(50% + 960px) 4rem,
-                     calc(50% + 960px) 100vh, calc(50% - 960px) 100vh,
-                     calc(50% - 960px) 4rem,
-                     0 4rem);
+  // clip-path: polygon(0 0, 100% 0, 
+  //                    100% 4rem, 
+  //                    calc(50% + 960px) 4rem,
+  //                    calc(50% + 960px) 100vh, calc(50% - 960px) 100vh,
+  //                    calc(50% - 960px) 4rem,
+  //                    0 4rem);
 
   &__brand {
     padding: .5rem 2rem;
@@ -43,7 +44,7 @@ $_module-name: "Page Header";
     max-width: 1920px;
     display: flex;
     align-items: center;
-    //overflow-x: clip;
+    overflow-x: clip;
   }
 
   &__nav {
