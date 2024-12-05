@@ -652,7 +652,7 @@ function getEstimatedShippingDate() {
   const month = dateTranslationObject.month[monthIndex];
 
   // Return the formatted string
-  return `En ${shippingObject[selectedShipping].text} kommer någon gång under dagen ${weekday} den ${day} ${month.toLowerCase()} ${year}`;
+  return `En ${shippingObject[selectedShipping].text} kommer någon gång mellan klockan 07-21, ${weekday} den ${day} ${month.toLowerCase()} ${year}`;
 }
 
 

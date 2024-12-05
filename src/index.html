@@ -585,7 +585,41 @@
 
 
 
-                    <!-- Order summary "Details / Accordion" -->
+                    <!-- Order summary -->
+                    <div class="checkout__form-group">
+                      <div class="checkout__group-inner">
+                        <div class="checkout__order-details js-summary">
+                          <div class="checkout__order-details-total js-summary-total">1 000 kr</div>
+                          <div class="checkout__order-details-text">
+                            <!-- Totalbelopp inkl. moms <a href="#toggle-order-details"> Visa detaljer</a> -->
+                            Totalbelopp inkl. moms <button class="js-toggle-order-details" type="button">Visa detaljer</button>
+                          </div>
+                          <div class="checkout__order-details-root js-order-details">
+                            <div class="checkout__order-details-inner">
+                              <ul class="checkout__order-details-data js-summary-items"></ul>
+                              <div class="checkout__order-details-summary">
+                                <div class="cart__summary-row">
+                                  <span class="cart__summary-label">Delsumma</span>
+                                  <span class="cart__summary-value js-summary-subtotal"></span>
+                                </div>
+                                <div class="cart__summary-row">
+                                  <span class="cart__summary-label">Rabatter</span>
+                                  <span class="cart__summary-value cart__summary-value--red js-summary-discounts"></span>
+                                </div>
+                                <div class="cart__summary-row">
+                                  <span class="cart__summary-label">Fraktkostnad</span>
+                                  <span class="cart__summary-value js-summary-shipping"></span>
+                                </div>
+                                <div class="cart__summary-row">
+                                  <span class="cart__summary-label">Moms</span>
+                                  <span class="cart__summary-value cart__summary-value--grey js-summary-vat"></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
 
     

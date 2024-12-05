@@ -115,26 +115,56 @@ export function summaryItemCard(itemData, productData) {
     <li class="order-confirmed__item js-summary-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
       <article class="order-confirmed__item-content-wrapper">
         <picture class="order-confirmed__item-image-wrapper">
-          <img class="order-confirmed__item-image" src="${productData.image.url}-w512.avif" alt="${productData.image.alt}" width="80" height="80" loading="lazy">
+          <img class="order-confirmed__item-image" src="${productData.image.url}-w512.avif" alt="${productData.image.alt}" width="40" height="40" loading="lazy">
         </picture>
         <section class="order-confirmed__item-info">
           <h4 class="order-confirmed__item-title js-summary-breed">${productData.breedInfo.breed}</h4>
           <div class="order-confirmed__item-row">
-            <span class="order-confirmed__item-label">Ras:</span>
-            <span class="order-confirmed__item-data js-summary-gender">${translateGender(itemData.gender)}</span>
-          </div>
-          <div class="order-confirmed__item-row">
-            <span class="order-confirmed__item-label">Antal:</span>
-            <span class="order-confirmed__item-data js-summary-quantity">${itemData.quantity} st</span>
-          </div>
-          <div class="order-confirmed__item-row">
-            <span class="order-confirmed__item-label">Radtotal:</span>
+            <div>
+              <span class="order-confirmed__item-data js-summary-gender">${translateGender(itemData.gender)}, </span>
+              <span class="order-confirmed__item-data js-summary-quantity">${itemData.quantity} st</span>
+            </div>
             <span class="order-confirmed__item-data js-summary-line-total">${formatPrice(itemData.priceInfo.lineTotal)} kr</span>
           </div>
         </section>
       </article>
     </li>
   `;
+  // return `
+  //   <li class="order-confirmed__item js-summary-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
+  //     <article class="order-confirmed__item-content-wrapper">
+  //       <picture class="order-confirmed__item-image-wrapper">
+  //         <img class="order-confirmed__item-image" src="${productData.image.url}-w512.avif" alt="${productData.image.alt}" width="80" height="80" loading="lazy">
+  //       </picture>
+  //       <section class="order-confirmed__item-info">
+  //         <h4 class="order-confirmed__item-title js-summary-breed">${productData.breedInfo.breed}</h4>
+  //         <div class="order-confirmed__item-row">
+  //           <span class="order-confirmed__item-label">Ras:</span>
+  //           <span class="order-confirmed__item-data js-summary-gender">${translateGender(itemData.gender)}</span>
+  //         </div>
+  //         <div class="order-confirmed__item-row">
+  //           <span class="order-confirmed__item-label">Antal:</span>
+  //           <span class="order-confirmed__item-data js-summary-quantity">${itemData.quantity} st</span>
+  //         </div>
+  //         <div class="order-confirmed__item-row">
+  //           <span class="order-confirmed__item-label">Radtotal:</span>
+  //           <span class="order-confirmed__item-data js-summary-line-total">${formatPrice(itemData.priceInfo.lineTotal)} kr</span>
+  //         </div>
+  //       </section>
+  //     </article>
+  //   </li>
+  // `;
+}
+
+export function detailsItemCard(itemData, productData) {
+  // <li class="checkout__order-details-row js-order-details-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
+  //   <div>
+  //     <span class="js-order-details-quantity"></span>&nbsp;st&nbsp;
+  //     <span class="js-order-details-product"></span>&nbsp;
+  //     <span class="js-order-details-gender"></span>
+  //   </div>
+  //   <div class="js-order-details-line-total"></div>
+  // </li>
 }
 
 
@@ -401,13 +431,23 @@ export function updateCartSummary() {
     const sumShippingElem = container.querySelector('.js-summary-shipping');
     const sumTotalElem = container.querySelector('.js-summary-total');
 
-    sumSubtotalElem.innerText = `${formatPrice(subtotal)} kr`;
-    sumDiscountsElem.innerText = `${formatPrice(newDiscounts * -1)} kr`;
-    sumVatElem.innerText = `${formatPrice(Math.round((newSubtotal - newDiscounts) * .2))} kr`;
-    sumShippingElem.innerText = shippingCost 
-    ? `${formatPrice(shippingCost)} kr` 
-    : 'Frakten kostar gratis!';
-    sumTotalElem.innerText = `${formatPrice(subtotal - newDiscounts + shippingCost)} kr`;
+    if (sumSubtotalElem) {
+      sumSubtotalElem.innerText = `${formatPrice(subtotal)} kr`;
+    }
+    if (sumDiscountsElem) {
+      sumDiscountsElem.innerText = `${formatPrice(newDiscounts * -1)} kr`;
+    }
+    if (sumVatElem) {
+      sumVatElem.innerText = `${formatPrice(Math.round((newSubtotal - newDiscounts) * .2))} kr`;
+    }
+    if (sumShippingElem) {
+      sumShippingElem.innerText = shippingCost 
+        ? `${formatPrice(shippingCost)} kr` 
+        : 'Frakten kostar gratis!';
+    }
+    if (sumTotalElem) {
+      sumTotalElem.innerText = `${formatPrice(subtotal - newDiscounts + shippingCost)} kr`;
+    }
   });
   
   //sumValues(cartItemsObject, 'priceInfo.discount');
@@ -688,8 +728,20 @@ closeCart.addEventListener('click', e => {
 });
 
 
+//*---------- Order Details Show/hide functionality ----------*//
 
+const orderDetails = document.querySelector('.js-order-details');
+const toggleOrderDetails = document.querySelector('.js-toggle-order-details');
 
+toggleOrderDetails.addEventListener('click', (e) => {
+  if (orderDetails.classList.contains('open')) {
+    orderDetails.classList.remove('open')
+    toggleOrderDetails.innerText = 'Visa detaljer';
+  } else {
+    orderDetails.classList.add('open');
+    toggleOrderDetails.innerText = 'Dölj detaljer';
+  }
+});
 
 
 
