@@ -303,10 +303,10 @@ body, .theme-light {
   --button-text-hover: #F9FBFF;
   --danger-border: #F44336;
   --danger-background: #FFEBEE;
-  --danger-text: #D32F2F;
+  --danger-text: #CF2D2D;
   --valid-border: #4CAF50;
   --valid-background: #E6F3E6;
-  --valid-text: #2E7D32;
+  --valid-text: #2E7C32;
   --warning-border: #FF9800;
   --warning-background: #FFF4E5;
   --warning-text: #F57C00;
@@ -343,7 +343,7 @@ body.theme-dark {
   --danger-text: #FF5649;
   --valid-border: #2ADE8A;
   --valid-background: #063A20;
-  --valid-text: #2ADE8A;
+  --valid-text: #29D685;
   --warning-border: #FF9800;
   --warning-background: #4D2C00;
   --warning-text: #FFA726;
@@ -496,6 +496,18 @@ button:not(.no-shake):hover .icon {
           animation: shaking 0.2s linear 2;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ### General CSS END
 /* ------------------------------------------------------------ */
 /* ### Form START */
@@ -545,6 +557,13 @@ fieldset {
   clear: both;
 }
 
+fieldset {
+  min-inline-size: unset;
+  margin-inline: unset;
+  padding-block: unset;
+  padding-inline: unset;
+}
+
 button {
   cursor: pointer;
   border: none;
@@ -555,11 +574,10 @@ button * {
   pointer-events: none;
 }
 
-fieldset {
-  min-inline-size: unset;
-  margin-inline: unset;
-  padding-block: unset;
-  padding-inline: unset;
+label.hidden-label {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 input[type=number] {
@@ -595,7 +613,7 @@ input[type=number]:disabled {
   left: 0.75rem;
   width: 1.25rem;
   height: 1.25rem;
-  border: 1px solid var(--lines-color);
+  border: 1px solid var(--accent-color);
   border-radius: 50%;
   background-color: var(--background-color);
   display: grid;
@@ -603,8 +621,8 @@ input[type=number]:disabled {
 }
 .rb-checkmark::after {
   content: "";
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.5rem;
+  height: 0.5rem;
   display: none;
   border-radius: 50%;
   background-color: var(--background-color);
@@ -681,7 +699,7 @@ input[type=number]:disabled {
   left: 0.75rem;
   width: 1.25rem;
   height: 1.25rem;
-  border: 1px solid var(--lines-color);
+  border: 1px solid var(--accent-color);
   outline: 0 solid;
   outline-color: transparent;
   outline-offset: -1px;
@@ -712,6 +730,7 @@ input[type=number]:disabled {
 
 .chb-custom:hover > .chb-checkmark {
   outline-width: 2px;
+  outline-offset: 2px;
   outline-style: solid;
   outline-color: var(--info-border);
 }
@@ -1396,8 +1415,8 @@ details.accordion[open] summary::before {
   max-width: 450px;
   margin: max(12px, 3.125vw) auto;
   border-radius: 1rem;
-  -webkit-box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
-          box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
+  -webkit-box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
+          box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
   color: var(var(--text-color));
   background-color: var(--background-accent);
 }
@@ -1746,17 +1765,13 @@ details.accordion[open] summary::before {
   width: 100%;
   color: var(--header-color);
   background-color: var(--header-background);
-}
-.header__brand {
-  padding: 0.5rem 2rem;
-}
-.header__brand > .icon {
-  width: 11.25rem;
-  height: 3rem;
-  fill: var(--header-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .header__inner {
   margin-inline: auto;
+  width: 100%;
   max-width: 1920px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1764,19 +1779,64 @@ details.accordion[open] summary::before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   overflow-x: clip;
+}
+.header__brand {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: auto;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+}
+.header__brand > .icon {
+  height: 3rem;
+  fill: var(--header-color);
+}
+@media screen and (min-width: 720px) {
+  .header__brand {
+    padding-inline: 2rem 1rem;
+  }
+}
+.header__brand-icon-head {
+  display: inline-block;
+  width: 3.8125rem;
+}
+.header__brand-icon-text {
+  display: none;
+  width: 0;
+}
+@media screen and (min-width: 320px) {
+  .header__brand-icon-text {
+    display: inline-block;
+    width: 7.6875rem;
+  }
 }
 .header__nav {
   min-width: 100%;
 }
 .header__theme-mode-btn {
-  margin-left: auto;
-  padding: 0 1rem;
+  padding-right: 0.5rem;
+  padding-block: 0.5rem;
 }
 .header__theme-mode-btn .icon {
   width: 2rem;
   height: 2rem;
   fill: var(--header-color);
+}
+@media screen and (min-width: 720px) {
+  .header__theme-mode-btn {
+    padding-right: 1rem;
+  }
 }
 .header__cart {
   position: relative;
@@ -1790,6 +1850,9 @@ details.accordion[open] summary::before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 100%;
 }
 .header__cart-inner.change {
@@ -1799,7 +1862,8 @@ details.accordion[open] summary::before {
 .header__cart-btn {
   cursor: pointer;
   height: 4rem;
-  padding: 0 2rem 0 1rem;
+  margin-left: auto;
+  padding: 0 2rem 0 0;
   color: var(--header-color);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1807,8 +1871,12 @@ details.accordion[open] summary::before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 1rem;
   font-size: 1.5rem;
+}
+@media screen and (min-width: 720px) {
+  .header__cart-btn {
+    padding: 0 2rem 0 1rem;
+  }
 }
 .header__cart-btn > .icon {
   display: none;
@@ -1825,6 +1893,9 @@ details.accordion[open] summary::before {
   -webkit-animation: shaking 0.25s linear 2;
           animation: shaking 0.25s linear 2;
 }
+.header__cart-count {
+  padding-left: 0.5rem;
+}
 .header__cart-total {
   display: none;
 }
@@ -1835,8 +1906,12 @@ details.accordion[open] summary::before {
 }
 .header__to-checkout-mobile {
   display: inline-block;
+  display: grid;
+  place-content: center;
+  padding: 0.25rem;
 }
 .header__to-checkout-mobile > .icon {
+  padding: 0.25rem;
   display: inline-block;
   width: 2.5rem;
   height: 2.5rem;
@@ -1858,6 +1933,7 @@ details.accordion[open] summary::before {
 }
 .header__to-checkout {
   display: none;
+  height: 4rem;
 }
 @media screen and (min-width: 720px) {
   .header__to-checkout {
@@ -1906,14 +1982,14 @@ details.accordion[open] summary::before {
   right: 0;
   opacity: 0;
   translate: 100%;
-  width: min(100vw, 400px);
+  width: min(100vw, 25rem);
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   max-height: calc(100vh - 5rem);
   background-color: var(--background-accent);
-  -webkit-box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
-          box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
+  -webkit-box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
+          box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
   -webkit-transition: translate 0.5s ease, opacity 0.5s ease;
   transition: translate 0.5s ease, opacity 0.5s ease;
 }
@@ -2035,6 +2111,7 @@ main {
 /* ------------------------------------------------------------ */
 /* ### Page Footer START */
 .footer {
+  z-index: 900;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -2146,8 +2223,8 @@ main {
 
 .cart {
   background-color: var(--background-accent);
-  -webkit-box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
-          box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
+  -webkit-box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
+          box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
   border-radius: 1rem;
   height: 100%;
 }
@@ -2403,8 +2480,8 @@ main {
           order: 2;
   border-radius: 1rem;
   background-color: transparent;
-  -webkit-box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
-          box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.33);
+  -webkit-box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
+          box-shadow: 0 0.25rem 0.5rem var(--box-shadow-color);
 }
 @media screen and (min-width: 720px) {
   .checkout {
@@ -2479,7 +2556,7 @@ main {
 .checkout__input-wrapper, .checkout__input-wrapper-inner {
   position: relative;
 }
-.checkout__input-wrapper label:not(.chb-custom), .checkout__input-wrapper-inner label:not(.chb-custom) {
+.checkout__input-wrapper label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper > legend, .checkout__input-wrapper-inner label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner > legend {
   position: absolute;
   top: 50%;
   left: 0;
@@ -2493,29 +2570,29 @@ main {
   -webkit-transition: font-size 0.2s ease, padding 0.2s ease, top 0.2s ease, translate 0.2s ease;
   transition: font-size 0.2s ease, padding 0.2s ease, top 0.2s ease, translate 0.2s ease;
 }
-.checkout__input-wrapper:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper-inner:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom) {
+.checkout__input-wrapper:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-moz-placeholder-shown)) > legend, .checkout__input-wrapper-inner:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-moz-placeholder-shown)) > legend {
   top: 0.875rem;
   transform: translateY(0);
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom), .checkout__input-wrapper:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom), .checkout__input-wrapper-inner:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom) {
+.checkout__input-wrapper:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-ms-input-placeholder)) > legend, .checkout__input-wrapper-inner:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-ms-input-placeholder)) > legend {
   top: 0.875rem;
   transform: translateY(0);
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper:focus-within label:not(.chb-custom), .checkout__input-wrapper:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper:has(input:not(:placeholder-shown)) > label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper-inner:has(input:not(:placeholder-shown)) > label:not(.chb-custom) {
+.checkout__input-wrapper:focus-within label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:focus-within legend, .checkout__input-wrapper:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:placeholder-shown)) > legend, .checkout__input-wrapper-inner:focus-within label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:focus-within legend, .checkout__input-wrapper-inner:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:placeholder-shown)) > legend {
   top: 0.875rem;
   -webkit-transform: translateY(0);
           transform: translateY(0);
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper label:not(.chb-custom):has(+ span.js-input-message), .checkout__input-wrapper-inner label:not(.chb-custom):has(+ span.js-input-message) {
+.checkout__input-wrapper label:not(.chb-custom):not(.visually-hidden):has(+ span.js-input-message), .checkout__input-wrapper:has(+ span.js-input-message) > legend, .checkout__input-wrapper-inner label:not(.chb-custom):not(.visually-hidden):has(+ span.js-input-message), .checkout__input-wrapper-inner:has(+ span.js-input-message) > legend {
   top: calc(50% - 0.65rem);
 }
-.checkout__input-wrapper input:not(.chb-custom > input, .rb-custom > input), .checkout__input-wrapper-inner input:not(.chb-custom > input, .rb-custom > input) {
+.checkout__input-wrapper input:not(.chb-custom > input):not(.rb-custom > input), .checkout__input-wrapper-inner input:not(.chb-custom > input):not(.rb-custom > input) {
   width: 100%;
   padding: 1.5rem 1rem 0;
   line-height: 2.375rem;
@@ -2524,17 +2601,22 @@ main {
   background-color: var(--background-color);
   color: var(--text-color);
 }
-.checkout__input-wrapper input:not(.chb-custom > input, .rb-custom > input):not(:-moz-placeholder-shown) ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input, .rb-custom > input):not(:-moz-placeholder-shown) ~ label {
+.checkout__input-wrapper input:not(.chb-custom > input):not(.rb-custom > input):not(:-moz-placeholder-shown) ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input):not(.rb-custom > input):not(:-moz-placeholder-shown) ~ label {
   top: 0.875rem;
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper input:not(.chb-custom > input, .rb-custom > input):not(:-ms-input-placeholder) ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input, .rb-custom > input):not(:-ms-input-placeholder) ~ label {
+.checkout__input-wrapper input:not(.chb-custom > input):not(.rb-custom > input):not(:-ms-input-placeholder) ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input):not(.rb-custom > input):not(:-ms-input-placeholder) ~ label {
   top: 0.875rem;
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper input:not(.chb-custom > input, .rb-custom > input):focus ~ label, .checkout__input-wrapper input:not(.chb-custom > input, .rb-custom > input):not(:placeholder-shown) ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input, .rb-custom > input):focus ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input, .rb-custom > input):not(:placeholder-shown) ~ label {
+.checkout__input-wrapper input:not(.chb-custom > input):not(.rb-custom > input):focus ~ label, .checkout__input-wrapper input:not(.chb-custom > input):not(.rb-custom > input):not(:placeholder-shown) ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input):not(.rb-custom > input):focus ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input):not(.rb-custom > input):not(:placeholder-shown) ~ label {
+  top: 0.875rem;
+  padding: 0 0 0 0.75rem;
+  font-size: 0.75rem;
+}
+.checkout__input-wrapper:has(input:focus) legend, .checkout__input-wrapper-inner:has(input:focus) legend {
   top: 0.875rem;
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;

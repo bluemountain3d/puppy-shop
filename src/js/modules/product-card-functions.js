@@ -49,7 +49,7 @@ export function productCard(obj, quantity=0) {
   const kgPrice = comparisonPricePerKg(weekendPricing(Number(obj.priceInfo.price)), Number(obj.properties.weight.male));
   
   const card = `
-        <article class="product-card js-product-card" data-pid="${pid}" data-rating="${rating}" data-gender="male">
+        <article class="product-card js-product-card" data-pid="${pid}" data-rating="${rating}" data-gender="male" aria-labelledby="product-title-${breed}">
             <div class="product-card__image-wrapper">
               <picture>
                 <img 
@@ -64,7 +64,7 @@ export function productCard(obj, quantity=0) {
             </div>
             <div class="product-card__content-wrapper">
               <section class="product-card__info">
-                <h3 class="product-card__title">${breed}</h3>
+                <h3 id="product-title-${breed}" class="product-card__title">${breed}</h3>
                 <p class="product-card__byline">${byline}</p>
                 <p class="product-card__tags">
                   Hundtyp: ${type}
@@ -75,7 +75,7 @@ export function productCard(obj, quantity=0) {
                   ${infoText}</div>
                 </details>
               </section>
-              <fieldset class="product-card__gender" aria-label="Välj kön på valpen">
+              <div class="product-card__gender" aria-label="Välj kön på valpen">
                 <label class="rb-custom product-card__gender-choice">
                   <input type="radio" name="gender-${pid}" class="product-card__gender-rb js-gender-rb" value="male" checked>
                   <span class="rb-checkmark"></span>
@@ -86,7 +86,7 @@ export function productCard(obj, quantity=0) {
                   <span class="rb-checkmark"></span>
                   <span class="rb-label product-card__gender-label">Tik</span>
                 </label>
-              </fieldset>
+              </div>
               <div class="product-card__price-quantity-group">
                 <div class="product-card__pricing">
                   <div class="product-card__item-price-wrapper">
@@ -99,14 +99,14 @@ export function productCard(obj, quantity=0) {
                   </div>
                 </div>
                 <div class="product-card__quantifier js-quantifier">
-                  <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">−</button>
+                  <button class="product-card__quantifier-btn js-decrease" aria-label="Minska antal">&minus;</button>
                   <span type="number" class="product-card__quantifier-value js-card-quantity js-quantity" aria-label="Antal" data-pid="${pid}">${quantity}</span>
-                  <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">+</button>
+                  <button class="product-card__quantifier-btn js-increase" aria-label="Öka antal">&plus;</button>
                 </div>
               </div>
             </div>
             <button class="product-card__add-to-cart js-add-to-cart" aria-label="Lägg till i varukorgen">
-              <svg class="icon">
+              <svg class="icon" aria-hidden="true">
                 <use href="#add-to-cart-icon" class="add-to-cart-icon"/>
               </svg>
               <span>Lägg i kundvagn</span>

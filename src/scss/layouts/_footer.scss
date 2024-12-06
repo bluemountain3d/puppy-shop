@@ -9,6 +9,7 @@ $_module-name: 'Page Footer';
 /* ### #{$_module-name} START */
 
 .footer {
+  z-index: 900;
   position: fixed;
   bottom: 0;
   left: 0;

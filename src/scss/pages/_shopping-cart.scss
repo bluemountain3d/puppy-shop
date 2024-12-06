@@ -83,7 +83,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
 .cart {
   background-color: var(--background-accent);
-  box-shadow: 0 .25rem .5rem rgba(black, .33);
+  box-shadow: 0 .25rem .5rem var(--box-shadow-color);
   border-radius: 1rem;
   //max-height: calc(100vh - 10rem);
   height: 100%;
@@ -368,7 +368,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
   order: 2;
   border-radius: 1rem;
   background-color: transparent;
-  box-shadow: 0 .25rem .5rem rgba(0,0,0,.33);
+  box-shadow: 0 .25rem .5rem var(--box-shadow-color);
 
   @media screen and (min-width: 720px) {
     margin-left: 1rem; //.5rem;
@@ -378,7 +378,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__group {
     width: 100%;
-    //box-shadow: 0 .25rem .5rem rgba(black, .33);
+    //box-shadow: 0 .25rem .5rem var(--box-shadow-color);
   }
 
   &__header {
@@ -427,7 +427,8 @@ $_module-name: "Page specific styles for: Shopping Cart";
   &__input-wrapper, &__input-wrapper-inner {
     position: relative;
 
-    & label:not(.chb-custom) {
+    & label:not(.chb-custom):not(.visually-hidden),
+    & > legend {
       position: absolute;
       top: 50%;
       left: 0;
@@ -454,20 +455,23 @@ $_module-name: "Page specific styles for: Shopping Cart";
     //   font-size: 0.75rem;
     // }
 
-    &:focus-within label:not(.chb-custom),
-    &:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom),
-    &:has(input:not(:placeholder-shown)) > label:not(.chb-custom) {
+    &:focus-within label:not(.chb-custom):not(.visually-hidden),
+    &:focus-within legend,
+    &:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden),
+    &:has(input:not(:placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden),
+    &:has(input:not(:placeholder-shown)) > legend {
       top: .875rem;
       transform: translateY(0);
       padding: 0 0 0 .75rem;
       font-size: .75rem;
     }
 
-    & label:not(.chb-custom):has( + span.js-input-message) {
+    & label:not(.chb-custom):not(.visually-hidden):has( + span.js-input-message),
+    &:has(+ span.js-input-message) > legend {
       top: calc(50% - .65rem);
     }
 
-    & input:not(.chb-custom > input, .rb-custom > input) {
+    & input:not(.chb-custom > input):not(.rb-custom > input) {
       width: 100%;
       padding: 1.5rem 1rem 0;
       line-height: 2.375rem;
@@ -484,6 +488,13 @@ $_module-name: "Page specific styles for: Shopping Cart";
         font-size: .75rem;
       }
     }
+
+    &:has(input:focus) legend {
+      top: .875rem;
+      padding: 0 0 0 .75rem;
+      font-size: .75rem;
+    }
+
   }
 
   &__input-wrapper--date-cvv {

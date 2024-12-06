@@ -66,9 +66,9 @@ export function cartItemCard(itemData, productData) {
           <span class="cart__item-price js-price">${formatPrice(itemData.priceInfo.price)} kr</span>
           <div class="cart__item-controlls">
             <div class="cart__item-quantity-wrapper js-quantifier">
-              <button class="cart__item-decrease js-decrease" aria-label="Minska antal">−</button>
+              <button class="cart__item-decrease js-decrease" aria-label="Minska antal">&minus;</button>
               <span class="cart__item-quantity js-quantity js-quantity-cart" aria-label="Antal">${itemData.quantity}</span>
-              <button class="cart__item-increase js-increase" aria-label="Öka antal">+</button>
+              <button class="cart__item-increase js-increase" aria-label="Öka antal">&plus;</button>
             </div>
             <button class="cart__item-remove js-remove-item" aria-label="Ta bort">
               <svg class="icon cart__item-remove-icon" aria-hidden="true">
@@ -475,9 +475,9 @@ export function updateHeaderCartCounter(cartObj) {
   const headerCartOuter = document.querySelector('.js-header-cart-inner');
   const headerCartMobileBtn = document.querySelector('.js-header-cart-mobile-btn');
   const headerCart = document.querySelector('.js-header-cart-btn');
-  const headerToCart = document.querySelector('.header__to-checkout');
-  const headerCount = document.querySelector('.header__cart-count');
-  const headerTotal = document.querySelector('.header__cart-total');
+  const headerToCart = document.querySelector('.js-header-checkout');
+  const headerCount = document.querySelector('.js-header-count');
+  const headerTotal = document.querySelector('.js-header-total');
 
   // Ensure required elements exist
   if (!headerCart || !headerToCart || !headerCount || !headerTotal) {
@@ -492,8 +492,8 @@ export function updateHeaderCartCounter(cartObj) {
   const hasItems = Number(cartObj.counter) > 0;
 
   // Update counter and total text
-  headerCount.innerText = hasItems ? `${cartObj.counter} st,` : '0';
-  headerTotal.innerText = hasItems ? `${formatPrice(Number(cartObj.subtotal))} kr` : '';
+  headerCount.innerText = hasItems ? `${cartObj.counter} st` : '0';
+  headerTotal.innerText = hasItems ? `, ${formatPrice(Number(cartObj.subtotal))} kr` : '';
 
   // Show or hide elements based on cart state and viewport width
   if (hasItems) {

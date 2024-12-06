@@ -17,34 +17,50 @@ $_module-name: 'Page Header';
   //margin-bottom: 1rem;
   color: var(--header-color);
   background-color: var(--header-background);
-
-  // clip-path: polygon(calc(50% - 960px) 0, 
-  //                    calc(50% + 960px) 0,
-  //                    calc(50% + 960px) 100vh,
-  //                    calc(50% - 960px) 100vh);
-
-  // clip-path: polygon(0 0, 100% 0, 
-  //                    100% 4rem, 
-  //                    calc(50% + 960px) 4rem,
-  //                    calc(50% + 960px) 100vh, calc(50% - 960px) 100vh,
-  //                    calc(50% - 960px) 4rem,
-  //                    0 4rem);
-
-  &__brand {
-    padding: .5rem 2rem;
-    > .icon {
-      width: 11.25rem;
-      height: 3rem;
-      fill: var(--header-color);
-    }
-  }
+  display: flex;
 
   &__inner {
     margin-inline: auto;
+    width: 100%;
     max-width: 1920px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     overflow-x: clip;
+  }
+
+  &__brand {
+    display: flex;
+    justify-content: flex-start;
+    width: fit-content;
+    margin-right: auto;
+    padding-block: .5rem;
+    padding-inline: 1rem;
+
+    > .icon {
+      // width: auto;
+      height: 3rem;
+      fill: var(--header-color);
+    }
+    
+    @media screen and (min-width: 720px) {
+      padding-inline: 2rem 1rem;
+    }
+  }
+
+  &__brand-icon-head {
+    display: inline-block;
+    width: 3.8125rem;
+  }
+
+  &__brand-icon-text {
+    display: none;
+    width: 0;
+
+    @media screen and (min-width: 320px) {
+      display: inline-block;
+      width: 7.6875rem;
+    }
   }
 
   &__nav {
@@ -52,13 +68,18 @@ $_module-name: 'Page Header';
   }
 
   &__theme-mode-btn {
-    margin-left: auto;
-    padding: 0 1rem;
+    //margin-left: auto;
+    padding-right: .5rem;
+    padding-block: .5rem;
 
     & .icon {
       width: 2rem;
       height: 2rem;
       fill: var(--header-color);
+    }
+
+    @media screen and (min-width: 720px) {
+      padding-right: 1rem;
     }
   }
 
@@ -72,24 +93,34 @@ $_module-name: 'Page Header';
   &__cart-inner {
     position: relative;
     display: flex;
+    align-items: center;
     height: 100%;
 
     &.change {
       animation: horizontal-shaking 0.25s linear 2;
+    }
+
+    @media screen and (min-width: 720px) {
+      //min-width: 25rem;
     }
   }
 
   &__cart-btn {
     cursor: pointer;
     height: 4rem;
-    padding: 0 2rem 0 1rem;
+    margin-left: auto;
+    padding: 0 2rem 0 0;
     color: var(--header-color);
 
     display: flex;
     align-items: center;
-    gap: 1rem;
+    //gap: 1rem;
 
     font-size: 1.5rem;
+
+    @media screen and (min-width: 720px) {
+      padding: 0 2rem 0 1rem; // left 1rem
+    }
 
     & > .icon {
       display: none;
@@ -115,6 +146,10 @@ $_module-name: 'Page Header';
     }
   }
 
+  &__cart-count {
+    padding-left: .5rem;
+  }
+
   &__cart-total {
     display: none;
 
@@ -125,8 +160,12 @@ $_module-name: 'Page Header';
 
   &__to-checkout-mobile {
     display: inline-block;
+    display: grid;
+    place-content: center;
+    padding: .25rem;
 
     & > .icon {
+      padding: .25rem;
       display: inline-block;
       width: 2.5rem;
       height: 2.5rem;
@@ -149,6 +188,7 @@ $_module-name: 'Page Header';
 
   &__to-checkout {
     display: none;
+    height: 4rem;
 
     @media screen and (min-width: 720px) {
       cursor: pointer;
@@ -199,12 +239,12 @@ $_module-name: 'Page Header';
     right: 0;
     opacity: 0;
     translate: 100%;
-    width: Min(100vw, 400px);
+    width: Min(100vw, 25rem);
     height: fit-content;
     //max-height: 100vh;
     max-height: calc(100vh - 5rem);
     background-color: var(--background-accent);
-    box-shadow: 0 .25rem .5rem rgba(black, .33);
+    box-shadow: 0 .25rem .5rem var(--box-shadow-color);
     transition: translate .5s ease, opacity .5s ease;
 
     &.active {
