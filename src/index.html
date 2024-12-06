@@ -262,7 +262,7 @@
                           name="postal-email"
                           value=""
                           placeholder=" "
-                          pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
+                          pattern="^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
                           autocomplete="email"
                           required
                           aria-required="true"
@@ -390,7 +390,7 @@
                               name="info-email"
                               value=""
                               placeholder=" "
-                              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
+                              pattern="^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
                               autocomplete="email"
                               aria-label="E-postadress"
                               aria-describedby="email-tooltip">
@@ -502,7 +502,7 @@
                               class="checkout__input checkout__input--billing js-street-address"
                               value=""
                               placeholder=" "
-                              pattern="^[a-zA-ZÀ-ž][a-zA-ZÀ-ž0-9.,'\/\- ]*[a-zA-ZÀ-ž0-9.]$"
+                              pattern="^[A-Za-zÅÄÖåäöÉé'’][A-Za-zÅÄÖåäöÉé'’\-]*(?:\s[A-Za-zÅÄÖåäöÉé'’\-]+)*\s\d+[A-Za-z]?(?:\s?[A-Za-zÅÄÖåäöÉé'’\-]*)?$"
                               autocomplete="street-address"
                               aria-label="Gatuadress"
                               aria-describedby="street-address-tooltip">
@@ -693,43 +693,24 @@
                           <!-- Expire Date and CVV -->
                           <div class="checkout__input-row">
                             <!-- Expire Date -->
-                            <div class="checkout__input-wrapper checkout__input-wrapper--date-cvv js-input-wrapper">
-                              <fieldset class="checkout__input-wrapper-inner checkout__input-wrapper--inner-date-cvv js-input-wrapper-inner" id="card-date">
-                                <div class="combined-inputs-entity">
-                                  <label for="card-expire-month" class="hid">Månad</label>
-                                  <input
-                                    type="text"
-                                    name="card-expire-month"
-                                    class="checkout__input checkout__input--expire-month js-card-expire-month js-split-input"
-                                    placeholder="MM"
-                                    maxlength="2"
-                                    inputmode="numeric"
-                                    pattern="^(0[1-9]|1[0-2])$"
-                                    title="Skriv månad med två siffror, t.ex. 06 för juni."
-                                    aria-labeledby="expire-date-label">
-                                </div>
-                                <div class="checkout__date-cvv-divider">/</div>
-                                <div class="combined-inputs-entity">
-                                  <label for="card-expire-year" class="hid">År</label>
-                                  <input
-                                    type="text"
-                                    name="card-expire-year"
-                                    class="checkout__input checkout__input--expire-year js-card-expire-year js-split-input"
-                                    placeholder="YY"
-                                    inputmode="numeric"
-                                    maxlength="2"
-                                    pattern=""
-                                    title="Skriv år med två siffror, t.ex. 24 för 2024."
-                                    aria-labeledby="expire-date-label">
-                                </div>
-                                <legend id="expire-date-label" class="checkout__input-placeholder">Giltigt till:</legend>
-                                <!-- <label 
-                                  class="checkout__input-placeholder"
-                                  id="expire-date-label"
-                                  for="card-date">
-                                  Giltigt till:
-                                </label> -->
-                              </fieldset>
+                            <div class="checkout__input-wrapper checkout__input-wrapper--billing js-input-wrapper">                            
+                              <input
+                                type="text"
+                                id="card-expire-date"
+                                name="card-expire-date"
+                                class="checkout__input js-card-expire-date"
+                                value=""
+                                placeholder="MM / YY"
+                                maxlength="7"
+                                pattern="^(0[1-9]|1[0-2])\s[\/]\s\d{2}$"
+                                title="Ange Månad och år"
+                                aria-label="MM/ÅÅ"
+                                autocomplete="cc-exp">
+                              <label 
+                                for="card-expire-date"
+                                class="checkout__input-placeholder">
+                                Giltigt till:
+                              </label>
                               <span class="checkout__input-message js-input-message"></span>
                             </div>
                             <!-- CVV -->
@@ -771,7 +752,7 @@
                               class="checkout__input js-card-owner"
                               value=""
                               placeholder=" "
-                              pattern="^[A-Za-zÅÄÖåäöÉéÈèÁá\s\-']+$"
+                              pattern="^[a-zA-ZÀ-ž][a-zA-ZÀ-ž'\-]{1,}\s[a-zA-ZÀ-ž][a-zA-ZÀ-ž'\-]{1,}$"
                               title="Ange ditt namn precis som det står på kortet. Endast bokstäver, mellanslag, bindestreck och apostrofer är tillåtna."
                               aria-label="Ditt namn som det står på kortet"
                               aria-describedby="card-name-tooltip">

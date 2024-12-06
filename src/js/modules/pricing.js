@@ -28,9 +28,9 @@ export function mondayDiscount(subtotal=0, discount=.9) {
   };
 
   if (day === 1 && hour > 3 && hour < 10) {
-    return Number(subtotal * discount);
+    return parseInt(subtotal * discount, 10);
   } else {
-    return Number(subtotal);
+    return parseInt(subtotal, 10);
   }
 }
 
@@ -67,7 +67,7 @@ export function weekendPricing(price=0, change=1.15) {
   }
 
   // Calculate weekend price adjustment
-  return isWeekend ? price * change : price;
+  return isWeekend ? parseInt(price * change, 10) : parseInt(price, 10);
 }
 
 
@@ -86,7 +86,7 @@ export function itemQtyDiscount(price, quantity, amount=10, discount=.9) {
   if (Number(quantity) >= amount) {
     return parseInt(price * discount, 10);
   } else {
-    return price;
+    return parseInt(price, 10);
   }
 }
 
@@ -126,7 +126,7 @@ export function calculateDiscount(price, quantity, weekendPricing) {
  */
 export function formatPrice(number, delimiter = ' ') {
   const isNegative = number < 0; // Check if the number is negative
-  const absoluteNumber = Math.abs(number); // Get the absolute value of the number
+  const absoluteNumber = parseInt(Math.abs(number), 10); // Get the absolute value of the number
   const formattedNumber = absoluteNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter);
   return isNegative ? `-${formattedNumber}` : formattedNumber; // Add the negative sign if necessary
 }
@@ -158,7 +158,7 @@ export function formatPriceToNumber(priceString) {
 export function comparisonPricePerKg(price, weight) {
   if (weight > 0) {
     const pricePerKg = (price / weight).toFixed(0); // Calculate price per kg
-    return formatPrice(Number(pricePerKg)) + ' kr/kg'; // Format the number and append unit
+    return formatPrice(parseInt(pricePerKg, 10)) + ' kr/kg'; // Format the number and append unit
   }
   return 'Ej tillgängligt'; // Return fallback for invalid weight
 }

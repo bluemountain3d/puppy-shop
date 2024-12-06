@@ -71,7 +71,7 @@ export function shuffleArray(array) {
  */
 export function adjustQuantity(e, card, obj) {
 
-  console.log(`\n//--- adjustQuantity('${e.type}') Called ---//\n`);
+  // console.log(`\n//--- adjustQuantity('${e.type}') Called ---//\n`);
   
   //const quantityValue = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
   const quantityValue = card.querySelector('.js-quantity');
@@ -92,18 +92,18 @@ export function adjustQuantity(e, card, obj) {
 
     quantityValue.innerText = newValue;
 
-    console.log(
-      '// click decrease or increase button',
-      '\n// currentValue', currentValue,
-      '\n// newValue', newValue
-    );
+    // console.log(
+    //   '// click decrease or increase button',
+    //   '\n// currentValue', currentValue,
+    //   '\n// newValue', newValue
+    // );
     
     updatePrice(card, obj);
   }
 
   const diff = newValue - currentValue;
   
-  console.log(`//--- adjustQuantity('${e.type}') End ---//`);
+  // console.log(`//--- adjustQuantity('${e.type}') End ---//`);
 
   return [diff, newValue];
 }

@@ -184,11 +184,11 @@ export function detailsItemCard(itemData, productData) {
 export function addCartItem(itemData, productData) {
 
   // Debugg
-  console.log(
-    'addCartItem() Called',
-    // '\nitemData', itemData,
-    // '\nproductData', productData
-  );
+  // console.log(
+  //   'addCartItem() Called',
+  //   // '\nitemData', itemData,
+  //   // '\nproductData', productData
+  // );
   
   // Add Header Cart and Checkout Cart in an array
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
@@ -224,9 +224,9 @@ export function addCartItem(itemData, productData) {
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
-  console.log(
-    'updateCartItem() Called',
-  );
+  // console.log(
+  //   'updateCartItem() Called',
+  // );
 
   // Get Element
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
@@ -407,14 +407,14 @@ export function updateCartSummary() {
   // Checkout Cart Shipping Cost
   if (counter) {
     cartShipping.innerText = shippingCost 
-      ? `${formatPrice(shippingCost)} kr` 
+      ? `${formatPrice(parseInt(shippingCost, 10))} kr` 
       : 'Frakten kostar gratis!';
   } else {
     cartShipping.innerText = '0 kr'
   }
   
   // Checkout Cart Total
-  cartTotal.innerText = `${formatPrice(newSubtotal + shippingCost)} kr`;
+  cartTotal.innerText = `${formatPrice(parseInt(newSubtotal + shippingCost, 10))} kr`;
 
   // Update payment methods
   availablePaymentMethods('invoice', 80000);
@@ -779,7 +779,7 @@ function handleCartItemEvent(e) {
     (e.target.matches('.js-increase') || 
     e.target.matches('.js-decrease'))
   ) {
-    console.log(`\n//--- handleCartEvent('${e.type}') Called ---//`);
+    // console.log(`\n//--- handleCartEvent('${e.type}') Called ---//`);
 
     const adjQty = adjustQuantity(e, card, itemData);
     const diff = adjQty[0];
@@ -807,12 +807,12 @@ function handleCartItemEvent(e) {
     // Update header cart values
     updateHeaderCartCounter(cartSummaryObject);
 
-    console.log(`//--- handleCartEvent('${e.type}') End ---//`);
+    // console.log(`//--- handleCartEvent('${e.type}') End ---//`);
     
   }
 
   if (e.type === 'change' && e.target.matches('.js-quantity-cart')) {
-    console.log('CHANGE!!!!');
+    // console.log('CHANGE!!!!');
     
     if (itemData && key) {
       const quantity = Number(e.target.innerText); // Get the new quantity

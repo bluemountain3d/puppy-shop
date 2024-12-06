@@ -813,58 +813,75 @@ input[type=number]:disabled {
   height: 3rem;
 }
 
-input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):valid, input[type=email]:not(:-moz-placeholder-shown):valid, input[type=tel]:not(:-moz-placeholder-shown):valid, input[type=number]:not(:-moz-placeholder-shown):valid {
-  border-color: var(--valid-border) !important;
-  background-color: var(--valid-background) !important;
-  color: var(--valid-text) !important;
+input[type=text]:not(#discount-code),
+input[type=email],
+input[type=tel],
+input[type=number] {
+  border: 1px solid var(--lines-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
-
-input[type=text]:not(#discount-code):not(:-ms-input-placeholder):valid, input[type=email]:not(:-ms-input-placeholder):valid, input[type=tel]:not(:-ms-input-placeholder):valid, input[type=number]:not(:-ms-input-placeholder):valid {
-  border-color: var(--valid-border) !important;
-  background-color: var(--valid-background) !important;
-  color: var(--valid-text) !important;
-}
-
-input[type=text]:not(#discount-code).valid, input[type=text]:not(#discount-code):not(:placeholder-shown):valid,
+input[type=text]:not(#discount-code).valid,
 input[type=email].valid,
-input[type=email]:not(:placeholder-shown):valid,
 input[type=tel].valid,
+input[type=number].valid {
+  border-color: var(--lines-color) !important;
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+}
+input[type=text]:not(#discount-code).valid:focus-visible,
+input[type=email].valid:focus-visible,
+input[type=tel].valid:focus-visible,
+input[type=number].valid:focus-visible {
+  outline-color: var(--valid-border) !important;
+}
+input[type=text]:not(#discount-code).valid + label,
+input[type=email].valid + label,
+input[type=tel].valid + label,
+input[type=number].valid + label {
+  color: var(--text-grey-color) !important;
+}
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):valid, input[type=email]:not(:-moz-placeholder-shown):valid, input[type=tel]:not(:-moz-placeholder-shown):valid, input[type=number]:not(:-moz-placeholder-shown):valid {
+  border-color: var(--valid-border);
+  background-color: var(--valid-background);
+  color: var(--valid-text);
+}
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):valid, input[type=email]:not(:-ms-input-placeholder):valid, input[type=tel]:not(:-ms-input-placeholder):valid, input[type=number]:not(:-ms-input-placeholder):valid {
+  border-color: var(--valid-border);
+  background-color: var(--valid-background);
+  color: var(--valid-text);
+}
+input[type=text]:not(#discount-code):not(:placeholder-shown):valid,
+input[type=email]:not(:placeholder-shown):valid,
 input[type=tel]:not(:placeholder-shown):valid,
-input[type=number].valid,
 input[type=number]:not(:placeholder-shown):valid {
-  border-color: var(--valid-border) !important;
-  background-color: var(--valid-background) !important;
-  color: var(--valid-text) !important;
+  border-color: var(--valid-border);
+  background-color: var(--valid-background);
+  color: var(--valid-text);
 }
 input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):valid:focus-visible, input[type=email]:not(:-moz-placeholder-shown):valid:focus-visible, input[type=tel]:not(:-moz-placeholder-shown):valid:focus-visible, input[type=number]:not(:-moz-placeholder-shown):valid:focus-visible {
-  outline-color: var(--valid-border) !important;
+  outline-color: var(--valid-border);
 }
 input[type=text]:not(#discount-code):not(:-ms-input-placeholder):valid:focus-visible, input[type=email]:not(:-ms-input-placeholder):valid:focus-visible, input[type=tel]:not(:-ms-input-placeholder):valid:focus-visible, input[type=number]:not(:-ms-input-placeholder):valid:focus-visible {
-  outline-color: var(--valid-border) !important;
+  outline-color: var(--valid-border);
 }
-input[type=text]:not(#discount-code).valid:focus-visible, input[type=text]:not(#discount-code):not(:placeholder-shown):valid:focus-visible,
-input[type=email].valid:focus-visible,
+input[type=text]:not(#discount-code):not(:placeholder-shown):valid:focus-visible,
 input[type=email]:not(:placeholder-shown):valid:focus-visible,
-input[type=tel].valid:focus-visible,
 input[type=tel]:not(:placeholder-shown):valid:focus-visible,
-input[type=number].valid:focus-visible,
 input[type=number]:not(:placeholder-shown):valid:focus-visible {
-  outline-color: var(--valid-border) !important;
+  outline-color: var(--valid-border);
 }
 input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):valid + label, input[type=email]:not(:-moz-placeholder-shown):valid + label, input[type=tel]:not(:-moz-placeholder-shown):valid + label, input[type=number]:not(:-moz-placeholder-shown):valid + label {
-  color: var(--valid-text) !important;
+  color: var(--valid-text);
 }
 input[type=text]:not(#discount-code):not(:-ms-input-placeholder):valid + label, input[type=email]:not(:-ms-input-placeholder):valid + label, input[type=tel]:not(:-ms-input-placeholder):valid + label, input[type=number]:not(:-ms-input-placeholder):valid + label {
-  color: var(--valid-text) !important;
+  color: var(--valid-text);
 }
-input[type=text]:not(#discount-code).valid + label, input[type=text]:not(#discount-code):not(:placeholder-shown):valid + label,
-input[type=email].valid + label,
+input[type=text]:not(#discount-code):not(:placeholder-shown):valid + label,
 input[type=email]:not(:placeholder-shown):valid + label,
-input[type=tel].valid + label,
 input[type=tel]:not(:placeholder-shown):valid + label,
-input[type=number].valid + label,
 input[type=number]:not(:placeholder-shown):valid + label {
-  color: var(--valid-text) !important;
+  color: var(--valid-text);
 }
 input[type=text]:not(#discount-code).invalid,
 input[type=email].invalid,
@@ -885,6 +902,90 @@ input[type=email].invalid + label,
 input[type=tel].invalid + label,
 input[type=number].invalid + label {
   color: var(--danger-text) !important;
+}
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):invalid, input[type=email]:not(:-moz-placeholder-shown):invalid, input[type=tel]:not(:-moz-placeholder-shown):invalid, input[type=number]:not(:-moz-placeholder-shown):invalid {
+  border-color: var(--danger-border);
+  background-color: var(--danger-background);
+  color: var(--danger-text);
+}
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):invalid, input[type=email]:not(:-ms-input-placeholder):invalid, input[type=tel]:not(:-ms-input-placeholder):invalid, input[type=number]:not(:-ms-input-placeholder):invalid {
+  border-color: var(--danger-border);
+  background-color: var(--danger-background);
+  color: var(--danger-text);
+}
+input[type=text]:not(#discount-code):not(:placeholder-shown):invalid,
+input[type=email]:not(:placeholder-shown):invalid,
+input[type=tel]:not(:placeholder-shown):invalid,
+input[type=number]:not(:placeholder-shown):invalid {
+  border-color: var(--danger-border);
+  background-color: var(--danger-background);
+  color: var(--danger-text);
+}
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):invalid:focus-visible, input[type=email]:not(:-moz-placeholder-shown):invalid:focus-visible, input[type=tel]:not(:-moz-placeholder-shown):invalid:focus-visible, input[type=number]:not(:-moz-placeholder-shown):invalid:focus-visible {
+  outline-color: var(--danger-border);
+}
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):invalid:focus-visible, input[type=email]:not(:-ms-input-placeholder):invalid:focus-visible, input[type=tel]:not(:-ms-input-placeholder):invalid:focus-visible, input[type=number]:not(:-ms-input-placeholder):invalid:focus-visible {
+  outline-color: var(--danger-border);
+}
+input[type=text]:not(#discount-code):not(:placeholder-shown):invalid:focus-visible,
+input[type=email]:not(:placeholder-shown):invalid:focus-visible,
+input[type=tel]:not(:placeholder-shown):invalid:focus-visible,
+input[type=number]:not(:placeholder-shown):invalid:focus-visible {
+  outline-color: var(--danger-border);
+}
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):invalid + label, input[type=email]:not(:-moz-placeholder-shown):invalid + label, input[type=tel]:not(:-moz-placeholder-shown):invalid + label, input[type=number]:not(:-moz-placeholder-shown):invalid + label {
+  color: var(--danger-text);
+}
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):invalid + label, input[type=email]:not(:-ms-input-placeholder):invalid + label, input[type=tel]:not(:-ms-input-placeholder):invalid + label, input[type=number]:not(:-ms-input-placeholder):invalid + label {
+  color: var(--danger-text);
+}
+input[type=text]:not(#discount-code):not(:placeholder-shown):invalid + label,
+input[type=email]:not(:placeholder-shown):invalid + label,
+input[type=tel]:not(:placeholder-shown):invalid + label,
+input[type=number]:not(:placeholder-shown):invalid + label {
+  color: var(--danger-text);
+}
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):focus:invalid, input[type=email]:not(:-moz-placeholder-shown):focus:invalid, input[type=tel]:not(:-moz-placeholder-shown):focus:invalid, input[type=number]:not(:-moz-placeholder-shown):focus:invalid {
+  border-color: var(--warning-border) !important;
+  background-color: var(--warning-background) !important;
+  color: var(--warning-text) !important;
+}
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):focus:invalid, input[type=email]:not(:-ms-input-placeholder):focus:invalid, input[type=tel]:not(:-ms-input-placeholder):focus:invalid, input[type=number]:not(:-ms-input-placeholder):focus:invalid {
+  border-color: var(--warning-border) !important;
+  background-color: var(--warning-background) !important;
+  color: var(--warning-text) !important;
+}
+input[type=text]:not(#discount-code):not(:placeholder-shown):focus:invalid,
+input[type=email]:not(:placeholder-shown):focus:invalid,
+input[type=tel]:not(:placeholder-shown):focus:invalid,
+input[type=number]:not(:placeholder-shown):focus:invalid {
+  border-color: var(--warning-border) !important;
+  background-color: var(--warning-background) !important;
+  color: var(--warning-text) !important;
+}
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):focus:invalid:focus-visible, input[type=email]:not(:-moz-placeholder-shown):focus:invalid:focus-visible, input[type=tel]:not(:-moz-placeholder-shown):focus:invalid:focus-visible, input[type=number]:not(:-moz-placeholder-shown):focus:invalid:focus-visible {
+  outline-color: var(--warning-border) !important;
+}
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):focus:invalid:focus-visible, input[type=email]:not(:-ms-input-placeholder):focus:invalid:focus-visible, input[type=tel]:not(:-ms-input-placeholder):focus:invalid:focus-visible, input[type=number]:not(:-ms-input-placeholder):focus:invalid:focus-visible {
+  outline-color: var(--warning-border) !important;
+}
+input[type=text]:not(#discount-code):not(:placeholder-shown):focus:invalid:focus-visible,
+input[type=email]:not(:placeholder-shown):focus:invalid:focus-visible,
+input[type=tel]:not(:placeholder-shown):focus:invalid:focus-visible,
+input[type=number]:not(:placeholder-shown):focus:invalid:focus-visible {
+  outline-color: var(--warning-border) !important;
+}
+input[type=text]:not(#discount-code):not(:-moz-placeholder-shown):focus:invalid + label, input[type=email]:not(:-moz-placeholder-shown):focus:invalid + label, input[type=tel]:not(:-moz-placeholder-shown):focus:invalid + label, input[type=number]:not(:-moz-placeholder-shown):focus:invalid + label {
+  color: var(--warning-text) !important;
+}
+input[type=text]:not(#discount-code):not(:-ms-input-placeholder):focus:invalid + label, input[type=email]:not(:-ms-input-placeholder):focus:invalid + label, input[type=tel]:not(:-ms-input-placeholder):focus:invalid + label, input[type=number]:not(:-ms-input-placeholder):focus:invalid + label {
+  color: var(--warning-text) !important;
+}
+input[type=text]:not(#discount-code):not(:placeholder-shown):focus:invalid + label,
+input[type=email]:not(:placeholder-shown):focus:invalid + label,
+input[type=tel]:not(:placeholder-shown):focus:invalid + label,
+input[type=number]:not(:placeholder-shown):focus:invalid + label {
+  color: var(--warning-text) !important;
 }
 
 div.valid, span.valid {
@@ -2550,13 +2651,10 @@ main {
   color: var(--text-grey-color);
   opacity: 0.5;
 }
-.checkout input:focus {
-  border-color: var(--button-background);
-}
 .checkout__input-wrapper, .checkout__input-wrapper-inner {
   position: relative;
 }
-.checkout__input-wrapper label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper > legend, .checkout__input-wrapper-inner label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner > legend {
+.checkout__input-wrapper label:not(.chb-custom), .checkout__input-wrapper > legend, .checkout__input-wrapper-inner label:not(.chb-custom), .checkout__input-wrapper-inner > legend {
   position: absolute;
   top: 50%;
   left: 0;
@@ -2570,26 +2668,26 @@ main {
   -webkit-transition: font-size 0.2s ease, padding 0.2s ease, top 0.2s ease, translate 0.2s ease;
   transition: font-size 0.2s ease, padding 0.2s ease, top 0.2s ease, translate 0.2s ease;
 }
-.checkout__input-wrapper:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-moz-placeholder-shown)) > legend, .checkout__input-wrapper-inner:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-moz-placeholder-shown)) > legend {
+.checkout__input-wrapper:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within input:not(:-moz-placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper-inner:has(input:not(:-moz-placeholder-shown)) > label:not(.chb-custom) {
   top: 0.875rem;
   transform: translateY(0);
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:-ms-input-placeholder)) > legend, .checkout__input-wrapper-inner:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:-ms-input-placeholder)) > legend {
+.checkout__input-wrapper:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom), .checkout__input-wrapper:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within input:not(:-ms-input-placeholder) ~ label:not(.chb-custom), .checkout__input-wrapper-inner:has(input:not(:-ms-input-placeholder)) > label:not(.chb-custom) {
   top: 0.875rem;
   transform: translateY(0);
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper:focus-within label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:focus-within legend, .checkout__input-wrapper:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper:has(input:not(:placeholder-shown)) > legend, .checkout__input-wrapper-inner:focus-within label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:focus-within legend, .checkout__input-wrapper-inner:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:placeholder-shown)) > label:not(.chb-custom):not(.visually-hidden), .checkout__input-wrapper-inner:has(input:not(:placeholder-shown)) > legend {
+.checkout__input-wrapper:focus-within label:not(.chb-custom), .checkout__input-wrapper:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper:has(input:not(:placeholder-shown)) > label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within label:not(.chb-custom), .checkout__input-wrapper-inner:focus-within input:not(:placeholder-shown) ~ label:not(.chb-custom), .checkout__input-wrapper-inner:has(input:not(:placeholder-shown)) > label:not(.chb-custom) {
   top: 0.875rem;
   -webkit-transform: translateY(0);
           transform: translateY(0);
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
 }
-.checkout__input-wrapper label:not(.chb-custom):not(.visually-hidden):has(+ span.js-input-message), .checkout__input-wrapper:has(+ span.js-input-message) > legend, .checkout__input-wrapper-inner label:not(.chb-custom):not(.visually-hidden):has(+ span.js-input-message), .checkout__input-wrapper-inner:has(+ span.js-input-message) > legend {
+.checkout__input-wrapper label:not(.chb-custom):has(+ span.js-input-message), .checkout__input-wrapper-inner label:not(.chb-custom):has(+ span.js-input-message) {
   top: calc(50% - 0.65rem);
 }
 .checkout__input-wrapper input:not(.chb-custom > input):not(.rb-custom > input), .checkout__input-wrapper-inner input:not(.chb-custom > input):not(.rb-custom > input) {
@@ -2597,9 +2695,6 @@ main {
   padding: 1.5rem 1rem 0;
   line-height: 2.375rem;
   font-size: 1.125rem;
-  border: 1px solid var(--lines-color);
-  background-color: var(--background-color);
-  color: var(--text-color);
 }
 .checkout__input-wrapper input:not(.chb-custom > input):not(.rb-custom > input):not(:-moz-placeholder-shown) ~ label, .checkout__input-wrapper-inner input:not(.chb-custom > input):not(.rb-custom > input):not(:-moz-placeholder-shown) ~ label {
   top: 0.875rem;
@@ -2615,23 +2710,6 @@ main {
   top: 0.875rem;
   padding: 0 0 0 0.75rem;
   font-size: 0.75rem;
-}
-.checkout__input-wrapper:has(input:focus) legend, .checkout__input-wrapper-inner:has(input:focus) legend {
-  top: 0.875rem;
-  padding: 0 0 0 0.75rem;
-  font-size: 0.75rem;
-}
-.checkout__input-wrapper--date-cvv {
-  margin-bottom: 0.5rem;
-  display: grid;
-}
-.checkout__input-wrapper--inner-date-cvv {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-}
-.checkout__input-wrapper--inner-date-cvv input {
-  border: none;
 }
 .checkout__input-message {
   display: block;
@@ -2810,6 +2888,7 @@ main {
   line-height: inherit;
   text-decoration: underline;
   color: var(--info-text);
+  outline-offset: 2px;
 }
 .checkout__order-details-root {
   visibility: hidden;
@@ -2885,6 +2964,7 @@ main {
   border-style: solid;
   border-color: var(--lines-color);
   border-width: 0 2px;
+  background-color: var(--background-accent);
   -webkit-transition: color 0.2s ease;
   transition: color 0.2s ease;
 }

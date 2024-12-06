@@ -27,18 +27,19 @@ import {
 
 // Patterns
 export const regex = {
-  email: /[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$/,
+  email: /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$/,
   zip: /^\d{3}\s?\d{2}$/,
   name: /^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$/,
-  street: /^[a-zA-ZÀ-ž][a-zA-ZÀ-ž0-9.,'\/\- ]*[a-zA-ZÀ-ž0-9.]$/,
+  street:  /^[A-Za-zÅÄÖåäöÉé'’][A-Za-zÅÄÖåäöÉé'’\-]*(?:\s[A-Za-zÅÄÖåäöÉé'’\-]+)*\s\d+[A-Za-z]?(?:\s?[A-Za-zÅÄÖåäöÉé'’\-]*)?$/, // /^[a-zA-ZÀ-ž][a-zA-ZÀ-ž0-9.,'\/\- ]*[a-zA-ZÀ-ž0-9.]$/,
   town: /^[a-zA-ZÀ-ž]{2,}(?:[.'\- ][a-zA-ZÀ-ž]*)*$/,
   entry: /^[0-9ABCD#*]{4,8}$/,
   mobile: /^(\+46\s?|0)(7[0236][\s\-1-9]?)(\s\d{2}|\d{3})(\s?\d{2}){2}$/,
   cardNumber: /^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$/,
+  cardExpire: /^(0[1-9]|1[0-2])\s[/]\s\d{2}$/,
   cardMM: /^(0[1-9]|1[0-2])$/,
   cardYY: /^\d{2}$/,
   cardCvv: /^\d{3}$/,
-  cardOwner: /^[A-Za-zÅÄÖåäöÉéÈèÁá\s\-']+$/,
+  cardOwner: /^[a-zA-ZÀ-ž][a-zA-ZÀ-ž'\-]{1,}\s[a-zA-ZÀ-ž][a-zA-ZÀ-ž'\-]{1,}$/, // /^[A-Za-zÅÄÖåäöÉéÈèÁá\s\-']+$/,
   socialSecutityNumber: /^\d{6}(-?\d{4})$|^\d{8}(-?\d{4})$/
 }
 
@@ -122,6 +123,13 @@ const validation = {
     short: 'Kortnumret är för kort.',
     invalid: 'Du har angivit ett ogiltigt kortnummer.'
   },
+  'card-expire-date': {
+    regex: regex.cardExpire,
+    shortLenth: 5,
+    empty: 'Var god fyll i giltighetsmånad och år som MM / ÅÅ.',
+    short: 'Datumet är felskrivet.',
+    invalid: 'Du har angivit en ogiltig månad. Ange till exempel "01" för januari.'
+  },
   'card-expire-month': {
     regex: regex.cardMM,
     shortLenth: 2,
@@ -148,7 +156,7 @@ const validation = {
     shortLenth: 5,
     empty: 'Var god fyll i kortinnehavarens namn.',
     short: 'Namnet är för kort.',
-    invalid: 'Du har angivit otillåtna tecken i namnet.'
+    invalid: 'Du har angivit ett felaktigt namn, ange för det och efternamn som står på kortet.'
   },
   'social-security-number': {
     shortLenth: 10,
@@ -177,8 +185,7 @@ const checkoutFields = [
   'entry-code',
   'mobile-phone',
   'card-number',
-  'card-expire-month',
-  'card-expire-year',
+  'card-expire-date',
   'card-cvv',
   'card-owner',
   'social-security-number'
@@ -214,8 +221,9 @@ const phoneInput = checkoutForm.querySelector('.js-phone');
 const cardGroup = document.querySelector('.js-card-info');
 const cardInputs = Array.from(cardGroup.querySelectorAll('input'));
 const cardNumberInput = checkoutForm.querySelector('input[name="card-number"]');
-const cardExpMonthInput = checkoutForm.querySelector('input[name="card-expire-month"]');
-const cardExpYearInput = checkoutForm.querySelector('input[name="card-expire-year"]');
+const cardExpDateInput = checkoutForm.querySelector('input[name="card-expire-date"]');
+// const cardExpMonthInput = checkoutForm.querySelector('input[name="card-expire-month"]');
+// const cardExpYearInput = checkoutForm.querySelector('input[name="card-expire-year"]');
 const cardCVVInput = checkoutForm.querySelector('input[name="card-cvv"]');
 const cardOwnerInput = checkoutForm.querySelector('input[name="card-owner"]');
 
@@ -376,8 +384,8 @@ export function toggleMessage(input, name, value) {
   const messageEl = wrapper.querySelector('.js-input-message'); // Find the message element
 
   // Special validation for card expiration dates
-  if (valid && name === 'card-expire-year') {
-    const expirationMessage = testCardDates(name);
+  if (valid && name === 'card-expire-date') {
+    const expirationMessage = testCardDate();
     if (expirationMessage) {
       messageEl.textContent = expirationMessage;
       messageEl.classList.add('visible');
@@ -597,6 +605,42 @@ function testCardDates(name) {
   // Card is not expired
   return undefined;
 }
+
+
+function testCardDate() {
+  
+  const date = new Date();
+  const month = Number(date.getMonth() + 1);
+  const year = Number(date.getFullYear().toString().slice(-2));
+
+  const cardMM = Number(cardExpDateInput.value.split('/')[0].trim());
+  const cardYY = Number(cardExpDateInput.value.split('/')[1].trim());
+
+  // console.log(
+  //   'testCardDate() Called',
+  //   '\ncardMM:', cardMM,
+  //   '\ncardYY:', cardYY
+  // );
+
+  // Check for empty or invalid input
+  if (cardMM === null || cardYY === null || isNaN(cardMM) || isNaN(cardYY)) {
+    return 'Ange en giltigt år!';
+  }
+
+  // if (cardMM > 12) {
+  //   return 'Månaden är fel, ange till exempel "01" för januari';
+  // }
+
+  // Check if card is expired
+  if (cardYY < year || (cardYY === year && cardMM < month)) {
+    return 'Giltighetstiden för kortet har gått ut!';
+  }
+
+  // Card is not expired
+  return undefined;
+}
+
+
 
 
 
@@ -821,18 +865,30 @@ function handleValidation(e) {
         checkoutContinue.removeAttribute('disabled');
       }
 
-      // Card MM || Card YY || Card CVV
-      if (
-        (name === 'card-expire-month' /*|| name === 'card-expire-year'*/) &&
-        isValid(value, validation[name].regex)
-      ) {
-        // Get index of validated input
-        const curIndex = cardInputs.indexOf(target)
-
-        if (curIndex >= 0 && curIndex < cardInputs.length - 1) {
-          cardInputs[curIndex + 1].focus() // Move focus to the next input
+      // Card Expire Date
+      if (name === 'card-expire-date') {
+        let curVal = cardExpDateInput.value
+        const m1 = /^\d{2}$/;
+        const m2 = /^\d{2}\s$/;
+        if (m1.test(curVal)) {
+          cardExpDateInput.value = `${curVal} / `;
+        }
+        else if (m2.test(curVal)) {
+          cardExpDateInput.value = curVal[0];
         }
       }
+
+      // if (
+      //   (name === 'card-expire-month' /*|| name === 'card-expire-year'*/) &&
+      //   isValid(value, validation[name].regex)
+      // ) {
+      //   // Get index of validated input
+      //   const curIndex = cardInputs.indexOf(target)
+
+      //   if (curIndex >= 0 && curIndex < cardInputs.length - 1) {
+      //     cardInputs[curIndex + 1].focus() // Move focus to the next input
+      //   }
+      // }
     }
 
 

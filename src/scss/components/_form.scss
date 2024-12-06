@@ -359,21 +359,40 @@ input[type="email"],
 input[type="tel"],
 input[type="number"] {
 
-  &.valid,
-  &:not(:placeholder-shown):valid {
-    border-color: var(--valid-border) !important;
-    background-color: var(--valid-background) !important;
-    color: var(--valid-text) !important;
+  border: 1px solid var(--lines-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  // Valid
+  &.valid { // &:not(:placeholder-shown):valid
+    border-color: var(--lines-color) !important;
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
 
     &:focus-visible {
       outline-color: var(--valid-border) !important;
     }
 
     & + label {
-      color: var(--valid-text) !important;
+      color: var(--text-grey-color) !important;
     }
   }
 
+  &:not(:placeholder-shown):valid { // &:not(:placeholder-shown):valid
+    border-color: var(--valid-border);
+    background-color: var(--valid-background);
+    color: var(--valid-text);
+
+    &:focus-visible {
+      outline-color: var(--valid-border);
+    }
+
+    & + label {
+      color: var(--valid-text);
+    }
+  }
+
+  // Invalid
   &.invalid {
     border-color: var(--danger-border) !important;
     background-color: var(--danger-background) !important;
@@ -384,6 +403,33 @@ input[type="number"] {
 
     & + label {
       color: var(--danger-text) !important;
+    }
+  }
+
+  &:not(:placeholder-shown):invalid {
+    border-color: var(--danger-border);
+    background-color: var(--danger-background);
+    color: var(--danger-text);
+    &:focus-visible {
+      outline-color: var(--danger-border);
+    }
+
+    & + label {
+      color: var(--danger-text);
+    }
+  }
+
+  //Warning
+  &:not(:placeholder-shown):focus:invalid {
+    border-color: var(--warning-border) !important;
+    background-color: var(--warning-background) !important;
+    color: var(--warning-text) !important;
+    &:focus-visible {
+      outline-color: var(--warning-border) !important;
+    }
+
+    & + label {
+      color: var(--warning-text) !important;
     }
   }
 

@@ -196,21 +196,21 @@ function handleProductCardEvent(e) {
   //Add to cart object when add to cart button is clicked
   if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
 
-    console.log(`\n//--- handleProductCardEvent('${e.type}') Called ---//`);
-    console.log(
-      'Clicked Add to Cart Button',
-      '\nproductId:',productId,
-      '\ngender:',gender,
-      '\nitemData:',itemData
-    );
+    // console.log(`\n//--- handleProductCardEvent('${e.type}') Called ---//`);
+    // console.log(
+    //   'Clicked Add to Cart Button',
+    //   '\nproductId:',productId,
+    //   '\ngender:',gender,
+    //   '\nitemData:',itemData
+    // );
     
     const quantityValue = card.querySelector(`span[data-pid="${productId}"].js-card-quantity`);
     const quantity = Number(quantityValue.innerText);
 
-    console.log(
-      'quantityValue.innerText',quantityValue.innerText,
-      '\nquantity:', quantity
-    );
+    // console.log(
+    //   'quantityValue.innerText',quantityValue.innerText,
+    //   '\nquantity:', quantity
+    // );
     
     if (!quantity) return; // Stop id quantity is 0
 
@@ -224,7 +224,7 @@ function handleProductCardEvent(e) {
     // Test if cartItem should be added or updated
     // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
     if (!itemData || itemData && itemData.gender != gender) { 
-      console.log('Cart item doesn\'t exist, create new!');
+      // console.log('Cart item doesn\'t exist, create new!');
       
       // Create new cart item
       const newItem = {
@@ -256,7 +256,7 @@ function handleProductCardEvent(e) {
       // Reset input
       quantityValue.innerText = 0;
     } else {
-      console.log('Cart item exist, update existing item!');
+      // console.log('Cart item exist, update existing item!');
 
       // Product is in cart, update
 
@@ -279,7 +279,7 @@ function handleProductCardEvent(e) {
       quantityValue.innerText = 0;
     }
 
-    console.log(`\n//--- handleProductCardEvent('${e.type}') End ---//`);
+    // console.log(`\n//--- handleProductCardEvent('${e.type}') End ---//`);
   }
 }
 
