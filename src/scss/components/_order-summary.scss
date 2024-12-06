@@ -16,7 +16,7 @@ $_module-name: "Order Confirmed";
   
   
   //min-height: 100vh;
-  background-color: white;
+  background-color: var(--background-color);
 
   @media screen and (min-width: 720px) {
     display: flex;    
@@ -36,7 +36,7 @@ $_module-name: "Order Confirmed";
     width: 100%;
     // max-width: 848px;
     // height: Min(80vh, 720px);
-    background-color: white;
+    background-color: var(--background-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
@@ -49,8 +49,8 @@ $_module-name: "Order Confirmed";
 
     border-radius: 1rem;
     box-shadow: 0 .25rem .5rem rgba(0,0,0,.33);
-    color: var(--clr-text);
-    background-color: var(--clr-light);
+    color: var(var(--text-color));
+    background-color: var(--background-accent);
 
     @media screen and (min-width: 720px) and (min-height: 540px) {
       max-width: calc(450px * 2 + 6rem);
@@ -71,10 +71,10 @@ $_module-name: "Order Confirmed";
 
     width: 100%;
     padding: 1rem;
-    background-color: var(--clr-dark);
+    background-color: var(--accent-color);
 
     font-family: var(--ff-primary);
-    color: var(--clr-light);
+    color: var(--background-accent);
     line-height: 2rem;
     font-size: 1.5rem;
     font-weight: 600;
@@ -90,7 +90,7 @@ $_module-name: "Order Confirmed";
       display: inline-block;
       width: 2rem;
       height: 2rem;
-      fill: var(--clr-light);
+      fill: var(--background-accent);
     }
   }
 
@@ -179,7 +179,7 @@ $_module-name: "Order Confirmed";
 
   &__order-data {
     list-style: none;
-    border-top: 1px solid var(--clr-lines);
+    border-top: 1px solid var(--lines-color);
 
     @media screen and (min-width: 720px) {
       
@@ -191,7 +191,7 @@ $_module-name: "Order Confirmed";
       overflow-y: auto;
       padding-right: 1rem;
       scrollbar-width: auto;
-      scrollbar-color: var(--clr-grey-dark) transparent;
+      scrollbar-color: var(--text-grey-color) transparent;
     }
   }
 
@@ -210,22 +210,22 @@ $_module-name: "Order Confirmed";
 
     //font-family: var(--ff-primary);
     font-size: 1.5rem;
-    color: var(--clr-light);
+    color: var(--background-accent);
     line-height: 2rem;
     border-radius: 0 0 1rem 1rem;
 
-    background-color: var(--clr-dark);
+    background-color: var(--accent-color);
     transition: background-color .2s ease;
 
     &:hover {
-      background-color: var(--clr-bg-green);
+      background-color: var(--background-green);
     }
 
     & .icon {
       display: inline-block;
       width: 2rem;
       height: 2rem;
-      fill: var(--clr-light);
+      fill: var(--background-accent);
     }
   }
 
@@ -242,14 +242,14 @@ $_module-name: "Order Confirmed";
     font-size: 1.5rem;
     line-height: 1;
     font-weight: 600;
-    //color: var(--clr-text)
+    //color: var(var(--text-color))
     display: grid;
     margin-bottom: 1.25rem;
 
     & > span {
       font-size: 1rem;
       font-weight: 400;
-      color: var(--clr-grey-dark);
+      color: var(--text-grey-color);
     }
   }
 
@@ -284,11 +284,11 @@ $_module-name: "Order Confirmed";
     }
 
     &--red {
-      color: var(--clr-text-red);
+      color: var(var(--text-color)-red);
     }
 
     &--grey {
-      color: var(--clr-grey-dark);
+      color: var(--text-grey-color);
     }
 
     &--large {
@@ -302,7 +302,7 @@ $_module-name: "Order Confirmed";
     padding-top: 1rem;
     padding-right: .5rem;
     //box-shadow: 0 -1px 8px rgba(black, .33);
-    border-top: 1px solid var(--clr-lines);
+    border-top: 1px solid var(--lines-color);
 
     display: grid;
     gap: .25rem;
@@ -316,12 +316,12 @@ $_module-name: "Order Confirmed";
     &--borde-top {
       //margin-top: .25rem;
       padding-top: .25rem;
-      border-top: 2px solid var(--clr-lines);
+      border-top: 2px solid var(--lines-color);
     }
     &--borde-bottom {
       //margin-top: .25rem;
       padding-bottom: .25rem;
-      border-bottom: 2px solid var(--clr-lines);
+      border-bottom: 2px solid var(--lines-color);
     }
   }
 
@@ -334,7 +334,7 @@ $_module-name: "Order Confirmed";
     gap: 1rem;
     
     &:not(:last-child) {
-      border-bottom: 1px solid var(--clr-lines);
+      border-bottom: 1px solid var(--lines-color);
     }
   }
 
@@ -371,18 +371,18 @@ $_module-name: "Order Confirmed";
     font-size: 1rem;
     line-height: 1;
     font-weight: 600;
-    color: var(--clr-title);
+    color: var(--title-color);
   }
 
   &__item-row {
     display: flex;
     justify-content: space-between;
     gap: 1ch;
-    color: var(--clr-text);
+    color: var(var(--text-color));
   }
 
   &__item-label {
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
   }
 
 }

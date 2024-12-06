@@ -1,15 +1,11 @@
-// Copy the code underneath to a new file in another folder.
-// Set "$_module-name" attribute for the module
-
-
-//*** <Category>: <Module Name> ***//
+//*** Components: Quantifier ***//
 
 @use '../abstracts/variables' as var;
 @use '../abstracts/functions' as fn;
 @use '../abstracts/mixins' as mx;
 
 // Module Name
-$_module-name: 'Module Name';
+$_module-name: 'Quantifier';
 
 /* ### #{$_module-name} START */
 

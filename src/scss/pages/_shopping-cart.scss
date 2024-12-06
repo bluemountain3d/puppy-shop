@@ -60,10 +60,10 @@ $_module-name: "Page specific styles for: Shopping Cart";
 .cart__header, .checkout__header, .checkout__group-header {
   width: 100%;
   padding: 1rem;
-  background-color: var(--clr-dark);
+  background-color: var(--button-background); //var(--accent-color);
 
   font-family: var(--ff-primary);
-  color: var(--clr-light);
+  color: var(--button-text); //var(--background-accent);
   line-height: 2rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -77,12 +77,12 @@ $_module-name: "Page specific styles for: Shopping Cart";
     display: inline-block;
     width: 2rem;
     height: 2rem;
-    fill: var(--clr-light);
+    fill: var(--button-text); //var(--background-accent);
   }
 }
 
 .cart {
-  background-color: var(--clr-light);
+  background-color: var(--background-accent);
   box-shadow: 0 .25rem .5rem rgba(black, .33);
   border-radius: 1rem;
   //max-height: calc(100vh - 10rem);
@@ -93,7 +93,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
   // border-radius: 1rem;
   // border-width: 0 0 1px;
   // border-style: solid;
-  // border-color: var(--clr-lines);
+  // border-color: var(--lines-color);
   
   
   @media screen and (min-width: 720px) {
@@ -106,6 +106,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__header {
     border-radius: 1rem 1rem 0 0;
+    padding: .75rem 1rem;
   }
 
   &__header-title {
@@ -114,7 +115,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
   }
 
   &__counter {
-    color: var(--clr-grey-light);
+    color: var(--accent-grey-color);
   }
 
   &__close {
@@ -129,7 +130,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     transition: color .2s ease;
 
     &:hover {
-      color: var(--clr-grey-light);
+      color: var(--accent-grey-color);
       & .icon {
         fill: #FF3D3D;
       }
@@ -142,7 +143,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     padding: 1rem;
     border-width: 0 2px;
     border-style: solid;
-    border-color: var(--clr-lines);
+    border-color: var(--lines-color);
 
     @media screen and (min-width: 768px) {
       padding-right: 1.5rem;
@@ -157,7 +158,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     gap: 1rem;
     
     & {
-      border-bottom: 1px solid var(--clr-lines);
+      border-bottom: 1px solid var(--lines-color);
     }
   }
 
@@ -192,17 +193,17 @@ $_module-name: "Page specific styles for: Shopping Cart";
     font-size: 1.25rem;
     line-height: 1;
     font-weight: 600;
-    color: var(--clr-title);
+    color: var(--title-color);
   }
 
   &__item-gender {
     line-height: 1;
-    color: var(--clr-text);
+    color: var(--text-color);
   }
 
   &__item-price {
     line-height: 1;
-    color: var(--clr-text-green);
+    color: var(--text-green-color);
   }
 
   &__item-controlls {
@@ -216,7 +217,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     position: relative;
     display: flex;
     align-items: center;
-    color: var(--clr-title);
+    color: var(--text-color);
 
     & > button {
       width: 2.5rem;
@@ -224,19 +225,21 @@ $_module-name: "Page specific styles for: Shopping Cart";
       font-size: 1.25rem;
       font-weight: 600;
       color: inherit;
-      border: solid var(--clr-lines);
-      border-width: 1px 1px 1px 0;
+      border: solid var(--lines-color);
+      // border-width: 1px 1px 1px 0;
+      border-width: 1px;
       border-radius: 0 .25rem .25rem 0;
-      transition: background-color .2s ease;
-      background-color: white;
+      transition: background-color .2s ease, border-color .2s ease;
+      background-color: var(--background-color);
 
       &:first-of-type {
-        border-width: 1px 0 1px 1px;
+        //border-width: 1px 0 1px 1px;
         border-radius: .25rem 0 0 .25rem;
       }
 
       &:hover {
-        background-color: #E2E3E5;
+        background-color: var(--background-hover);
+        border-color: var(--button-background);
       }
     }
 
@@ -247,8 +250,8 @@ $_module-name: "Page specific styles for: Shopping Cart";
       text-align: center;
       font-size: 1.25rem;
       color: inherit;
-      border: solid var(--clr-lines);
-      background-color: white;
+      border: solid var(--lines-color);
+      background-color: var(--background-color);
       border-width: 1px;
       user-select: none;
     }
@@ -258,12 +261,12 @@ $_module-name: "Page specific styles for: Shopping Cart";
     & > .icon {
       width: 2.5rem;
       height: 2.5rem;
-      fill: var(--clr-grey-dark);
+      fill: var(--text-grey-color);
       transition: fill .2s ease;
     }
 
     &:hover > .icon {
-      fill: var(--clr-text-red);
+      fill: var(--text-red-color);
       //animation: shaking 0.2s linear 2;
     }
   }
@@ -277,7 +280,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__item-label {
     font-weight: 600;
-    color: var(--clr-text);
+    color: var(--text-color);
   }
 
   &__item-line-total-inner {
@@ -287,11 +290,11 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__item-line-total {
     font-weight: 600;
-    color: var(--clr-text-red);
+    color: var(--text-red-color);
   }
 
   &__item-original-price {
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
     text-decoration: line-through;
   }
 
@@ -300,7 +303,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     padding: 1rem;
     border-width: 0 2px 2px;
     border-style: solid;
-    border-color: var(--clr-lines);
+    border-color: var(--lines-color);
     border-radius: 0 0 1rem 1rem;
     display: grid;
     gap: .75rem;
@@ -327,17 +330,24 @@ $_module-name: "Page specific styles for: Shopping Cart";
   &__summary-value {
     
     &--red {
-      color: var(--clr-text-red);
+      color: var(--text-red-color);
     }
 
     &--grey {
-      color: var(--clr-grey-light);
+      color: var(--accent-grey-color);
     }
   }
 
   &__summary-discount-code {
     text-align: right;
     max-width: 15ch;
+
+    border: 1px solid var(--lines-color);
+    background-color: var(--background-color);
+
+    &:focus {
+      border-color: var(--button-background);
+    }
   }
   
   &__summary-total {
@@ -348,7 +358,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__summary-info {
     text-align: right;
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
   }
 
 }
@@ -384,9 +394,9 @@ $_module-name: "Page specific styles for: Shopping Cart";
   &__group-inner {
     width: 100%;
     padding: 0 1rem 1rem;
-    border: solid var(--clr-lines);
+    border: solid var(--lines-color);
     border-width: 0 2px;
-    background-color: var(--clr-light);
+    background-color: var(--background-accent);
 
     & > :last-child {
       margin-bottom: 1rem;
@@ -406,8 +416,12 @@ $_module-name: "Page specific styles for: Shopping Cart";
   }
 
   input:focus::placeholder {
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
     opacity: .5;
+  }
+
+  input:focus {
+    border-color: var(--button-background);
   }
 
   &__input-wrapper, &__input-wrapper-inner {
@@ -420,7 +434,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
       translate: 0 -50%;
       width: 100%;
       padding-left: 1rem;
-      color: #767676;
+      color: var(--text-grey-color);
       font-size: 1rem;
       line-height: 1;
       font-weight: 600;
@@ -458,9 +472,9 @@ $_module-name: "Page specific styles for: Shopping Cart";
       padding: 1.5rem 1rem 0;
       line-height: 2.375rem;
       font-size: 1.125rem;
-      border: 1px solid var(--clr-lines);
-      background-color: white;
-      color: var(--clr-text);
+      border: 1px solid var(--lines-color);
+      background-color: var(--background-color);
+      color: var(--text-color);
 
       &:focus ~ label,
       &:not(:placeholder-shown) ~ label {
@@ -481,7 +495,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     position: relative;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    //border: 1px solid var(--clr-lines);
+    //border: 1px solid var(--lines-color);
 
     & input {
       border: none;
@@ -495,7 +509,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
     //margin-bottom: .5rem;
     padding-inline: .25rem;
     line-height: 1.3;
-    color: #D32F2F;
+    color: var(--danger-text);
     
     visibility: hidden;
     opacity: 0;
@@ -577,7 +591,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
   &__form-group-header-light {
     margin-bottom: .5rem;
     font-size: 1.25rem;
-    color: var(--clr-text);
+    color: var(--text-color);
     font-weight: 600;
   }
 
@@ -604,18 +618,23 @@ $_module-name: "Page specific styles for: Shopping Cart";
     width: 100%;
     //margin-bottom: 1rem;
     padding: 1.375rem;
-    background-color: var(--clr-bg-green);
-    color: white;
+    background-color: var(--background-green);
+    color: var(--clr-white, #FFF);
     font-size: 1.25rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .04em;
     line-height: 1;
+    transition: background-color .2s ease;
     //border-radius: 0 0 1rem 1rem;
 
     &:disabled {
-      background-color: var(--clr-grey-light);
-      color: var(--clr-grey-dark);
+      background-color: var(--text-grey-accent);
+      color: var(--text-grey-color);
+    }
+
+    &:not(:disabled):hover {
+      background-color: #808080;
     }
   }
 
@@ -626,7 +645,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
   }
 
   &__shipping-price {
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
   }
 
   &__shipping-alt {
@@ -635,11 +654,20 @@ $_module-name: "Page specific styles for: Shopping Cart";
     margin-inline: -1rem;
     display: grid;
     gap: 1rem;
-    border-top: 1px solid var(--clr-lines);
+    border-top: 1px solid var(--lines-color);
 
     &:has(input:checked) {
-      background-color: #E6F3E6;
+      background-color: var(--valid-background);
     }
+
+    // &:has(input:checked) span,
+    // &:has(input:checked) > p {
+    //   color: var(--clr-dark);
+    // }
+
+    // &:has(input:checked) span > span {
+    //   color: var(--text-grey-accent);
+    // }
   }
 
   &__shipping-alt-info {
@@ -676,7 +704,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
       font-size: inherit;
       line-height: inherit;
       text-decoration: underline;
-      color: #0066cc;
+      color: var(--info-text);
     }
   }
 
@@ -698,14 +726,14 @@ $_module-name: "Page specific styles for: Shopping Cart";
   &__order-details-inner {
     z-index: 0;
     position: relative;
-    margin-bottom: .75rem;
+    margin-bottom: 1rem;
     padding: .5rem 1rem;
 
     border-style: solid;
     border-width: 1px;
-    border-color: var(--clr-lines);
+    border-color: var(--lines-color);
     border-radius: 0;
-    background-color: white;
+    background-color: var(--background-color);
 
     display: flex;
     align-items: stretch;
@@ -725,7 +753,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
       height: 1rem;
       background-color: inherit;
       border-style: solid;
-      border-color: var(--clr-lines);
+      border-color: var(--lines-color);
       border-width: 0 1px 1px 0;
     }
 
@@ -739,14 +767,14 @@ $_module-name: "Page specific styles for: Shopping Cart";
     gap: .25rem;
     padding-top: .5rem;
     padding-bottom: .25rem;
-    border-top: 1px solid var(--clr-lines);
+    border-top: 1px solid var(--lines-color);
   }
 
 
 
 
   &__date-cvv-divider {
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
   }
 
 
@@ -756,16 +784,16 @@ $_module-name: "Page specific styles for: Shopping Cart";
     margin-top: -1rem;
     padding: 1rem;
     text-align: center;
-    color: var(--clr-text);
+    color: var(--text-color);
     font-size: 1rem;
     border-style: solid;
-    border-color: var(--clr-lines);
+    border-color: var(--lines-color);
     border-width: 0 2px;
 
     transition: color .2s ease;
 
     &:hover {
-      color: var(--clr-text-red);
+      color: var(--text-red-color);
     }
   }  
 
@@ -782,31 +810,31 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
     font-family: var(--ff-primary);
     font-size: 1.5rem;
-    color: var(--clr-light);
+    color: var(--background-accent);
     line-height: 2rem;
     border-radius: 0 0 1rem 1rem;
 
-    background-color: var(--clr-dark);
+    background-color: var(--accent-color);
     transition: background-color .2s ease;
 
     &:disabled {
-      background-color: var(--clr-grey-light);
-      color: var(--clr-grey-dark);
+      background-color: var(--accent-grey-color);
+      color: var(--text-grey-color);
     }
 
     &:disabled .icon {
-      fill: var(--clr-grey-dark);
+      fill: var(--text-grey-color);
     }
 
     &:not(:disabled):hover {
-      background-color: var(--clr-bg-green);
+      background-color: var(--background-green);
     }
 
     & .icon {
       display: inline-block;
       width: 2rem;
       height: 2rem;
-      fill: var(--clr-light);
+      fill: var(--background-accent);
     }
   }
   

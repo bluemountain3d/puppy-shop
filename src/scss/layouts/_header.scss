@@ -4,7 +4,7 @@
 @use '../abstracts/functions' as fn;
 @use '../abstracts/mixins' as mx;
 
-$_module-name: "Page Header";
+$_module-name: 'Page Header';
 
 /* ### #{$_module-name} START */
 
@@ -15,8 +15,8 @@ $_module-name: "Page Header";
   left: 0;
   width: 100%;
   //margin-bottom: 1rem;
-  color: var(--clr-light);
-  background-color: var(--clr-dark);
+  color: var(--header-color);
+  background-color: var(--header-background);
 
   // clip-path: polygon(calc(50% - 960px) 0, 
   //                    calc(50% + 960px) 0,
@@ -35,7 +35,7 @@ $_module-name: "Page Header";
     > .icon {
       width: 11.25rem;
       height: 3rem;
-      fill: var(--clr-light);
+      fill: var(--header-color);
     }
   }
 
@@ -51,8 +51,19 @@ $_module-name: "Page Header";
     min-width: 100%;
   }
 
-  &__cart {
+  &__theme-mode-btn {
     margin-left: auto;
+    padding: 0 1rem;
+
+    & .icon {
+      width: 2rem;
+      height: 2rem;
+      fill: var(--header-color);
+    }
+  }
+
+  &__cart {
+    //margin-left: auto;
     position: relative;
     display: flex;
     height: 100%;
@@ -72,7 +83,7 @@ $_module-name: "Page Header";
     cursor: pointer;
     height: 4rem;
     padding: 0 2rem 0 1rem;
-    color: var(--clr-light);
+    color: var(--header-color);
 
     display: flex;
     align-items: center;
@@ -84,7 +95,7 @@ $_module-name: "Page Header";
       display: none;
       width: 2rem;
       height: 2rem;
-      fill: var(--clr-light);
+      fill: var(--header-color);
 
       @media screen and (min-width: 720px) {
         display: inline-block;
@@ -119,12 +130,12 @@ $_module-name: "Page Header";
       display: inline-block;
       width: 2.5rem;
       height: 2.5rem;
-      fill: var(--clr-light);
+      fill: var(--header-color);
       transition: fill .15s ease;
     }
 
     & > .icon:hover {
-      fill: var(--clr-bg-green);
+      fill: var(--background-green);
     }
 
     &.change > .icon {
@@ -144,8 +155,8 @@ $_module-name: "Page Header";
       position: relative;
       padding: 0 1rem;
       text-transform: uppercase;
-      background-color: var(--clr-bg-green);
-      color: white;
+      background-color: var(--background-green);
+      color: var(--clr-white);
       font-size: 1.25rem;
       font-weight: 600;
       letter-spacing: .04em;
@@ -171,7 +182,7 @@ $_module-name: "Page Header";
       }
 
       &:hover {
-        background-color: #6E6E6E;
+        background-color: #808080; // #6E6E6E;
       }
     }
   }
@@ -192,7 +203,7 @@ $_module-name: "Page Header";
     height: fit-content;
     //max-height: 100vh;
     max-height: calc(100vh - 5rem);
-    background-color: white;
+    background-color: var(--background-accent);
     box-shadow: 0 .25rem .5rem rgba(black, .33);
     transition: translate .5s ease, opacity .5s ease;
 
@@ -220,7 +231,7 @@ $_module-name: "Page Header";
     padding-left: Max(12px, var(--vwx) * 3.125);
     @media screen and (min-width: 720px) {
       padding-left: 1.5rem;
-      border-left: 2px solid var(--clr-lines);
+      border-left: 2px solid var(--lines-color);
     }
   }
 
@@ -243,20 +254,20 @@ $_module-name: "Page Header";
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    border-top: 1px solid var(--clr-lines);
+    border-top: 1px solid var(--lines-color);
   }
 
   &__cart-label {
     font-size: 1.25rem;
     line-height: 1.5rem;
     font-weight: 600;
-    color: var(--clr-text);
+    color: var(--text-color);
   }
 
   &__cart-subtotal {
     font-size: 1.25rem;
     line-height: 1.5rem;
-    color: var(--clr-text);
+    color: var(--text-color);
   }
 
   &__cart-dropdown-checkout-btn {
@@ -267,11 +278,11 @@ $_module-name: "Page Header";
     bottom: 0;
     
     font-family: var(--ff-primary);
-    font-size: 1.5rem;
-    color: var(--clr-light);
+    font-size: 1.5rem;font-weight: 600;
+    color: var(--button-text);
     line-height: 2rem;
 
-    background-color: var(--clr-dark);
+    background-color: var(--button-background);
     //border-radius: 0 0 1rem 1rem;
 
     display: flex;
@@ -282,14 +293,19 @@ $_module-name: "Page Header";
     transition: background-color .2s ease;
 
     &:hover {
-      background-color: var(--clr-bg-green);
+      background-color: var(--button-background-hover);
+      color: var(--button-text-hover);
+
+      .icon {
+        fill: var(--button-text-hover);
+      }
     }
 
     & .icon {
       display: inline-block;
       width: 2rem;
       height: 2rem;
-      fill: var(--clr-light);
+      fill: var(--button-text);
     }
 
     @media screen and (min-width: 720px) {

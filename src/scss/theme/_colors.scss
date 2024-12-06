@@ -10,5 +10,144 @@ $_module-name: "Colors";
 
 
 
+
+
+:root {
+  --clr-white: #FFF;
+  --clr-black: #000;
+
+  --clr-light: #F9FBFF;
+  --clr-dark: #0C2340;
+  --clr-light-hover: #DFE1E5;
+  --clr-dark-hover: #243853;
+}
+
+
+.theme-light {
+  --grey-100: hsl(0, 0%, 31%); 
+  --grey-200: hsl(0, 0%, 39%); 
+  --grey-300: hsl(0, 0%, 47%); 
+  --grey-400: hsl(0, 0%, 54%);
+  --grey-500: hsl(0, 0%, 62%);
+  --grey-600: hsl(0, 0%, 70%);
+  --grey-700: hsl(0, 0%, 78%);
+  --grey-800: hsl(0, 0%, 85%);
+  --grey-900: hsl(0, 0%, 93%);  
+}
+
+.theme-dark {
+  --grey-100: hsl(0, 0%, 62%); 
+  --grey-200: hsl(0, 0%, 55%); 
+  --grey-300: hsl(0, 0%, 49%); 
+  --grey-400: hsl(0, 0%, 42%);
+  --grey-500: hsl(0, 0%, 35%);
+  --grey-600: hsl(0, 0%, 28%);
+  --grey-700: hsl(0, 0%, 21%);
+  --grey-800: hsl(0, 0%, 14%);
+  --grey-900: hsl(0, 0%, 7%); 
+}
+
+
+body, .theme-light {
+
+  --header-background: #0C2340;
+  --header-color: #F9FBFF;
+  --box-shadow-color: rgba(0, 0, 0, .33);
+
+  --accent-color: #0C2340;
+  --background-color: #FFF;
+  --background-accent: #F9FBFF;
+  --background-hover: #DFE1E5;
+
+  --background-green: #008700;
+  --background-gold: #AE8E39;
+
+  --title-color: #3874C6;
+  --subtitle-color: #6694D2;
+  --text-color: #285796;
+  --text-red-color: #8B0000;
+  --text-green-color: #008700;
+  --text-grey-color: #565656;
+  --text-grey-accent: #C4C4C4;
+
+  --lines-color: #C7C9CC;
+
+  --button-background: #0C2340;
+  --button-text: #F9FBFF;
+  --button-background-hover: #008700;
+  --button-text-hover: #F9FBFF;
+
+  --danger-border: #F44336;
+  --danger-background: #FFEBEE;
+  --danger-text: #D32F2F;
+
+  --valid-border: #4CAF50;
+  --valid-background: #E6F3E6;
+  --valid-text: #2E7D32;
+
+  --warning-border: #FF9800;
+  --warning-background: #FFF4E5;
+  --warning-text: #F57C00;
+
+  --info-border: #007CF7;
+  --info-background: #E6F2FF;
+  --info-text: #0056B3;
+
+}
+
+
+// #6E6E6E
+body.theme-dark {
+
+  --header-background: #08192D;
+  --header-color: #F9FBFF;
+  --box-shadow-color: rgba(0, 0, 0, .67);
+      
+  --accent-color: #F9FBFF;
+  --background-color: #0C2340;
+  --background-accent:  #08192D;
+  --background-hover: #243853;
+
+  --background-green: #00A100;
+  --background-gold: #A48535;
+  --background-grey: #A48535;
+
+  --title-color: #A8C5FF;
+  --subtitle-color: #7A9BC2;
+  --text-color: #EBF1FF;
+  --text-red-color: #FF4E45;
+  --text-green-color: #00E300;
+  --text-grey-color: #C4C4C4;
+  --text-grey-accent: #565656;
+
+  --lines-color: #3D4F66;
+
+  --button-background: #F9FBFF;
+  --button-text: #0C2340;
+  --button-background-hover: #00A100;
+  --button-text-hover: var(--clr-white, #FFF);
+
+
+  --danger-border: #FF5649;
+  --danger-background: #4D0C0C;
+  --danger-text: #FF5649;
+
+  --valid-border: #2ADE8A;
+  --valid-background: #063A20;
+  --valid-text: #2ADE8A;
+
+  --warning-border: #FF9800;
+  --warning-background: #4D2C00;
+  --warning-text: #FFA726;
+
+  --info-border: #4DA6FF;
+  --info-background: #0C2C4D;
+  --info-text: #4DA6FF;
+}
+
+
+
+
+
 /* ### #{$_module-name} END
 /* ------------------------------------------------------------ */

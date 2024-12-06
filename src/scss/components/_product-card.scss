@@ -27,7 +27,7 @@ $_module-name: "Product Carsd";
     font-family: var(--ff-secondary);
     font-size: 3rem;
     font-weight: 700;
-    color: var(--clr-title);
+    color: var(--title-color);
   }
 
   &__filters {
@@ -100,7 +100,7 @@ $_module-name: "Product Carsd";
   grid-row: span 3;
   gap: 0;
 
-  box-shadow: 0 .25rem .5rem rgba(black, .33);
+  box-shadow: 0 .25rem .5rem var(--box-shadow-color);
   border-radius: 1rem;
 
   //** Card Image
@@ -110,7 +110,7 @@ $_module-name: "Product Carsd";
     display: block;
     position: relative;
     border-width: 2px 2px 0 2px;
-    border-color: var(--clr-lines);
+    border-color: var(--lines-color);
     border-style: solid;
     border-radius: 1rem 1rem 0 0;
     //overflow: hidden;
@@ -149,9 +149,9 @@ $_module-name: "Product Carsd";
     align-self: stretch;
     padding: 1rem;
     border-width: 0 2px 0 2px;
-    border-color: var(--clr-lines);
+    border-color: var(--lines-color);
     border-style: solid;
-    background-color: var(--clr-light);
+    background-color: var(--background-accent);
   }
 
   //** Card Content
@@ -165,23 +165,23 @@ $_module-name: "Product Carsd";
     font-family: var(--ff-secondary);
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--clr-title);
+    color: var(--title-color);
 
   }
 
   &__byline {
-    color: var(--clr-text);
+    color: var(--text-color);
     min-height: 2.6em;
   }
 
   &__tags {
     //margin-top: .5rem;
     padding: .5rem 0;
-    //border-top: 1px solid var(--clr-lines);
+    //border-top: 1px solid var(--lines-color);
     list-style: none;
     display: flex;
     gap: .75rem;
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
   }
 
   //* Accordion
@@ -192,33 +192,33 @@ $_module-name: "Product Carsd";
   }
 
   &__details[open] {   
-    background-color: white;
+    background-color: var(--background-color);
     margin-bottom: 1rem;
     // margin-bottom: 1rem;
-    //border: 1px solid var(--clr-lines);
+    //border: 1px solid var(--lines-color);
   }
 
   &__details[open] > &__details-content {
-    border-color: var(--clr-lines);
+    border-color: var(--lines-color);
     opacity: 1;
   }
 
   &__details-title { // <summary>
     padding: .5rem 0;
-    color: var(--clr-text);
+    color: var(--text-color);
     font-weight: 600;
-    //border-bottom: 1px solid var(--clr-lines);
-    background-color: var(--clr-light);
+    //border-bottom: 1px solid var(--lines-color);
+    background-color: var(--background-accent);
   }
 
   &__details-content {
     padding-block: 1rem .5rem;
     padding-inline: 1rem;
-    //border-left: 2px solid var(--clr-lines);
+    //border-left: 2px solid var(--lines-color);
     border: 1px solid;
     border-color: transparent;
-    color: var(--clr-text);
-    //background-color: white;
+    color: var(--text-color);
+    //background-color: var(--background-color);
     opacity: .5;
     transition: opacity .5s ease, border-color .5s ease;
 
@@ -242,7 +242,7 @@ $_module-name: "Product Carsd";
   // Gender radio buttons
   &__gender {
     margin-top: auto;
-    padding: .75rem 0;
+    padding: 1.25rem 0;
     display: flex;
     align-items: flex-end;
     gap: 1.5rem;
@@ -258,14 +258,6 @@ $_module-name: "Product Carsd";
     height: fit-content;
     display: flex;
     gap: 1rem;
-
-    // @media screen and (min-width: 720px) {
-      
-    // }
-
-    // @media screen and (min-width: 720px) {
-      
-    // }
   }
 
   &__pricing {
@@ -288,11 +280,11 @@ $_module-name: "Product Carsd";
 
   &__price {
     font-size: 1.5rem;
-    color: var(--clr-text-green);
+    color: var(--text-green-color);
   }
 
   &__price-unit {
-    color: var(--clr-text);
+    color: var(--text-color);
   }
 
   &__price-details {
@@ -302,52 +294,55 @@ $_module-name: "Product Carsd";
 
   &__original-price {
     font-size: .75rem;
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
     text-decoration: line-through;
   }
 
   &__comparison-price {
     font-size: .75rem;
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
     text-align: center;
   }
 
   &__quantifier {
     display: flex;
     align-items: center;
-    color: var(--clr-title);
+    color: var(--text-color);
 
     &-btn {
+      z-index: 2;
       width: 3rem;
       height: 3rem;
       font-size: 1.5rem;
       color: inherit;
-      border: solid var(--clr-lines);
-      border-width: 1px 1px 1px 0;
+      border: solid var(--lines-color);
+      border-width: 1px;
       border-radius: 0 .5rem .5rem 0;
-      transition: background-color .2s ease;
-      background-color: white;
+      transition: background-color .2s ease, border-color .2s ease;
+      background-color: var(--background-color);
 
       &:first-of-type {
-        border-width: 1px 0 1px 1px;
+        //border-width: 1px 0 1px 1px;
         border-radius: .5rem 0 0 .5rem;
       }
 
       &:hover {
-        background-color: #E2E3E5;
+        background-color: var(--background-hover);
+        border-color: var(--button-background);
       }
     }
 
     &-value {
+      z-index: 1;
       width: 4rem;
       height: 3rem;
       line-height: 3rem;
       text-align: center;
       font-size: 1.5rem;
       color: inherit;
-      background-color: white;
-      border: solid var(--clr-lines);
-      border-width: 1px;
+      background-color: var(--background-color);
+      border: solid var(--lines-color);
+      border-width: 1px 0;
       user-select: none;
     }
   }
@@ -367,31 +362,33 @@ $_module-name: "Product Carsd";
 
     font-family: var(--ff-primary);
     font-size: 1.5rem;
-    color: var(--clr-light);
+    font-weight: 600;
+    color: var(--button-text);
     line-height: 2rem;
     border-radius: 0 0 1rem 1rem;
 
-    background-color: var(--clr-dark);
-    transition: background-color .2s ease;
-
-    &:hover {
-      background-color: var(--clr-bg-green);
-    }
+    background-color: var(--button-background);
+    transition: background-color .2s ease, color .2s ease;
 
     & .icon {
       display: inline-block;
       width: 2rem;
       height: 2rem;
-      fill: var(--clr-light);
+      fill: var(--button-text);
+      transition: fill .2s ease;
     }
 
     &:hover {
-      
+      background-color: var(--button-background-hover);
+      color: var(--button-text-hover);
     }
 
+    &:hover .icon {
+      fill: var(--button-text-hover);
+    }
+
+    
   }
-
-
 }
 
 

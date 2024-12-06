@@ -21,7 +21,7 @@ $_module-name: 'Form';
 input[type="radio"]:focus-visible ~ .rb-checkmark,
 input[type="checkbox"]:focus-visible ~ .chb-checkmark {
   border: none;
-  outline: 3px solid #007CF7;//#0066CC; //#FF9800;
+  outline: 3px solid var(--info-border);//#0066CC; //#FF9800;
   outline-offset: 2px;
 }
 
@@ -40,9 +40,9 @@ input[type="checkbox"]:focus-visible ~ .chb-checkmark {
 
 :is(button):focus-visible {
   border: none;
-  outline: 3px solid #007CF7;//#0066CC; //#FF9800;
+  outline: 3px solid var(--info-border);//#0066CC; //#FF9800;
   outline-offset: -3px;
-  //box-shadow: inset 0 0 0 3px #007CF7;       
+  //box-shadow: inset 0 0 0 3px var(--info-border);       
 }
 
 
@@ -97,7 +97,7 @@ input[type='number'] {
   }
 
   &:disabled {
-    background-color: white;
+    background-color: var(--background-color);
   }
 }
 
@@ -124,34 +124,45 @@ input[type='number'] {
   left: .75rem;
   width: 1.25rem;
   height: 1.25rem;
-  border: 1px solid var(--clr-lines);
+  border: 1px solid var(--lines-color);
   border-radius: 50%;
-  background-color: white;
+  background-color: var(--background-color);
   display: grid;
   place-content: center;
 
   &::after {
     content: '';
-    width: .5rem;
-    height: .5rem;
+    width: .75rem;
+    height: .75rem;
     display: none;
     border-radius: 50%;
-    background-color: var(--clr-light);
+    background-color: var(--background-color);
   }
 }
 
 .rb-label {
   line-height: 1.25rem;
-  color: var(--clr-text);
+  color: var(--text-color);
 }
 
 .rb-custom:hover > input:not(:checked):not(:disabled) ~ .rb-checkmark {
   transition: background-color .2s ease;
-  background-color: #E2E3E5;
+  background-color: var(--background-hover);
+
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-style: solid;
+  outline-color: var(--button-background); //var(--info-border); //#0066CC;
 }
 
+// .rb-custom:hover > .rb-checkmark {
+//   outline-width: 2px;
+//   outline-style: solid;
+//   outline-color: var(--info-border); //#0066CC;
+// }
+
 .rb-custom > input:checked ~ .rb-checkmark {
-  background-color: var(--clr-text);
+  background-color: var(--text-color);
 }
 
 .rb-custom > input:checked ~ .rb-checkmark::after {
@@ -161,7 +172,7 @@ input[type='number'] {
 .rb-custom:has(input:disabled) {
   opacity: .5;
   & * {
-    color: var(--clr-grey-dark);
+    color: var(--text-grey-color);
   }
 }
 
@@ -181,22 +192,17 @@ input[type='number'] {
   position: relative;
   padding-left: 2.75rem;
 
-  // &:focus-within { //?
-  //   outline: 2px solid cyan;
-  //   outline-offset: 2px;
-  // }
-
   &:has(input.invalid) > .chb-checkmark {
-    border-color: #F44336;
-    background-color: #FFEBEE;
+    border-color: var(--danger-border);
+    background-color: var(--danger-background);
   }
 
   &:has(input.invalid) > .chb-label {
-    color: #D32F2F;
+    color: var(--text-red-color);
   }
 
   &:has(input.invalid):hover > .chb-checkmark {
-    outline-color: #F44336;
+    outline-color: var(--danger-border);
   }
 
   &:has(input.invalid)::before {
@@ -206,7 +212,7 @@ input[type='number'] {
     left: 0;
     width: 100%;
     height: calc(100% + 1rem);
-    outline: 2px solid #F44336;
+    outline: 2px solid var(--danger-border);
     outline-offset: 0;
   }
 }
@@ -217,11 +223,11 @@ input[type='number'] {
   left: .75rem;
   width: 1.25rem;
   height: 1.25rem;
-  border: 1px solid var(--clr-lines);
+  border: 1px solid var(--lines-color);
   outline: 0 solid;
   outline-color: transparent;
   outline-offset: -1px;
-  background-color: white;
+  background-color: var(--background-accent);
   display: grid;
   place-content: center;
   transition: outline-color .2s ease, background-color .2s ease;
@@ -233,31 +239,32 @@ input[type='number'] {
 
   &::after {
     content: '\2714';
-    font-size: .75rem;
+    font-size: 1rem;
     line-height: 1em;
     font-weight: 600;
     translate: 0 .075em;
     display: none;
-    color: var(--clr-light);
+    color: var(--background-accent);
   }
 }
 
 .chb-label {
   line-height: 1.25rem;
-  color: var(--clr-text);
+  color: var(--text-color);
 }
 
 .chb-custom:hover > input:not(:checked):not(.invalid) ~ .chb-checkmark {
-  background-color: #E2E3E5;
+  background-color: var(--background-hover);
 }
 
 .chb-custom:hover > .chb-checkmark {
   outline-width: 2px;
-  outline-color: #007CF7; //#0066CC;
+  outline-style: solid;
+  outline-color: var(--info-border); //#0066CC;
 }
 
 .chb-custom > input:checked ~ .chb-checkmark {
-  background-color: var(--clr-text);
+  background-color: var(--text-color);
 }
 
 .chb-custom > input:checked ~ .chb-checkmark::after {
@@ -278,7 +285,7 @@ input[type='number'] {
   &__label {
     text-wrap: nowrap;
     font-size: 1rem;
-    color: var(--clr-text);
+    color: var(--text-color);
     width: auto;
 
     @media screen and (min-width: 720px) {
@@ -288,13 +295,13 @@ input[type='number'] {
 
   &__select {
     appearance: none;
-    border: 1px solid var(--clr-lines);
+    border: 1px solid var(--lines-color);
     border-radius: .25rem;
     padding: 0.25rem 2em .25rem 1em;
     width: 100%;
     height: 3rem;
-    color: var(--clr-text);
-    background-color: white;
+    color: var(--text-color);
+    background-color: var(--background-color);
     font-size: 1rem;
     font-family: var(--ff-primary);
 
@@ -318,7 +325,7 @@ input[type='number'] {
     & .icon {
       width: .75rem;
       height: .75rem;
-      fill: var(--clr-text);
+      fill: var(--text-color);
     }
 
     @media screen and (min-width: 720px) {
@@ -343,58 +350,58 @@ input[type="number"] {
 
   &.valid,
   &:not(:placeholder-shown):valid {
-    border-color: #4CAF50 !important;
-    background-color: #E6F3E6 !important;
-    color: #2E7D32 !important;
+    border-color: var(--valid-border) !important;
+    background-color: var(--valid-background) !important;
+    color: var(--valid-text) !important;
 
     &:focus-visible {
-      outline-color: #4CAF50 !important;
+      outline-color: var(--valid-border) !important;
     }
 
     & + label {
-      color: #2E7D32 !important;
+      color: var(--valid-text) !important;
     }
   }
 
   &.invalid {
-    border-color: #F44336 !important;
-    background-color: #FFEBEE !important;
-    color: #D32F2F !important;
+    border-color: var(--danger-border) !important;
+    background-color: var(--danger-background) !important;
+    color: var(--danger-text) !important;
     &:focus-visible {
-      outline-color: #F44336 !important;
+      outline-color: var(--danger-border) !important;
     }
 
     & + label {
-      color: #D32F2F !important;
+      color: var(--danger-text) !important;
     }
   }
 
 }
 
 div.valid, span.valid {
-  border-color: #4CAF50 !important;
-  background-color: #E6F3E6 !important;
-  color: #2E7D32 !important;
+  border-color: var(--valid-border) !important;
+  background-color: var(--valid-background) !important;
+  color: var(--valid-text) !important;
 
   &:focus-visible {
-    outline-color: #4CAF50 !important;
+    outline-color: var(--valid-border) !important;
   }
 
   & + label {
-    color: #2E7D32 !important;
+    color: var(--valid-text) !important;
   }
 }
 
 div.invalid, span.invalid {
-  border-color: #F44336 !important;
-  background-color: #FFEBEE !important;
-  color: #D32F2F !important;
+  border-color: var(--danger-border) !important;
+  background-color: var(--danger-background) !important;
+  color: var(--danger-text) !important;
   &:focus-visible {
-    outline-color: #F44336 !important;
+    outline-color: var(--danger-border) !important;
   }
 
   & + label {
-    color: #D32F2F !important;
+    color: var(--danger-text) !important;
   }
 }
 
@@ -407,31 +414,31 @@ div.invalid, span.invalid {
 //   // Valid State (HTML Validation or JS-Added Class)
 //   &:not(:placeholder-shown):valid,
 //   &:not(:placeholder-shown).valid {
-//     border-color: #4CAF50 !important;
-//     background-color: #E6F3E6 !important;
-//     color: #2E7D32 !important;
+//     border-color: var(--valid-border) !important;
+//     background-color: var(--valid-background) !important;
+//     color: var(--valid-text) !important;
 
 //     &:focus-visible {
-//       outline-color: #4CAF50 !important;
+//       outline-color: var(--valid-border) !important;
 //     }
 
 //     & + label {
-//       color: #2E7D32 !important;
+//       color: var(--valid-text) !important;
 //     }
 //   }
 
 //   // Invalid State (HTML Validation or JS-Added Class)
 //   &:not(:placeholder-shown):invalid,
 //   &.invalid:not(:placeholder-shown) {
-//     border-color: #F44336 !important;
-//     background-color: #FFEBEE !important;
-//     color: #D32F2F !important;
+//     border-color: var(--danger-border) !important;
+//     background-color: var(--danger-background) !important;
+//     color: var(--danger-text) !important;
 //     &:focus-visible {
-//       outline-color: #F44336 !important;
+//       outline-color: var(--danger-border) !important;
 //     }
 
 //     & + label {
-//       color: #D32F2F !important;
+//       color: var(--danger-text) !important;
 //     }
     
 //   }
