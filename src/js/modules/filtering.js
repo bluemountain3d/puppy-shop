@@ -6,9 +6,9 @@ import {
 // Import product functions
 import {
   productCard,
+  createProductCards,
   setCardUpdateInterval,
 } from "./product-card-functions.js";
-
 
 // Populate filtered product cards function
 export function populateFilteredCards(array) {
@@ -16,10 +16,7 @@ export function populateFilteredCards(array) {
   const productsWrapper = document.querySelector('.js-products');
   productsWrapper.innerHTML = '';
 
-  // Populate filtered product cards
-  array.forEach(item => {
-    productsWrapper.innerHTML += productCard(item);
-  });
+  createProductCards(productsWrapper, array);
 
   // Update card price every x minute
   setCardUpdateInterval(15);

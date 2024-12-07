@@ -34,7 +34,7 @@ import {
 
 
 // Product card
-export function productCard(obj, quantity=0) {
+export function productCard(obj, loading='lazy', quantity=0) {
   
   const pid = obj.id;
   const imgUrl = obj.image.url;
@@ -48,17 +48,17 @@ export function productCard(obj, quantity=0) {
   const initialPrice = formatPrice(weekendPricing(Number(obj.priceInfo.price)));
   const kgPrice = comparisonPricePerKg(weekendPricing(Number(obj.priceInfo.price)), Number(obj.properties.weight.male));
   
-  const card = `
-        <article class="product-card js-product-card" data-pid="${pid}" data-rating="${rating}" data-gender="male" aria-labelledby="product-title-${breed}">
-            <div class="product-card__image-wrapper">
+  const productHTML = /* ?data-rating="${rating}" */
+        //<article class="product-card js-product-card" data-pid="${pid}"  data-gender="male" aria-labelledby="product-title-${breed}">
+            `<div class="product-card__image-wrapper">
               <picture>
                 <img 
-                  src="${imgUrl}-w512.avif"
+                  src="${imgUrl}-w446.avif"
                   alt="${imgAlt}"
                   class="product-card__image"
-                  width="360" height="360" loading="lazy">
+                  width="446" height="446" loading="${loading}">
               </picture>
-              <div class="product-card__rating" aria-label="Rasens popularitet: ${rating} av 5 tassar">
+              <div class="product-card__rating" role="img" aria-label="Rasens popularitet: ${rating} av 5 tassar">
                 ${populateRating(rating)}
               </div>
             </div>
@@ -110,11 +110,11 @@ export function productCard(obj, quantity=0) {
                 <use href="#add-to-cart-icon" class="add-to-cart-icon"/>
               </svg>
               <span>Lägg i kundvagn</span>
-            </button>
-          </article>
-      `;
+            </button>`
+          //</article>
+      ;
 
-  return card;
+  return productHTML;
 }
 
 
@@ -195,22 +195,9 @@ function handleProductCardEvent(e) {
 
   //Add to cart object when add to cart button is clicked
   if (e.type == 'click' && e.target.matches('.js-add-to-cart')) {
-
-    // console.log(`\n//--- handleProductCardEvent('${e.type}') Called ---//`);
-    // console.log(
-    //   'Clicked Add to Cart Button',
-    //   '\nproductId:',productId,
-    //   '\ngender:',gender,
-    //   '\nitemData:',itemData
-    // );
     
     const quantityValue = card.querySelector(`span[data-pid="${productId}"].js-card-quantity`);
     const quantity = Number(quantityValue.innerText);
-
-    // console.log(
-    //   'quantityValue.innerText',quantityValue.innerText,
-    //   '\nquantity:', quantity
-    // );
     
     if (!quantity) return; // Stop id quantity is 0
 
@@ -224,7 +211,6 @@ function handleProductCardEvent(e) {
     // Test if cartItem should be added or updated
     // If cart item donesn't exist, or if cart item exist, item gender is not equal to card gender
     if (!itemData || itemData && itemData.gender != gender) { 
-      // console.log('Cart item doesn\'t exist, create new!');
       
       // Create new cart item
       const newItem = {
@@ -256,8 +242,6 @@ function handleProductCardEvent(e) {
       // Reset input
       quantityValue.innerText = 0;
     } else {
-      // console.log('Cart item exist, update existing item!');
-
       // Product is in cart, update
 
       // Set new quantity
@@ -278,9 +262,60 @@ function handleProductCardEvent(e) {
       // Reset input
       quantityValue.innerText = 0;
     }
-
-    // console.log(`\n//--- handleProductCardEvent('${e.type}') End ---//`);
   }
+}
+
+
+/**
+ * Creates and renders product cards dynamically based on screen width.
+ * 
+ * @param {HTMLElement} wrapper - The parent container element where product cards will be appended
+ * @param {Array} array - An array of product items to be converted into cards
+ * 
+ * @description
+ * This function does the following:
+ * 1. Determines the number of "eager" loaded images based on current screen width
+ * 2. Creates a DocumentFragment to optimize DOM updates
+ * 3. Generates product cards for each item in the input array
+ * 4. Sets loading strategy (eager/lazy) for images based on screen breakpoints
+ * 5. Adds data attributes and accessibility labels to each card
+ * 6. Efficiently appends all cards to the wrapper in a single operation
+ */
+export function createProductCards(wrapper, array) {
+  
+  // Determine the number of "eager" images based on the breakpoint
+  const breakpoint = window.innerWidth;
+  const eagerCount = (() => {
+    if (breakpoint > 1920) return 10;
+    if (breakpoint > 1774) return 5;
+    if (breakpoint > 1416) return 4;
+    if (breakpoint > 1058) return 3;
+    if (breakpoint > 699) return 2;
+    return 1;
+  })();
+
+  // Create a DocumentFragment to batch DOM updates
+  const fragment = document.createDocumentFragment();
+
+  // Populate filtered product cards
+  array.forEach((item, index) => {
+    const eager = index < eagerCount ? 'eager' : 'lazy';
+
+    const card = document.createElement('article');
+    card.className = 'product-card js-product-card';
+    card.setAttribute('data-pid', item.id);
+    card.setAttribute('data-gender', 'male');
+    card.setAttribute('aria-labelledby', `product-title-${item.breedInfo.breed}`);
+
+    // Populate innerHTML using the productCard function
+    card.innerHTML = productCard(item, eager);
+
+    // Append the card to the fragment
+    fragment.appendChild(card);
+  });
+
+  // Append all cards at once
+  wrapper.appendChild(fragment);
 }
 
 
@@ -288,19 +323,14 @@ export const initProductCards = (() => {
   // const productArray = shuffleArray(Object.values(productsObject));
   const productsArray = Object.values(productsObject);
   const productsWrapper = document.querySelector('.js-products');
-
-  // Populate product cards with default values
-  productsArray.forEach(item => {
-    productsWrapper.innerHTML += productCard(item);
-  });
+  
+  createProductCards(productsWrapper, productsArray);
 
 
   //*---------- Functionality ----------*//
 
   // Attach event listeners to the products wrapper
   productsWrapper.addEventListener('click', handleProductCardEvent);
-  // productsWrapper.addEventListener('keydown', handleProductCardEvent);
-  // productsWrapper.addEventListener('keyup', handleProductCardEvent);
   productsWrapper.addEventListener('change', handleProductCardEvent);
 
   // Update card price every x minute
