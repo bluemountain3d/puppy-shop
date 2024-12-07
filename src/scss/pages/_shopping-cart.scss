@@ -59,13 +59,13 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
 .cart__header, .checkout__header, .checkout__group-header {
   width: 100%;
-  padding: 1rem;
+  padding: .75rem 1rem;
   background-color: var(--button-background); //var(--accent-color);
 
   font-family: var(--ff-primary);
   color: var(--button-text); //var(--background-accent);
   line-height: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: .02em;
 
@@ -106,11 +106,16 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
   &__header {
     border-radius: 1rem 1rem 0 0;
-    padding: .75rem 1rem;
+
+    & .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 
   &__header-title {
     display: flex;
+    align-items: center;
     gap: .5rem;
   }
 
@@ -811,15 +816,15 @@ $_module-name: "Page specific styles for: Shopping Cart";
 
     font-family: var(--ff-primary);
     font-size: 1.5rem;
-    color: var(--background-accent);
+    color: var(--button-text);
     line-height: 2rem;
     border-radius: 0 0 1rem 1rem;
 
-    background-color: var(--accent-color);
+    background-color: var(--button-background);
     transition: background-color .2s ease;
 
     &:disabled {
-      background-color: var(--accent-grey-color);
+      background-color: var(--text-grey-accent);
       color: var(--text-grey-color);
     }
 
@@ -835,7 +840,7 @@ $_module-name: "Page specific styles for: Shopping Cart";
       display: inline-block;
       width: 2rem;
       height: 2rem;
-      fill: var(--background-accent);
+      fill: var(--button-text);
     }
   }
   

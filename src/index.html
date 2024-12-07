@@ -40,6 +40,13 @@
     <meta name="twitter:image" content="https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/img/og-image.jpg">
     <!-- Open Graph END -->
 
+    <!-- Preload the LCP image with a high fetchpriority so it starts loading with the stylesheet. -->
+    <link rel="preload" fetchpriority="high" as="image" href="img/puppies/labrador-retriever-w446.avif" type="image/avif">
+    <!-- <link rel="preload" fetchpriority="high" as="image" href="img/puppies/german-shepherd-w446.avif" type="image/avif">
+    <link rel="preload" fetchpriority="high" as="image" href="img/puppies/golden-retriever-w446.avif" type="image/avif">
+    <link rel="preload" fetchpriority="high" as="image" href="img/puppies/french-bulldog-w446.avif" type="image/avif">
+    <link rel="preload" fetchpriority="high" as="image" href="img/puppies/chihuahua-w446.avif" type="image/avif"> -->
+
     <!-- Structured data START-->
     <script type="application/ld+json">
       {
@@ -78,9 +85,9 @@
           <svg class="icon header__brand-icon-head" aria-hidden="true">
             <use href="#puppy-shop-head"/>
           </svg>
-          <svg class="icon header__brand-icon-text" aria-hidden="true">
+          <!-- <svg class="icon header__brand-icon-text" aria-hidden="true">
             <use href="#puppy-shop-text"/>
-          </svg>
+          </svg> -->
         </button>
         <!-- <nav class="header__nav"></nav> -->
         <button class="header__theme-mode-btn js-theme-switch" aria-label="Byt till mörkt tema" title="Byt mellan ljust och mörkt tema">
@@ -92,27 +99,35 @@
 
           <div class="header__cart-inner js-header-cart-inner">
             <button class="header__to-checkout-mobile no-shake js-header-cart-mobile-btn js-go-to-checkout" aria-label="Gå till kundvagn och kassa">
+              <span class="visually-hidden">Gå till kassan</span>
               <svg class="icon" aria-hidden="true">
                 <use href="#cart-icon" class="js-header-cart-icon"/>
               </svg>
             </button>
-            <button class="header__cart-btn js-header-cart-btn" aria-label="Öppna och stänga kundvagn" disabled aria-disabled="true" title="Öppna och stänga kundvagn">
+            <button class="header__cart-btn js-header-cart-btn" aria-haspopup="true" aria-controls="cart-dropdown" aria-label="Öppna och stänga kundvagn" disabled aria-disabled="true" title="Öppna och stänga kundvagn">
               <svg class="icon" aria-hidden="true">
                 <use href="#cart-icon" class="cart-icon"/>
               </svg>
-              <div class="header__cart-count js-header-count">0</div>
-              <div class="header__cart-total js-header-total hidden"></div>
+              <div class="header__cart-count">
+                <span class="visually-hidden">Kundvagnen innehåller </span>
+                <span class="js-header-count">0</span>
+                <span class="visually-hidden"> valpar</span>
+              </div>
+              <div class="header__cart-total hidden">
+                <span class="visually-hidden">Till en total kostnad av </span>
+                <span class="js-header-total"></span>
+              </div>
             </button>
             
             <button class="header__to-checkout js-header-checkout js-go-to-checkout hidden">Till kassan</button>
           </div>
 
-          <div class="header__cart-dropdown js-dropdown-cart">
+          <div id="cart-dropdown" role="dialog" class="header__cart-dropdown js-dropdown-cart" aria-label="Kundvagnens innehåll">
             <div class="header__cart-dropdown-inner">
               <ul class="header__cart-items js-cart-items js-header-cart-items"></ul>
               <div class="header__cart-summary">
                 <span class="header__cart-label">Delsumma:</span>
-                <span class="header__cart-subtotal js-cart-subtotal">204 000 kr</span>
+                <span class="header__cart-subtotal js-cart-subtotal">0</span>
               </div>
             </div>
             <button class="header__cart-dropdown-checkout-btn js-go-to-checkout">
@@ -128,47 +143,72 @@
     </header>
 
     <main class="main">
+
+      <section class="hero">
+        <!-- <div class="hero__background"></div> -->
+        <h1 class="hero__main-title">
+          <!-- Visually hidden text for screen readers -->
+          <span class="visually-hidden">Puppy Shop</span>
+          
+          <!-- Visual SVG content -->
+          <span class="hero__icons" aria-hidden="true">
+            <svg class="icon hero__icon-head" role="img" aria-labelledby="logo-head-title">
+              <use href="#puppy-shop-head"/>
+              <title id="logo-head-title">Puppy Shop Logo Icon</title>
+            </svg>
+            <svg class="icon hero__icon-text" role="img" aria-labelledby="logo-text-title">
+              <use href="#puppy-shop-text"/>
+              <title id="logo-text-title">Puppy Shop Text Logo</title>
+            </svg>
+          </span>
+        </h1>
+        <h2 class="hero__subtitle">Hitta din nästa lurvaga vän hos oss på Puppy Shop!</h2>
+        <p class="hero__byline">&ndash;&nbsp;Den fiktiva valpbutiken med dina drömvalpar&nbsp;&ndash;</p>
+      </section>
+
       <div class="container--boxed">
         <div class="products js-products-section">
-          <header class="products__header">
-            <h1 class="products__title">Våra valpar!</h1>
-          </header>
-          <div class="products__filters">
-            <!-- Filteer for dod type -->
-            <div class="combobox products__cbx">
-              <label class="combobox__label" for="dog-type">Sortera på hundtyp:</label>
-              <select class="combobox__select products__select" name="type-filter" id="dog-type">
-                <option value="alla">Visa alla</option>
-                <option value="brukshund">Brukshund</option>
-                <option value="grythund">Grythund</option>
-                <option value="jakthund">Jakthund</option>
-                <option value="sällskapshund">Sällskapshund</option>
-                <option value="slädhund">Slädhund</option>
-                <option value="tjänstehund">Tjänstehund</option>
-                <option value="vallhund">Vallhund</option>
-              </select>
-              <span class="combobox__arrow" aria-hidden="true">
-                <svg class="icon" aria-hidden="true">
-                  <use href="#caret-icon"/>
-                </svg>
-              </span>
-            </div>
-            <!-- Filter for Rating, Name and Price. Ascending and Descending -->
-            <div class="combobox products__cbx">
-              <label class="combobox__label" for="filter">Sortera på:</label>
-              <select class="combobox__select products__select" name="common-filter" id="filter">
-                <option value="0">Pupularitet – fallande</option>
-                <option value="1">Pupularitet – stigande</option>
-                <option value="2">Hundras – fallande</option>
-                <option value="3">Hundras – stigande</option>
-                <option value="4">Pris – fallande</option>
-                <option value="5">Pris – stigande</option>
-              </select>
-              <span class="combobox__arrow" aria-hidden="true">
-                <svg class="icon" aria-hidden="true">
-                  <use href="#caret-icon"/>
-                </svg>
-              </span>
+          <div class="products__filter-row">
+            <header class="products__header">
+              <h2 class="products__title">Våra valpar</h2>
+            </header>
+            <div class="products__filters">
+              <!-- Filteer for dog type -->
+              <div class="combobox products__cbx">
+                <label id="dog-type-label" class="combobox__label" for="dog-type">Sortera på hundtyp:</label>
+                <select class="combobox__select products__select" name="type-filter" id="dog-type" aria-labelledby="dog-type-label">
+                  <option value="alla">Visa alla</option>
+                  <option value="brukshund">Brukshund</option>
+                  <option value="grythund">Grythund</option>
+                  <option value="jakthund">Jakthund</option>
+                  <option value="sällskapshund">Sällskapshund</option>
+                  <option value="slädhund">Slädhund</option>
+                  <option value="tjänstehund">Tjänstehund</option>
+                  <option value="vallhund">Vallhund</option>
+                </select>
+                <span class="combobox__arrow" aria-hidden="true">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#caret-icon"/>
+                  </svg>
+                </span>
+              </div>
+              <!-- Filter for Rating, Name and Price. Ascending and Descending -->
+              <div class="combobox products__cbx">
+                <label id="common-filter-label" class="combobox__label" for="filter">Sortera på:</label>
+                <select class="combobox__select products__select" name="common-filter" id="filter" aria-labelledby="common-filter-label">
+                  <option value="0">Pupularitet – fallande</option>
+                  <option value="1">Pupularitet – stigande</option>
+                  <option value="2">Hundras – fallande</option>
+                  <option value="3">Hundras – stigande</option>
+                  <option value="4">Pris – fallande</option>
+                  <option value="5">Pris – stigande</option>
+                </select>
+                <span class="combobox__arrow" aria-hidden="true">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#caret-icon"/>
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
           <div class="products__wrapper js-products "></div>
@@ -242,6 +282,7 @@
               </section>
   
               <section class="checkout js-checkout">
+                <h2 id="checkout-title" class="visually-hidden">Kassaprocess</h2>
                 <form action="" class="checkout__form js-checkout-form">
                   <fieldset class="checkout__group">
                     <legend class="checkout__header checkout__header--first">E-postadress / Postnummer</legend>
@@ -263,14 +304,13 @@
                           value=""
                           placeholder=" "
                           pattern="^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
-                          autocomplete="email"
                           required
                           aria-required="true"
                           aria-label="E-postadress, obligatoriskt fält"
                           aria-describedby="postal-email-tooltip">
                         <label 
                           for="postal-email" 
-                          class="">
+                          class="checkout__input-placeholder">
                           E-postadress: *
                         </label>
                         <span class="checkout__input-message js-input-message"></span>
@@ -291,7 +331,6 @@
                           value=""
                           placeholder=" "
                           pattern="^\d{3}\s?\d{2}$"
-                          autocomplete="postal-code"
                           required
                           aria-required="true"
                           aria-label="Postnummer"
@@ -299,7 +338,7 @@
                         <label 
                           for="postal-zip"
                           class="checkout__input-placeholder">
-                          Postnummer:
+                          Postnummer: *
                         </label>
                         <span class="checkout__input-message js-input-message"></span>
                       </div>
@@ -391,13 +430,12 @@
                               value=""
                               placeholder=" "
                               pattern="^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$"
-                              autocomplete="email"
                               aria-label="E-postadress"
                               aria-describedby="email-tooltip">
                             <label 
                               for="info-email"
                               class="checkout__input-placeholder">
-                              E-postadress:
+                              E-postadress: *
                             </label>
                             <span class="checkout__input-message js-input-message"></span>
                           </div>
@@ -419,13 +457,12 @@
                               value=""
                               placeholder=" "
                               pattern="^\d{3}\s?\d{2}$"
-                              autocomplete="postal-code"
                               aria-label="Postnummer"
                               aria-describedby="zip-tooltip">
                             <label 
                               for="info-zip"
                               class="checkout__input-placeholder">
-                              Postnummer:
+                              Postnummer: *
                             </label>
                             <span class="checkout__input-message js-input-message"></span>
                           </div>
@@ -448,13 +485,12 @@
                                 value=""
                                 placeholder=" "
                                 pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
-                                autocomplete="given-name"
                                 aria-label="Förnamn"
                                 aria-describedby="given-name-tooltip">
                               <label 
                                 for="given-name"
                                 class="checkout__input-placeholder">
-                                Förnamn:
+                                Förnamn: *
                               </label>
                               <!-- <span class="checkout__input-message js-input-message"></span> -->
                             </div>
@@ -475,13 +511,12 @@
                                 value=""
                                 placeholder=" "
                                 pattern="^[a-zA-ZÀ-ž]{2,}[.' ]*[a-zA-ZÀ-ž.' ]*$"
-                                autocomplete="family-name"
                                 aria-label="Efternamn"
                                 aria-describedby="family-name-tooltip">
                               <label 
                                 for="family-name"
                                 class="checkout__input-placeholder">
-                                Efternamn:
+                                Efternamn: *
                               </label>
                               <!-- <span class="checkout__input-message js-input-message"></span> -->
                             </div>
@@ -503,13 +538,12 @@
                               value=""
                               placeholder=" "
                               pattern="^[A-Za-zÅÄÖåäöÉé'’][A-Za-zÅÄÖåäöÉé'’\-]*(?:\s[A-Za-zÅÄÖåäöÉé'’\-]+)*\s\d+[A-Za-z]?(?:\s?[A-Za-zÅÄÖåäöÉé'’\-]*)?$"
-                              autocomplete="street-address"
                               aria-label="Gatuadress"
                               aria-describedby="street-address-tooltip">
                             <label 
                               for="street-address"
                               class="checkout__input-placeholder">
-                              Adress:
+                              Adress: *
                             </label>
                             <span class="checkout__input-message js-input-message"></span>
                           </div>
@@ -530,13 +564,12 @@
                               value=""
                               placeholder=" "
                               pattern="^[a-zA-ZÀ-ž]{2,}(?:[.'\- ][a-zA-ZÀ-ž]*)*$"
-                              autocomplete="address-level2"
                               aria-label="Ort"
                               aria-describedby="town-tooltip">
                             <label 
                               for="town-city"
                               class="checkout__input-placeholder">
-                              Ort:
+                              Postort: *
                             </label>
                             <span class="checkout__input-message js-input-message"></span>
                           </div>
@@ -583,13 +616,12 @@
                               value=""
                               placeholder=" "
                               pattern="^(\+46\s?|0)(7[0236][\s\-1-9]?)(\s\d{2}|\d{3})(\s?\d{2}){2}$"                              
-                              autocomplete="tel"
                               aria-label="Mobilnummer, behövs för att vi ska kunna kontaktra dig angående din beställning"
                               aria-describedby="phone-tooltip">
                             <label 
                               for="mobile-phone"
                               class="checkout__input-placeholder checkout__input-placeholder">
-                              Mobilnummer:
+                              Mobilnummer: *
                             </label>
                             <span class="checkout__input-message js-input-message"></span>
                           </div>
@@ -625,7 +657,7 @@
                                   <span class="cart__summary-value js-summary-shipping"></span>
                                 </div>
                                 <div class="cart__summary-row">
-                                  <span class="cart__summary-label">Moms</span>
+                                  <span class="cart__summary-label">Moms ingår med</span>
                                   <span class="cart__summary-value cart__summary-value--grey js-summary-vat"></span>
                                 </div>
                               </div>
@@ -679,13 +711,12 @@
                               placeholder=" "
                               inputmode="numeric"
                               pattern="^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$"
-                              autocomplete="cc-number"
                               aria-describedby="card-number-label card-number-tooltip">
                             <label 
                               for="card-number"
                               id="card-number-label"
                               class="checkout__input-placeholder">
-                              Kortnummer:
+                              Kortnummer: *
                             </label>
                             <span class="checkout__input-message js-input-message"></span>
                           </div>
@@ -704,12 +735,11 @@
                                 maxlength="7"
                                 pattern="^(0[1-9]|1[0-2])\s[\/]\s\d{2}$"
                                 title="Ange Månad och år"
-                                aria-label="MM/ÅÅ"
-                                autocomplete="cc-exp">
+                                aria-label="MM/ÅÅ">
                               <label 
                                 for="card-expire-date"
                                 class="checkout__input-placeholder">
-                                Giltigt till:
+                                Giltigt till: *
                               </label>
                               <span class="checkout__input-message js-input-message"></span>
                             </div>
@@ -726,12 +756,11 @@
                                 inputmode="numeric"
                                 pattern="^\d{3}$"
                                 title="Ange det 3-siffriga CVV-nummer som finns på baksidan av ditt kort."
-                                autocomplete="cc-csc"
                                 aria-label="CVV">
                               <label 
                                 for="card-cvv"
                                 class="checkout__input-placeholder">
-                                CVV:
+                                CVV: *
                               </label>
                               <span class="checkout__input-message js-input-message"></span>
                             </div>                      
@@ -759,7 +788,7 @@
                             <label
                               for="card-owner"
                               class="checkout__input-placeholder">
-                              Kortinnehavare:
+                              Kortinnehavare: *
                             </label>
                             <span class="checkout__input-message js-input-message"></span>
                           </div>
@@ -791,7 +820,7 @@
                           <label 
                             for="social-security-number"
                             class="checkout__input-placeholder">
-                            Personnummer:
+                            Personnummer: *
                           </label>
                           <span class="checkout__input-message js-input-message"></span>
                         </div>

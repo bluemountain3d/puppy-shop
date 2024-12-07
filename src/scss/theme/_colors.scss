@@ -104,8 +104,8 @@ body.theme-dark {
   --box-shadow-color: rgba(0, 0, 0, .67);
       
   --accent-color: #F9FBFF;
-  --background-color: #0C2340;
-  --background-accent:  #08192D;
+  --background-color: #112C4F;
+  --background-accent:  #0C2340;
   --background-hover: #243853;
 
   --background-green: #00A100;
@@ -120,10 +120,10 @@ body.theme-dark {
   --text-grey-color: #C4C4C4;
   --text-grey-accent: #565656;
 
-  --lines-color: #3D4F66;
+  --lines-color: #374558; //#3D4F66;
 
-  --button-background: #F9FBFF;
-  --button-text: #0C2340;
+  --button-background: #0F3D7B; //#08192D;
+  --button-text: #F9FBFF;
   --button-background-hover: #00A100;
   --button-text-hover: var(--clr-white, #FFF);
 
