@@ -1,6 +1,10 @@
 // Timer map to track multiple timers by name
 const timers = {};
 
+
+
+
+
 /**
  * Starts a customizable timer.
  * @param {string} name - A unique identifier for the timer.
@@ -19,6 +23,10 @@ export function startTimer(name, duration, onTimeout) {
       delete timers[name]; // Remove the timer reference once it expires
   }, duration);
 }
+
+
+
+
 
 /**
 * Stops a specific timer by name.

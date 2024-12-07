@@ -32,29 +32,6 @@ export function addTextFromArray(textArray, className) {
 
 
 /**
- * Randomly shuffles the elements of an array using the Fisher-Yates algorithm and returns the shuffled array.
- *
- * @param {Array} array - The input array to be shuffled. This array will be modified in place.
- * @returns {Array} - The shuffled array with its elements in random order.
- *
- * @example
- * const numbers = [1, 2, 3, 4, 5];
- * const shuffledNumbers = shuffleArray(numbers);
- * console.log(shuffledNumbers); // Output: [3, 1, 4, 5, 2] (randomized order)
- */
-export function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    // Generate a random index between 0 and i
-    const j = Math.floor(Math.random() * (i + 1));
-
-    // Swap elements at indices i and j
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-
-/**
  * Adjusts the quantity of an item in a shopping cart based on user interaction and updates the price accordingly.
  *
  * This function handles quantity adjustments via click events on increment/decrement buttons
@@ -71,9 +48,6 @@ export function shuffleArray(array) {
  */
 export function adjustQuantity(e, card, obj) {
 
-  // console.log(`\n//--- adjustQuantity('${e.type}') Called ---//\n`);
-  
-  //const quantityValue = e.target.closest('.js-quantifier')?.querySelector('.js-quantity');
   const quantityValue = card.querySelector('.js-quantity');
   if (!quantityValue) return;
 
@@ -91,41 +65,15 @@ export function adjustQuantity(e, card, obj) {
       : Math.max(0, currentValue - 1);
 
     quantityValue.innerText = newValue;
-
-    // console.log(
-    //   '// click decrease or increase button',
-    //   '\n// currentValue', currentValue,
-    //   '\n// newValue', newValue
-    // );
     
     updatePrice(card, obj);
   }
 
   const diff = newValue - currentValue;
-  
-  // console.log(`//--- adjustQuantity('${e.type}') End ---//`);
 
   return [diff, newValue];
 }
 
-
-/**
- * Finds and returns an item from an object by matching a given product ID.
- *
- * This function searches through the values of the provided object to locate an item where the `pid` property matches
- * the given product ID (`pid`). It uses `Object.values` to access the object's values and `Array.prototype.find`
- * to locate the matching item.
- *
- * @param {Object} obj - The object containing items to search. Each value is expected to be an object with a `pid` property.
- * @param {string|number} pid - The product ID to search for.
- * @returns {Object|undefined} - Returns the found item object if a match is found, or `undefined` if no match exists.
- */
-export function findItemByProductId(obj, pid) {
-  const foundItem = Object.values(obj).find(item => {
-    return item && item.pid === pid;
-  });
-  return foundItem;
-}
 
 
 /**

@@ -570,66 +570,34 @@ function formatCardNumber(input) {
 
 
 
+
+
 /**
- * Validates the expiration date of a credit card.
- *
- * This function checks whether the provided credit card expiration date (month and year)
- * is valid and not expired based on the current date. It handles invalid or empty inputs
- * gracefully and returns an appropriate error message if the card is expired or the input is invalid.
- *
- * @param {string} name - The name attribute of the input field (not actively used in this function but passed for consistency).
+ * Validates if a credit card expiration date is valid and not expired.
  * 
- * @returns {string|undefined} - Returns a validation message if the card date is invalid or expired.
- *                               Returns `undefined` if the expiration date is valid.
+ * This function compares the provided credit card expiration date against the current date
+ * to determine if the card is still valid. It extracts the current month and year, then
+ * compares them with the card's expiration date in MM/YY format.
+ * 
+ * @param {string} cardExpDateInput.value - The card expiration date in "MM/YY" format
+ * 
+ * @returns {string|undefined} Returns either:
+ *   - An error message string explaining what's wrong with the date
+ *   - undefined if the date is valid and not expired
  */
-function testCardDates(name) {
-  //console.log('testCardDates Called');
-
-  const date = new Date();
-  const month = Number(date.getMonth() + 1);
-  const year = Number(date.getFullYear().toString().slice(-2));
-
-  const cardMM = cardExpMonthInput.value ? Number(cardExpMonthInput.value) : null;
-  const cardYY = cardExpYearInput.value ? Number(cardExpYearInput.value) : null;
-
-  // Check for empty or invalid input
-  if (cardMM === null || cardYY === null || isNaN(cardMM) || isNaN(cardYY)) {
-    return 'Ange en giltigt år!';
-  }
-
-  // Check if card is expired
-  if (cardYY < year || (cardYY === year && cardMM < month)) {
-    return 'Giltighetstiden för kortet har gått ut!';
-  }
-
-  // Card is not expired
-  return undefined;
-}
-
-
 function testCardDate() {
   
   const date = new Date();
   const month = Number(date.getMonth() + 1);
   const year = Number(date.getFullYear().toString().slice(-2));
 
-  const cardMM = Number(cardExpDateInput.value.split('/')[0].trim());
-  const cardYY = Number(cardExpDateInput.value.split('/')[1].trim());
-
-  // console.log(
-  //   'testCardDate() Called',
-  //   '\ncardMM:', cardMM,
-  //   '\ncardYY:', cardYY
-  // );
+  const cardMM = Number(cardExpDateInput.value.split('/')[0].trim()); // Get the MM part
+  const cardYY = Number(cardExpDateInput.value.split('/')[1].trim()); // Ges the YY part
 
   // Check for empty or invalid input
   if (cardMM === null || cardYY === null || isNaN(cardMM) || isNaN(cardYY)) {
     return 'Ange en giltigt år!';
   }
-
-  // if (cardMM > 12) {
-  //   return 'Månaden är fel, ange till exempel "01" för januari';
-  // }
 
   // Check if card is expired
   if (cardYY < year || (cardYY === year && cardMM < month)) {
@@ -639,7 +607,6 @@ function testCardDate() {
   // Card is not expired
   return undefined;
 }
-
 
 
 

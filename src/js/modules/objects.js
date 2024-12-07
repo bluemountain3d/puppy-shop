@@ -72,6 +72,10 @@ export const productsObject = {
     id: 0,
     breedInfo: {
       breed: 'Labrador retriever',
+      group: {
+        number: 1,
+        text: 'Vall-, boskaps- och herdehundar'
+      },
       origin: 'Storbritanien',
       type: ['jakthund', 'sällskapshund'],
       byline: 'Social och stark apportör som är duktig på det mesta'
@@ -110,6 +114,10 @@ export const productsObject = {
     id: 1,
     breedInfo: {
       breed: 'Tysk Shäferhund',
+      group: {
+        number: 1,
+        text: 'Vall-, boskaps- och herdehundar'
+      },
       origin: 'Tyskland',
       type: ['vallhund', 'brukshund', 'tjänstehund'],
       byline: 'Samarbetsvillig, livlig och uppmärksam jobbkompis'
@@ -148,6 +156,10 @@ export const productsObject = {
     id: 2,
     breedInfo: {
       breed: 'Golden retriever',
+      group: {
+        number: 8,
+        text: 'Stötande hundar, apporterande hundar och vattenhundar'
+      },
       origin: 'Storbritanien',
       type: ['jakthund', 'sällskapshund'],
       byline: 'Vänlig och aktiv med stor passion för vatten',
@@ -185,43 +197,10 @@ export const productsObject = {
     id: 3,
     breedInfo: {
       breed: 'Fransk bulldog',
-      origin: 'Frankrike',
-      type: ['sällskapshund'],
-      byline: 'Aktiv och trevlig med stor personlighet',
-    },
-    properties: {
-      popularity: 4.4,
-      qualities: {
-        activity: 2,
-        furCare: 2,
-        size: 2
+      group: {
+        number: 9,
+        text: 'Sällskapshundar'
       },
-      weight: {
-        male: 4,
-        female: 2
-      }
-    },
-    priceInfo: {
-      price: 27500
-    },
-    description: {
-      generally: {
-        title: 'Allmänt',
-        text: [
-          'Fransk bulldogg  är en utpräglad sällskapshund. Oftas är hunden född med en väldigt kort svans'
-        ]
-      }
-    },
-    image: {
-      url: 'img/puppies/french-bulldog',
-      alt: 'En mörkgrå Frank bulldog-valp på en gräsmatta i utställningsmiljö',
-    }
-  },
-
-  3: {
-    id: 3,
-    breedInfo: {
-      breed: 'Fransk bulldog',
       origin: 'Frankrike',
       type: ['sällskapshund'],
       byline: 'Aktiv och trevlig med stor personlighet',
@@ -259,6 +238,10 @@ export const productsObject = {
     id: 4,
     breedInfo: {
       breed: 'Cihuahua',
+      group: {
+        number: 9,
+        text: 'Sällskapshundar'
+      },
       origin: 'Mexiko',
       type: ['sällskapshund'],
       byline: 'Liten och sällskaplig hund som kan ta ton',
@@ -296,6 +279,10 @@ export const productsObject = {
     id: 5,
     breedInfo: {
       breed: 'Cocker spaniel',
+      group: {
+        number: 8,
+        text: 'Stötande hundar, apporterande hundar och vattenhundar'
+      },
       origin: 'Storbritanien',
       type: ['jakthund', 'sällskapshund'],
       byline: 'Livlig och tillgiven med ursprung som jakthund',
@@ -333,6 +320,10 @@ export const productsObject = {
     id: 6,
     breedInfo: {
       breed: 'Tax',
+      group: {
+        number: 4,
+        text: 'Taxar'
+      },
       origin: 'Tyskland',
       type: ['grythund', 'jakthund', 'sällskapshund'],
       byline: 'Vänlig, envis och uthållig trots sina korta ben',
@@ -371,6 +362,10 @@ export const productsObject = {
     id: 7,
     breedInfo: {
       breed: 'Shetland sheepdog',
+      group: {
+        number: 1,
+        text: 'Vall-, boskaps- och herdehundar'
+      },
       origin: 'Storbritanien',
       type: ['sällskapshund'],
       byline: 'Lättlärd, tillgiven och aktiv',
@@ -409,6 +404,10 @@ export const productsObject = {
     id: 8,
     breedInfo: {
       breed: 'Cavalier king charles spaniel',
+      group: {
+        number: 9,
+        text: 'Sällskapshundar'
+      },
       origin: 'Storbritanien',
       type: ['sällskapshund'],
       byline: 'Tillgiven och käck med lång silkig päls',
@@ -446,6 +445,10 @@ export const productsObject = {
     id: 9,
     breedInfo: {
       breed: 'Staffordshire bullterier',
+      group: {
+        number: 3,
+        text: 'Terrier'
+      },
       origin: 'Storbritanien',
       type: ['sällskapshund'],
       byline: 'Glad, energisk, socialt litet kraftpaket',
@@ -483,6 +486,10 @@ export const productsObject = {
     id: 10,
     breedInfo: {
       breed: 'Pudel, stor (Kungspudel)',
+      group: {
+        number: 9,
+        text: 'Sällskapshundar'
+      },
       origin: 'Frankrike',
       type: ['sällskapshund'],
       byline: 'Livlig och snabbtänkt med stolt resning, en av fyra storlekar',
@@ -520,6 +527,10 @@ export const productsObject = {
     id: 11,
     breedInfo: {
       breed: 'Border collie',
+      group: {
+        number: 1,
+        text: 'Vall-, boskaps- och herdehundar'
+      },
       origin: 'Storbritanien',
       type: ['vallhund'],
       byline: 'Reaktionssnabb vallhund med stor arbetslust',
@@ -557,6 +568,10 @@ export const productsObject = {
     id: 12,
     breedInfo: {
       breed: 'Australian shepherd',
+      group: {
+        number: 1,
+        text: 'Vall-, boskaps- och herdehundar'
+      },
       origin: 'Australien',
       type: ['vallhund', 'brukshund'],
       byline: 'Mångsidig och lyhörd – ibland med stubbsvans',
@@ -595,6 +610,10 @@ export const productsObject = {
     id: 13,
     breedInfo: {
       breed: 'Jack russel terrier',
+      group: {
+        number: 3,
+        text: 'Terrier'
+      },
       origin: 'Storbritanien',
       type: ['grythund', 'sällskapshund'],
       byline: 'Stort mod och självförtroende i liten förpackning',
@@ -632,6 +651,10 @@ export const productsObject = {
     id: 14,
     breedInfo: {
       breed: 'Rottweiler',
+      group: {
+        number: 2,
+        text: 'Schnauzer och pinscher, molosser och bergshundar samt sennenhundar'
+      },
       origin: 'Tyskland',
       type: ['brukshund', 'sällskapshund'],
       byline: 'Pampig, alert och mångsidig brukshund',
@@ -669,6 +692,10 @@ export const productsObject = {
     id: 15,
     breedInfo: {
       breed: 'Siberian huskey',
+      group: {
+        number: 5,
+        text: 'Spetsar och raser av urhundstyp'
+      },
       origin: 'USA',
       type: ['slädhund'],
       byline: 'Livlig och verbal slädhund med stor flockinstinkt',
@@ -704,6 +731,10 @@ export const productsObject = {
     id: 16,
     breedInfo: {
       breed: 'Welsh corgi prembroke',
+      group: {
+        number: 1,
+        text: 'Vall-, boskaps- och herdehundar'
+      },
       origin: 'Storbritanien',
       type: ['vallhund', 'sällskapshund'],
       byline: 'Energisk kortbent kompis som gillar aktivitet',
@@ -739,6 +770,10 @@ export const productsObject = {
     id: 17,
     breedInfo: {
       breed: 'Dalmatiner',
+      group: {
+        number: 6,
+        text: 'Drivande hundar samt sök- och spårhundar'
+      },
       origin: 'Kroatien',
       type: ['sällskapshund'],
       byline: 'Läckig skönhet med en del vaktinstinkt',
@@ -774,6 +809,10 @@ export const productsObject = {
     id: 18,
     breedInfo: {
       breed: 'Alaskan malamute',
+      group: {
+        number: 5,
+        text: 'Spetsar och raser av urhundstyp'
+      },
       origin: 'USA',
       type: ['sällskapshund'],
       byline: 'Vänlig men krävande och älskar friluftsliv',
@@ -809,6 +848,10 @@ export const productsObject = {
     id: 19,
     breedInfo: {
       breed: 'Australian kelpie',
+      group: {
+        number: 1,
+        text: 'Vall-, boskaps- och herdehundar'
+      },
       origin: 'Australien',
       type: ['vallhund', 'brukshund'],
       byline: 'Energisk, mångsidig och älskar att träna',
