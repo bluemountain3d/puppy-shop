@@ -440,8 +440,8 @@ body.no-scroll {
 
 .tooltip {
   position: relative;
-  /* Show tooltip if an input has the class "invalid" or is :user-invalid */
-  /* Ensure tooltip is hidden if the input has the "valid" class or :user-valid */
+  /* Show tooltip if an input has the class 'invalid' or is :user-invalid */
+  /* Ensure tooltip is hidden if the input has the 'valid' class or :user-valid */
 }
 .tooltip-text {
   z-index: 99;
@@ -595,7 +595,7 @@ button:not(.no-shake):hover .icon {
 }
 .hero__subtitle {
   max-width: 35rem;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.75em;
   text-align: center;
   font-size: 1.5rem;
   line-height: 1em;
@@ -608,14 +608,14 @@ button:not(.no-shake):hover .icon {
 }
 .hero__byline {
   max-width: 35em;
-  font-size: 1.2360939431rem;
+  font-size: 1rem;
   line-height: 1em;
   text-align: center;
   color: var(--title-color);
 }
 @media screen and (min-width: 700px) {
   .hero__byline {
-    font-size: 1.8541409147rem;
+    font-size: 1.5rem;
   }
 }
 

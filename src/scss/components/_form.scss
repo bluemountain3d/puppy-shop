@@ -11,15 +11,15 @@ $_module-name: 'Form';
 /* Focus styles for keyboard navigation */
 :is( 
   a, 
-  input:not([type="radio"], [type="checkbox"]), 
+  input:not([type='radio'], [type='checkbox']), 
   textarea, 
   select, 
   details, 
   summary, 
   [tabindex]
 ):focus-visible,
-input[type="radio"]:focus-visible ~ .rb-checkmark,
-input[type="checkbox"]:focus-visible ~ .chb-checkmark {
+input[type='radio']:focus-visible ~ .rb-checkmark,
+input[type='checkbox']:focus-visible ~ .chb-checkmark {
   border: none;
   outline: 3px solid var(--info-border);//#0066CC; //#FF9800;
   outline-offset: 2px;
@@ -28,7 +28,7 @@ input[type="checkbox"]:focus-visible ~ .chb-checkmark {
 /* Remove focus outline for mouse and touch interactions */
 :is(
   a, 
-  input:not([type="radio"], [type="checkbox"]), 
+  input:not([type='radio'], [type='checkbox']), 
   textarea, 
   select, 
   details, 
@@ -354,10 +354,10 @@ input[type='number'] {
 
 // Validation
 
-input[type="text"]:not(#discount-code),
-input[type="email"],
-input[type="tel"],
-input[type="number"] {
+input[type='text']:not(#discount-code),
+input[type='email'],
+input[type='tel'],
+input[type='number'] {
 
   border: 1px solid var(--lines-color);
   background-color: var(--background-color);
@@ -463,10 +463,10 @@ div.invalid, span.invalid {
 }
 
 
-// input[type="text"],
-// input[type="email"],
-// input[type="tel"],
-// input[type="number"] {
+// input[type='text'],
+// input[type='email'],
+// input[type='tel'],
+// input[type='number'] {
 
 //   // Valid State (HTML Validation or JS-Added Class)
 //   &:not(:placeholder-shown):valid,
@@ -516,7 +516,7 @@ div.invalid, span.invalid {
 //   }
 // }
 
-// input[type="checkbox"] {
+// input[type='checkbox'] {
 //   // Checkbox-specific styles
 // }
 

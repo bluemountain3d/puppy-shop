@@ -4,7 +4,7 @@
 @use '../abstracts/functions' as fn;
 @use '../abstracts/mixins' as mx;
 
-$_module-name: "General CSS";
+$_module-name: 'General CSS';
 
 /* ### #{$_module-name} START */
 
@@ -127,7 +127,7 @@ body {
   }
 
   &-text::before {
-    content: "";
+    content: '';
     z-index: -1;
     position: absolute;
     bottom: -0.25rem;
@@ -138,7 +138,7 @@ body {
     background-color: inherit;
   }
 
-  /* Show tooltip if an input has the class "invalid" or is :user-invalid */
+  /* Show tooltip if an input has the class 'invalid' or is :user-invalid */
   &:has(input:placeholder-shown):hover &-text,
   &:has(input.invalid):hover &-text,
   &:has(input:user-invalid):hover &-text {
@@ -146,7 +146,7 @@ body {
     opacity: 1;
   }
 
-  /* Ensure tooltip is hidden if the input has the "valid" class or :user-valid */
+  /* Ensure tooltip is hidden if the input has the 'valid' class or :user-valid */
   &:has(input:user-valid):hover &-text,
   &:has(input.valid):hover &-text {
     visibility: hidden;
@@ -267,7 +267,7 @@ button:not(.no-shake):hover .icon {
 
   &__subtitle {
     max-width: 35rem;
-    margin-bottom: .5em;
+    margin-bottom: .75em;
     text-align: center;
     font-size: 1.5rem;
     line-height: 1em;
@@ -280,13 +280,13 @@ button:not(.no-shake):hover .icon {
 
   &__byline {
     max-width: calc(70em / 2);
-    font-size: calc(2rem / 1.618);
+    font-size: 1rem;
     line-height: 1em;
     text-align: center;
     color: var(--title-color);
 
     @media screen and (min-width: 700px) {
-      font-size: calc(3rem / 1.618);
+      font-size: 1.5rem;
     }
   }
 }
