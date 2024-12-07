@@ -58,7 +58,7 @@ export function cartItemCard(itemData, productData) {
     <li class="cart__item js-cart-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
       <article class="cart__item-content-wrapper">
         <picture class="cart__item-image-wrapper">
-          <img class="cart__item-image" src="${productData.image.url}-w512.avif" alt="${productData.image.alt}" width="80" height="80" loading="lazy">
+          <img class="cart__item-image" src="${productData.image.url}-w80.avif" alt="${productData.image.alt}" width="80" height="80" loading="lazy">
         </picture>
         <section class="cart__item-info js-item-info">
           <h3 class="cart__item-title js-item-title">${productData.breedInfo.breed}</h3>
@@ -115,7 +115,7 @@ export function summaryItemCard(itemData, productData) {
     <li class="order-confirmed__item js-summary-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
       <article class="order-confirmed__item-content-wrapper">
         <picture class="order-confirmed__item-image-wrapper">
-          <img class="order-confirmed__item-image" src="${productData.image.url}-w512.avif" alt="${productData.image.alt}" width="40" height="40" loading="lazy">
+          <img class="order-confirmed__item-image" src="${productData.image.url}-w40.avif" alt="${productData.image.alt}" width="40" height="40" loading="lazy">
         </picture>
         <section class="order-confirmed__item-info">
           <h4 class="order-confirmed__item-title js-summary-breed">${productData.breedInfo.breed}</h4>
@@ -130,41 +130,6 @@ export function summaryItemCard(itemData, productData) {
       </article>
     </li>
   `;
-  // return `
-  //   <li class="order-confirmed__item js-summary-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
-  //     <article class="order-confirmed__item-content-wrapper">
-  //       <picture class="order-confirmed__item-image-wrapper">
-  //         <img class="order-confirmed__item-image" src="${productData.image.url}-w512.avif" alt="${productData.image.alt}" width="80" height="80" loading="lazy">
-  //       </picture>
-  //       <section class="order-confirmed__item-info">
-  //         <h4 class="order-confirmed__item-title js-summary-breed">${productData.breedInfo.breed}</h4>
-  //         <div class="order-confirmed__item-row">
-  //           <span class="order-confirmed__item-label">Ras:</span>
-  //           <span class="order-confirmed__item-data js-summary-gender">${translateGender(itemData.gender)}</span>
-  //         </div>
-  //         <div class="order-confirmed__item-row">
-  //           <span class="order-confirmed__item-label">Antal:</span>
-  //           <span class="order-confirmed__item-data js-summary-quantity">${itemData.quantity} st</span>
-  //         </div>
-  //         <div class="order-confirmed__item-row">
-  //           <span class="order-confirmed__item-label">Radtotal:</span>
-  //           <span class="order-confirmed__item-data js-summary-line-total">${formatPrice(itemData.priceInfo.lineTotal)} kr</span>
-  //         </div>
-  //       </section>
-  //     </article>
-  //   </li>
-  // `;
-}
-
-export function detailsItemCard(itemData, productData) {
-  // <li class="checkout__order-details-row js-order-details-item" data-pid="${itemData.productId}" data-gender="${itemData.gender}">
-  //   <div>
-  //     <span class="js-order-details-quantity"></span>&nbsp;st&nbsp;
-  //     <span class="js-order-details-product"></span>&nbsp;
-  //     <span class="js-order-details-gender"></span>
-  //   </div>
-  //   <div class="js-order-details-line-total"></div>
-  // </li>
 }
 
 
@@ -182,13 +147,6 @@ export function detailsItemCard(itemData, productData) {
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
 export function addCartItem(itemData, productData) {
-
-  // Debugg
-  // console.log(
-  //   'addCartItem() Called',
-  //   // '\nitemData', itemData,
-  //   // '\nproductData', productData
-  // );
   
   // Add Header Cart and Checkout Cart in an array
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
@@ -224,9 +182,6 @@ export function addCartItem(itemData, productData) {
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
 export function updateCartItem(itemData, quantity, discountPrice, discount) {
-  // console.log(
-  //   'updateCartItem() Called',
-  // );
 
   // Get Element
   const itemContainers = Array.from(document.querySelectorAll('.js-cart-items'));
@@ -239,17 +194,6 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
   itemData.priceInfo.price = discountPrice;
   itemData.priceInfo.discount = discount * quantity;
   itemData.priceInfo.lineTotal = discountPrice * quantity
-
-
-  // Debugg
-  // console.log(
-    // '\nitemData.quantity', itemData.quantity,
-    // '\ndiscountPrice', discountPrice,
-    // '\ndiscount', discount,
-    // '\nproductId', productId,
-    // '\ngender', gender,
-    // '\nitemData', itemData
-  // );
   
   // Update carts
   itemContainers.forEach(container => {
@@ -369,18 +313,6 @@ export function updateCartSummary() {
   
   // Update shipping cost
   const shippingCost = getShippingCost(newSubtotal, counter);
-
-  // Debugg
-  // console.log(
-  //   'updateCartSummary() Called',
-  //   '\ncounter',counter,
-  //   '\nsubtotal',subtotal,
-  //   '\ndiscounts',discounts,
-  //   '\nmonDiscount',monDiscount,
-  //   '\nnewSubtotal',newSubtotal,
-  //   '\nnewDiscounts',newDiscounts,
-  //   '\nshippingCost',shippingCost,
-  // );
   
   //cartQtyDiscount(subtotal, counter, limit=15, discount=.9)
   // Set new values
@@ -779,8 +711,6 @@ function handleCartItemEvent(e) {
     (e.target.matches('.js-increase') || 
     e.target.matches('.js-decrease'))
   ) {
-    // console.log(`\n//--- handleCartEvent('${e.type}') Called ---//`);
-
     const adjQty = adjustQuantity(e, card, itemData);
     const diff = adjQty[0];
     const newVal = adjQty[1];
@@ -795,9 +725,6 @@ function handleCartItemEvent(e) {
     const discountPrice = Number(itemQtyDiscount(adjustedPrice, quantity));
     const discount = adjustedPrice - discountPrice;
 
-    // Debugg
-    
-    
     // Update CartItem
     updateCartItem(itemData, quantity, discountPrice, discount);
     
@@ -806,35 +733,6 @@ function handleCartItemEvent(e) {
   
     // Update header cart values
     updateHeaderCartCounter(cartSummaryObject);
-
-    // console.log(`//--- handleCartEvent('${e.type}') End ---//`);
-    
-  }
-
-  if (e.type === 'change' && e.target.matches('.js-quantity-cart')) {
-    // console.log('CHANGE!!!!');
-    
-    if (itemData && key) {
-      const quantity = Number(e.target.innerText); // Get the new quantity
-
-      // Update the cart object with the new quantity
-      itemData.quantity = quantity;
-
-      // Recalculate the item's price
-      const basePrice = Number(productsObject[productId].priceInfo.price);
-      const adjustedPrice = weekendPricing(basePrice);
-      const discountPrice = itemQtyDiscount(adjustedPrice, quantity);
-      const discount = adjustedPrice - discountPrice;
-
-      // Update item data in cartItemsObject
-      updateCartItem(itemData, quantity, discountPrice, discount);
-
-      // Update cart summary
-      updateCartSummary();
-
-      // Update header cart counter
-      updateHeaderCartCounter(cartSummaryObject);
-    }
   }
 
   if (e.target.matches('.js-remove-item') && e.type == 'click' && key) {
