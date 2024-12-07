@@ -4,21 +4,21 @@ import {
   cartItemsObject,
   dateTranslationObject,
   shippingObject
-} from "./objects.js";
+} from './objects.js';
 
 import {
   updateCartSummary,
   updateHeaderCartCounter
-} from "./cart-functions.js";
+} from './cart-functions.js';
 
 import {
   startTimer,
   stopTimer
-} from "./timers.js";
+} from './timers.js';
 
 import {
   getRandomInt 
-} from "./utilities.js";
+} from './utilities.js';
 
 
 //--------------------------------------//
