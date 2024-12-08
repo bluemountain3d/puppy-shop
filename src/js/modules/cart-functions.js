@@ -409,10 +409,11 @@ export function updateHeaderCartCounter(cartObj) {
   const headerCart = document.querySelector('.js-header-cart-btn');
   const headerToCart = document.querySelector('.js-header-checkout');
   const headerCount = document.querySelector('.js-header-count');
+  const headerTotalGroup = document.querySelector('.js-header-total-group');
   const headerTotal = document.querySelector('.js-header-total');
 
   // Ensure required elements exist
-  if (!headerCart || !headerToCart || !headerCount || !headerTotal) {
+  if (!headerCart || !headerToCart || !headerCount || !headerTotalGroup || !headerTotal) {
     console.error('One or more header cart elements are missing.');
     return;
   }
@@ -422,10 +423,10 @@ export function updateHeaderCartCounter(cartObj) {
 
   // Check if cart has items
   const hasItems = Number(cartObj.counter) > 0;
-
+  
   // Update counter and total text
   headerCount.innerText = hasItems ? `${cartObj.counter} st` : '0';
-  headerTotal.innerText = hasItems ? `, ${formatPrice(Number(cartObj.subtotal))} kr` : '';
+  headerTotal.innerText = hasItems ? `,\u00A0\u00A0${formatPrice(Number(cartObj.subtotal))} kr` : '';
 
   // Show or hide elements based on cart state and viewport width
   if (hasItems) {
@@ -433,13 +434,16 @@ export function updateHeaderCartCounter(cartObj) {
       if (productsSection && !productsSection.classList.contains('hidden')) {
         headerToCart.classList.remove('hidden');
       }
-      headerTotal.classList.remove('hidden');
+      headerTotalGroup.classList.remove('hidden');
+      
+    } else {
+      headerToCart.classList.add('hidden');
     }
     headerCart.removeAttribute('disabled');
     headerCart.removeAttribute('aria-disabled');
   } else {
     headerToCart.classList.add('hidden');
-    headerTotal.classList.add('hidden');
+    headerTotalGroup.classList.add('hidden');
     headerCart.setAttribute('disabled', '');
     headerCart.setAttribute('aria-disabled', 'true');
   }
@@ -464,7 +468,8 @@ const headerCartMobileBtn = document.querySelector('.js-header-cart-mobile-btn')
 const headerCartBtn = document.querySelector('.js-header-cart-btn');
 const headerCart = document.querySelector('.js-dropdown-cart');
 const goToCheckoutBtns = Array.from(document.querySelectorAll('.js-go-to-checkout'));
-const headerGoToBtn = document.querySelector('.header__to-checkout');
+const headerGoToBtn = document.querySelector('.js-header-checkout');
+const heroSection = document.querySelector('.js-hero-section');
 const productsSection = document.querySelector('.js-products-section');
 const checkoutSection = document.querySelector('.js-checkout-section');
 
@@ -486,6 +491,7 @@ const breakpoint = window.innerWidth > 720;
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
 headerCartMobileBtn.addEventListener('click', (e) => {
+  heroSection.classList.add('hidden');
   productsSection.classList.add('hidden');
   checkoutSection.classList.remove('hidden');
 });
@@ -506,6 +512,7 @@ headerCartMobileBtn.addEventListener('click', (e) => {
 goToCheckoutBtns.forEach(btn => {
   btn.addEventListener('click', (e) => {
     headerGoToBtn.classList.add('hidden');
+    heroSection.classList.add('hidden');
     productsSection.classList.add('hidden');
     checkoutSection.classList.remove('hidden');
     headerCart.classList.remove('active');
@@ -647,9 +654,10 @@ function hideDropdownCart(e) {
  *
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
-const closeCart = document.querySelector('.cart__close');
+const closeCart = document.querySelector('.js-close-cart');
 
 closeCart.addEventListener('click', e => {
+  heroSection.classList.remove('hidden');
   productsSection.classList.remove('hidden');
   checkoutSection.classList.add('hidden');
 
