@@ -41,7 +41,8 @@
     <!-- Open Graph END -->
 
     <!-- Preload the LCP image with a high fetchpriority so it starts loading with the stylesheet. -->
-    <link rel="preload" fetchpriority="high" as="image" href="img/puppies/labrador-retriever-w446.avif" type="image/avif">
+    <!-- <link rel="preload" fetchpriority="high" as="image" href="img/puppies/labrador-retriever-w446.avif" type="image/avif"> -->
+    <link rel="preload" as="image" href="img/puppies/labrador-retriever-w446.avif" type="image/avif">
     <!-- <link rel="preload" fetchpriority="high" as="image" href="img/puppies/german-shepherd-w446.avif" type="image/avif">
     <link rel="preload" fetchpriority="high" as="image" href="img/puppies/golden-retriever-w446.avif" type="image/avif">
     <link rel="preload" fetchpriority="high" as="image" href="img/puppies/french-bulldog-w446.avif" type="image/avif">
@@ -113,7 +114,7 @@
                 <span class="js-header-count">0</span>
                 <span class="visually-hidden"> valpar</span>
               </div>
-              <div class="header__cart-total hidden">
+              <div class="header__cart-total js-header-total-group hidden">
                 <span class="visually-hidden">Till en total kostnad av </span>
                 <span class="js-header-total"></span>
               </div>
@@ -144,7 +145,7 @@
 
     <main class="main">
 
-      <section class="hero">
+      <section class="hero js-hero-section">
         <!-- <div class="hero__background"></div> -->
         <h1 class="hero__main-title">
           <!-- Visually hidden text for screen readers -->
@@ -164,10 +165,11 @@
         </h1>
         <h2 class="hero__subtitle">Hitta din nästa lurvaga vän hos oss på Puppy Shop!</h2>
         <p class="hero__byline">&ndash;&nbsp;Den fiktiva valpbutiken med dina drömvalpar&nbsp;&ndash;</p>
+        <a href="#products-section" class="hero__cta">Till valparna!</a>
       </section>
 
       <div class="container--boxed">
-        <div class="products js-products-section">
+        <div id="products-section" class="products js-products-section">
           <div class="products__filter-row">
             <header class="products__header">
               <h2 class="products__title">Våra valpar</h2>

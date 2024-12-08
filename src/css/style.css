@@ -525,8 +525,10 @@ button:not(.no-shake):hover .icon {
 
 .hero {
   position: relative;
+  margin-bottom: 4rem;
   padding: 6.25vw;
   width: 100%;
+  height: calc(100vh - 14rem);
   display: grid;
   place-content: center;
   -webkit-box-pack: center;
@@ -534,6 +536,19 @@ button:not(.no-shake):hover .icon {
           justify-content: center;
   border-bottom: 1px solid var(--lines-color);
   background-color: var(--background-accent);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 50%;
+  rotate: 45deg;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--background-accent);
+  border: solid var(--lines-color);
+  border-width: 0 1px 1px 0;
 }
 @media screen and (min-width: 700px) {
   .hero {
@@ -595,7 +610,7 @@ button:not(.no-shake):hover .icon {
 }
 .hero__subtitle {
   max-width: 35rem;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.5em;
   text-align: center;
   font-size: 1.5rem;
   line-height: 1em;
@@ -617,6 +632,30 @@ button:not(.no-shake):hover .icon {
   .hero__byline {
     font-size: 1.5rem;
   }
+}
+.hero__cta {
+  text-decoration: none;
+  margin: 4rem auto 0;
+  font-size: 1rem;
+  padding: 1em 2.5em;
+  background-color: var(--background-accent);
+  border: 1px solid var(--text-color);
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-transition-property: color, background-color, border-color;
+  transition-property: color, background-color, border-color;
+}
+.hero__cta:hover {
+  border-color: var(--button-background);
+  color: var(--button-text-hover);
+  background-color: var(--button-background);
 }
 
 /* ### General CSS END
@@ -1216,6 +1255,7 @@ details.accordion[open] summary::before {
 .products {
   height: 100%;
   margin-bottom: 2rem;
+  scroll-margin-top: 2rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto 1fr;
@@ -2116,7 +2156,7 @@ details.accordion[open] summary::before {
           animation: shaking 0.25s linear 2;
 }
 .header__cart-count {
-  padding-left: 0.5rem;
+  padding-left: 0.75rem;
 }
 .header__cart-total {
   display: none;

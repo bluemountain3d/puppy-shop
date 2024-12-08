@@ -14,7 +14,6 @@ html {
   line-height: 1.2;
   background-color: var(--background-accent);
   
-
   @media screen and (min-width: 720px) {
     scrollbar-gutter: stable;
   }
@@ -201,13 +200,29 @@ button:not(.no-shake):hover .icon {
 
 .hero {
   position: relative;
+  margin-bottom: 4rem;
   padding: 6.25vw;
   width: 100%;
+  height: calc(100vh - 14rem);
   display: grid;
   place-content: center;
   justify-content: center;
   border-bottom: 1px solid var(--lines-color);
   background-color: var(--background-accent);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    translate: -50% 50%;
+    rotate: 45deg;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--background-accent);
+    border: solid var(--lines-color);
+    border-width: 0 1px 1px 0;
+  }
 
   @media screen and (min-width: 700px) {
     padding: Min(6.25vw, 7.5rem) Min(6.25vw, 7.5rem) Min(9.375vw, 11.25rem);
@@ -267,7 +282,7 @@ button:not(.no-shake):hover .icon {
 
   &__subtitle {
     max-width: 35rem;
-    margin-bottom: .75em;
+    margin-bottom: .5em;
     text-align: center;
     font-size: 1.5rem;
     line-height: 1em;
@@ -287,6 +302,29 @@ button:not(.no-shake):hover .icon {
 
     @media screen and (min-width: 700px) {
       font-size: 1.5rem;
+    }
+  }
+
+  &__cta {
+    text-decoration: none;
+    margin: 4rem auto 0;
+    font-size: 1rem;
+    padding: 1em 2.5em;
+    background-color: var(--background-accent);
+    border: 1px solid var(--text-color);
+    border-radius: .5rem;
+    color: var(--text-color);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: .02em;
+    transition-duration: .2s;
+    transition-timing-function: ease;
+    transition-property: color, background-color, border-color;
+
+    &:hover {
+      border-color: var(--button-background);
+      color: var(--button-text-hover);
+      background-color: var(--button-background);
     }
   }
 }
