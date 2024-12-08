@@ -9,7 +9,12 @@ import { initFormValidation } from "./modules/checkout.js";
 
 const homeBtn = document.querySelector('.js-home-btn');
 homeBtn.addEventListener('click', (e) => {
-  location.reload(true);
+  window.scrollTo({top: 0});
+  window.location.href = window.location.pathname;
+  // history.pushState('', document.title, window.location.pathname);
+  setTimeout(() => {
+    location.reload(true)
+  }, 100);
 });
 
 const themeSwitchBtn = document.querySelector('.js-theme-switch');
