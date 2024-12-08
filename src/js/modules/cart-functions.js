@@ -494,6 +494,7 @@ headerCartMobileBtn.addEventListener('click', (e) => {
   heroSection.classList.add('hidden');
   productsSection.classList.add('hidden');
   checkoutSection.classList.remove('hidden');
+  history.pushState('', document.title, window.location.pathname + '#checkout-section');
 });
 
 
@@ -516,6 +517,7 @@ goToCheckoutBtns.forEach(btn => {
     productsSection.classList.add('hidden');
     checkoutSection.classList.remove('hidden');
     headerCart.classList.remove('active');
+    history.pushState('', document.title, window.location.pathname + '#checkout-section');
   });
 });
 
@@ -660,6 +662,8 @@ closeCart.addEventListener('click', e => {
   heroSection.classList.remove('hidden');
   productsSection.classList.remove('hidden');
   checkoutSection.classList.add('hidden');
+  history.pushState('', document.title, window.location.pathname + '#products-section');
+  document.querySelector('#products-section').scrollIntoView();
 
   if (Number(cartSummaryObject.counter) > 0
       && !productsSection.classList.contains('hidden')) {
