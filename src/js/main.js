@@ -11,7 +11,6 @@ const homeBtn = document.querySelector('.js-home-btn');
 homeBtn.addEventListener('click', (e) => {
   window.scrollTo({top: 0});
   window.location.href = window.location.pathname;
-  // history.pushState('', document.title, window.location.pathname);
   setTimeout(() => {
     location.reload(true)
   }, 100);
