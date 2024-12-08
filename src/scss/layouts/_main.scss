@@ -11,13 +11,25 @@ $_module-name: 'Page Main content';
 main {
   overflow-y: visible;
   width: 100%;
+  margin: 0 auto;
   padding-block: 4rem;
+  max-width: 482px;
+
+  @media screen and (min-width: 700px) {
+    max-width: 1920px;
+  }
 
   @media screen and (min-width: 1902px) {
     // border-color: var(--clr-lines);
     // border-style: solid;
     // border-width: 0 2px;
-    // box-shadow: 0 .25rem .5rem rgba(black, .33);   
+    // box-shadow: 0 .25rem .5rem rgba(black, .33);
+
+    // box-shadow: 0 0 1.25rem .5rem rgba(black, .1);
+
+    // &.theme-dark {
+    //   box-shadow: 0 0 1.25rem .5rem rgba(black, .2);
+    // }
   }
 }
 

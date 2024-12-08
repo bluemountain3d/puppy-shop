@@ -143,31 +143,32 @@
       <!-- <button class="header__menu-toggle" aria-label="Öppna/Stänga navigeringmenyn"></button> -->
     </header>
 
-    <main class="main">
-
-      <section class="hero js-hero-section">
-        <!-- <div class="hero__background"></div> -->
-        <h1 class="hero__main-title">
-          <!-- Visually hidden text for screen readers -->
-          <span class="visually-hidden">Puppy Shop</span>
-          
-          <!-- Visual SVG content -->
-          <span class="hero__icons" aria-hidden="true">
-            <svg class="icon hero__icon-head" role="img" aria-labelledby="logo-head-title">
-              <use href="#puppy-shop-head"/>
-              <title id="logo-head-title">Puppy Shop Logo Icon</title>
-            </svg>
-            <svg class="icon hero__icon-text" role="img" aria-labelledby="logo-text-title">
-              <use href="#puppy-shop-text"/>
-              <title id="logo-text-title">Puppy Shop Text Logo</title>
-            </svg>
-          </span>
-        </h1>
+    <section class="hero js-hero-section">
+      <!-- <div class="hero__background"></div> -->
+      <h1 class="hero__main-title">
+        <!-- Visually hidden text for screen readers -->
+        <span class="visually-hidden">Puppy Shop</span>
+        
+        <!-- Visual SVG content -->
+        <span class="hero__icons" aria-hidden="true">
+          <svg class="icon hero__icon-head" role="img" aria-labelledby="logo-head-title">
+            <use href="#puppy-shop-head"/>
+            <title id="logo-head-title">Puppy Shop Logo Icon</title>
+          </svg>
+          <svg class="icon hero__icon-text" role="img" aria-labelledby="logo-text-title">
+            <use href="#puppy-shop-text"/>
+            <title id="logo-text-title">Puppy Shop Text Logo</title>
+          </svg>
+        </span>
+      </h1>
+      <div class="hero__content">
         <h2 class="hero__subtitle">Hitta din nästa lurvaga vän hos oss på Puppy Shop!</h2>
         <p class="hero__byline">&ndash;&nbsp;Den fiktiva valpbutiken med dina drömvalpar&nbsp;&ndash;</p>
-        <a href="#products-section" class="hero__cta">Till valparna!</a>
-      </section>
+      </div>
+      <a href="#products-section" class="hero__cta">Till valparna!</a>
+    </section>
 
+    <main class="main">
       <div class="container--boxed">
         <div id="products-section" class="products js-products-section">
           <div class="products__filter-row">
@@ -216,7 +217,7 @@
           <div class="products__wrapper js-products "></div>
         </div>
   
-        <div class="shopping-cart hidden js-checkout-section">
+        <div id="checkout-section" class="shopping-cart hidden js-checkout-section">
           <div class="container--boxed">
             <div class="shopping-cart__wrapper">
               <section class="cart">
