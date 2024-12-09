@@ -73,8 +73,8 @@ export const productsObject = {
     breedInfo: {
       breed: 'Labrador retriever',
       group: {
-        number: 1,
-        text: 'Vall-, boskaps- och herdehundar'
+        number: 8,
+        text: 'Stötande hundar, apporterande hundar och vattenhundar'
       },
       origin: 'Storbritanien',
       type: ['jakthund', 'sällskapshund'],
