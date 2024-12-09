@@ -431,9 +431,6 @@ body {
   line-height: 1.3;
   font-family: var(--ff-primary);
 }
-body.no-scroll {
-  overflow: hidden;
-}
 @media screen and (min-width: 700px) {
   body {
     scrollbar-gutter: stable;
@@ -492,7 +489,7 @@ body.no-scroll {
   opacity: 0;
 }
 
-.svg, .clip-path {
+.svg-symbols {
   position: absolute;
   width: 0;
   height: 0;
@@ -2757,6 +2754,18 @@ main {
 .cart__summary-label--large {
   font-size: 1.5rem;
 }
+.cart__summary-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.cart__summary-value {
+  margin-left: auto;
+}
 .cart__summary-value--red {
   color: var(--text-red-color);
 }
@@ -2778,7 +2787,6 @@ main {
   font-weight: 600;
 }
 .cart__summary-info {
-  text-align: right;
   color: var(--text-grey-color);
 }
 

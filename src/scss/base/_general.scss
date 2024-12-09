@@ -82,7 +82,7 @@ body {
   font-family: var(--ff-primary);
 
   &.no-scroll {
-    overflow: hidden;
+    // overflow: hidden;
   }
 
   @media screen and (min-width: 700px) {
@@ -163,7 +163,7 @@ body {
 }
 
 
-.svg, .clip-path {
+.svg-symbols {
   position: absolute;
   width: 0;
   height: 0;

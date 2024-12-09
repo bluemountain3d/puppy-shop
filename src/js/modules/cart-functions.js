@@ -310,6 +310,11 @@ export function updateCartSummary() {
   const monDiscount = Math.abs((mondayDiscount(subtotal) - subtotal));
   const newSubtotal = subtotal ; //- monDiscount - discounts;
   const newDiscounts = discounts + monDiscount;
+
+  console.log('newSubtotal', newSubtotal);
+  console.log('mondayDiscount', monDiscount);
+  console.log('newDiscounts', newDiscounts);
+  
   
   // Update shipping cost
   const shippingCost = getShippingCost(newSubtotal, counter);
@@ -322,13 +327,16 @@ export function updateCartSummary() {
   cartSummaryObject.vat = Math.round(newSubtotal * .2);
   cartSummaryObject.total = newSubtotal + shippingCost - newDiscounts;
 
+  console.log('cartSummaryObject.subtotal', cartSummaryObject.subtotal);
+  console.log('cartSummaryObject.total', cartSummaryObject.total);  
+
   // Header and Checkout Cart Subtotal
   cartSubtotal.forEach(sub => {
     sub.innerText = `${formatPrice(newSubtotal)} kr`;
   });
 
   // Discounts
-  cartDiscounts.innerText = `${formatPrice(-discounts)} kr`;
+  cartDiscounts.innerText = `-${formatPrice(newDiscounts)} kr`;
   
   // if monday discount is applied show text
   if (mondayDiscount()) {
@@ -346,7 +354,7 @@ export function updateCartSummary() {
   }
   
   // Checkout Cart Total
-  cartTotal.innerText = `${formatPrice(parseInt(newSubtotal + shippingCost, 10))} kr`;
+  cartTotal.innerText = `${formatPrice(parseInt(newSubtotal - newDiscounts + shippingCost, 10))} kr`;
 
   // Update payment methods
   availablePaymentMethods('invoice', 80000);
@@ -527,6 +535,31 @@ headerCartBtn.addEventListener('click', toggleDropdownCart);
 headerCartBtn.addEventListener('mouseenter', showDropdownCart);
 headerCart.addEventListener('mouseenter', showDropdownCart);
 
+let scrollPosition;
+
+// When opening the dropdown
+function lockScroll(e) {
+  if (document.body.style.position !== 'fixed') {
+    scrollPosition = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = '100%';
+  }
+};
+
+// When closing the dropdown
+function unlockScroll(e) {
+  if (document.body.style.position === 'fixed') {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'instant'
+    });
+  }
+};
+
 
 /**
  * Toggles the visibility of the dropdown cart in the header.
@@ -542,7 +575,7 @@ headerCart.addEventListener('mouseenter', showDropdownCart);
  *
  * @returns {void} - This function does not return a value; it directly manipulates DOM elements.
  */
-function toggleDropdownCart() {
+function toggleDropdownCart(e) {
   if (headerCart.classList.contains('active')) {
     // Hide the cart if it is already open
     headerCart.classList.remove('active');
@@ -551,7 +584,8 @@ function toggleDropdownCart() {
              && breakpoint) {
     // Show the cart
     headerCart.classList.add('active');
-    document.body.classList.add('no-scroll');
+    lockScroll(e);
+    // document.body.classList.add('no-scroll');
   }
 }
 
@@ -570,12 +604,13 @@ function toggleDropdownCart() {
  *
  * @returns {void} - This function does not return a value; it directly updates the DOM.
  */
-function showDropdownCart() {
+function showDropdownCart(e) {
   if (!productsSection.classList.contains('hidden') 
       && cartSummaryObject.counter > 0
       && breakpoint) {
     headerCart.classList.add('active');
-    document.body.classList.add('no-scroll');
+    lockScroll(e);
+    // document.body.classList.add('no-scroll');
   }
 }
 
@@ -611,7 +646,8 @@ function blurDropdownCart(e, breakpoint) {
         && breakpoint
         && !e.target.matches('.js-decrease, .js-increase, .js-remove-item')) {    
       headerCart.classList.remove('active');
-      document.body.classList.remove('no-scroll');
+      unlockScroll(e);
+      // document.body.classList.remove('no-scroll');
     }
   }, 50); // Small delay to account for focus shift
 }
@@ -638,7 +674,8 @@ function hideDropdownCart(e) {
         !headerCartBtn.matches(':hover') &&
         !e.target.matches('.js-decrease, .js-increase, .js-remove-item')) { 
       headerCart.classList.remove('active');
-      document.body.classList.remove('no-scroll');
+      unlockScroll(e);
+      // document.body.classList.remove('no-scroll');
     }
   }, 50); // Small delay to account for rapid mouse movements
 }

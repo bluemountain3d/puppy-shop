@@ -328,11 +328,15 @@ $_module-name: 'Page specific styles for: Shopping Cart';
     &--large {
       font-size: 1.5rem;
     }
+  }
 
-
+  &__summary-column {
+    display: flex;
+    flex-direction: column;
   }
 
   &__summary-value {
+    margin-left: auto;
     
     &--red {
       color: var(--text-red-color);
@@ -362,7 +366,7 @@ $_module-name: 'Page specific styles for: Shopping Cart';
   }
 
   &__summary-info {
-    text-align: right;
+    // text-align: right;
     color: var(--text-grey-color);
   }
 
