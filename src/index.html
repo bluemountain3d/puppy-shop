@@ -362,6 +362,16 @@
                     <span class="cart__summary-value js-cart-subtotal">0 kr</span>
                   </div>
 
+                  <div class="cart__summary-row">
+                    <label class="cart__summary-label" for="discount-code">Ev. rabattkod: </label>
+                    <input 
+                      type="text" 
+                      name="discount-code" 
+                      id="discount-code"
+                      class="cart__summary-discount-code js-discount-code"
+                      placeholder=" ">
+                  </div>
+
                   <div class="cart__summary-column">
                     <div class="cart__summary-row">
                       <p class="cart__summary-label">Rabatter: </p>
@@ -369,14 +379,6 @@
                     </div>
                     <p class="cart__summary-info js-cart-monday-discount hidden"></p>
                   </div>
-                  
-                  <!-- <div class="cart__summary-row">
-                    <p class="cart__summary-label">Rabatter: </p>
-                    <div class="cart__summary-column">
-                      <span class="cart__summary-value cart__summary-value--red js-cart-discounts">0 kr</span>
-                      <p class="cart__summary-info js-cart-monday-discount hidden"></p>
-                    </div>
-                  </div> -->
 
                   <!--<div class="cart__summary-row">
                     <p class="cart__summary-label">Moms ingår med: </p>
@@ -389,19 +391,10 @@
                   </div>
 
                   <div class="cart__summary-row">
-                    <label class="cart__summary-label" for="discount-code">Ev. rabattkod: </label>
-                    <input 
-                      type="text" 
-                      name="discount-code" 
-                      id="discount-code"
-                      class="cart__summary-discount-code js-discount-code"
-                      placeholder=" ">
-                  </div>
-                  <div class="cart__summary-row">
                     <p class="cart__summary-label cart__summary-label--large">Summa:</p>
                     <div class="cart__summary-column">
                       <div class="cart__summary-total vart__summary-value js-cart-total">0 kr</div>
-                      <div class="cart__summary-info">inkl. moms</div>
+                      <div class="cart__summary-info cart__summary-info--right">inkl. moms</div>
                     </div>
                   </div>
                 </div>

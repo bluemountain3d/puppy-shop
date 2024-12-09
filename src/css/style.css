@@ -2787,7 +2787,11 @@ main {
   font-weight: 600;
 }
 .cart__summary-info {
+  text-align: left;
   color: var(--text-grey-color);
+}
+.cart__summary-info--right {
+  text-align: right;
 }
 
 .checkout {

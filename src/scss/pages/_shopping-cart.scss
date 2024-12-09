@@ -366,8 +366,13 @@ $_module-name: 'Page specific styles for: Shopping Cart';
   }
 
   &__summary-info {
-    // text-align: right;
+    text-align: left;
     color: var(--text-grey-color);
+
+
+    &--right {
+      text-align: right;
+    }
   }
 
 }

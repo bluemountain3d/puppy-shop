@@ -221,7 +221,7 @@ export function updateCartItem(itemData, quantity, discountPrice, discount) {
     const sumQuantityElem = item.querySelector('.js-summary-quantity');
     const sumLineTotalElem = item.querySelector('.js-summary-line-total');
     
-    if (sumQuantityElem) sumQuantityElem.innerText = quantity;
+    if (sumQuantityElem) sumQuantityElem.innerText = ` ${quantity} st`;
     if (sumLineTotalElem) sumLineTotalElem.innerText = `${formatPrice(discountPrice * quantity)} kr`;
   });
 
@@ -336,7 +336,7 @@ export function updateCartSummary() {
   });
 
   // Discounts
-  cartDiscounts.innerText = `-${formatPrice(newDiscounts)} kr`;
+  cartDiscounts.innerText = `${formatPrice(-newDiscounts)} kr`;
   
   // if monday discount is applied show text
   if (mondayDiscount()) {
