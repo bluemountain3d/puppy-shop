@@ -279,7 +279,7 @@ img, picture, svg, video, canvas {
   --grey-900: hsl(0, 0%, 7%);
 }
 
-body, .theme-light {
+body, body.theme-light {
   --header-background: #0C2340;
   --header-color: #F9FBFF;
   --box-shadow-color: rgba(0, 0, 0, .33);
@@ -352,6 +352,18 @@ body.theme-dark {
   --info-border: #4DA6FF;
   --info-background: #0C2C4D;
   --info-text: #4DA6FF;
+}
+
+.text-grey {
+  color: var(--text-grey-color) !important;
+}
+
+.text-red {
+  color: var(--text-red-color) !important;
+}
+
+.text-green {
+  color: var(--text-green-color) !important;
 }
 
 /* ### Colors END
@@ -525,7 +537,7 @@ button:not(.no-shake):hover .icon {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border-bottom: 1px solid var(--lines-color);
+  border-bottom: 1px solid var(--text-grey-color);
   background-color: var(--background-accent);
 }
 .hero::after {
@@ -538,21 +550,13 @@ button:not(.no-shake):hover .icon {
   width: 3rem;
   height: 3rem;
   background-color: var(--background-accent);
-  border: solid var(--lines-color);
+  border: solid var(--text-grey-color);
   border-width: 0 1px 1px 0;
 }
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 720px) and (min-height: 800px) {
   .hero {
     padding: min(6.25vw, 7.5rem) min(6.25vw, 7.5rem) min(9.375vw, 11.25rem);
   }
-}
-.hero__background {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background-image: url("../img/hero-background.avif");
-  background-size: cover;
-  background-position: center;
 }
 .hero__content {
   position: relative;
@@ -571,7 +575,7 @@ button:not(.no-shake):hover .icon {
      border-image: linear-gradient(to right, rgba(128, 128, 128, 0) 0%, rgba(128, 128, 128, 0.25) 15%, gray 50%, rgba(128, 128, 128, 0.25) 85%, rgba(128, 128, 128, 0) 100%);
   border-image-slice: 1;
 }
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 720px) and (min-height: 800px) {
   .hero__content {
     margin-top: 2rem;
     padding: 2rem 8.8888888889vw;
@@ -600,14 +604,14 @@ button:not(.no-shake):hover .icon {
           align-items: center;
 }
 .hero__icon-head, .hero__icon-text {
-  font-size: 18vw;
+  font-size: min(18vw, 7rem);
   height: 1em !important;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   fill: var(--text-color);
 }
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 720px) and (min-height: 800px) {
   .hero__icon-head, .hero__icon-text {
     font-size: 8rem;
   }
@@ -627,7 +631,7 @@ button:not(.no-shake):hover .icon {
   line-height: 1em;
   color: var(--text-color);
 }
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 720px) and (min-height: 800px) {
   .hero__subtitle {
     font-size: 3rem;
   }
@@ -640,7 +644,7 @@ button:not(.no-shake):hover .icon {
   text-align: center;
   color: var(--text-grey-color);
 }
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 720px) and (min-height: 800px) {
   .hero__byline {
     font-size: 1.5rem;
   }
@@ -648,7 +652,7 @@ button:not(.no-shake):hover .icon {
 .hero__cta {
   z-index: 2;
   text-decoration: none;
-  margin: 4rem auto 0;
+  margin: 2rem auto 0;
   font-size: 1rem;
   padding: 1em 2.5em;
   background-color: var(--background-accent);

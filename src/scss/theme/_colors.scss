@@ -48,7 +48,7 @@ $_module-name: 'Colors';
 }
 
 
-body, .theme-light {
+body, body.theme-light {
 
   --header-background: #0C2340;
   --header-color: #F9FBFF;
@@ -93,7 +93,6 @@ body, .theme-light {
   --info-border: #007CF7;
   --info-background: #E6F2FF;
   --info-text: #0056B3;
-
 }
 
 
@@ -145,6 +144,13 @@ body.theme-dark {
   --info-background: #0C2C4D;
   --info-text: #4DA6FF;
 }
+
+
+.text-grey {color: var(--text-grey-color) !important;}
+
+.text-red {color: var(--text-red-color) !important;}
+
+.text-green {color: var(--text-green-color) !important;}
 
 
 
