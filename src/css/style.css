@@ -2449,7 +2449,7 @@ main {
 /* ------------------------------------------------------------ */
 /* ### Page specific styles for: Shopping Cart START */
 .shopping-cart {
-  margin-bottom: 2rem;
+  margin-block: 1rem 1.5rem;
 }
 .shopping-cart.hidden {
   display: none;
