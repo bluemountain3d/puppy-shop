@@ -378,6 +378,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ------------------------------------------------------------ */
 /* ### General CSS START */
 html {
+  overflow-y: scroll;
   font-size: 100%;
   line-height: 1.2;
   background-color: var(--background-accent);
@@ -2033,7 +2034,6 @@ details.accordion[open] summary::before {
 
 /* ### Page Header START */
 .header {
-  scrollbar-gutter: stable;
   z-index: 900;
   position: fixed;
   top: 0;

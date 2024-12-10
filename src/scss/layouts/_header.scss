@@ -9,7 +9,7 @@ $_module-name: 'Page Header';
 /* ### #{$_module-name} START */
 
 .header {
-  scrollbar-gutter: stable;
+  //scrollbar-gutter: stable;
   z-index: 900;
   position: fixed;
   top: 0;

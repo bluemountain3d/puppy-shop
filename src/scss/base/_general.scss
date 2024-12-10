@@ -10,6 +10,7 @@ $_module-name: 'General CSS';
 
 html {
   //overflow: hidden;
+  overflow-y: scroll;
   font-size: 100%;
   line-height: 1.2;
   background-color: var(--background-accent);
