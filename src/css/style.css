@@ -1938,7 +1938,7 @@ details.accordion[open] summary::before {
           flex-direction: column;
 }
 .order-confirmed__data--red {
-  color: var(--text-color -red);
+  color: var(--text-color-red);
 }
 .order-confirmed__data--grey {
   color: var(--text-grey-color);

@@ -284,7 +284,7 @@ $_module-name: 'Order Confirmed';
     }
 
     &--red {
-      color: var((--text-color)-red);
+      color: var(--text-color-red);
     }
 
     &--grey {
