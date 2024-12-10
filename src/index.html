@@ -826,7 +826,6 @@
                               class="checkout__input js-card-number"
                               value=""
                               placeholder=" "
-                              inputmode="numeric"
                               pattern="^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$"
                               aria-describedby="card-number-label card-number-tooltip">
                             <label 
@@ -870,7 +869,6 @@
                                 value=""
                                 placeholder="000"
                                 maxlength="3"
-                                inputmode="numeric"
                                 pattern="^\d{3}$"
                                 title="Ange det 3-siffriga CVV-nummer som finns på baksidan av ditt kort."
                                 aria-label="CVV">
@@ -976,7 +974,7 @@
       <!--    Order Confirmation Section     -->
       <!-- - - - - - - - - - - - - - - - - - -->
       
-      <section class="order-confirmed js-order-confirmed container--boxed hidden" role="region" aria-labelledby="order-confirmed-header"> 
+      <section class="order-confirmed js-order-confirmed container--boxed hidden" aria-labelledby="order-confirmed-header"> 
 
         <div class="order-confirmed__wrapper">
           <header id="order-confirmed-header" class="order-confirmed__header">
