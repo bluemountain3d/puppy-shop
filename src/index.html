@@ -211,15 +211,15 @@
               <svg class="icon" aria-hidden="true">
                 <use href="#cart-icon" class="cart-icon"/>
               </svg>
-              <div class="header__cart-count">
+              <span class="header__cart-count">
                 <span class="visually-hidden">Kundvagnen innehåller </span>
                 <span class="js-header-count">0</span>
                 <span class="visually-hidden"> valpar</span>
-              </div>
-              <div class="header__cart-total js-header-total-group hidden">
+              </span>
+              <span class="header__cart-total js-header-total-group hidden">
                 <span class="visually-hidden">Till en total kostnad av </span>
                 <span class="js-header-total"></span>
-              </div>
+              </span>
             </button>
             
             <button class="header__to-checkout js-header-checkout js-go-to-checkout hidden">Till kassan</button>
@@ -402,7 +402,7 @@
   
               <section class="checkout js-checkout">
                 <h2 id="checkout-title" class="visually-hidden">Kassaprocess</h2>
-                <form action="" class="checkout__form js-checkout-form">
+                <form class="checkout__form js-checkout-form">
                   <fieldset class="checkout__group">
                     <legend class="checkout__header checkout__header--first">E-postadress / Postnummer</legend>
                     <div class="checkout__group-inner">
@@ -947,7 +947,7 @@
                     <!-- Policy & GDPR -->
                     <div class="checkout__group-inner">
                       <label class="chb-custom checkout__chb-single">
-                        <input type="checkbox" name="gdpr" class="js-gdpr-chb" required aria>
+                        <input type="checkbox" name="gdpr" class="js-gdpr-chb" required>
                         <span class="chb-checkmark"></span>
                         <span class="chb-label checkout__cb-label">Jag godkänner att mina personuppgifter hanteras i enligthet med Puppy Shops integritetspolicy & GDPR.<br><span class="text-grey">(ingen data sparas någonstans i denna fiktiva webbshop)</span></span>
                       </label>
