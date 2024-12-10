@@ -150,6 +150,10 @@ markdownCopy### Shipping
     ![Lighthouse Scores](./design/lighthouse-scores.png)
     
     ![Key Performance Metrics](./design/performance-metrics.png)
+  
+- W3C HTML validation
+  
+  ![HTML Validation report](./design/html-validation.png)
 
 ### Validation & Form Handling
 - Comprehensive validation of all customer details
