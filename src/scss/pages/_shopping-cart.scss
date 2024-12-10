@@ -536,30 +536,30 @@ $_module-name: 'Page specific styles for: Shopping Cart';
     }
   }
 
-  &__input--expire-month {
-    z-index: 0;
-    text-align: right !important;
-    padding-right: .5rem !important;
-    border-right: none !important;
-    background-color: none !important;
+  // &__input--expire-month {
+  //   z-index: 0;
+  //   text-align: right !important;
+  //   padding-right: .5rem !important;
+  //   border-right: none !important;
+  //   background-color: unset !important;
 
-    &:focus-visible {
-      z-index: 2 !important;
-    }
-  }
+  //   &:focus-visible {
+  //     z-index: 2 !important;
+  //   }
+  // }
 
-  &__input--expire-year {
-    z-index: 0;
-    text-align: left !important;
-    padding-left: .5rem !important;
-    border-left: none !important;
+  // &__input--expire-year {
+  //   z-index: 0;
+  //   text-align: left !important;
+  //   padding-left: .5rem !important;
+  //   border-left: none !important;
 
-    background-color: none !important;
+  //   background-color: unset !important;
 
-    &:focus-visible {
-      z-index: 2 !important;
-    }
-  }
+  //   &:focus-visible {
+  //     z-index: 2 !important;
+  //   }
+  // }
 
   &__date-cvv-divider {
     z-index: 9;

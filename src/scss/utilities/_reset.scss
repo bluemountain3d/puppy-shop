@@ -52,8 +52,11 @@ img, picture, svg, video, canvas {
   }
   *, *::before, *::after {
       animation-duration: .01ms !important;
+      -webkit-animation-iteration: .01ms;
       animation-iteration-count: 1 !important;
+      -webkit-animation-iteration-count: 1;
       transition-duration: .01ms !important;
+      -webkit-transition-duration: .01ms;
       scroll-behavior: auto !important;
       transition: none;
   }

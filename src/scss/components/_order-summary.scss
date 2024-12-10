@@ -49,7 +49,7 @@ $_module-name: 'Order Confirmed';
 
     border-radius: 1rem;
     box-shadow: 0 .25rem .5rem var(--box-shadow-color);
-    color: var(var(--text-color));
+    color: var((--text-color));
     background-color: var(--background-accent);
 
     @media screen and (min-width: 720px) and (min-height: 540px) {
@@ -242,7 +242,7 @@ $_module-name: 'Order Confirmed';
     font-size: 1.5rem;
     line-height: 1;
     font-weight: 600;
-    //color: var(var(--text-color))
+    //color: var((--text-color))
     display: grid;
     margin-bottom: 1.25rem;
 
@@ -284,7 +284,7 @@ $_module-name: 'Order Confirmed';
     }
 
     &--red {
-      color: var(var(--text-color)-red);
+      color: var((--text-color)-red);
     }
 
     &--grey {
@@ -378,7 +378,7 @@ $_module-name: 'Order Confirmed';
     display: flex;
     justify-content: space-between;
     gap: 1ch;
-    color: var(var(--text-color));
+    color: var((--text-color));
   }
 
   &__item-label {
