@@ -433,12 +433,6 @@ body {
   line-height: 1.3;
   font-family: var(--ff-primary);
 }
-@media screen and (min-width: 700px) {
-  body {
-    scrollbar-gutter: stable;
-  }
-}
-
 .tooltip {
   position: relative;
   /* Show tooltip if an input has the class 'invalid' or is :user-invalid */
