@@ -4,7 +4,7 @@ Puppy Shop is a fictional webshop for puppies, developed as a school project. Th
 
 ## Demo & Screenshots
 ### Live Demo
-🔗 [Visit Puppy Shop](https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-bluemountain3d/src/)
+🔗 [Visit Puppy Shop](https://bluemountain3d.github.io/puppy-shop/src/)
 
 ### Screenshots
 #### Landing View
